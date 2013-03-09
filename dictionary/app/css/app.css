@@ -1,0 +1,78 @@
+.for-web-crawler { display: none; }
+[ng-cloak] { display: none; }
+
+.main-content {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: .5%;
+}
+
+.browseDictionary {
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+  line-height: 1.5em;
+  text-align: left;
+  padding: 1em;
+  font-family: Gentium Basic, arial, serif;
+}
+
+.prefixesDiv {
+  font-size:1.5em;
+  line-height: 3em;
+}
+
+.prefixesDiv a {
+  margin-right: .5em;
+  text-decoration: none;
+}
+
+.prefixesDiv a:hover {
+  background-color: #F0F8FF;
+  font-size: 2em;
+}
+
+div.floating-buttons {
+  padding-top: 7em;
+  padding-right: 5px;
+  float: right;
+  z-index: 25;
+}
+div.floating-buttons > div {
+  display: block;
+  margin-top: 10px;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {  }
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  body {
+    font-size: .75em;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .row-fluid .span8 {
+    width: 100%;
+    margin-left: 0;
+  }
+  .container-fluid {
+    padding: 0;
+  }
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  body {
+    font-size: .75em;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .container-fluid {
+    padding: 0;
+  }
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+}

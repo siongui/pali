@@ -1,0 +1,6 @@
+{% for dicWordExp in dicWordExps if dicWordExp[1].lower().encode('utf-8') == word %}
+<table>
+  <thead><tr><th><strong><em>{{ dicWordExp[1] | lower }}</em></strong><span>{{ dicWordExp[0] | toCht(urlLocale) }}</span></th></tr></thead>
+  <tbody><tr><td>{{ dicWordExp[2] | toCht(urlLocale) }}</td></tr></tbody>
+</table>
+{% endfor %}

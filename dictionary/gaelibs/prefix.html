@@ -1,0 +1,11 @@
+<table>
+  {% for word in words %}
+    {% if loop.index0 % 4 == 0 %}<tr>{% endif %}
+      {% if urlLocale %}
+        <td><a href="/{{urlLocale}}/browse/{{prefix}}/{{word}}">{{word}}</a></td>
+      {% else %}
+        <td><a href="/browse/{{prefix}}/{{word}}">{{word}}</a></td>
+      {% endif %}
+    {% if loop.index0 % 4 == 3 %}</tr>{% endif %}
+  {% endfor %}
+</table>

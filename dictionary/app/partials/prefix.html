@@ -1,0 +1,9 @@
+<div ng-show="isShowPrefixWords" ng-cloak>
+  <table class="table table-condensed table-striped">
+    <tr ng-repeat="wordGroup in wordGroups">
+      <td ng-repeat="word in wordGroup">
+        <a ng-href="{{urlLocaleInPath}}/browse/{{prefix}}/{{word}}">{{word}}</a>
+      </td>
+    </tr>
+  </table>
+</div>

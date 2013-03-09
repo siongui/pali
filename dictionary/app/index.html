@@ -1,0 +1,124 @@
+<!doctype html>
+<html ng-app="paliDictionary">
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="Pāli, Pali, Pāli dictionary, Pali dictionary, Pāli-Chinese, Pāli-English, Pāli-Japanese, 字典, 辭典, 巴利, 巴利文, 巴利-中文, 巴利-英文, 巴利-日文, 巴利字典, 巴漢字典, 巴英字典, 巴日字典"/>
+  <meta name="description" content="Pāli dictionary (Pāli to Chinese, Pāli to English, Pāli to Japanese). 巴利字典(巴漢字典, 巴英字典, 巴日字典)"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{$ htmlTitle $}{$_("Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary")$}</title>
+  <!-- _("Definition and Meaning"), _("Words Start with") -->
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="text/ng-template" id="/partials/input.html">{% include 'input.html' %}</script>
+  <script type="text/ng-template" id="/partials/word.html">{% include 'word.html' %}</script>
+  <script type="text/ng-template" id="/partials/prefix.html">{% include 'prefix.html' %}</script>
+  <script type="text/ng-template" id="/partials/about.html">{% include 'about.html' %}</script>
+</head>
+<body ng-controller="mainCtrl">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2 visible-desktop"><div ng-include="leftsideUrl"></div></div>
+      <div class="span8 main-content">
+        <div class="alert alert-block text-center" style="margin: 0;">
+          <h1 class="visible-desktop" i18n str="Pāḷi Dictionary">{$_("Pāḷi Dictionary")$}</h1>
+          <h2 class="visible-tablet" i18n str="Pāḷi Dictionary">{$_("Pāḷi Dictionary")$}</h2>
+          <h4 class="visible-phone" i18n str="Pāḷi Dictionary">{$_("Pāḷi Dictionary")$}</h4>
+        </div>
+        <ul class="nav nav-tabs" ng-cloak>
+          <li class="hidden-phone"><a i18n str="Home" href="/">{$_("Home")$}</a></li>
+          <li><a i18n str="Canon" target="_blank" href="http://epalitipitaka.appspot.com/">{$_("Canon")$}</a></li>
+          <li><a i18n str="About" href="/about">{$_("About")$}</a></li>
+          <li><a i18n str="Setting" href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting">{$_("Setting")$}</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+              {{ i18nLocale | translate }} <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/en_US/">English</a></li>
+              <li><a href="/zh_TW/">中文 (繁體)</a></li>
+              <li><a href="/zh_CN/">中文 (简体)</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="row-fluid text-center">
+          {% include 'setting.html' %}
+        <div style="padding: 1em;">
+          <div pali-input setting="setting"></div>
+          <div style="padding-top: 2em;">
+            <div ng-switch on="message" ng-cloak>
+              <div ng-switch-when="noSuchWord" class="alert alert-error"><strong i18n str="No Such Word">{$_("No Such Word")$}</strong></div>
+              <div ng-switch-when="lookingUp" class="alert alert-info"><strong i18n str="Looking Up ...">{$_("Looking Up ...")$}</strong></div>
+              <div ng-switch-when="loadingWords" class="alert alert-info"><strong i18n str="Loading Words ...">{$_("Loading Words ...")$}</strong></div>
+              <div ng-switch-when="netError" class="alert alert-error"><strong i18n str="Internet Connection Error">{$_("Internet Connection Error")$}</strong></div>
+              <span ng-switch-default></span>
+            </div>
+            <div ng-view ng-cloak>
+              {% if reqHandlerName == 'MainPage' %}
+                {% if urlpath == '/about' %}{% include 'about.html' %}{% endif %}
+              {% endif %}
+              {% if reqHandlerName == 'WordPage' %}{$ wordHtml $}{% endif %}
+              {% if reqHandlerName == 'PrefixPage' %}{$ prefixHtml $}{% endif %}
+            </div>
+          </div>
+          <br style="line-height: 4em;"/>
+          <div class="browseDictionary visible-desktop">
+            <strong ng-cloak i18n str="Browse Dictionary">{$_("Browse Dictionary")$}</strong><br />
+            <div class="prefixesDiv">
+              <a ng-repeat="prefix in ['a', 'ā', 'b', 'c', 'd', 'ḍ', 'e', 'g', 'h', 'i', 'ī', 'j', 'k', 'l', 'ḷ', 'm', 'ŋ', 'n', 'ñ', 'ṅ', 'ṇ', 'o', 'p', 'r', 's', 't', 'ṭ', 'u', 'ū', 'v', 'y', '-', '°']" ng-href="{{urlLocaleInPath}}/browse/{{prefix}}" ng-cloak>{{prefix}}</a>
+              <div class="for-web-crawler">
+                {% for prefix in ['a', 'ā', 'b', 'c', 'd', 'ḍ', 'e', 'g', 'h', 'i', 'ī', 'j', 'k', 'l', 'ḷ', 'm', 'ŋ', 'n', 'ñ', 'ṅ', 'ṇ', 'o', 'p', 'r', 's', 't', 'ṭ', 'u', 'ū', 'v', 'y', '-', '°'] %}
+                  {% if urlLocale %}
+                    <a href="/{$ urlLocale  $}/browse/{$ prefix $}">{$ prefix $}</a>
+                  {% else %}
+                    <a href="/browse/{$ prefix $}">{$ prefix $}</a>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <gcse:search></gcse:search>
+          <p class="text-right muted"><small>Powered by <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a>, <a href="http://angularjs.org/" target="_blank">AngularJS</a>, <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>, and <a href="http://glyphicons.com/" target="_blank">Glyphicons Halflings</a></small></p>
+        </div>
+        </div>
+      </div>
+      <div class="span2 visible-desktop"><div ng-include="rightsideUrl"></div></div>
+    </div>
+  </div>
+
+  <div id="locale" style="display:none">{$ userLocale $}</div>
+  <div id="langQs" style="display:none">{$ langQs $}</div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.3/angular.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+{% if isCompiledJS %}
+  <script src="/js/palidic.js"></script>
+{% else %}
+  <script src="/common/js/dicPrefix.js"></script>
+  <script src="/common/js/locales.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/controllers.js"></script>
+  <script src="/js/directives-event.js"></script>
+  <script src="/js/directives.js"></script>
+  <script src="/common/js/filters.js"></script>
+  <script src="/common/js/services-dic.js"></script>
+  <script src="/common/js/services.js"></script>
+  <script src="/common/js/i18n.js"></script>
+  <script src="/common/js/ext/tongwen_core.js"></script>
+  <script src="/common/js/ext/tongwen_table_s2t.js"></script>
+  <script src="/common/js/ext/tongwen_table_t2s.js"></script>
+  <script src="/common/js/ext/tongwen_table_ps2t.js"></script>
+  <script src="/common/js/ext/tongwen_table_pt2s.js"></script>
+{% endif %}
+<script>
+  (function() {
+    var cx = '000759460633137666077:drd5sr9u6cw';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<div ng-include="analyticsUrl"></div>
+</body>
+</html>
