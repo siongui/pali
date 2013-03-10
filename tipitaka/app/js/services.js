@@ -80,16 +80,26 @@ angular.module('paliTipitaka.services', []).
       var url = '/romn/' + action;
       var xsltDoc = cache.get(xsltPath);
       if (xsltDoc) {
-        return xhrXml.get(url).then(function(responseXML) {
-          return xslt.transform(responseXML, xsltDoc);
-        }, function(reason) {return reason;});
+        var htmlDoc = cache.get(url);
+        if (htmlDoc) {
+          var deferred = $q.defer();
+          deferred.resolve(htmlDoc);
+          return deferred.promise;
+        } else {
+          return xhrXml.get(url).then(function(responseXML) {
+            var htmlDoc = xslt.transform(responseXML, xsltDoc);
+            cache.put(url, htmlDoc);
+            return htmlDoc;
+          }, function(reason) {return reason;});
+        }
       } else {
         var promise = $q.all([xhrXml.get(xsltPath), xhrXml.get(url)]);
         return promise.then(function(xsltXmlArray) {
           xsltDoc = xsltXmlArray[0];
           cache.put(xsltPath, xsltDoc);
-          var xmlDoc = xsltXmlArray[1];
-          return xslt.transform(xmlDoc, xsltDoc);
+          var htmlDoc = xslt.transform(xsltXmlArray[1], xsltDoc);
+          cache.put(url, htmlDoc);
+          return htmlDoc;
         }, function(reason) {return reason;});
 
       }

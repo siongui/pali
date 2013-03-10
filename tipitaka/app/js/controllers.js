@@ -7,8 +7,8 @@ function mainCtrl($scope, paliXml) {
   $scope.actionHandler = function(action) {
     var promise = paliXml.get(action);
 
-    promise.then(function(responseXML) {
-      console.log(responseXML);
+    promise.then(function(htmlDoc) {
+      console.log(htmlDoc);
 
     }, function(reason) {
       // TODO: error handling here
