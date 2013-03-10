@@ -3,11 +3,9 @@
 /* Controllers */
 
 
-function mainCtrl($scope, xhrXml) {
-  var xsltPath = '/romn/cscd/tipitaka-latn.xsl';
-
+function mainCtrl($scope, paliXml) {
   $scope.actionHandler = function(action) {
-    var promise = xhrXml.get(action);
+    var promise = paliXml.get(action);
 
     promise.then(function(responseXML) {
       console.log(responseXML);
@@ -18,7 +16,7 @@ function mainCtrl($scope, xhrXml) {
     });
   };
 }
-mainCtrl.$inject = ['$scope', 'xhrXml'];
+mainCtrl.$inject = ['$scope', 'paliXml'];
 
 
 function noopCtrl($scope) {

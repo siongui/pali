@@ -72,9 +72,65 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('xhrXml', ['$q', '$rootScope', function($q, $rootScope) {
+  factory('paliXml', ['$q', '$cacheFactory', 'xhrXml', 'xslt', function($q, $cacheFactory, xhrXml, xslt) {
+    var cache = $cacheFactory('paliXml');
+    var xsltPath = '/romn/tipitaka-latn.xsl';
+
     function get(action) {
       var url = '/romn/' + action;
+      var xsltDoc = cache.get(xsltPath);
+      if (xsltDoc) {
+        return xhrXml.get(url).then(function(responseXML) {
+          return xslt.transform(responseXML, xsltDoc);
+        }, function(reason) {return reason;});
+      } else {
+        var promise = $q.all([xhrXml.get(xsltPath), xhrXml.get(url)]);
+        return promise.then(function(xsltXmlArray) {
+          xsltDoc = xsltXmlArray[0];
+          cache.put(xsltPath, xsltDoc);
+          var xmlDoc = xsltXmlArray[1];
+          return xslt.transform(xmlDoc, xsltDoc);
+        }, function(reason) {return reason;});
+
+      }
+    }
+
+    var serviceInstance = {
+      get: get
+    };
+
+    return serviceInstance;
+  }]).
+
+  factory('xslt', [function() {
+    function transform(xmlDoc, xsltDoc) {
+      // transform xml using xslt.
+      // @see http://www.w3schools.com/xsl/xsl_client.asp
+      // @see http://stackoverflow.com/questions/5722410/how-can-i-use-javascript-to-transform-xml-xslt
+      var transformedXML;
+
+      if (window.XSLTProcessor) {
+        transformedXML = new XSLTProcessor();
+        transformedXML.importStylesheet(xsltDoc);
+        transformedXML = transformedXML.transformToDocument(xmlDoc);
+      } else {
+        // for IE
+        transformedXML = new ActiveXObject("MSXML2.DOMDocument");
+        xmlDoc.transformNodeToObject(xsltDoc, transformedXML);
+      }
+
+      return transformedXML;
+    }
+
+    var serviceInstance = {
+      transform: transform
+    };
+
+    return serviceInstance;
+  }]).
+
+  factory('xhrXml', ['$q', '$rootScope', function($q, $rootScope) {
+    function get(url) {
       var deferred = $q.defer();
 
       var xmlhttp;
