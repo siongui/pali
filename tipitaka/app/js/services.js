@@ -5,19 +5,21 @@
 
 angular.module('paliTipitaka.services', []).
   factory('resizableViews', ['$document', function($document) {
-    var leftView, arrow, separator, rightView;
+    var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
 
-    function initViews(leftViewId, arrowId, separatorId, rightViewId) {
-      leftView  = angular.element(document.getElementById(leftViewId));
-      arrow     = angular.element(document.getElementById(arrowId));
-      separator = angular.element(document.getElementById(separatorId));
-      rightView = angular.element(document.getElementById(rightViewId));
+    function initViews(leftViewId, viewwrapperId, arrowId, separatorId, rightViewId) {
+      leftView    = angular.element(document.getElementById(leftViewId));
+      viewwrapper = angular.element(document.getElementById(viewwrapperId));
+      arrow       = angular.element(document.getElementById(arrowId));
+      separator   = angular.element(document.getElementById(separatorId));
+      rightView   = angular.element(document.getElementById(rightViewId));
 
       // set default width
       var docWidth = $document.prop('width');
       leftView.css('width', '300px');
-      rightView.css('width', (docWidth - 300 - 7 -10) + 'px');
+      rightView.css('width', (docWidth - 300 - 7 -25) + 'px');
+      viewwrapper.css('width', '7px');
 
       arrow.bind('click', function() {
         var lwidth = parseInt(leftView.css('width').replace('px', ''));
