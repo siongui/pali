@@ -51,6 +51,22 @@ def setupJianfan():
   os.remove(path)
 
 
+def ln(source, link_name):
+  if os.path.islink(link_name):
+    os.unlink(link_name)
+  os.symlink(source, link_name)
+
+
+def setupSymlinks():
+  os.chdir(os.path.join(os.path.dirname(__file__), '../../tipitaka'))
+  ln('../common/', 'common')
+  ln('../common/locale/', 'locale')
+  os.chdir('../dictionary')
+  ln('../common/', 'common')
+  ln('../common/locale/', 'locale')
+
+
 if __name__ == '__main__':
   setupTongWen()
   setupJianfan()
+  setupSymlinks()

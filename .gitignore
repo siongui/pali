@@ -13,3 +13,4 @@ common/gae/libs/json/
 common/app/js/dicPrefix.js
 common/app/js/ext
 common/app/js/locales.js
+common/app/lib/

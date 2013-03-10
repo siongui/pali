@@ -1,0 +1,54 @@
+[ng-cloak] { display: none; }
+
+#treeview {
+  float: left;
+  overflow: auto;
+  font-family: Tahoma, Arial, serif;
+}
+
+#viewwrapper {
+  width: 7px;
+  float: left;
+}
+
+#viewarrow {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid blue;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+#viewseparator {
+  min-height: 400px;
+  background-color: #EEE;
+  cursor: col-resize;
+}
+
+#mainview {
+  float: left;
+  font-family: Tahoma, Arial, serif;
+}
+
+.item {
+  margin-bottom: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.item:hover {
+  background-color: #F0F8FF;
+}
+
+.treeNode:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.childrenContainer {
+  margin-left: .4em;
+  padding-left: .4em;
+  border-left: 1px dotted blue;
+}

@@ -1,0 +1,59 @@
+application: epalitipitaka
+version: dev
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /robots\.txt
+  static_files: common/gae/robots.txt
+  upload: common/gae/robots\.txt
+
+- url: /favicon\.ico
+  static_files: common/app/img/favicon.ico
+  upload: common/app/img/favicon\.ico
+
+- url: /google147e4ebe06d05f82\.html
+  static_files: app/google147e4ebe06d05f82.html
+  upload: app/google147e4ebe06d05f82\.html
+
+- url: /BingSiteAuth\.xml
+  static_files: app/BingSiteAuth.xml
+  upload: app/BingSiteAuth\.xml
+
+- url: /js
+  static_dir: app/js
+
+- url: /common/js
+  static_dir: common/app/js
+
+- url: /common/lib
+  static_dir: common/app/lib
+
+- url: /css
+  static_dir: app/css
+
+- url: /partials/devlinks\.html
+  static_files: app/partials/devlinks.html
+  upload: app/partials/devlinks\.html
+
+- url: /common/romn
+  static_dir: common/app/romn
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+- url: /common/translation
+  static_dir: common/app/translation
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+- url: /.*
+  script: main.app
+
+
+libraries:
+- name: jinja2
+  version: latest
+
+- name: lxml
+  version: latest

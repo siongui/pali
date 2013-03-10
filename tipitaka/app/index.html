@@ -1,0 +1,47 @@
+<!doctype html>
+<html ng-app="paliTipitaka">
+<head>
+  <meta charset="utf-8">
+  <title>Pāḷi Tipiṭaka ({$_("Pali Tipitaka")$})</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+{% include 'mainbar.html' %}
+{% include 'setting.html' %}
+<gcse:searchbox-only></gcse:searchbox-only>
+
+<div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
+<div id="viewwrapper">
+  <div id="viewarrow"></div>
+  <div id="viewseparator"></div>
+</div>
+<div id="mainview"></div>
+
+<div id="locale" style="display:none">{$ userLocale $}</div>
+<div id="langQs" style="display:none">{$ langQs $}</div>
+
+<script src="/common/lib/angular/angular.min.js"></script>
+<script src="/common/js/locales.js"></script>
+<script src="/js/treeviewJson.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/controllers.js"></script>
+<script src="/js/directives.js"></script>
+<script src="/js/services.js"></script>
+<script src="/common/js/i18n.js"></script>
+<script src="/common/js/ext/tongwen_core.js"></script>
+<script src="/common/js/ext/tongwen_table_s2t.js"></script>
+<script src="/common/js/ext/tongwen_table_t2s.js"></script>
+<script src="/common/js/ext/tongwen_table_ps2t.js"></script>
+<script src="/common/js/ext/tongwen_table_pt2s.js"></script>
+<script>
+(function() {
+  var cx = '000759460633137666077:ohvoelt1nog';
+  var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//www.google.com/cse/cse.js?cx=' + cx;
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+</script>
+<div ng-include="analyticsUrl"></div>
+</body>
+</html>
