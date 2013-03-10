@@ -11,7 +11,7 @@ angular.module('paliTipitaka.directives', []).
         if (!angular.isObject(treeviewJson)) throw 'no treeviewJson';
 
         scope.leafNodeClicked = function(action) {
-console.log(action);
+          scope.actionHandler(action);
         };
 
         // show only tipitaka, no commentaries and sub-commentaries

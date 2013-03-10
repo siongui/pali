@@ -70,4 +70,40 @@ angular.module('paliTipitaka.services', []).
     };
 
     return serviceInstance;
+  }]).
+
+  factory('xhrXml', ['$q', '$rootScope', function($q, $rootScope) {
+    function get(action) {
+      var url = '/romn/' + action;
+      var deferred = $q.defer();
+
+      var xmlhttp;
+
+      if (window.XMLHttpRequest)
+        xmlhttp=new XMLHttpRequest();
+      else
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+          if (xmlhttp.status == 200) {
+            deferred.resolve(xmlhttp.responseXML);
+          } else {
+            deferred.reject(xmlhttp.status);
+          }
+          $rootScope.$apply();
+        }
+      };
+
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+
+      return deferred.promise;
+    }
+
+    var serviceInstance = {
+      get: get
+    };
+
+    return serviceInstance;
   }]);

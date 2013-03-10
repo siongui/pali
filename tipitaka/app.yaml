@@ -37,13 +37,13 @@ handlers:
   static_files: app/partials/devlinks.html
   upload: app/partials/devlinks\.html
 
-- url: /common/romn
-  static_dir: common/app/romn
+- url: /romn
+  static_dir: common/romn
   http_headers:
     Access-Control-Allow-Origin: "*"
 
-- url: /common/translation
-  static_dir: common/app/translation
+- url: /translation
+  static_dir: common/translation
   http_headers:
     Access-Control-Allow-Origin: "*"
 
