@@ -5,17 +5,16 @@
   <title>Pāḷi Tipiṭaka ({$_("Pali Tipitaka")$})</title>
   <link rel="stylesheet" href="/css/app.css">
 </head>
-<body ng-controller="mainCtrl">
+<body>
 {% include 'mainbar.html' %}
 {% include 'setting.html' %}
 <gcse:searchbox-only></gcse:searchbox-only>
 
-<div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
-<div id="viewwrapper">
-  <div id="viewarrow"></div>
-  <div id="viewseparator"></div>
+<div ng-controller="mainCtrl">
+  <div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
+  <div id="viewwrapper"><div id="viewarrow"></div><div id="viewseparator"></div></div>
+  <div id="mainview"></div>
 </div>
-<div id="mainview"></div>
 
 <div id="locale" style="display:none">{$ userLocale $}</div>
 <div id="langQs" style="display:none">{$ langQs $}</div>
