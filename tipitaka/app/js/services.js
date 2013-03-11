@@ -266,7 +266,31 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('tooltip', ['$rootScope', '$compile', function($rootScope, $compile) {
+  factory('offset', [function() {
+    function offset(elm) {
+      if (window.jQuery)
+        return elm.offset();
+
+      var rawDom = elm[0];
+      /**
+       * getBoundingClientRect method
+       * @see http://help.dottoro.com/ljvmcrrn.php
+       */
+      var _x = 0;
+      var _y = 0;
+      var body = document.documentElement || document.body;
+      var scrollX = window.pageXOffset || body.scrollLeft;
+      var scrollY = window.pageYOffset || body.scrollTop;
+      _x = rawDom.getBoundingClientRect().left + scrollX;
+      _y = rawDom.getBoundingClientRect().top + scrollY;
+      return { left: _x, top:_y };
+    }
+
+    var serviceInstance = { get: offset };
+    return serviceInstance;
+  }]).
+
+  factory('tooltip', ['$rootScope', '$compile', 'offset', function($rootScope, $compile, offset) {
     var scope = $rootScope.$new(true);
     var isMouseInTooltip = false;
     scope.onmouseenter = function() {
@@ -301,22 +325,9 @@ angular.module('paliTipitaka.services', []).
       }
     }
 
-    function offset(elm) {
-      try {return elm.offset();} catch(e) {}
-      var rawDom = elm[0];
-      var _x = 0;
-      var _y = 0;
-      var body = document.documentElement || document.body;
-      var scrollX = window.pageXOffset || body.scrollLeft;
-      var scrollY = window.pageYOffset || body.scrollTop;
-      _x = rawDom.getBoundingClientRect().left + scrollX;
-      _y = rawDom.getBoundingClientRect().top + scrollY;
-      return { left: _x, top:_y };
-    }
-
     function setTooltipPosition(elm) {
-      tooltip.css('left', offset(elm).left + 'px');
-      tooltip.css('top', offset(elm).top + elm.prop('offsetHeight') + 'px');
+      tooltip.css('left', offset.get(elm).left + 'px');
+      tooltip.css('top', offset.get(elm).top + elm.prop('offsetHeight') + 'px');
     }
 
     function show(element, content) {
