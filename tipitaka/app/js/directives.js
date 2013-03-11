@@ -10,8 +10,8 @@ angular.module('paliTipitaka.directives', []).
       link: function(scope, elm, attrs) {
         if (!angular.isObject(treeviewJson)) throw 'no treeviewJson';
 
-        scope.leafNodeClicked = function(action) {
-          scope.actionHandler(action);
+        scope.leafNodeClicked = function(action, text) {
+          scope.actionHandler(action, text);
         };
 
         // show only tipitaka, no commentaries and sub-commentaries
@@ -53,7 +53,8 @@ angular.module('paliTipitaka.directives', []).
           } else {
             // leaf node, keys: 'text', 'action'
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
-                                   "'" + node['action'] + "'" +')"><span class="treeNode">' +
+                                   "'" + node['action'] + "', '" + node['text'] + "'" +
+                                   ')"><span class="treeNode">' +
                                    node['text'] +'</span></div>')(scope);
             return element;
           }

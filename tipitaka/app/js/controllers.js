@@ -4,11 +4,17 @@
 
 
 function mainCtrl($scope, paliXml) {
-  $scope.actionHandler = function(action) {
-    var promise = paliXml.get(action);
+  $scope.mainviewElm = angular.element(document.getElementById('mainview'));
 
+  $scope.actionHandler = function(action, text) {
+    $scope.mainviewElm.children().remove();
+    $scope.mainviewElm.append(angular.element('<span>Loading ' + text + ' ...</span>'));
+
+    var promise = paliXml.get(action);
     promise.then(function(htmlDoc) {
-      console.log(htmlDoc);
+      $scope.mainviewElm.children().remove();
+      /* cloneNode() is important. otherwise the second time nothing will show up */
+      $scope.mainviewElm.append(angular.element(htmlDoc.getElementsByTagName('body')[0].cloneNode(true)));
 
     }, function(reason) {
       // TODO: error handling here
