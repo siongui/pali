@@ -164,7 +164,7 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('htmlDoc2View', [function() {
+  factory('htmlDoc2View', ['paliwords', 'htmlString2Dom', function(paliwords, htmlString2Dom) {
     function onWordMouseOver(e) {
       this.style.color = 'red';
 //      if (!document.getElementById('showTooltip').checked) return;
@@ -179,63 +179,6 @@ angular.module('paliTipitaka.services', []).
 
 //      setTimeout(Lookup.delayedCloseTooltip,
 //                 Lookup.DELAY_INTERVAL);
-    }
-
-    /**
-     * wrap words in the string by html span tag
-     * @param {string}
-     * @return {HTML DOM element}
-     */
-    function wrapWordsBySpan(string) {
-      if (string.length == 0) {
-        console.log('in wrapWordsInSpan: string length == 0');
-        return document.createTextNode('');
-      }
-      var nonWordChars = '.,;()‘’–-? 1234567890…';
-      var startPos = 0;
-
-      var isWordChar = false;
-      if (nonWordChars.indexOf(string.charAt(0)) < 0 )
-        isWordChar = true;
-
-      var container = document.createElement('span');
-      for (var i=1; i<string.length; i++) {
-        if (nonWordChars.indexOf(string.charAt(i)) < 0 ) {
-          // this is a word char
-          if (isWordChar == false) {
-            var substr = string.slice(startPos, i);
-            container.appendChild(document.createTextNode(substr));
-            startPos = i;
-            isWordChar = true;
-          }
-        } else {
-          // this is not a word char
-          if (isWordChar == true) {
-            var spanElem = document.createElement('span');
-            spanElem.innerHTML = string.slice(startPos, i);
-            spanElem.onmouseover = onWordMouseOver;
-            spanElem.onmouseout = onWordMouseOut;
-//            spanElem.ondblclick = onWordDbclick;
-            container.appendChild(spanElem);
-            startPos = i;
-            isWordChar = false;
-          }
-        }
-      }
-
-      if (isWordChar == true) {
-        var spanElem = document.createElement('span');
-        spanElem.innerHTML = string.slice(startPos);
-        spanElem.onmouseover = onWordMouseOver;
-        spanElem.onmouseout = onWordMouseOut;
-//        spanElem.ondblclick = onWordDbclick;
-        container.appendChild(spanElem);
-      } else {
-        var substr = string.slice(startPos);
-        container.appendChild(document.createTextNode(substr));
-      }
-
-      return container;
     }
 
     /**
@@ -254,11 +197,16 @@ angular.module('paliTipitaka.services', []).
       // 3: text node
       if (xmlElement.nodeType == 3) {
         // wrap all words in span here
-        var wrapedWords = wrapWordsBySpan(xmlElement.nodeValue);
-        if (xmlElement.parentNode)
-          xmlElement.parentNode.replaceChild(wrapedWords, xmlElement);
-        else
-          xmlElement = wrapedWords;
+        var spanContainer = htmlString2Dom.string2dom(paliwords.markInSpan(xmlElement.nodeValue));
+        for (var i=0; i<spanContainer.childNodes.length; i++) {
+          if (spanContainer.childNodes[i].tagName && spanContainer.childNodes[i].tagName.toLowerCase() === 'span') {
+            spanContainer.childNodes[i].onmouseover = onWordMouseOver;
+            spanContainer.childNodes[i].onmouseout = onWordMouseOut;
+            //spanContainer.childNodes[i].ondblclick = onWordDbclick;
+          }
+        }
+
+        xmlElement.parentNode.replaceChild(spanContainer, xmlElement);
         return;
       }
 
@@ -280,15 +228,24 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
+  factory('paliwords', [function() {
+    function markInSpan(string) {
+      return string.replace(/[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀāĪīŪūṀṁṂṃŊŋṆṇṄṅÑñṬṭḌḍḶḷ]+/g, '<span>$&</span>');
+    }
+
+    var serviceInstance = { markInSpan: markInSpan };
+    return serviceInstance;
+  }]).
+
   factory('htmlString2Dom', [function() {
     /**
      * @see http://stackoverflow.com/questions/3103962/converting-html-string-into-dom-elements
      * @see http://stackoverflow.com/questions/888875/how-to-parse-html-from-javascript-in-firefox
      */
-    var tmp = document.createElement('div');
     function string2dom(string) {
-      tmp.innerHTML = string;
-      return tmp.childNodes;
+      var spanContainer = document.createElement('span');
+      spanContainer.innerHTML = string;
+      return spanContainer;
     }
 
     var serviceInstance = { string2dom: string2dom };
