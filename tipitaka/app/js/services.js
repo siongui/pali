@@ -17,7 +17,7 @@ angular.module('paliTipitaka.services', []).
 
       // set default width
       var docWidth = $document.prop('width');
-      leftView.css('width', '300px');
+      leftView.css('width', '250px');
       rightView.css('width', (docWidth - 300 - 7 -25) + 'px');
       viewwrapper.css('width', '7px');
 
