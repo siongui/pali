@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-function mainCtrl($scope, paliXml) {
+function mainCtrl($scope, paliXml, htmlDoc2View) {
   $scope.mainviewElm = angular.element(document.getElementById('mainview'));
 
   $scope.actionHandler = function(action, text) {
@@ -13,8 +13,7 @@ function mainCtrl($scope, paliXml) {
     var promise = paliXml.get(action);
     promise.then(function(htmlDoc) {
       $scope.mainviewElm.children().remove();
-      /* cloneNode() is important. otherwise the second time nothing will show up */
-      $scope.mainviewElm.append(angular.element(htmlDoc.getElementsByTagName('body')[0].cloneNode(true)));
+      $scope.mainviewElm.append(htmlDoc2View.getView(htmlDoc));
 
     }, function(reason) {
       // TODO: error handling here
@@ -22,7 +21,7 @@ function mainCtrl($scope, paliXml) {
     });
   };
 }
-mainCtrl.$inject = ['$scope', 'paliXml'];
+mainCtrl.$inject = ['$scope', 'paliXml', 'htmlDoc2View'];
 
 
 function noopCtrl($scope) {

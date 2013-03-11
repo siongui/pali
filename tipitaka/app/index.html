@@ -9,7 +9,7 @@
 <body>
 {% include 'mainbar.html' %}
 {% include 'setting.html' %}
-<gcse:searchbox-only></gcse:searchbox-only>
+{% if isCompiledJS %}<gcse:searchbox-only></gcse:searchbox-only>{% endif %}
 
 <div ng-controller="mainCtrl">
   <div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
@@ -33,7 +33,7 @@
 <script src="/common/js/ext/tongwen_table_t2s.js"></script>
 <script src="/common/js/ext/tongwen_table_ps2t.js"></script>
 <script src="/common/js/ext/tongwen_table_pt2s.js"></script>
-<script>
+{% if isCompiledJS %}<script>
 (function() {
   var cx = '000759460633137666077:ohvoelt1nog';
   var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
@@ -42,6 +42,6 @@
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
 })();
 </script>
-<div ng-include="analyticsUrl"></div>
+<div ng-include="analyticsUrl"></div>{% endif %}
 </body>
 </html>

@@ -18,7 +18,7 @@ angular.module('paliTipitaka.services', []).
       // set default width
       var docWidth = $document.prop('width');
       leftView.css('width', '250px');
-      rightView.css('width', (docWidth - 300 - 7 -25) + 'px');
+      rightView.css('width', (docWidth - 300 - 7 - 10) + 'px');
       viewwrapper.css('width', '7px');
 
       arrow.bind('click', function() {
@@ -171,6 +171,125 @@ angular.module('paliTipitaka.services', []).
 
     var serviceInstance = {
       get: get
+    };
+
+    return serviceInstance;
+  }]).
+
+  factory('htmlDoc2View', [function() {
+    function onWordMouseOver(e) {
+      this.style.color = 'red';
+//      if (!document.getElementById('showTooltip').checked) return;
+
+//      setTimeout(Lookup.getLookupResult.bind(this),
+//                 Lookup.DELAY_INTERVAL);
+    }
+
+    function onWordMouseOut(e) {
+      this.style.color = '';
+//      if (!document.getElementById('showTooltip').checked) return;
+
+//      setTimeout(Lookup.delayedCloseTooltip,
+//                 Lookup.DELAY_INTERVAL);
+    }
+
+    /**
+     * wrap words in the string by html span tag
+     * @param {string}
+     * @return {HTML DOM element}
+     */
+    function wrapWordsBySpan(string) {
+      if (string.length == 0) {
+        console.log('in wrapWordsInSpan: string length == 0');
+        return document.createTextNode('');
+      }
+      var nonWordChars = '.,;()‘’–-? 1234567890…';
+      var startPos = 0;
+
+      var isWordChar = false;
+      if (nonWordChars.indexOf(string.charAt(0)) < 0 )
+        isWordChar = true;
+
+      var container = document.createElement('span');
+      for (var i=1; i<string.length; i++) {
+        if (nonWordChars.indexOf(string.charAt(i)) < 0 ) {
+          // this is a word char
+          if (isWordChar == false) {
+            var substr = string.slice(startPos, i);
+            container.appendChild(document.createTextNode(substr));
+            startPos = i;
+            isWordChar = true;
+          }
+        } else {
+          // this is not a word char
+          if (isWordChar == true) {
+            var spanElem = document.createElement('span');
+            spanElem.innerHTML = string.slice(startPos, i);
+            spanElem.onmouseover = onWordMouseOver;
+            spanElem.onmouseout = onWordMouseOut;
+//            spanElem.ondblclick = onWordDbclick;
+            container.appendChild(spanElem);
+            startPos = i;
+            isWordChar = false;
+          }
+        }
+      }
+
+      if (isWordChar == true) {
+        var spanElem = document.createElement('span');
+        spanElem.innerHTML = string.slice(startPos);
+        spanElem.onmouseover = onWordMouseOver;
+        spanElem.onmouseout = onWordMouseOut;
+//        spanElem.ondblclick = onWordDbclick;
+        container.appendChild(spanElem);
+      } else {
+        var substr = string.slice(startPos);
+        container.appendChild(document.createTextNode(substr));
+      }
+
+      return container;
+    }
+
+    /**
+     * wrap all words in the element
+     * @param {DOM element} FIXME: is this HTML or XML dom element?
+     */
+    function wrapWordsInElement(xmlElement) {
+      // 1: element node
+      if (xmlElement.nodeType == 1) {
+        for (var i=0; i<xmlElement.childNodes.length; i++)
+          // recursively call self to process
+          wrapWordsInElement(xmlElement.childNodes[i]);
+        return;
+      }
+
+      // 3: text node
+      if (xmlElement.nodeType == 3) {
+        // wrap all words in span here
+        var wrapedWords = wrapWordsBySpan(xmlElement.nodeValue);
+        if (xmlElement.parentNode)
+          xmlElement.parentNode.replaceChild(wrapedWords, xmlElement);
+        else
+          xmlElement = wrapedWords;
+        return;
+      }
+
+      console.log('In end of wrapWordsInElement');
+      console.log(xmlElement);
+    }
+
+    function getView(htmlDoc) {
+      /* cloneNode() is important. otherwise the second time nothing will show up */
+      var body = htmlDoc.getElementsByTagName('body')[0].cloneNode(true);
+      for (var i=0; i<body.childNodes.length; i++) {
+        wrapWordsInElement(body.childNodes[i]);
+      }
+
+      return angular.element(body);
+    }
+
+    var serviceInstance = {
+      getView: getView
     };
 
     return serviceInstance;
