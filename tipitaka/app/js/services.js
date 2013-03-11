@@ -297,9 +297,10 @@ angular.module('paliTipitaka.services', []).
       // mouse enters tooltip
       isMouseInTooltip = true;
     };
-    scope.onmouseleve = function() {
+    scope.onmouseleave = function() {
       // mouse leaves tooltip
       isMouseInTooltip = false;
+      tooltip.css('display', 'none');
     };
     var tooltip = $compile('<div ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
     tooltip.css('display', 'none');
@@ -336,7 +337,11 @@ angular.module('paliTipitaka.services', []).
       tooltip.html(content);
       tooltip.css('display', '');
     }
-    function hide() { tooltip.css('display', 'none'); }
+
+    function hide() {
+      if (!isMouseInTooltip)
+        tooltip.css('display', 'none');
+    }
 
     var serviceInstance = { show: show, hide: hide };
     return serviceInstance;
