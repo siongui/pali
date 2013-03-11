@@ -205,13 +205,13 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['htmlString2Dom', 'tooltip', function(htmlString2Dom, tooltip) {
+  factory('paliwords', ['$rootScope', 'htmlString2Dom', 'tooltip', function($rootScope, htmlString2Dom, tooltip) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
     function onWordMouseOver(e) {
       this.style.color = 'red';
-      // TODO: check setting whether show tooltip or not
+      if (!$rootScope.setting.showTooltip) return;
 
       setTimeout(angular.bind(this, function() {
         if (this.style.color === 'red')
@@ -221,7 +221,7 @@ angular.module('paliTipitaka.services', []).
 
     function onWordMouseOut(e) {
       this.style.color = '';
-      // TODO: check setting whether show tooltip or not
+      if (!$rootScope.setting.showTooltip) return;
 
       setTimeout(angular.bind(this, function() {
         tooltip.hide();
