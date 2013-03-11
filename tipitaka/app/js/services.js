@@ -67,10 +67,7 @@ angular.module('paliTipitaka.services', []).
       $document.unbind('mouseup', mouseup);
     }
 
-    var serviceInstance = {
-      initViews: initViews
-    };
-
+    var serviceInstance = { initViews: initViews };
     return serviceInstance;
   }]).
 
@@ -107,10 +104,7 @@ angular.module('paliTipitaka.services', []).
       }
     }
 
-    var serviceInstance = {
-      get: get
-    };
-
+    var serviceInstance = { get: get };
     return serviceInstance;
   }]).
 
@@ -134,10 +128,7 @@ angular.module('paliTipitaka.services', []).
       return transformedXML;
     }
 
-    var serviceInstance = {
-      transform: transform
-    };
-
+    var serviceInstance = { transform: transform };
     return serviceInstance;
   }]).
 
@@ -169,10 +160,7 @@ angular.module('paliTipitaka.services', []).
       return deferred.promise;
     }
 
-    var serviceInstance = {
-      get: get
-    };
-
+    var serviceInstance = { get: get };
     return serviceInstance;
   }]).
 
@@ -288,9 +276,21 @@ angular.module('paliTipitaka.services', []).
       return angular.element(body);
     }
 
-    var serviceInstance = {
-      getView: getView
-    };
+    var serviceInstance = { getView: getView };
+    return serviceInstance;
+  }]).
 
+  factory('htmlString2Dom', [function() {
+    /**
+     * @see http://stackoverflow.com/questions/3103962/converting-html-string-into-dom-elements
+     * @see http://stackoverflow.com/questions/888875/how-to-parse-html-from-javascript-in-firefox
+     */
+    var tmp = document.createElement('div');
+    function string2dom(string) {
+      tmp.innerHTML = string;
+      return tmp.childNodes;
+    }
+
+    var serviceInstance = { string2dom: string2dom };
     return serviceInstance;
   }]);
