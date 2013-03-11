@@ -180,7 +180,10 @@ angular.module('paliTipitaka.services', []).
 
       // 3: text node
       if (xmlElement.nodeType == 3) {
-        xmlElement.parentNode.replaceChild(paliwords.toDom(xmlElement.nodeValue), xmlElement);
+        var string = xmlElement.nodeValue;
+        if (string.replace(/\s*/, '') !== '')
+          // string is not whitespace
+          xmlElement.parentNode.replaceChild(paliwords.toDom(string), xmlElement);
         return;
       }
 
@@ -202,21 +205,27 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['htmlString2Dom', function(htmlString2Dom) {
+  factory('paliwords', ['htmlString2Dom', 'tooltip', function(htmlString2Dom, tooltip) {
+    // when user's mouse hovers over words, delay a period of time before look up.
+    var DELAY_INTERVAL = 1000; // ms
+
     function onWordMouseOver(e) {
       this.style.color = 'red';
-//      if (!document.getElementById('showTooltip').checked) return;
+      // TODO: check setting whether show tooltip or not
 
-//      setTimeout(Lookup.getLookupResult.bind(this),
-//                 Lookup.DELAY_INTERVAL);
+      setTimeout(angular.bind(this, function() {
+        if (this.style.color === 'red')
+          tooltip.show(this, this.innerHTML);
+      }), DELAY_INTERVAL);
     }
 
     function onWordMouseOut(e) {
       this.style.color = '';
-//      if (!document.getElementById('showTooltip').checked) return;
+      // TODO: check setting whether show tooltip or not
 
-//      setTimeout(Lookup.delayedCloseTooltip,
-//                 Lookup.DELAY_INTERVAL);
+      setTimeout(angular.bind(this, function() {
+        tooltip.hide();
+      }), DELAY_INTERVAL);
     }
 
     function toDom(string) {
@@ -254,5 +263,70 @@ angular.module('paliTipitaka.services', []).
     }
 
     var serviceInstance = { string2dom: string2dom };
+    return serviceInstance;
+  }]).
+
+  factory('tooltip', ['$rootScope', '$compile', function($rootScope, $compile) {
+    var scope = $rootScope.$new(true);
+    var isMouseInTooltip = false;
+    scope.onmouseenter = function() {
+      // mouse enters tooltip
+      isMouseInTooltip = true;
+    };
+    scope.onmouseleve = function() {
+      // mouse leaves tooltip
+      isMouseInTooltip = false;
+    };
+    var tooltip = $compile('<div ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
+    tooltip.css('display', 'none');
+    tooltip.css('position', 'absolute');
+    tooltip.css('background-color', '#CCFFFF');
+    tooltip.css('border-radius', '10px');
+    tooltip.css('padding', '.5em');
+    tooltip.css('font-family', 'Tahoma, Arial, serif');
+
+    // append tooltip to the end of body element
+    angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
+
+    /**
+     * @param {DOM element | angular element}
+     * @return {angular element}
+     */
+    function getAngularElement(element) {
+      try {
+        element.html();
+        return element;
+      } catch(e) {
+        return angular.element(element);
+      }
+    }
+
+    function offset(elm) {
+      try {return elm.offset();} catch(e) {}
+      var rawDom = elm[0];
+      var _x = 0;
+      var _y = 0;
+      var body = document.documentElement || document.body;
+      var scrollX = window.pageXOffset || body.scrollLeft;
+      var scrollY = window.pageYOffset || body.scrollTop;
+      _x = rawDom.getBoundingClientRect().left + scrollX;
+      _y = rawDom.getBoundingClientRect().top + scrollY;
+      return { left: _x, top:_y };
+    }
+
+    function setTooltipPosition(elm) {
+      tooltip.css('left', offset(elm).left + 'px');
+      tooltip.css('top', offset(elm).top + elm.prop('offsetHeight') + 'px');
+    }
+
+    function show(element, content) {
+      setTooltipPosition(getAngularElement(element))
+      tooltip.children().remove();
+      tooltip.html(content);
+      tooltip.css('display', '');
+    }
+    function hide() { tooltip.css('display', 'none'); }
+
+    var serviceInstance = { show: show, hide: hide };
     return serviceInstance;
   }]);
