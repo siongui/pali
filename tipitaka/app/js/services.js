@@ -317,12 +317,12 @@ angular.module('paliTipitaka.services', []).
      * @return {angular element}
      */
     function getAngularElement(element) {
-      try {
-        element.html();
+      if (element[0])
+        // this is element wrapped with AngularJS jqLite
         return element;
-      } catch(e) {
+      else
+        // raw dom element, wrap it with jqLite
         return angular.element(element);
-      }
     }
 
     function setTooltipPosition(elm) {
