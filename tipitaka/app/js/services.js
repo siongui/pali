@@ -164,23 +164,7 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('htmlDoc2View', ['paliwords', 'htmlString2Dom', function(paliwords, htmlString2Dom) {
-    function onWordMouseOver(e) {
-      this.style.color = 'red';
-//      if (!document.getElementById('showTooltip').checked) return;
-
-//      setTimeout(Lookup.getLookupResult.bind(this),
-//                 Lookup.DELAY_INTERVAL);
-    }
-
-    function onWordMouseOut(e) {
-      this.style.color = '';
-//      if (!document.getElementById('showTooltip').checked) return;
-
-//      setTimeout(Lookup.delayedCloseTooltip,
-//                 Lookup.DELAY_INTERVAL);
-    }
-
+  factory('htmlDoc2View', ['paliwords', function(paliwords) {
     /**
      * wrap all words in the element
      * @param {DOM element} FIXME: is this HTML or XML dom element?
@@ -196,21 +180,11 @@ angular.module('paliTipitaka.services', []).
 
       // 3: text node
       if (xmlElement.nodeType == 3) {
-        // wrap all words in span here
-        var spanContainer = htmlString2Dom.string2dom(paliwords.markInSpan(xmlElement.nodeValue));
-        for (var i=0; i<spanContainer.childNodes.length; i++) {
-          if (spanContainer.childNodes[i].tagName && spanContainer.childNodes[i].tagName.toLowerCase() === 'span') {
-            spanContainer.childNodes[i].onmouseover = onWordMouseOver;
-            spanContainer.childNodes[i].onmouseout = onWordMouseOut;
-            //spanContainer.childNodes[i].ondblclick = onWordDbclick;
-          }
-        }
-
-        xmlElement.parentNode.replaceChild(spanContainer, xmlElement);
+        xmlElement.parentNode.replaceChild(paliwords.toDom(xmlElement.nodeValue), xmlElement);
         return;
       }
 
-      console.log('In end of wrapWordsInElement');
+      console.log('In end of wrapWordsInElement: ');
       console.log(xmlElement);
     }
 
@@ -228,12 +202,43 @@ angular.module('paliTipitaka.services', []).
     return serviceInstance;
   }]).
 
-  factory('paliwords', [function() {
+  factory('paliwords', ['htmlString2Dom', function(htmlString2Dom) {
+    function onWordMouseOver(e) {
+      this.style.color = 'red';
+//      if (!document.getElementById('showTooltip').checked) return;
+
+//      setTimeout(Lookup.getLookupResult.bind(this),
+//                 Lookup.DELAY_INTERVAL);
+    }
+
+    function onWordMouseOut(e) {
+      this.style.color = '';
+//      if (!document.getElementById('showTooltip').checked) return;
+
+//      setTimeout(Lookup.delayedCloseTooltip,
+//                 Lookup.DELAY_INTERVAL);
+    }
+
+    function toDom(string) {
+      // wrap all pali words in span
+      var spanContainer = htmlString2Dom.string2dom(markInSpan(string));
+      for (var i=0; i<spanContainer.childNodes.length; i++) {
+        var node = spanContainer.childNodes[i];
+        var tagName = node.tagName;
+        if (tagName && tagName.toLowerCase() === 'span') {
+          node.onmouseover = onWordMouseOver;
+          node.onmouseout = onWordMouseOut;
+          //node.ondblclick = onWordDbclick;
+        }
+      }
+      return spanContainer;
+    }
+
     function markInSpan(string) {
       return string.replace(/[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀāĪīŪūṀṁṂṃŊŋṆṇṄṅÑñṬṭḌḍḶḷ]+/g, '<span>$&</span>');
     }
 
-    var serviceInstance = { markInSpan: markInSpan };
+    var serviceInstance = { toDom: toDom };
     return serviceInstance;
   }]).
 
