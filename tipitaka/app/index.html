@@ -7,14 +7,17 @@
   <link rel="stylesheet" href="/romn/tipitaka-latn.css">
 </head>
 <body>
-{% include 'mainbar.html' %}
-{% include 'setting.html' %}
-{% if isCompiledJS %}<gcse:searchbox-only></gcse:searchbox-only>{% endif %}
 
-<div ng-controller="mainCtrl">
-  <div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
-  <div id="viewwrapper"><div id="viewarrow"></div><div id="viewseparator"></div></div>
-  <div id="mainview"></div>
+<div  id="allContainer">
+  {% include 'mainbar.html' %}
+  {% include 'setting.html' %}
+  {% if isCompiledJS %}<gcse:searchbox-only></gcse:searchbox-only>{% endif %}
+
+  <div ng-controller="mainCtrl">
+    <div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
+    <div id="viewwrapper"><div id="viewarrow"></div><div id="viewseparator"></div></div>
+    <div id="mainview"></div>
+  </div>
 </div>
 
 <div id="locale" style="display:none">{$ userLocale $}</div>

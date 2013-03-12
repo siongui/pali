@@ -1,13 +1,21 @@
+html, body { height: 100%; }
 [ng-cloak] { display: none; }
+
+#allContainer {
+  width: 100%;
+  min-height: 100%;
+}
 
 #treeview {
   float: left;
   overflow: auto;
   font-family: Tahoma, Arial, serif;
+  min-height: 100%;
 }
 
 #viewwrapper {
   float: left;
+  min-height: 100%;
 }
 
 #viewarrow {
@@ -29,6 +37,7 @@
 #mainview {
   float: left;
   font-family: Tahoma, Arial, serif;
+  min-height: 100%;
 }
 
 .item {

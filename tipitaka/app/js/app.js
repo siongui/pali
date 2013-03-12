@@ -14,7 +14,7 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
   }]).
   run(['$rootScope', '$location', '$document', 'i18nserv', 'resizableViews', function($rootScope, $location, $document, i18nserv, resizableViews) {
     // initialize resizable views
-    resizableViews.initViews('treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
+    resizableViews.initViews('allContainer', 'treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
 
     // initialize langSelect select element
     $rootScope.langSelect = $rootScope.i18nLocale;

@@ -8,18 +8,22 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
 
-    function initViews(leftViewId, viewwrapperId, arrowId, separatorId, rightViewId) {
+    function initViews(allContainerId, leftViewId, viewwrapperId, arrowId, separatorId, rightViewId) {
       leftView    = angular.element(document.getElementById(leftViewId));
       viewwrapper = angular.element(document.getElementById(viewwrapperId));
       arrow       = angular.element(document.getElementById(arrowId));
       separator   = angular.element(document.getElementById(separatorId));
       rightView   = angular.element(document.getElementById(rightViewId));
 
+      var width = document.getElementById(allContainerId).offsetWidth;
+      var leftViewWidth = 250; //px
+      var viewwrapperWidth = 7; //px
+      var rightViewWidth = width - leftViewWidth - viewwrapperWidth;
+
       // set default width
-      var docWidth = $document.prop('width');
-      leftView.css('width', '250px');
-      rightView.css('width', (docWidth - 300 - 7 - 10) + 'px');
-      viewwrapper.css('width', '7px');
+      leftView.css(   'width', leftViewWidth    + 'px');
+      rightView.css(  'width', rightViewWidth   + 'px');
+      viewwrapper.css('width', viewwrapperWidth + 'px');
 
       arrow.bind('click', function() {
         var lwidth = parseInt(leftView.css('width').replace('px', ''));
