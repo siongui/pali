@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
@@ -311,7 +311,7 @@ angular.module('paliTipitaka.services', ['pali.services']).
     return serviceInstance;
   }]).
 
-  factory('tooltip', ['$rootScope', '$compile', 'offset', function($rootScope, $compile, offset) {
+  factory('tooltip', ['$rootScope', '$compile', 'offset', 'palidic', function($rootScope, $compile, offset, palidic) {
     var scope = $rootScope.$new(true);
     var isMouseInTooltip = false;
     scope.onmouseenter = function() {
@@ -323,7 +323,17 @@ angular.module('paliTipitaka.services', ['pali.services']).
       isMouseInTooltip = false;
       tooltip.css('display', 'none');
     };
-    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
+    scope.setting = $rootScope.setting;
+    $rootScope.$watch('setting', function(newValue) {
+      scope.setting = newValue;
+    });
+    scope.shortDicName = palidic.shortName;
+    scope.shortDicExp = palidic.shortExp;
+
+    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()">' +
+      '<span ng-show="isNoSuchWord" i18n str="No Such Word">No Such Word</span>' +
+      '<div ng-hide="isNoSuchWord"><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>' +
+    '</div>')(scope);
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
@@ -356,17 +366,23 @@ angular.module('paliTipitaka.services', ['pali.services']).
           var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
           if (newLeft < 0) newLeft = 0;
           tooltip.css('left', Math.floor(newLeft) + 'px');
-          // make browser to re-draw
-          tooltip.children().remove();
-          tooltip.html(content);
         }
+        scope.$apply();
       }, 10);
     }
 
     function show(element, content) {
-      setTooltipPosition(getAngularElement(element))
-      tooltip.children().remove();
-      tooltip.html(content);
+      var elm = getAngularElement(element);
+      setTooltipPosition(elm)
+      if (angular.isString(content)) {
+        scope.currentSelectedWord = content;
+        scope.dicWordExps = undefined;
+        scope.isNoSuchWord = true;
+      } else {
+        scope.currentSelectedWord = elm[0].innerHTML;
+        scope.dicWordExps = content;
+        scope.isNoSuchWord = false;
+      }
       tooltip.css('display', '');
       adjustTooltipRatio(content);
     }
