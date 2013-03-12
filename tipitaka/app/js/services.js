@@ -210,6 +210,23 @@ angular.module('paliTipitaka.services', ['pali.services']).
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
+    function showShortExplanationInTooltip(rawWordSpanDom) {
+      var word = rawWordSpanDom.innerHTML;
+      if (paliIndexes.isValidPaliWord(word)) {
+        xhrCors.get(word).then( angular.bind(rawWordSpanDom, function(jsonData) {
+          // get jsonData successfully by xhr CORS
+          tooltip.show(this, jsonData);
+        }), angular.bind(rawWordSpanDom, function(reason) {
+          // fail to get word via xhr CORS
+          tooltip.show(this, word);
+        }));
+        $rootScope.$apply();
+      } else {
+        // not a word present in indexes
+        tooltip.show(rawWordSpanDom, word);
+      }
+    }
+
     function onWordMouseOver(e) {
       this.style.color = 'red';
       if (!$rootScope.setting.showTooltip) return;
@@ -218,19 +235,7 @@ angular.module('paliTipitaka.services', ['pali.services']).
         // 'this' keyword here refers to raw dom element
         if (this.style.color === 'red') {
           // mouse is still on word
-          var word = this.innerHTML;
-          if (paliIndexes.isValidPaliWord(word)) {
-            xhrCors.get(word).then( angular.bind(this, function(jsonData) {
-              tooltip.show(this, jsonData);
-            }), angular.bind(this, function(reason) {
-              // fail to get word via xhr CORS
-              tooltip.show(this, word);
-            }));
-            $rootScope.$apply();
-          } else {
-            // not a word present in our indexes
-            tooltip.show(this, word);
-          }
+          showShortExplanationInTooltip(this);
         }
       }), DELAY_INTERVAL);
     }
