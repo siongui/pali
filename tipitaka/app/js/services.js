@@ -116,8 +116,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'shortDicNameExps',
-                function($rootScope, htmlString2Dom, tooltip, jqlext, shortDicNameExps) {
+  factory('paliwords', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'shortDicNameExps', 'paliIndexes',
+                function($rootScope, htmlString2Dom, tooltip, jqlext, shortDicNameExps, paliIndexes) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
@@ -161,6 +161,14 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       }), DELAY_INTERVAL);
     }
 
+    function onWordDbclick(e) {
+      var word = this.innerHTML.toLowerCase();
+      if (!paliIndexes.isValidPaliWord(word)) return;
+      var url = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
+      if ($rootScope.isDevServer) url += '?track=no';
+      window.open(url);
+    }
+
     function toDom(string) {
       // wrap all pali words in span
       var spanContainer = htmlString2Dom.string2dom(markInSpan(string));
@@ -170,7 +178,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         if (tagName && tagName.toLowerCase() === 'span') {
           node.onmouseover = onWordMouseOver;
           node.onmouseout = onWordMouseOut;
-          //node.ondblclick = onWordDbclick;
+          node.ondblclick = onWordDbclick;
         }
       }
       return spanContainer;
