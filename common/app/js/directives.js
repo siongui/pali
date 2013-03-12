@@ -16,6 +16,7 @@ angular.module('pali.directives', []).
          *                   else return false.
          */
         function checkParent(target, element) {
+          if (angular.isUndefined(target)) return false;
           // Chrome and Firefox use parentNode, while Opera use offsetParent
           while(target.parentNode) {
             if( target == element ) return true;
@@ -58,6 +59,7 @@ angular.module('pali.directives', []).
          *                   else return false.
          */
         function checkParent(target, element) {
+          if (angular.isUndefined(target)) return false;
           // Chrome and Firefox use parentNode, while Opera use offsetParent
           while(target.parentNode) {
             if( target == element ) return true;
