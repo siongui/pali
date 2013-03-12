@@ -130,8 +130,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
          function(shortNameExps) {
            tooltip.show(tooltipPosition, shortNameExps);
       }, function(reason) {
-           // TODO: show different reason here
-           tooltip.show(tooltipPosition, shortDicNameExps.getNoSuchWord());
+           tooltip.show(tooltipPosition, reason);
       });
       $rootScope.$apply();
     }
@@ -216,6 +215,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     var lookingUp = $compile('<span>{{_("Looking up")}} <span style="color: GoldenRod;">{{currentSelectedWord}}</span> ...</span>')($rootScope);
     var noSuchWord = $compile('<span>{{_("No Such Word")}}</span>')($rootScope);
+    var netErr = $compile('<span>{{_("Internet Connection Error")}}</span>')($rootScope);
 
     function getLookingUp(word) {
       $rootScope.currentSelectedWord = word;
@@ -235,12 +235,12 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
           return shortDicNameExps;
         }, function(reason) {
           // fail to get word via xhr CORS
-          return reason;
+          return netErr;
         });
       } else {
         // not a word present in indexes
         var deferred = $q.defer();
-        deferred.reject('not in index');
+        deferred.reject(noSuchWord);
         return deferred.promise;
       }
     }
