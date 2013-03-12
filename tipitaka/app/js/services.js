@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
@@ -219,7 +219,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
     });
     scope.shortDicName = palidic.shortName;
     scope.shortDicExp = palidic.shortExp;
-    var shortDicNameExps = $compile('<div><span>{{currentSelectedWord}}</span><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>')(scope);
+    var shortDicNameExps = $compile('<div><span style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;">{{currentSelectedWord}}</span><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>')(scope);
 
     function showShortExplanationInTooltip(rawWordSpanDom) {
       var word = rawWordSpanDom.innerHTML;
@@ -339,7 +339,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
       isMouseInTooltip = false;
       tooltip.css('display', 'none');
     };
-    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
+    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
