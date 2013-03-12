@@ -318,13 +318,7 @@ angular.module('paliTipitaka.services', ['pali.services']).
       isMouseInTooltip = false;
       tooltip.css('display', 'none');
     };
-    var tooltip = $compile('<div ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
-    tooltip.css('display', 'none');
-    tooltip.css('position', 'absolute');
-    tooltip.css('background-color', '#CCFFFF');
-    tooltip.css('border-radius', '10px');
-    tooltip.css('padding', '.5em');
-    tooltip.css('font-family', 'Tahoma, Arial, serif');
+    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
@@ -347,11 +341,29 @@ angular.module('paliTipitaka.services', ['pali.services']).
       tooltip.css('top', offset.get(elm).top + elm.prop('offsetHeight') + 'px');
     }
 
+    function adjustTooltipRatio(content) {
+      // offsetWidth and offsetHeight will be 0 if no delay
+      setTimeout( function() {
+        var width = tooltip.prop('offsetWidth');
+        var height = tooltip.prop('offsetHeight');
+        if (height/width > 2) {
+          //console.log('too tall! width: ' + width + ', height: ' + height);
+          var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
+          if (newLeft < 0) newLeft = 0;
+          tooltip.css('left', Math.floor(newLeft) + 'px');
+          // make browser to re-draw
+          tooltip.children().remove();
+          tooltip.html(content);
+        }
+      }, 10);
+    }
+
     function show(element, content) {
       setTooltipPosition(getAngularElement(element))
       tooltip.children().remove();
       tooltip.html(content);
       tooltip.css('display', '');
+      adjustTooltipRatio(content);
     }
 
     function hide() {
