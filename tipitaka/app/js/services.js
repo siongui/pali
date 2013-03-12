@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
@@ -305,31 +305,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('offset', [function() {
-    function offset(elm) {
-      if (window.jQuery)
-        return elm.offset();
-
-      var rawDom = elm[0];
-      /**
-       * getBoundingClientRect method
-       * @see http://help.dottoro.com/ljvmcrrn.php
-       */
-      var _x = 0;
-      var _y = 0;
-      var body = document.documentElement || document.body;
-      var scrollX = window.pageXOffset || body.scrollLeft;
-      var scrollY = window.pageYOffset || body.scrollTop;
-      _x = rawDom.getBoundingClientRect().left + scrollX;
-      _y = rawDom.getBoundingClientRect().top + scrollY;
-      return { left: _x, top:_y };
-    }
-
-    var serviceInstance = { get: offset };
-    return serviceInstance;
-  }]).
-
-  factory('tooltip', ['$rootScope', '$compile', 'offset', function($rootScope, $compile, offset) {
+  factory('tooltip', ['$rootScope', '$compile', 'jqlext', function($rootScope, $compile, jqlext) {
     var scope = $rootScope.$new(true);
     var isMouseInTooltip = false;
     scope.onmouseenter = function() {
@@ -341,27 +317,17 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       isMouseInTooltip = false;
       tooltip.css('display', 'none');
     };
+
+    // Wait for correct ng-mouseenter and ng-mouseleave
+    // https://github.com/angular/angular.js/pull/2134
     var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
 
-    /**
-     * @param {DOM element | angular element}
-     * @return {angular element}
-     */
-    function getAngularElement(element) {
-      if (element[0])
-        // this is element wrapped with AngularJS jqLite
-        return element;
-      else
-        // raw dom element, wrap it with jqLite
-        return angular.element(element);
-    }
-
     function setTooltipPosition(elm) {
-      tooltip.css('left', offset.get(elm).left + 'px');
-      tooltip.css('top', offset.get(elm).top + elm.prop('offsetHeight') + 'px');
+      tooltip.css('left', jqlext.offset(elm).left + 'px');
+      tooltip.css('top', jqlext.offset(elm).top + elm.prop('offsetHeight') + 'px');
     }
 
     function adjustTooltipRatio(content) {
@@ -388,7 +354,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     }
 
     function show(element, content) {
-      setTooltipPosition(getAngularElement(element));
+      setTooltipPosition(jqlext.toJqlElement(element));
       tooltip.children().remove();
       if (angular.isUndefined(content)) {
         throw 'In tooltip: content undefined!';
