@@ -35,15 +35,8 @@ angular.module('pali.tooltip', []).
           var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
           if (newLeft < 0) newLeft = 0;
           tooltip.css('left', Math.floor(newLeft) + 'px');
-          // force browser to re-draw tooltip
-          tooltip.children().remove();
-          if (angular.isUndefined(content)) {
-            throw 'In tooltip: content undefined!';
-          } else if (angular.isString(content)) {
-            tooltip.html(content);
-          } else {
-            tooltip.append(content);
-          }
+          // append something to force re-drawing tooltip
+          tooltip.append(angular.element('<span> </span>'));
         }
       }, 10);
     }
