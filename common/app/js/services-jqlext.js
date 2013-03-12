@@ -9,7 +9,12 @@ angular.module('pali.jqlext', []).
       if (window.jQuery)
         return elm.offset();
 
-      var rawDom = toRawDomElement(elm);
+      var rawDom;
+      if (isJqlElement(elm))
+        rawDom = toRawDomElement(elm);
+      else
+        rawDom = elm;
+
       /**
        * getBoundingClientRect method
        * @see http://help.dottoro.com/ljvmcrrn.php

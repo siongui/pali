@@ -112,8 +112,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['$rootScope' , '$compile', 'htmlString2Dom', 'tooltip', 'xhrCors', 'paliIndexes', 'palidic',
-                function($rootScope, $compile, htmlString2Dom, tooltip, xhrCors, paliIndexes, palidic) {
+  factory('paliwords', ['$rootScope' , '$compile', 'htmlString2Dom', 'tooltip', 'xhrCors', 'paliIndexes', 'palidic', 'jqlext',
+                function($rootScope, $compile, htmlString2Dom, tooltip, xhrCors, paliIndexes, palidic, jqlext) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
@@ -130,25 +130,30 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     var lookingUp = $compile('<span>Looking up {{currentSelectedWord}} ...</span>')(scope);
 
     function showShortExplanationInTooltip(rawWordSpanDom) {
+      var tooltipPosition = {
+        'left': (jqlext.offset(rawWordSpanDom).left + 'px'),
+        'top': (jqlext.offset(rawWordSpanDom).top + rawWordSpanDom.offsetHeight + 'px')
+      };
+
       var word = rawWordSpanDom.innerHTML.toLowerCase();
       if (paliIndexes.isValidPaliWord(word)) {
         scope.currentSelectedWord = word;
-        tooltip.show(rawWordSpanDom, lookingUp);
+        tooltip.show(tooltipPosition, lookingUp);
         xhrCors.get(word).then( function(jsonData) {
           // get jsonData successfully by xhr CORS
           scope.dicWordExps = jsonData;
           setTimeout( function() {
             // delay is important here! wait AngularJS to digest!
-            tooltip.show(rawWordSpanDom, shortDicNameExps);
+            tooltip.show(tooltipPosition, shortDicNameExps);
           });
         }, function(reason) {
           // fail to get word via xhr CORS
-          tooltip.show(rawWordSpanDom, noSuchWord);
+          tooltip.show(tooltipPosition, noSuchWord);
         });
         $rootScope.$apply();
       } else {
         // not a word present in indexes
-        tooltip.show(rawWordSpanDom, noSuchWord);
+        tooltip.show(tooltipPosition, noSuchWord);
       }
     }
 
@@ -212,7 +217,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('tooltip', ['$rootScope', '$compile', 'jqlext', function($rootScope, $compile, jqlext) {
+  factory('tooltip', ['$rootScope', '$compile', function($rootScope, $compile) {
+    // init tooltip
     var scope = $rootScope.$new(true);
     var isMouseInTooltip = false;
     scope.onmouseenter = function() {
@@ -232,11 +238,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
 
-    function setTooltipPosition(elm) {
-      tooltip.css('left', jqlext.offset(elm).left + 'px');
-      tooltip.css('top', jqlext.offset(elm).top + elm.prop('offsetHeight') + 'px');
-    }
-
     function adjustTooltipRatio(content) {
       // offsetWidth and offsetHeight will be 0 if no delay
       setTimeout( function() {
@@ -247,7 +248,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
           var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
           if (newLeft < 0) newLeft = 0;
           tooltip.css('left', Math.floor(newLeft) + 'px');
-          // make browser to re-draw
+          // force browser to re-draw tooltip
           tooltip.children().remove();
           if (angular.isUndefined(content)) {
             throw 'In tooltip: content undefined!';
@@ -260,9 +261,13 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       }, 10);
     }
 
-    function show(element, content) {
-      setTooltipPosition(jqlext.toJqlElement(element));
+    function show(position, content) {
+      // set tooltip position
+      tooltip.css('left', position.left);
+      tooltip.css('top', position.top);
+      // remove content in tooltip
       tooltip.children().remove();
+      // set content of tooltip
       if (angular.isUndefined(content)) {
         throw 'In tooltip: content undefined!';
       } else if (angular.isString(content)) {
@@ -270,6 +275,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       } else {
         tooltip.append(content);
       }
+      // show tooltip
       tooltip.css('display', '');
       adjustTooltipRatio(content);
     }
