@@ -230,16 +230,16 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
           scope.currentSelectedWord = word;
           setTimeout( function() {
             // delay is important here! wait AngularJS to digest!
-            tooltip.show(rawWordSpanDom, shortDicNameExps.html());
+            tooltip.show(rawWordSpanDom, shortDicNameExps);
           });
         }, function(reason) {
           // fail to get word via xhr CORS
-          tooltip.show(rawWordSpanDom, noSuchWord.html());
+          tooltip.show(rawWordSpanDom, noSuchWord);
         });
         $rootScope.$apply();
       } else {
         // not a word present in indexes
-        tooltip.show(rawWordSpanDom, noSuchWord.html());
+        tooltip.show(rawWordSpanDom, noSuchWord);
       }
     }
 
