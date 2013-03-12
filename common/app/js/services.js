@@ -199,6 +199,23 @@ angular.module('pali.services', ['pali.service-dic']).
     }
 
 
+    function isValidPaliWord(paliWord) {
+      if (angular.isUndefined(paliWord)) return false;
+
+      // Remove whitespace in the beginning and end of user input string
+      var word = paliWord.replace(/(^\s+)|(\s+$)/g, "");
+
+      if (word.length === 0) return false;
+
+      if (!isValidFirstLetter(word[0])) return false;
+
+      for (var i=0; i < dicPrefixWordLists[word[0]].length; i++) {
+        if (word === dicPrefixWordLists[word[0]][i]) return true;
+      }
+      return false;
+    }
+
+
     /**
      * Given two words, determine whether they are "similar" enough (case insensitive)
      * @param {string} word1 The first word string
@@ -284,21 +301,7 @@ angular.module('pali.services', ['pali.service-dic']).
         return prefixMatchedPaliWords;
       },
 
-      isValidPaliWord: function(paliWord) {
-        if (angular.isUndefined(paliWord)) return;
-
-        // Remove whitespace in the beginning and end of user input string
-        var word = paliWord.replace(/(^\s+)|(\s+$)/g, "");
-
-        if (word.length === 0) return;
-
-        if (!isValidFirstLetter(word[0])) return;
-
-        for (var i=0; i < dicPrefixWordLists[word[0]].length; i++) {
-          if (word === dicPrefixWordLists[word[0]][i]) return true;
-        }
-        return false;
-      },
+      isValidPaliWord: isValidPaliWord,
 
       getJsonUrl: function(word) {
         // need to check sanity of argument 'word' here?
