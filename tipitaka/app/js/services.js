@@ -112,22 +112,10 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['$rootScope' , '$compile', 'htmlString2Dom', 'tooltip', 'xhrCors', 'paliIndexes', 'palidic', 'jqlext',
-                function($rootScope, $compile, htmlString2Dom, tooltip, xhrCors, paliIndexes, palidic, jqlext) {
+  factory('paliwords', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'shortDicNameExps',
+                function($rootScope, htmlString2Dom, tooltip, jqlext, shortDicNameExps) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
-
-    var noSuchWord = $compile('<span>{{_("No Such Word")}}</span>')($rootScope);
-
-    var scope = $rootScope.$new(true);
-    scope.setting = $rootScope.setting;
-    $rootScope.$watch('setting', function(newValue) {
-      scope.setting = newValue;
-    });
-    scope.shortDicName = palidic.shortName;
-    scope.shortDicExp = palidic.shortExp;
-    var shortDicNameExps = $compile('<div><span style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;">{{currentSelectedWord}}</span><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>')(scope);
-    var lookingUp = $compile('<span>Looking up {{currentSelectedWord}} ...</span>')(scope);
 
     function showShortExplanationInTooltip(rawWordSpanDom) {
       var tooltipPosition = {
@@ -136,25 +124,16 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       };
 
       var word = rawWordSpanDom.innerHTML.toLowerCase();
-      if (paliIndexes.isValidPaliWord(word)) {
-        scope.currentSelectedWord = word;
-        tooltip.show(tooltipPosition, lookingUp);
-        xhrCors.get(word).then( function(jsonData) {
-          // get jsonData successfully by xhr CORS
-          scope.dicWordExps = jsonData;
-          setTimeout( function() {
-            // delay is important here! wait AngularJS to digest!
-            tooltip.show(tooltipPosition, shortDicNameExps);
-          });
-        }, function(reason) {
-          // fail to get word via xhr CORS
-          tooltip.show(tooltipPosition, noSuchWord);
-        });
-        $rootScope.$apply();
-      } else {
-        // not a word present in indexes
-        tooltip.show(tooltipPosition, noSuchWord);
-      }
+      tooltip.show(tooltipPosition, shortDicNameExps.getLookingUp(word));
+
+      shortDicNameExps.get(word, $rootScope.setting).then(
+         function(shortNameExps) {
+           tooltip.show(tooltipPosition, shortNameExps);
+      }, function(reason) {
+           // TODO: show different reason here
+           tooltip.show(tooltipPosition, shortDicNameExps.getNoSuchWord());
+      });
+      $rootScope.$apply();
     }
 
     function onWordMouseOver(e) {
@@ -214,5 +193,62 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     }
 
     var serviceInstance = { string2dom: string2dom };
+    return serviceInstance;
+  }]).
+
+  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'xhrCors', 'paliIndexes', 'palidic',
+                      function($rootScope, $compile, $q, xhrCors, paliIndexes, palidic) {
+    // require 'pali.filters' module
+    var scope = $rootScope.$new(true);
+    // FIXME: bad practice!!! don't use $rootScope.setting here!!!
+    scope.setting = $rootScope.setting;
+    scope.shortDicName = palidic.shortName;
+    scope.shortDicExp = palidic.shortExp;
+    var shortDicNameExps = $compile('<div>' +
+        '<span style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;">' + 
+          '{{currentSelectedWord}}' +
+        '</span>' +
+        '<div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting">' +
+          '<span style="color: red;">{{shortDicName(dicWordExp)}}</span>' +
+          '<span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span>' +
+        '</div>' +
+      '</div>')(scope);
+
+    var lookingUp = $compile('<span>{{_("Looking up")}} <span style="color: GoldenRod;">{{currentSelectedWord}}</span> ...</span>')($rootScope);
+    var noSuchWord = $compile('<span>{{_("No Such Word")}}</span>')($rootScope);
+
+    function getLookingUp(word) {
+      $rootScope.currentSelectedWord = word;
+      return lookingUp;
+    }
+
+    function getNoSuchWord() { return noSuchWord; }
+
+    function getShortDicExps(word, setting) {
+      // TODO: pre-process word (toLowerCase() etc.) here
+      scope.setting = setting;
+      if (paliIndexes.isValidPaliWord(word)) {
+        scope.currentSelectedWord = word;
+        return xhrCors.get(word).then( function(jsonData) {
+          // get jsonData successfully by xhr CORS
+          scope.dicWordExps = jsonData;
+          return shortDicNameExps;
+        }, function(reason) {
+          // fail to get word via xhr CORS
+          return reason;
+        });
+      } else {
+        // not a word present in indexes
+        var deferred = $q.defer();
+        deferred.reject('not in index');
+        return deferred.promise;
+      }
+    }
+
+    var serviceInstance = {
+      getLookingUp: getLookingUp,
+      getNoSuchWord: getNoSuchWord,
+      get: getShortDicExps
+    };
     return serviceInstance;
   }]);
