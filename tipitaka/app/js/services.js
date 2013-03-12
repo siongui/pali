@@ -220,14 +220,16 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     scope.shortDicName = palidic.shortName;
     scope.shortDicExp = palidic.shortExp;
     var shortDicNameExps = $compile('<div><span style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;">{{currentSelectedWord}}</span><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>')(scope);
+    var lookingUp = $compile('<span>Looking up {{currentSelectedWord}} ...</span>')(scope);
 
     function showShortExplanationInTooltip(rawWordSpanDom) {
-      var word = rawWordSpanDom.innerHTML;
+      var word = rawWordSpanDom.innerHTML.toLowerCase();
       if (paliIndexes.isValidPaliWord(word)) {
+        scope.currentSelectedWord = word;
+        tooltip.show(rawWordSpanDom, lookingUp);
         xhrCors.get(word).then( function(jsonData) {
           // get jsonData successfully by xhr CORS
           scope.dicWordExps = jsonData;
-          scope.currentSelectedWord = word;
           setTimeout( function() {
             // delay is important here! wait AngularJS to digest!
             tooltip.show(rawWordSpanDom, shortDicNameExps);
