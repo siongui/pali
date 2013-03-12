@@ -205,25 +205,41 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['$rootScope', 'htmlString2Dom', 'tooltip', 'xhrCors', 'paliIndexes',
-                function($rootScope, htmlString2Dom, tooltip, xhrCors, paliIndexes) {
+  factory('paliwords', ['$rootScope' , '$compile', 'htmlString2Dom', 'tooltip', 'xhrCors', 'paliIndexes', 'palidic',
+                function($rootScope, $compile, htmlString2Dom, tooltip, xhrCors, paliIndexes, palidic) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
+
+    var noSuchWord = $compile('<span>{{_("No Such Word")}}</span>')($rootScope);
+
+    var scope = $rootScope.$new(true);
+    scope.setting = $rootScope.setting;
+    $rootScope.$watch('setting', function(newValue) {
+      scope.setting = newValue;
+    });
+    scope.shortDicName = palidic.shortName;
+    scope.shortDicExp = palidic.shortExp;
+    var shortDicNameExps = $compile('<div><span>{{currentSelectedWord}}</span><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>')(scope);
 
     function showShortExplanationInTooltip(rawWordSpanDom) {
       var word = rawWordSpanDom.innerHTML;
       if (paliIndexes.isValidPaliWord(word)) {
-        xhrCors.get(word).then( angular.bind(rawWordSpanDom, function(jsonData) {
+        xhrCors.get(word).then( function(jsonData) {
           // get jsonData successfully by xhr CORS
-          tooltip.show(this, jsonData);
-        }), angular.bind(rawWordSpanDom, function(reason) {
+          scope.dicWordExps = jsonData;
+          scope.currentSelectedWord = word;
+          setTimeout( function() {
+            // delay is important here! wait AngularJS to digest!
+            tooltip.show(rawWordSpanDom, shortDicNameExps.html());
+          });
+        }, function(reason) {
           // fail to get word via xhr CORS
-          tooltip.show(this, word);
-        }));
+          tooltip.show(rawWordSpanDom, noSuchWord.html());
+        });
         $rootScope.$apply();
       } else {
         // not a word present in indexes
-        tooltip.show(rawWordSpanDom, word);
+        tooltip.show(rawWordSpanDom, noSuchWord.html());
       }
     }
 
@@ -311,7 +327,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
     return serviceInstance;
   }]).
 
-  factory('tooltip', ['$rootScope', '$compile', 'offset', 'palidic', function($rootScope, $compile, offset, palidic) {
+  factory('tooltip', ['$rootScope', '$compile', 'offset', function($rootScope, $compile, offset) {
     var scope = $rootScope.$new(true);
     var isMouseInTooltip = false;
     scope.onmouseenter = function() {
@@ -323,17 +339,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
       isMouseInTooltip = false;
       tooltip.css('display', 'none');
     };
-    scope.setting = $rootScope.setting;
-    $rootScope.$watch('setting', function(newValue) {
-      scope.setting = newValue;
-    });
-    scope.shortDicName = palidic.shortName;
-    scope.shortDicExp = palidic.shortExp;
-
-    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()">' +
-      '<span ng-show="isNoSuchWord" i18n str="No Such Word">No Such Word</span>' +
-      '<div ng-hide="isNoSuchWord"><div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting"><span style="color: red;">{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div></div>' +
-    '</div>')(scope);
+    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" ng-mouseenter="onmouseenter()" ng-mouseleave="onmouseleave()"></div>')(scope);
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
@@ -366,22 +372,28 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters']).
           var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
           if (newLeft < 0) newLeft = 0;
           tooltip.css('left', Math.floor(newLeft) + 'px');
+          // make browser to re-draw
+          tooltip.children().remove();
+          if (angular.isUndefined(content)) {
+            throw 'In tooltip: content undefined!';
+          } else if (angular.isString(content)) {
+            tooltip.html(content);
+          } else {
+            tooltip.append(content);
+          }
         }
-        scope.$apply();
       }, 10);
     }
 
     function show(element, content) {
-      var elm = getAngularElement(element);
-      setTooltipPosition(elm)
-      if (angular.isString(content)) {
-        scope.currentSelectedWord = content;
-        scope.dicWordExps = undefined;
-        scope.isNoSuchWord = true;
+      setTooltipPosition(getAngularElement(element));
+      tooltip.children().remove();
+      if (angular.isUndefined(content)) {
+        throw 'In tooltip: content undefined!';
+      } else if (angular.isString(content)) {
+        tooltip.html(content);
       } else {
-        scope.currentSelectedWord = elm[0].innerHTML;
-        scope.dicWordExps = content;
-        scope.isNoSuchWord = false;
+        tooltip.append(content);
       }
       tooltip.css('display', '');
       adjustTooltipRatio(content);
