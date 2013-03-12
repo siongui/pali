@@ -4,34 +4,56 @@
 
 
 angular.module('pali.services', ['pali.service-dic']).
-  factory('xhrCors', ['$q', 'paliIndexes', '$http', '$templateCache', '$window', function($q, paliIndexes, $http, $templateCache, $window) {
-    function get(word, scope) {
+  factory('xhrCors', ['$q', '$rootScope', '$cacheFactory', 'paliIndexes', function($q, $rootScope, $cacheFactory, paliIndexes) {
+    var cache = $cacheFactory('paliWord');
+
+    function get(word) {
       var url = paliIndexes.getJsonUrl(word);
       var deferred = $q.defer();
+      var jsonData = cache.get(url);
+      if (jsonData) {
+        deferred.resolve(jsonData);
+        return deferred.promise;
+      }
 
       // for IE8 CORS (angularjs $http does not support IE8 CORS)
-      var xmlhttp = new $window.XMLHttpRequest();
+      var xmlhttp = new window.XMLHttpRequest();
+
+      function xdrerr() {
+        deferred.reject('ie xdr failed!');
+        $rootScope.$apply();
+      }
 
       // @see http://blogs.msdn.com/b/ie/archive/2012/02/09/cors-for-xhr-in-ie10.aspx
       // @see http://bionicspirit.com/blog/2011/03/24/cross-domain-requests.html
       // @see http://msdn.microsoft.com/en-us/library/ie/cc288060(v=vs.85).aspx
       if ("withCredentials" in xmlhttp) {
         // standard compliant browsers
-        $http({method: 'GET', url: url, cache: $templateCache, headers: { 'X-Requested-With': ''}}).
-          success(function(data, status) {
-            deferred.resolve(data);
-          }).
-          error(function(data, status) {
-            deferred.reject(status);
-        });
+        xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200 || xmlhttp.status == 304) {
+              var jsonData = eval('(' + xmlhttp.responseText + ')');
+              cache.put(url, jsonData);
+              deferred.resolve(jsonData);
+            } else {
+              deferred.reject(xmlhttp.status);
+            }
+            $rootScope.$apply();
+          }
+        }
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
       } else {
         // IE8
         var xdr = new XDomainRequest();
-        xdr.onerror = function() {deferred.reject('ie xdr failed!');};
-        xdr.ontimeout = function() {deferred.reject('ie xdr failed!');};
+        xdr.onerror = xdrerr;
+        xdr.ontimeout = xdrerr;
         xdr.onload = function() {
-          deferred.resolve(eval('(' + xdr.responseText + ')'));
-          scope.$apply();
+          var jsonData = eval('(' + xdr.responseText + ')');
+          cache.put(url, jsonData);
+          deferred.resolve(jsonData);
+          $rootScope.$apply();
         };
 
         xdr.open("get", url);
@@ -41,10 +63,7 @@ angular.module('pali.services', ['pali.service-dic']).
       return deferred.promise;
     }
 
-    var serviceInstance = {
-      get: get
-    };
-
+    var serviceInstance = { get: get };
     return serviceInstance;
   }]).
 
