@@ -216,9 +216,9 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     scope.shortDicName = palidic.shortName;
     scope.shortDicExp = palidic.shortExp;
     var shortDicNameExps = $compile('<div>' +
-        '<span style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;">' + 
+        '<a style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;" href="{{wordUrl}}" target="_blank">' + 
           '{{currentSelectedWord}}' +
-        '</span>' +
+        '</a>' +
         '<div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting">' +
           '<span style="color: red;">{{shortDicName(dicWordExp)}}</span>' +
           '<span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span>' +
@@ -241,6 +241,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       scope.setting = setting;
       if (paliIndexes.isValidPaliWord(word)) {
         scope.currentSelectedWord = word;
+        scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
+        if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
         return xhrCors.get(word).then( function(jsonData) {
           // get jsonData successfully by xhr CORS
           scope.dicWordExps = jsonData;
