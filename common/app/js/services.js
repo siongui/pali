@@ -209,15 +209,23 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
     }
 
 
-    function isValidPaliWord(paliWord) {
-      if (angular.isUndefined(paliWord)) return false;
+    function processWord(paliWord) {
+      if (angular.isUndefined(paliWord)) return;
 
       // Remove whitespace in the beginning and end of user input string
       var word = paliWord.replace(/(^\s+)|(\s+$)/g, "");
 
-      if (word.length === 0) return false;
+      if (word.length === 0) return;
 
-      if (!isValidFirstLetter(word[0])) return false;
+      if (!isValidFirstLetter(word[0])) return;
+
+      return word;
+    }
+
+
+    function isValidPaliWord(paliWord) {
+      var word = processWord(paliWord);
+      if (angular.isUndefined(word)) return false;
 
       for (var i=0; i < dicPrefix.WordLists[word[0]].length; i++) {
         if (word === dicPrefix.WordLists[word[0]][i]) return true;
@@ -264,53 +272,61 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
     }
 
 
-    var serviceInstance = {
-      prefixMatch: function(paliWord) {
-        if (angular.isUndefined(paliWord)) return;
+    function prefixMatch(paliWord) {
+      var word = processWord(paliWord);
+      if (angular.isUndefined(word)) return;
 
-        // Remove whitespace in the beginning and end of user input string
-        var word = paliWord.replace(/(^\s+)|(\s+$)/g, "");
+      /**
+       * Array which contains words that start with 'word[0]'
+       * @type {Array}
+       * @private
+       */
+      var array = dicPrefix.WordLists[word[0]];
+      /**
+       * FIXME: do something like: array[u_and_ū] = array[u].concat[array[ū]]
+       */
 
-        if (word.length === 0) return;
+      var prefixMatchedPaliWords = [];
+      var prefixExactMatchedPaliWords = [];
+      var prefixFuzzyMatchedPaliWords = [];
 
-        if (!isValidFirstLetter(word[0])) return;
-
-        /**
-         * Array which contains words that start with 'word[0]'
-         * @type {Array}
-         * @private
-         */
-        var array = dicPrefix.WordLists[word[0]];
-        /**
-         * FIXME: do something like: array[u_and_ū] = array[u].concat[array[ū]]
-         */
-
-        var prefixMatchedPaliWords = [];
-        var prefixExactMatchedPaliWords = [];
-        var prefixFuzzyMatchedPaliWords = [];
-
-        for (var i=0; i < array.length; i++ ) {
-          if (wordExactMatch(word, array[i])) {
-            // exact prefix match of user input string and word string
-            prefixExactMatchedPaliWords.push(array[i]);
-          } else {
-            // fuzzy prefix match of user input string and word string
-            if (wordFuzzyMatch(word, array[i])) {
-              prefixFuzzyMatchedPaliWords.push(array[i]);
-            }
+      for (var i=0; i < array.length; i++ ) {
+        if (wordExactMatch(word, array[i])) {
+          // exact prefix match of user input string and word string
+          prefixExactMatchedPaliWords.push(array[i]);
+        } else {
+          // fuzzy prefix match of user input string and word string
+          if (wordFuzzyMatch(word, array[i])) {
+            prefixFuzzyMatchedPaliWords.push(array[i]);
           }
-
-          if (prefixExactMatchedPaliWords.length === MAX_NUMBER_OF_MATCHED_WORDS) break;
         }
 
-        prefixMatchedPaliWords = prefixExactMatchedPaliWords.concat(prefixFuzzyMatchedPaliWords);
+        if (prefixExactMatchedPaliWords.length === MAX_NUMBER_OF_MATCHED_WORDS) break;
+      }
 
-        if (prefixMatchedPaliWords.length === 0) return;
-        if (prefixMatchedPaliWords.length > MAX_NUMBER_OF_MATCHED_WORDS)
-          return prefixMatchedPaliWords.slice(0, MAX_NUMBER_OF_MATCHED_WORDS);
-        return prefixMatchedPaliWords;
-      },
+      prefixMatchedPaliWords = prefixExactMatchedPaliWords.concat(prefixFuzzyMatchedPaliWords);
 
+      if (prefixMatchedPaliWords.length === 0) return;
+      if (prefixMatchedPaliWords.length > MAX_NUMBER_OF_MATCHED_WORDS)
+        return prefixMatchedPaliWords.slice(0, MAX_NUMBER_OF_MATCHED_WORDS);
+      return prefixMatchedPaliWords;
+    }
+
+
+    function longestPrefixMatchedWord(paliWord) {
+      var word = processWord(paliWord);
+      if (angular.isUndefined(word)) return;
+
+      for (var i = word.length; i>0 ; i--) {
+        if (isValidPaliWord(word.slice(0, i)))
+          return word.slice(0, i);
+      }
+    }
+
+
+    var serviceInstance = {
+      prefixMatch: prefixMatch,
+      longestPrefixMatchedWord: longestPrefixMatchedWord,
       isValidPaliWord: isValidPaliWord,
 
       getJsonUrl: function(word) {
