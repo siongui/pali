@@ -219,6 +219,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         '<a style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;" href="{{wordUrl}}" target="_blank">' + 
           '{{currentSelectedWord}}' +
         '</a>' +
+        ' <span style="color: GoldenRod;" ng-show="isGuessedWord">({{oriWord}} => {{guessedWord}})</span>' +
         '<div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting">' +
           '<span style="color: red;">{{shortDicName(dicWordExp)}}</span>' +
           '<span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span>' +
@@ -241,6 +242,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       scope.setting = setting;
       if (paliIndexes.isValidPaliWord(word)) {
         scope.currentSelectedWord = word;
+        scope.isGuessedWord = false;
         scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
         if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
         return paliJson.get(word).then( function(jsonData) {
@@ -258,6 +260,9 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         if (guessedWord !== null) {
           // guess success
           scope.currentSelectedWord = guessedWord;
+          scope.oriWord = word;
+          scope.guessedWord = guessedWord;
+          scope.isGuessedWord = true;
           scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + guessedWord[0] + '/' + guessedWord;
           if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
           return paliJson.get(guessedWord).then( function(jsonData) {
