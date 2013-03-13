@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('pali.services', ['pali.service-dic']).
+angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
   factory('paliJson', ['$q', '$cacheFactory', 'paliIndexes', 'xhrCors', function($q, $cacheFactory, paliIndexes, xhrCors) {
     var cache = $cacheFactory('paliJson');
 
@@ -82,12 +82,7 @@ angular.module('pali.services', ['pali.service-dic']).
     return serviceInstance;
   }]).
 
-  factory('paliIndexes', [function() {
-    // dicPrefixWordLists and dicPrefixGroup comes from /js/dicPrefix.js
-    if (!angular.isObject(dicPrefixWordLists))
-      throw 'Exception: no dicPrefixWordLists';
-    if (!angular.isObject(dicPrefixGroup))
-      throw 'Exception: no dicPrefixGroup';
+  factory('paliIndexes', ['dicPrefix', function(dicPrefix) {
 
     var MAX_NUMBER_OF_MATCHED_WORDS = 30;
 
@@ -206,8 +201,8 @@ angular.module('pali.services', ['pali.service-dic']).
      * @private
      */
     function isValidFirstLetter(letter) {
-      for (var key in dicPrefixWordLists) {
-        if (dicPrefixWordLists.hasOwnProperty(key) && key === letter) return true;
+      for (var key in dicPrefix.WordLists) {
+        if (dicPrefix.WordLists.hasOwnProperty(key) && key === letter) return true;
       }
 
       return false;
@@ -224,8 +219,8 @@ angular.module('pali.services', ['pali.service-dic']).
 
       if (!isValidFirstLetter(word[0])) return false;
 
-      for (var i=0; i < dicPrefixWordLists[word[0]].length; i++) {
-        if (word === dicPrefixWordLists[word[0]][i]) return true;
+      for (var i=0; i < dicPrefix.WordLists[word[0]].length; i++) {
+        if (word === dicPrefix.WordLists[word[0]][i]) return true;
       }
       return false;
     }
@@ -285,7 +280,7 @@ angular.module('pali.services', ['pali.service-dic']).
          * @type {Array}
          * @private
          */
-        var array = dicPrefixWordLists[word[0]];
+        var array = dicPrefix.WordLists[word[0]];
         /**
          * FIXME: do something like: array[u_and_ū] = array[u].concat[array[ū]]
          */
@@ -321,7 +316,7 @@ angular.module('pali.services', ['pali.service-dic']).
       getJsonUrl: function(word) {
         // need to check sanity of argument 'word' here?
 
-        return 'http://jsons' + dicPrefixGroup[word[0]] +
+        return 'http://jsons' + dicPrefix.Group[word[0]] +
                '.palidictionary.appspot.com/json/' +
                window.encodeURIComponent(word[0]).replace(/%/g, 'Z') + '/' +
                window.encodeURIComponent(word).replace(/%/g, 'Z') + '.json';
@@ -331,7 +326,7 @@ angular.module('pali.services', ['pali.service-dic']).
         if (!isValidFirstLetter(prefix))
           return;
         else
-          return dicPrefixWordLists[prefix];
+          return dicPrefix.WordLists[prefix];
       }
     };
 
