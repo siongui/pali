@@ -82,7 +82,7 @@ angular.module('pali.services', ['pali.service-dic']).
     return serviceInstance;
   }]).
 
-  factory('paliIndexes', ['$window', function($window) {
+  factory('paliIndexes', [function() {
     // dicPrefixWordLists and dicPrefixGroup comes from /js/dicPrefix.js
     if (!angular.isObject(dicPrefixWordLists))
       throw 'Exception: no dicPrefixWordLists';
@@ -323,8 +323,8 @@ angular.module('pali.services', ['pali.service-dic']).
 
         return 'http://jsons' + dicPrefixGroup[word[0]] +
                '.palidictionary.appspot.com/json/' +
-               $window.encodeURIComponent(word[0]).replace(/%/g, 'Z') + '/' +
-               $window.encodeURIComponent(word).replace(/%/g, 'Z') + '.json';
+               window.encodeURIComponent(word[0]).replace(/%/g, 'Z') + '/' +
+               window.encodeURIComponent(word).replace(/%/g, 'Z') + '.json';
       },
 
       getWordsStartsWithPrefix: function(prefix) {

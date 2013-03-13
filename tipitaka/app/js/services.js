@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext', 'pali.guess']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
@@ -207,8 +207,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'paliJson', 'paliIndexes', 'palidic',
-                      function($rootScope, $compile, $q, paliJson, paliIndexes, palidic) {
+  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'paliJson', 'paliIndexes', 'palidic', 'paliGuess',
+                      function($rootScope, $compile, $q, paliJson, paliIndexes, palidic, paliGuess) {
     // require 'pali.filters' module
     var scope = $rootScope.$new(true);
     // FIXME: bad practice!!! don't use $rootScope.setting here!!!
@@ -253,9 +253,26 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         });
       } else {
         // not a word present in indexes
-        var deferred = $q.defer();
-        deferred.reject(noSuchWord);
-        return deferred.promise;
+        // guess the word
+        var guessedWord = paliGuess.guessWordBySuffix(word);
+        if (guessedWord !== null) {
+          // guess success
+          scope.currentSelectedWord = guessedWord;
+          scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + guessedWord[0] + '/' + guessedWord;
+          return paliJson.get(guessedWord).then( function(jsonData) {
+            // get jsonData successfully by xhr CORS
+            scope.dicWordExps = jsonData;
+            return shortDicNameExps;
+          }, function(reason) {
+            // fail to get word via xhr CORS
+            return netErr;
+          });
+        } else {
+          // not a word in indexes and guess failed => no such word
+          var deferred = $q.defer();
+          deferred.reject(noSuchWord);
+          return deferred.promise;
+        }
       }
     }
 
