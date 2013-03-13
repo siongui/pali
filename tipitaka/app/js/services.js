@@ -75,7 +75,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('htmlDoc2View', ['paliwords', function(paliwords) {
+  factory('htmlDoc2View', ['paliString', function(paliString) {
     /**
      * wrap all words in the element
      * @param {DOM element} FIXME: is this HTML or XML dom element?
@@ -94,7 +94,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         var string = xmlElement.nodeValue;
         if (string.replace(/\s*/, '') !== '')
           // string is not whitespace
-          xmlElement.parentNode.replaceChild(paliwords.toDom(string), xmlElement);
+          xmlElement.parentNode.replaceChild(paliString.toDom(string), xmlElement);
         return;
       }
 
@@ -116,7 +116,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliwords', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'shortDicNameExps', 'paliIndexes',
+  factory('paliString', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'shortDicNameExps', 'paliIndexes',
                 function($rootScope, htmlString2Dom, tooltip, jqlext, shortDicNameExps, paliIndexes) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
@@ -207,8 +207,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'xhrCors', 'paliIndexes', 'palidic',
-                      function($rootScope, $compile, $q, xhrCors, paliIndexes, palidic) {
+  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'paliJson', 'paliIndexes', 'palidic',
+                      function($rootScope, $compile, $q, paliJson, paliIndexes, palidic) {
     // require 'pali.filters' module
     var scope = $rootScope.$new(true);
     // FIXME: bad practice!!! don't use $rootScope.setting here!!!
@@ -243,7 +243,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         scope.currentSelectedWord = word;
         scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
         if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
-        return xhrCors.get(word).then( function(jsonData) {
+        return paliJson.get(word).then( function(jsonData) {
           // get jsonData successfully by xhr CORS
           scope.dicWordExps = jsonData;
           return shortDicNameExps;

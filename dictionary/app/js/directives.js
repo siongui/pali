@@ -20,7 +20,7 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
       }
     };
   }).
-  directive('autoSuggest', ['paliIndexes', '$location', 'xhrCors', 'palidic', '$rootScope', function(paliIndexes, $location, xhrCors, palidic, $rootScope) {
+  directive('autoSuggest', ['paliIndexes', '$location', 'paliJson', 'palidic', '$rootScope', function(paliIndexes, $location, paliJson, palidic, $rootScope) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -185,7 +185,7 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
 
         scope.$watch('currentSelectedWord()', function(newValue, oldValue) {
           if (scope.setting.isShowWordPreview && angular.isDefined(newValue)) {
-            var promise = xhrCors.get(newValue, scope);
+            var promise = paliJson.get(newValue);
             promise.then(function(jsonData) {
               scope.dicWordExps = jsonData;
             }, function(reason) {

@@ -4,23 +4,42 @@
 
 
 angular.module('pali.services', ['pali.service-dic']).
-  factory('xhrCors', ['$q', '$rootScope', '$cacheFactory', 'paliIndexes', function($q, $rootScope, $cacheFactory, paliIndexes) {
-    var cache = $cacheFactory('paliWord');
+  factory('paliJson', ['$q', '$cacheFactory', 'paliIndexes', 'xhrCors', function($q, $cacheFactory, paliIndexes, xhrCors) {
+    var cache = $cacheFactory('paliJson');
 
     function get(word) {
       var url = paliIndexes.getJsonUrl(word);
-      var deferred = $q.defer();
+
       var jsonData = cache.get(url);
       if (jsonData) {
+        // cache hit: json data in cache
+        var deferred = $q.defer();
         deferred.resolve(jsonData);
         return deferred.promise;
+      } else {
+        return xhrCors.get(url).then( function(jsonData) {
+          cache.put(url, jsonData);
+          return jsonData;
+        }, function(reason) {
+          return reason;
+        });
       }
+    }
+
+    var serviceInstance = { get: get };
+    return serviceInstance;
+  }]).
+
+  factory('xhrCors', ['$q', '$rootScope', function($q, $rootScope) {
+
+    function get(url) {
+      var deferred = $q.defer();
 
       // for IE8 CORS (angularjs $http does not support IE8 CORS)
       var xmlhttp = new window.XMLHttpRequest();
 
       function xdrerr() {
-        deferred.reject('ie xdr failed!');
+        deferred.reject('IE XDomainRequest failed!');
         $rootScope.$apply();
       }
 
@@ -32,9 +51,7 @@ angular.module('pali.services', ['pali.service-dic']).
         xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4) {
             if (xmlhttp.status == 200 || xmlhttp.status == 304) {
-              var jsonData = eval('(' + xmlhttp.responseText + ')');
-              cache.put(url, jsonData);
-              deferred.resolve(jsonData);
+              deferred.resolve( eval('(' + xmlhttp.responseText + ')') );
             } else {
               deferred.reject(xmlhttp.status);
             }
@@ -50,9 +67,7 @@ angular.module('pali.services', ['pali.service-dic']).
         xdr.onerror = xdrerr;
         xdr.ontimeout = xdrerr;
         xdr.onload = function() {
-          var jsonData = eval('(' + xdr.responseText + ')');
-          cache.put(url, jsonData);
-          deferred.resolve(jsonData);
+          deferred.resolve( eval('(' + xdr.responseText + ')') );
           $rootScope.$apply();
         };
 

@@ -61,7 +61,7 @@ function prefixCtrl($scope, $route, paliIndexes, i18nserv) {
 prefixCtrl.$inject = ['$scope', '$route', 'paliIndexes', 'i18nserv'];
 
 
-function wordCtrl($scope, $route, xhrCors, i18nserv) {
+function wordCtrl($scope, $route, paliJson, i18nserv) {
   $scope.$parent.message = 'lookingUp';
   $scope.data = undefined;
   $scope.word = $route.current.params.word;
@@ -70,7 +70,7 @@ function wordCtrl($scope, $route, xhrCors, i18nserv) {
   document.title = $scope.word + ' - ' + i18nserv.gettext('Definition and Meaning', $scope.i18nLocale) + ' - '
     + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary', $scope.i18nLocale);
 
-  var promise = xhrCors.get($scope.word, $scope);
+  var promise = paliJson.get($scope.word);
   promise.then(function(jsonData) {
     $scope.$parent.message = '';
     $scope.data = jsonData;
@@ -78,4 +78,4 @@ function wordCtrl($scope, $route, xhrCors, i18nserv) {
     $scope.$parent.message = 'netError';
   });
 }
-wordCtrl.$inject = ['$scope', '$route', 'xhrCors', 'i18nserv'];
+wordCtrl.$inject = ['$scope', '$route', 'paliJson', 'i18nserv'];
