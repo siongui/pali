@@ -6,8 +6,12 @@
 angular.module('pali.jqlext', []).
   factory('jqlext', [function() {
     function offset(elm) {
-      if (window.jQuery)
-        return elm.offset();
+      if (window.jQuery) {
+        if (isJqlElement(elm))
+          return elm.offset();
+        else
+          return angular.element(elm).offset();
+      }
 
       var rawDom;
       if (isJqlElement(elm))
