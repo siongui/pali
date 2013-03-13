@@ -85,6 +85,7 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
   factory('paliIndexes', ['dicPrefix', function(dicPrefix) {
 
     var MAX_NUMBER_OF_MATCHED_WORDS = 30;
+    var MAX_NUMBER_OF_POSSIBLE_WORDS = 10;
 
     /**
      * Fuzzy Map romanized pāli letters to English counterpart letters.
@@ -313,6 +314,43 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
     }
 
 
+    function prefixExactMatch(word) {
+      // no need to call processWord() because this function is
+      // only used by possibleWords(), and paliWord already processed.
+
+      var array = dicPrefix.WordLists[word[0]];
+
+      var prefixExactMatchedPaliWords = [];
+
+      for (var i=0; i < array.length; i++ ) {
+        if (wordExactMatch(word, array[i])) {
+          // exact prefix match of user input string and word string
+          prefixExactMatchedPaliWords.push(array[i]);
+        }
+
+        if (prefixExactMatchedPaliWords.length === MAX_NUMBER_OF_MATCHED_WORDS) break;
+      }
+
+      if (prefixExactMatchedPaliWords.length === 0) return;
+      return prefixExactMatchedPaliWords;
+    }
+
+
+    function possibleWords(paliWord) {
+      var word = processWord(paliWord);
+      if (angular.isUndefined(word)) return;
+
+      for (var i = word.length; i>0 ; i--) {
+        var firstIPrefixMatchedWords = prefixExactMatch(word.slice(0, i));
+        if (firstIPrefixMatchedWords) {
+          if (firstIPrefixMatchedWords.length > MAX_NUMBER_OF_POSSIBLE_WORDS)
+            return firstIPrefixMatchedWords.slice(0, MAX_NUMBER_OF_POSSIBLE_WORDS);
+          return firstIPrefixMatchedWords;
+        }
+      }
+    }
+
+
     function longestPrefixMatchedWord(paliWord) {
       var word = processWord(paliWord);
       if (angular.isUndefined(word)) return;
@@ -326,6 +364,7 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
 
     var serviceInstance = {
       prefixMatch: prefixMatch,
+      possibleWords: possibleWords,
       longestPrefixMatchedWord: longestPrefixMatchedWord,
       isValidPaliWord: isValidPaliWord,
 

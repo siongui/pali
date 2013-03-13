@@ -215,8 +215,14 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     scope.setting = $rootScope.setting;
     scope.shortDicName = palidic.shortName;
     scope.shortDicExp = palidic.shortExp;
+    scope.wordUrl = function(word) {
+      if (!angular.isString(word)) return;
+      var url = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
+      if ($rootScope.isDevServer) url += '?track=no';
+      return url;
+    }
     var shortDicNameExps = $compile('<div>' +
-        '<a style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;" href="{{wordUrl}}" target="_blank">' + 
+        '<a style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;" href="{{wordUrl(currentSelectedWord)}}" target="_blank">' + 
           '{{currentSelectedWord}}' +
         '</a>' +
         ' <span style="color: GoldenRod;" ng-show="isGuessedWord">({{oriWord}} => {{guessedWord}})</span>' +
@@ -237,14 +243,17 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function getNoSuchWord() { return noSuchWord; }
 
+    var possibleWordsDoms = $compile("<div>" +
+        '<div ng-repeat="possibleWord in possibleWords"><a href="{{wordUrl(possibleWord)}}" target="_blank">{{possibleWord}}</a></div>' +
+      '</div>')(scope);
+
     function getShortDicExps(word, setting) {
       // TODO: pre-process word (toLowerCase() etc.) here
       scope.setting = setting;
       if (paliIndexes.isValidPaliWord(word)) {
         scope.currentSelectedWord = word;
         scope.isGuessedWord = false;
-        scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
-        if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
+
         return paliJson.get(word).then( function(jsonData) {
           // get jsonData successfully by xhr CORS
           scope.dicWordExps = jsonData;
@@ -254,6 +263,22 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
           return netErr;
         });
       } else {
+        var possibleWords = paliIndexes.possibleWords(word);
+        var deferred = $q.defer();
+        if (possibleWords) {
+          scope.possibleWords = possibleWords;
+          deferred.resolve(possibleWordsDoms);
+        } else {
+          deferred.reject(noSuchWord);
+        }
+        return deferred.promise;
+        /*
+        var test = $compile('<span>' + 'matched: ' + paliIndexes.longestPrefixMatchedWord(word) + '</span>')(scope);
+        var deferred = $q.defer();
+        deferred.resolve(test);
+        return deferred.promise;
+        */
+
         // not a word present in indexes
         // guess the word
         var guessedWord = paliGuess.guessWordBySuffix(word);
@@ -263,8 +288,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
           scope.oriWord = word;
           scope.guessedWord = guessedWord;
           scope.isGuessedWord = true;
-          scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + guessedWord[0] + '/' + guessedWord;
-          if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
           return paliJson.get(guessedWord).then( function(jsonData) {
             // get jsonData successfully by xhr CORS
             scope.dicWordExps = jsonData;
