@@ -82,7 +82,8 @@ class RedirectPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/browse/noSuchWord', handler=RedirectPage),
-  webapp2.Route(r'/<:|about>', handler=MainPage),
+  webapp2.Route(r'/', handler=MainPage),
+  webapp2.Route(r'/about', handler=MainPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/browse/<prefix:.+>/<word:.+>', handler=WordPage),
   webapp2.Route(r'/browse/<prefix:.+>/<word:.+>', handler=WordPage),

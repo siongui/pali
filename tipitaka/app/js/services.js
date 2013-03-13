@@ -259,6 +259,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
           // guess success
           scope.currentSelectedWord = guessedWord;
           scope.wordUrl = 'http://palidictionary.appspot.com/browse/' + guessedWord[0] + '/' + guessedWord;
+          if ($rootScope.isDevServer) scope.wordUrl += '?track=no';
           return paliJson.get(guessedWord).then( function(jsonData) {
             // get jsonData successfully by xhr CORS
             scope.dicWordExps = jsonData;
