@@ -1,23 +1,28 @@
 html, body { height: 100%; }
 [ng-cloak] { display: none; }
 
+/**
+ * http://stackoverflow.com/questions/526294/how-might-i-force-a-floating-div-to-match-the-height-of-another-floating-div
+ */
+
 #allContainer {
   width: 100%;
-  min-height: 100%;
 }
 
 #treeview {
   float: left;
   overflow: auto;
   font-family: Tahoma, Arial, serif;
-  min-height: 100%;
 }
 
 #viewwrapper {
+  position: relative;
   float: left;
-  min-height: 100%;
 }
 
+/**
+ * http://stackoverflow.com/questions/7778306/css-how-to-force-elements-to-100-of-remaining-available-space-of-parent-eleme
+ */
 #viewarrow {
   width: 0;
   height: 0;
@@ -29,7 +34,11 @@ html, body { height: 100%; }
 }
 
 #viewseparator {
-  min-height: 400px;
+  position: absolute;
+  top: 17px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #EEE;
   cursor: col-resize;
 }

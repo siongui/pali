@@ -343,6 +343,7 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
       for (var i = word.length; i>0 ; i--) {
         var firstIPrefixMatchedWords = prefixExactMatch(word.slice(0, i));
         if (firstIPrefixMatchedWords) {
+          // FIXME: ekaṃ should include eka in result, but now eka not included!!!
           if (firstIPrefixMatchedWords.length > MAX_NUMBER_OF_POSSIBLE_WORDS)
             return firstIPrefixMatchedWords.slice(0, MAX_NUMBER_OF_POSSIBLE_WORDS);
           return firstIPrefixMatchedWords;
