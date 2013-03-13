@@ -131,8 +131,11 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       tooltip.show(tooltipPosition, shortDicNameExps.getLookingUp(word));
 
       shortDicNameExps.get(word, $rootScope.setting).then(
-         function(shortNameExps) {
-           tooltip.show(tooltipPosition, shortNameExps);
+         function(doms) {
+           if (doms.attr('isAdjustRatio') === 'false')
+             tooltip.show(tooltipPosition, doms, false);
+           else
+             tooltip.show(tooltipPosition, doms);
       }, function(reason) {
            tooltip.show(tooltipPosition, reason);
       });
@@ -243,7 +246,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function getNoSuchWord() { return noSuchWord; }
 
-    var possibleWordsDoms = $compile("<div>" +
+    var possibleWordsDoms = $compile("<div isAdjustRatio='false'>" +
         '<div ng-repeat="possibleWord in possibleWords"><a href="{{wordUrl(possibleWord)}}" target="_blank">{{possibleWord}}</a></div>' +
       '</div>')(scope);
 
@@ -272,36 +275,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
           deferred.reject(noSuchWord);
         }
         return deferred.promise;
-        /*
-        var test = $compile('<span>' + 'matched: ' + paliIndexes.longestPrefixMatchedWord(word) + '</span>')(scope);
-        var deferred = $q.defer();
-        deferred.resolve(test);
-        return deferred.promise;
-        */
-
-        // not a word present in indexes
-        // guess the word
-        var guessedWord = paliGuess.guessWordBySuffix(word);
-        if (guessedWord !== null) {
-          // guess success
-          scope.currentSelectedWord = guessedWord;
-          scope.oriWord = word;
-          scope.guessedWord = guessedWord;
-          scope.isGuessedWord = true;
-          return paliJson.get(guessedWord).then( function(jsonData) {
-            // get jsonData successfully by xhr CORS
-            scope.dicWordExps = jsonData;
-            return shortDicNameExps;
-          }, function(reason) {
-            // fail to get word via xhr CORS
-            return netErr;
-          });
-        } else {
-          // not a word in indexes and guess failed => no such word
-          var deferred = $q.defer();
-          deferred.reject(noSuchWord);
-          return deferred.promise;
-        }
       }
     }
 

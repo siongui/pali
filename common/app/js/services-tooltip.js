@@ -41,7 +41,7 @@ angular.module('pali.tooltip', []).
       }, 10);
     }
 
-    function show(position, content) {
+    function show(position, content, isAdjustRatio) {
       // set tooltip position
       tooltip.css('left', position.left);
       tooltip.css('top', position.top);
@@ -57,6 +57,8 @@ angular.module('pali.tooltip', []).
       }
       // show tooltip
       tooltip.css('display', '');
+      if (isAdjustRatio === false)
+        return;
       adjustTooltipRatio(content);
     }
 
