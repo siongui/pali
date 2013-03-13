@@ -322,11 +322,11 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
                window.encodeURIComponent(word).replace(/%/g, 'Z') + '.json';
       },
 
-      getWordsStartsWithPrefix: function(prefix) {
-        if (!isValidFirstLetter(prefix))
+      getWordsStartsWithLetter: function(letter) {
+        if (!isValidFirstLetter(letter))
           return;
         else
-          return dicPrefix.WordLists[prefix];
+          return dicPrefix.WordLists[letter];
       }
     };
 

@@ -45,7 +45,7 @@ function prefixCtrl($scope, $route, paliIndexes, i18nserv) {
   document.title = i18nserv.gettext('Words Start with', $scope.i18nLocale) + ' ' + $scope.prefix + ' - '
     + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary', $scope.i18nLocale);
 
-  var words = paliIndexes.getWordsStartsWithPrefix($route.current.params.firstLetter);
+  var words = paliIndexes.getWordsStartsWithLetter($route.current.params.firstLetter);
   if (angular.isUndefined(words))
     return;
   else
