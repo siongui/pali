@@ -19,34 +19,9 @@ tipitaka_html_dir = os.path.join(os.path.dirname(__file__), '../../tipitaka/app'
 potpath = os.path.join(locale_dir, 'messages.pot')
 twPoPath = os.path.join(locale_dir, 'zh_TW/LC_MESSAGES/messages.po')
 cnPoPath = os.path.join(locale_dir, 'zh_CN/LC_MESSAGES/messages.po')
-dstLocalesJson = os.path.join(os.path.dirname(__file__), '../gae/libs/json/locales.json') 
-dstLocalesJs = os.path.join(os.path.dirname(__file__), '../app/js/locales.js') 
+#dstLocalesJson = os.path.join(os.path.dirname(__file__), '../gae/libs/json/locales.json') 
+dstLocalesJs = os.path.join(os.path.dirname(__file__), '../app/js/services-i18nStrings.js') 
 locales = ['en_US', 'zh_TW', 'zh_CN']
-
-
-def prettyPrintObject(obj, indent=0):
-  string = u''
-  string = string + u' '*indent + u'{\n'
-  for k, v in obj.items():
-    if type(v) == dict:
-      string = string + u' '*indent + u"'" + k + "': "
-      string += prettyPrintObject(v, indent+2)
-    else:
-      if v == None:
-        string = string + u' '*indent + u"'" + k + "': None,\n"
-      else:
-        string = string + u' '*indent + u"'" + k + "': '" + v + "',\n"
-
-  # remove trailing comma of last item in dict
-  string = string[:-2] + '\n'
-
-  # remove trailing comma of outter most dict
-  if indent == 0:
-    string = string + u' '*indent + u'}'
-  else:
-    string = string + u' '*indent + u'},\n'
-
-  return string
 
 
 def searchI18n(string):
@@ -171,9 +146,14 @@ def writeJs():
     obj['zh_TW'][tuple[0].decode('utf-8')] = tuple[1].decode('utf-8')
 
   with open(dstLocalesJs, 'w') as f:
-    f.write('var paliI18nLocaleStrs = ')
+    f.write("angular.module('pali.i18nStrings', []).\n")
+    f.write("  factory('i18nStrings', [function() {\n")
+    f.write("    var str = ")
     f.write(json.dumps(obj))
-    f.write(';')
+    f.write(";\n")
+    f.write("    var serviceInstance = { all: str };\n")
+    f.write("    return serviceInstance;\n")
+    f.write("  }]);\n")
 
   print(json.dumps(obj))
 
@@ -206,9 +186,11 @@ if __name__ == '__main__':
     TWtoCN()
     sys.exit(0)
 
+  """
   if sys.argv[1] == "json":
     writeJson()
     sys.exit(0)
+  """
 
   if sys.argv[1] == "js":
     writeJs()

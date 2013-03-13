@@ -11,7 +11,7 @@
  */
 
 
-angular.module('pali.i18n', []).
+angular.module('pali.i18n', ['pali.i18nStrings']).
 
   factory('i18nSetting', ['$rootScope', '$location', '$route', 'i18nserv', function($rootScope, $location, $route, i18nserv) {
   /**
@@ -77,11 +77,10 @@ angular.module('pali.i18n', []).
     }
   }]).
 
-  factory('i18nserv', ['zhService', function(zhService) {
+  factory('i18nserv', ['zhService', 'i18nStrings', function(zhService, i18nStrings) {
   // service: for translating texts according to locale
 
-    // paliI18nLocaleStrs comes from /js/locales.js
-    var i18nStr = paliI18nLocaleStrs;
+    var i18nStr = i18nStrings.all;
 
     // zh_CN derived from zh_TW
     i18nStr['zh_CN'] = (function() {
