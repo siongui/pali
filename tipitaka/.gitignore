@@ -4,6 +4,7 @@ app/all_compiled.js
 app/all_uncompiled.js
 
 app/js/treeviewJson.js
+app/js/treeviewAllJson.js
 
 common
 locale

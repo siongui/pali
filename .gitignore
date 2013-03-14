@@ -8,7 +8,10 @@ common/locale/zh_CN/
 common/gae/libs/babel.zip
 common/gae/libs/pytz.zip
 common/gae/libs/jianfan/
-common/gae/libs/json/
+common/gae/libs/json/dicPrefixGroup.json
+common/gae/libs/json/dicPrefixWordLists.json
+common/gae/libs/json/treeview.json
+common/gae/libs/json/treeviewAll.json
 
 common/app/js/services-dicPrefix.js
 common/app/js/services-i18nStrings.js
