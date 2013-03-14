@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext', 'pali.guess']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
@@ -210,8 +210,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'paliJson', 'paliIndexes', 'palidic', 'paliGuess',
-                      function($rootScope, $compile, $q, paliJson, paliIndexes, palidic, paliGuess) {
+  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'paliJson', 'paliIndexes', 'palidic',
+                      function($rootScope, $compile, $q, paliJson, paliIndexes, palidic) {
     // require 'pali.filters' module
     var scope = $rootScope.$new(true);
     // FIXME: bad practice!!! don't use $rootScope.setting here!!!
