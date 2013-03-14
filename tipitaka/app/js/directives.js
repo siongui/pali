@@ -8,14 +8,14 @@ angular.module('paliTipitaka.directives', []).
     return {
       restrict: 'A',
       link: function(scope, elm, attrs) {
-        if (!angular.isObject(treeviewJson)) throw 'no treeviewJson';
+        if (!angular.isObject(treeviewAllJson)) throw 'no treeviewAllJson';
 
         scope.leafNodeClicked = function(action, text) {
           scope.actionHandler(action, text);
         };
 
         // show only tipitaka, no commentaries and sub-commentaries
-        elm.append(traverseTreeviewData(treeviewJson['child'][0]));
+        elm.append(traverseTreeviewData(treeviewAllJson['child'][0]));
 
         function traverseTreeviewData(node) {
           if (node['child']) {
