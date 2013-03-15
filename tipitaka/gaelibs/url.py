@@ -45,7 +45,37 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
 
 
 def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5):
-  return '123'
+  # before using this funtion, make sure to call 'isValidCanonPath' first
+
+  # rootNode is tipitaka, no commentaris and sub-commentaries
+  rootNode = treeviewData['child'][0]
+  path = [path1, path2, path3, path4, path5]
+
+  isFinished = False
+  node = rootNode
+  count = 0
+  while True:
+    if path[0] is None:
+      isFinished = True
+    else:
+      for child in node['child']:
+        if path[0].decode('utf-8') == child['url']:
+          if 'action' in child:
+            isFinished = True
+          node = child
+          path = path[1:]
+          break
+
+    count += 1
+    if count > 5:
+      raise Exception('getCanonPageHtml: loop count too much')
+    if isFinished:
+      break
+
+  if 'action' in node:
+    return node['action']
+  else:
+    return node['url'] + '(' + node['text'] + ')'
 
 
 if __name__ == '__main__':
@@ -81,3 +111,8 @@ if __name__ == '__main__':
   if isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False:
     print('test failure:')
     print("isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False")
+
+  print(getCanonPageHtml(None, 'sutta', 'dīgha', None, None, None))
+  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', None, None))
+  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None))
+  print(getCanonPageHtml(None, 'abhidhamma', 'kathāvatthu', 'puggalakathā', None, None))
