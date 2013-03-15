@@ -66,4 +66,16 @@ angular.module('paliTipitaka.directives', []).
         }
       }
     };
+  }]).
+
+  directive('bindXmlDoms', [function() {
+    return {
+      restrict: 'A',
+      link: function(scope, elm, attrs) {
+        scope.$watch('xmlDoms', function(newValue) {
+          elm.children().remove();
+          elm.append(newValue);
+        });
+      }
+    };
   }]);
