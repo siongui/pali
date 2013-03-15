@@ -8,6 +8,9 @@ function canonCtrl($scope, paliXml, htmlDoc2View) {
   var action = $scope.action;
   var text = $scope.text;
 
+  if (angular.isUndefined(action) || angular.isUndefined(text))
+    return;
+
   $scope.mainviewElm.children().remove();
   $scope.mainviewElm.append(angular.element('<span>Loading ' + text + ' ...</span>'));
 

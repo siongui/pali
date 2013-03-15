@@ -54,7 +54,7 @@ class CanonPage(webapp2.RequestHandler):
     if not isValidCanonPath(path1, path2, path3, path4, path5):
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['canonPageHtml'] = getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5)
+    template_values['canonPageHtml'] = getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, self.request.path)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 

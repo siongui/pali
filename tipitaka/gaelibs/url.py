@@ -44,7 +44,7 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
   return recursivelyCheck(rootNode, path)
 
 
-def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5):
+def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, reqPath):
   # before using this funtion, make sure to call 'isValidCanonPath' first
 
   # rootNode is tipitaka, no commentaris and sub-commentaries
@@ -72,10 +72,14 @@ def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5):
     if isFinished:
       break
 
+  html = u''
   if 'action' in node:
     return node['action']
   else:
-    return node['url'] + '(' + node['text'] + ')'
+    for child in node['child']:
+      html += u'<a href="%s/%s">%s</a>' % (reqPath, child['url'], child['text'])
+
+  return html
 
 
 if __name__ == '__main__':
@@ -112,7 +116,7 @@ if __name__ == '__main__':
     print('test failure:')
     print("isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False")
 
-  print(getCanonPageHtml(None, 'sutta', 'dīgha', None, None, None))
-  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', None, None))
-  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None))
-  print(getCanonPageHtml(None, 'abhidhamma', 'kathāvatthu', 'puggalakathā', None, None))
+  print(getCanonPageHtml(None, 'sutta', 'dīgha', None, None, None, u'/canon/sutta/dīgha'))
+  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', None, None, u'/canon/sutta/dīgha/sīlakkhandhavagga'))
+  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None, u'/canon/sutta/dīgha/sīlakkhandhavagga/kūṭadantasuttaṃ'))
+  print(getCanonPageHtml(None, 'abhidhamma', 'kathāvatthu', 'puggalakathā', None, None, u'/canon/abhidhamma/kathāvatthu/puggalakathā'))
