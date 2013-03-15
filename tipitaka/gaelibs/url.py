@@ -44,6 +44,10 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
   return recursivelyCheck(rootNode, path)
 
 
+def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5):
+  return '123'
+
+
 if __name__ == '__main__':
   # for test purpose
   if isValidCanonPath(None, None, None, None, None) is not True:
@@ -69,3 +73,11 @@ if __name__ == '__main__':
   if isValidCanonPath('sutta', None, None, None, None) is not True:
     print('test failure:')
     print("isValidCanonPath('sutta', None, None, None, None) is not True")
+
+  if isValidCanonPath('sutta1', None, None, None, None) is not False:
+    print('test failure:')
+    print("isValidCanonPath('sutta', None, None, None, None) is not False")
+
+  if isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False:
+    print('test failure:')
+    print("isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False")

@@ -4,7 +4,7 @@
 import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import getHtmlTitle, isValidCanonPath
+from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
@@ -54,9 +54,9 @@ class CanonPage(webapp2.RequestHandler):
     if not isValidCanonPath(path1, path2, path3, path4, path5):
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
+    template_values['canonPageHtml'] = getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
-
 
 
 app = webapp2.WSGIApplication([
