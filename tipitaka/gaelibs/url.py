@@ -2,9 +2,19 @@
 # -*- coding:utf-8 -*-
 
 import os, json
+from google.appengine.api import urlfetch
+from lxml import etree
+import xml.dom.minidom
 
 with open(os.path.join(os.path.dirname(__file__), '../common/gae/libs/json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
+
+result = urlfetch.fetch('http://1.epalitipitaka.appspot.com/romn/cscd/tipitaka-latn.xsl')
+if result.status_code == 200:
+  xslt_root = etree.fromstring(result.content)
+  transform = etree.XSLT(xslt_root)
+else:
+  raise Exception('cannot fetch http://1.epalitipitaka.appspot.com/romn/cscd/tipitaka-latn.xsl')
 
 
 def getHtmlTitle(userLocale, reqHandlerName, i18n):
@@ -54,6 +64,7 @@ def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, reqPath):
   isFinished = False
   node = rootNode
   count = 0
+  # find the node which contains necessary information to build html
   while True:
     if path[0] is None:
       isFinished = True
@@ -72,9 +83,24 @@ def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, reqPath):
     if isFinished:
       break
 
+  # the node we need is found. Start to build html
   html = u''
   if 'action' in node:
-    return node['action']
+    # fetch xml
+    xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
+    result = urlfetch.fetch(xmlUrl)
+    if result.status_code == 200:
+      # successfully fetch xml
+      root = etree.fromstring(result.content)
+      # transform xml with xslt
+      root = transform(root)
+      # feed transformed data to minidom for processing
+      dom = xml.dom.minidom.parseString(etree.tostring(root))
+      # return only innerHTML of body
+      html += dom.documentElement.getElementsByTagName('body')[0].toxml()[6:-7]
+    else:
+      # fail to fetch xml
+      raise Exception('cannot fetch %s' % xmlUrl)
   else:
     for child in node['child']:
       html += u'<a href="%s/%s">%s</a>' % (reqPath, child['url'], child['text'])
