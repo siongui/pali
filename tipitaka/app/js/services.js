@@ -116,8 +116,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliString', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'shortDicNameExps', 'paliIndexes',
-                function($rootScope, htmlString2Dom, tooltip, jqlext, shortDicNameExps, paliIndexes) {
+  factory('paliString', ['$rootScope', 'htmlString2Dom', 'tooltip', 'jqlext', 'tooltipHandler', 'paliIndexes',
+                function($rootScope, htmlString2Dom, tooltip, jqlext, tooltipHandler, paliIndexes) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
@@ -128,9 +128,9 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       };
 
       var word = rawWordSpanDom.innerHTML.toLowerCase();
-      tooltip.show(tooltipPosition, shortDicNameExps.getLookingUp(word));
+      tooltip.show(tooltipPosition, tooltipHandler.getLookingUp(word));
 
-      shortDicNameExps.get(word, $rootScope.setting).then(
+      tooltipHandler.get(word, $rootScope.setting).then(
          function(doms) {
            if (doms.attr('isAdjustRatio') === 'false')
              tooltip.show(tooltipPosition, doms, false);
@@ -210,7 +210,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', '$templateCache', 'paliJson', 'paliIndexes', 'palidic',
+  factory('tooltipHandler', ['$rootScope', '$compile', '$q', '$templateCache', 'paliJson', 'paliIndexes', 'palidic',
                       function($rootScope, $compile, $q, $templateCache, paliJson, paliIndexes, palidic) {
     // require 'pali.filters' module
     var scope = $rootScope.$new(true);
