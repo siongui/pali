@@ -3,13 +3,15 @@
 /* Controllers */
 
 
-function canonCtrl($scope, paliXml, htmlDoc2View) {
+function canonCtrl($scope, $routeParams, paliXml, htmlDoc2View) {
   $scope.mainviewElm = angular.element(document.getElementById('mainview'));
   var action = $scope.action;
   var text = $scope.text;
 
-  if (angular.isUndefined(action) || angular.isUndefined(text))
+  if (angular.isUndefined(action) || angular.isUndefined(text)) {
+    console.log($routeParams);
     return;
+  }
 
   $scope.mainviewElm.children().remove();
   $scope.mainviewElm.append(angular.element('<span>Loading ' + text + ' ...</span>'));
@@ -24,7 +26,7 @@ function canonCtrl($scope, paliXml, htmlDoc2View) {
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', 'paliXml', 'htmlDoc2View'];
+canonCtrl.$inject = ['$scope', '$routeParams', 'paliXml', 'htmlDoc2View'];
 
 
 function noopCtrl($scope) {

@@ -210,8 +210,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', 'paliJson', 'paliIndexes', 'palidic',
-                      function($rootScope, $compile, $q, paliJson, paliIndexes, palidic) {
+  factory('shortDicNameExps', ['$rootScope', '$compile', '$q', '$templateCache', 'paliJson', 'paliIndexes', 'palidic',
+                      function($rootScope, $compile, $q, $templateCache, paliJson, paliIndexes, palidic) {
     // require 'pali.filters' module
     var scope = $rootScope.$new(true);
     // FIXME: bad practice!!! don't use $rootScope.setting here!!!
@@ -224,16 +224,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       if ($rootScope.isDevServer) url += '?track=no';
       return url;
     }
-    var shortDicNameExps = $compile('<div>' +
-        '<a style="color: GoldenRod; font-weight: bold; font-size: 1.5em; margin: .5em; text-decoration: none;" href="{{wordUrl(currentSelectedWord)}}" target="_blank">' + 
-          '{{currentSelectedWord}}' +
-        '</a>' +
-        ' <span style="color: GoldenRod;" ng-show="isGuessedWord">({{oriWord}} => {{guessedWord}})</span>' +
-        '<div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting">' +
-          '<span style="color: red;">{{shortDicName(dicWordExp)}}</span>' +
-          '<span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span>' +
-        '</div>' +
-      '</div>')(scope);
+    var shortDicNameExps = $compile($templateCache.get('/partials/shortdicexp.html'))(scope);
 
     var lookingUp = $compile('<span>{{_("Looking up")}} <span style="color: GoldenRod;">{{currentSelectedWord}}</span> ...</span>')($rootScope);
     var noSuchWord = $compile('<span>{{_("No Such Word")}}</span>')($rootScope);
