@@ -43,7 +43,7 @@ def getCommonTemplateValues(self, urlLocale):
 
 
 class MainPage(webapp2.RequestHandler):
-  def get(self, urlLocale=None):
+  def get(self, urlLocale=None, path1=None, path2=None, path3=None, path4=None, path5=None):
     template_values = getCommonTemplateValues(self, urlLocale)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
@@ -51,5 +51,11 @@ class MainPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/', handler=MainPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage)],
+  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>', handler=MainPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>', handler=MainPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>', handler=MainPage),
+  webapp2.Route(r'/canon/<path1>/<path2>', handler=MainPage),
+  webapp2.Route(r'/canon/<path1>', handler=MainPage),
+  webapp2.Route(r'/canon', handler=MainPage)],
   debug=True)
