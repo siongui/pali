@@ -24,6 +24,11 @@ def recursivelyCheck(node, path):
     for child in node['child']:
       if path[0].decode('utf-8') == child['url']:
         if 'action' in child:
+          # check if all remaining items are None
+          for subPath in path[1:]:
+            if subPath is not None:
+              return False
+          # all remaining items are None => True
           return True
         else:
           return recursivelyCheck(child, path[1:])
@@ -56,3 +61,11 @@ if __name__ == '__main__':
   if isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None) is not True:
     print('test failure:')
     print("isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None) is not True")
+
+  if isValidCanonPath('sutta', 'dīgha', None, None, None) is not True:
+    print('test failure:')
+    print("isValidCanonPath('sutta', 'dīgha', None, None, None) is not True")
+
+  if isValidCanonPath('sutta', None, None, None, None) is not True:
+    print('test failure:')
+    print("isValidCanonPath('sutta', None, None, None, None) is not True")

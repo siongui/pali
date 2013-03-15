@@ -4,7 +4,7 @@
 import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import getHtmlTitle
+from url import getHtmlTitle, isValidCanonPath
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
@@ -43,19 +43,29 @@ def getCommonTemplateValues(self, urlLocale):
 
 
 class MainPage(webapp2.RequestHandler):
-  def get(self, urlLocale=None, path1=None, path2=None, path3=None, path4=None, path5=None):
+  def get(self, urlLocale=None):
     template_values = getCommonTemplateValues(self, urlLocale)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 
 
+class CanonPage(webapp2.RequestHandler):
+  def get(self, urlLocale=None, path1=None, path2=None, path3=None, path4=None, path5=None):
+    if not isValidCanonPath(path1, path2, path3, path4, path5):
+      self.abort(404)
+    template_values = getCommonTemplateValues(self, urlLocale)
+    template = jinja_environment.get_template('index.html')
+    self.response.out.write(template.render(template_values))
+
+
+
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/', handler=MainPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>', handler=MainPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>', handler=MainPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>', handler=MainPage),
-  webapp2.Route(r'/canon/<path1>/<path2>', handler=MainPage),
-  webapp2.Route(r'/canon/<path1>', handler=MainPage),
-  webapp2.Route(r'/canon', handler=MainPage)],
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>', handler=CanonPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>', handler=CanonPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>', handler=CanonPage),
+  webapp2.Route(r'/canon/<path1>/<path2>', handler=CanonPage),
+  webapp2.Route(r'/canon/<path1>', handler=CanonPage),
+  webapp2.Route(r'/canon', handler=CanonPage)],
   debug=True)
