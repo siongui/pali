@@ -10,6 +10,12 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $routeProvider.when('/en_US/', {template: '<br />', controller: noopCtrl});
     $routeProvider.when('/zh_TW/', {template: '<br />', controller: noopCtrl});
     $routeProvider.when('/zh_CN/', {template: '<br />', controller: noopCtrl});
+    $routeProvider.when('/canon', {templateUrl: '/partials/canon.html', controller: canonCtrl});
+    $routeProvider.when('/canon/:path1', {templateUrl: '/partials/canon.html', controller: canonCtrl});
+    $routeProvider.when('/canon/:path2/:path2', {templateUrl: '/partials/canon.html', controller: canonCtrl});
+    $routeProvider.when('/canon/:path2/:path2/:path3', {templateUrl: '/partials/canon.html', controller: canonCtrl});
+    $routeProvider.when('/canon/:path2/:path2/:path3/:path4', {templateUrl: '/partials/canon.html', controller: canonCtrl});
+    $routeProvider.when('/canon/:path2/:path2/:path3/:path4/:path5', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
   run(['$rootScope', '$location', '$document', 'i18nserv', 'resizableViews', function($rootScope, $location, $document, i18nserv, resizableViews) {
