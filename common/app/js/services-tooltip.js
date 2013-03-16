@@ -23,10 +23,12 @@ angular.module('pali.tooltip', []).
     // Wait for correct ng-mouseenter and ng-mouseleave
     // https://github.com/angular/angular.js/pull/2134
     var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
-    tooltip.css('max-width', (document.width - 16) + 'px');
+    tooltip.css('max-width', viewWidth() + 'px');
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
+
+    function viewWidth() { return (window.innerWidth || document.documentElement.clientWidth) - 16; }
 
     function adjustTooltipRatio() {
       // FIXME: sometimes words on right-bottom doesn't adjust!!!
@@ -69,11 +71,13 @@ angular.module('pali.tooltip', []).
       // property of elements will be not update if no delay
       setTimeout( function() {
         var _right = _left + tooltip.prop('offsetWidth');
-        if ( _right > document.width )
-          _left -= (_right - document.width);
+        if ( _right > viewWidth() )
+          _left -= (_right - viewWidth());
 
         if (isAdjustRatio !== false)
           adjustTooltipRatio();
+
+        if (_left < 0) _left = 0;
 
         tooltip.css('left', _left + 'px');
         tooltip.css('top', _top + 'px');
@@ -114,7 +118,6 @@ angular.module('pali.tooltip', []).
       // FIXME: use $rootScope.setting here?
       scope.setting = $rootScope.setting;
       tooltip.setPosition(tooltipPosition);
-      tooltip.show(false);
 
       // TODO: pre-process word (toLowerCase() etc.) here?
       scope.currentSelectedWord = word;
@@ -125,18 +128,19 @@ angular.module('pali.tooltip', []).
       scope.isLookingUp = true;
 
       if (paliIndexes.isValidPaliWord(word)) {
+        tooltip.show(true);
         paliJson.get(word).then( function(jsonData) {
           // get jsonData successfully via xhr CORS
           scope.isLookingUp = false;
           scope.isShortExp = true;
           scope.dicWordExps = jsonData;
-          tooltip.show(true);
         }, function(reason) {
           // fail to get word via xhr CORS
           scope.isLookingUp = false;
           scope.isNetErr = true;
         });
       } else {
+        tooltip.show(false);
         var possibleWords = paliIndexes.possibleWords(word);
         if (possibleWords) {
           scope.isLookingUp = false;
