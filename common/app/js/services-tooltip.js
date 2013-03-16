@@ -29,6 +29,7 @@ angular.module('pali.tooltip', []).
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
 
     function adjustTooltipRatio() {
+      // FIXME: sometimes words on right-bottom doesn't adjust!!!
       var width = tooltip.prop('offsetWidth');
       var height = tooltip.prop('offsetHeight');
       if (height/width > 2) {
@@ -36,7 +37,15 @@ angular.module('pali.tooltip', []).
         var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
         if (newLeft < 0) newLeft = 0;
         tooltip.css('left', Math.floor(newLeft) + 'px');
-        // FIXME: sometimes adjustRatio will make tooltip disappear
+        // force browser to update drawing
+        var lastChild = tooltip[0].lastChild;
+        if (lastChild.tagName &&
+            lastChild.tagName.toLowerCase() === 'span' &&
+            lastChild.getAttribute('forceUpdate') === 'yes') {
+          angular.element(lastChild).remove();
+        } else {
+          tooltip.append('<span forceUpdate="yes"> <span>');
+        }
       }
     }
 
