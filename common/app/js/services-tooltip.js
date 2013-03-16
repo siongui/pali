@@ -28,10 +28,11 @@ angular.module('pali.tooltip', []).
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
 
-    function viewWidth() { return (window.innerWidth || document.documentElement.clientWidth) - 16; }
+    // FIXME: why -32 here?
+    function viewWidth() { return (window.innerWidth || document.documentElement.clientWidth) - 32; }
 
     function adjustTooltipRatio() {
-      // FIXME: sometimes words on right-bottom doesn't adjust!!!
+      // FIXME: first time lookup doesn't adjust!!!
       var width = tooltip.prop('offsetWidth');
       var height = tooltip.prop('offsetHeight');
       if (height/width > 2) {
@@ -134,10 +135,12 @@ angular.module('pali.tooltip', []).
           scope.isLookingUp = false;
           scope.isShortExp = true;
           scope.dicWordExps = jsonData;
+          tooltip.show(true);
         }, function(reason) {
           // fail to get word via xhr CORS
           scope.isLookingUp = false;
           scope.isNetErr = true;
+          tooltip.show(false);
         });
       } else {
         tooltip.show(false);
@@ -146,7 +149,6 @@ angular.module('pali.tooltip', []).
           scope.isLookingUp = false;
           scope.isPossibleWords = true;
           scope.possibleWords = possibleWords;
-          // FIXME: right side of tooltip sometimes exceeds right side of window
         } else {
           scope.isLookingUp = false;
           scope.isNoSuchWord = true;
