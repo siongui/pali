@@ -23,12 +23,12 @@ angular.module('pali.tooltip', []).
     // Wait for correct ng-mouseenter and ng-mouseleave
     // https://github.com/angular/angular.js/pull/2134
     var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
+    tooltip.css('max-width', (document.width - 16) + 'px');
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
 
     function adjustTooltipRatio() {
-      // offsetWidth and offsetHeight will be 0 if no delay
       var width = tooltip.prop('offsetWidth');
       var height = tooltip.prop('offsetHeight');
       if (height/width > 2) {
@@ -57,6 +57,7 @@ angular.module('pali.tooltip', []).
     }
 
     function show(isAdjustRatio) {
+      // property of elements will be not update if no delay
       setTimeout( function() {
         var _right = _left + tooltip.prop('offsetWidth');
         if ( _right > document.width )
