@@ -121,16 +121,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
-    function showShortExplanationInTooltip(rawWordSpanDom) {
-      var tooltipPosition = {
-        'left': (jqlext.offset(rawWordSpanDom).left + 'px'),
-        'top': (jqlext.offset(rawWordSpanDom).top + rawWordSpanDom.offsetHeight + 'px')
-      };
-
-      var word = rawWordSpanDom.innerHTML.toLowerCase();
-      tooltipHandler.showContent(word, tooltipPosition);
-    }
-
     function onWordMouseOver(e) {
       this.style.color = 'red';
       if (!$rootScope.setting.showTooltip) return;
@@ -139,7 +129,13 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         // 'this' keyword here refers to raw dom element
         if (this.style.color === 'red') {
           // mouse is still on word
-          showShortExplanationInTooltip(this);
+          var tooltipPosition = {
+            'left': (jqlext.offset(this).left + 'px'),
+            'top': (jqlext.offset(this).top + this.offsetHeight + 'px')
+          };
+
+          var word = this.innerHTML.toLowerCase();
+          tooltipHandler.showContent(word, tooltipPosition);
         }
       }), DELAY_INTERVAL);
     }

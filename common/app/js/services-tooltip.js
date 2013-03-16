@@ -35,6 +35,7 @@ angular.module('pali.tooltip', []).
           var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
           if (newLeft < 0) newLeft = 0;
           tooltip.css('left', Math.floor(newLeft) + 'px');
+          // FIXME: sometimes adjustRatio will make tooltip disappear
         }
       }, 10);
     }
@@ -123,6 +124,7 @@ angular.module('pali.tooltip', []).
           scope.isLookingUp = false;
           scope.isPossibleWords = true;
           scope.possibleWords = possibleWords;
+          // FIXME: right side of tooltip sometimes exceeds right side of window
         } else {
           scope.isLookingUp = false;
           scope.isNoSuchWord = true;
