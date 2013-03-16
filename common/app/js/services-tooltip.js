@@ -40,15 +40,6 @@ angular.module('pali.tooltip', []).
         var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
         if (newLeft < 0) newLeft = 0;
         tooltip.css('left', Math.floor(newLeft) + 'px');
-        // force browser to update drawing
-        var lastChild = tooltip[0].lastChild;
-        if (lastChild.tagName &&
-            lastChild.tagName.toLowerCase() === 'span' &&
-            lastChild.getAttribute('forceUpdate') === 'yes') {
-          angular.element(lastChild).remove();
-        } else {
-          tooltip.append('<span forceUpdate="yes"> <span>');
-        }
       }
     }
 
