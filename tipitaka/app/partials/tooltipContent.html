@@ -1,0 +1,36 @@
+<div>
+  <div ng-show="isShortExp">
+    <a class="wordShortDicExp" href="{{wordUrl(currentSelectedWord)}}" target="_blank">
+      {{currentSelectedWord}}
+    </a>
+    <div ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord | zhConvert: setting | dicLangSelect: setting | dicOrder: setting">
+      <span style="color: red;">{{shortDicName(dicWordExp)}}</span>
+      <span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span>
+    </div>
+  </div>
+
+  <div ng-show="isLookingUp">
+    <span i18n str="Looking up">{$_("Looking up")$}</span>
+    &nbsp;<span style="color: GoldenRod;">{{currentSelectedWord}}</span>
+    &nbsp;...
+  </div>
+
+  <div ng-show="isNoSuchWord" i18n str="No Such Word">{$_("No Such Word")$}</div>
+
+  <div ng-show="isNetErr" i18n str="Internet Connection Error">{$_("Internet Connection Error")$}</div>
+
+  <div ng-show="isPossibleWords">
+    <div ng-repeat="possibleWord in possibleWords">
+      <a href="{{wordUrl(possibleWord)}}" target="_blank">{{possibleWord}}</a>
+    </div>
+  </div>
+<style>
+.wordShortDicExp {
+  color: GoldenRod;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: .5em;
+  text-decoration: none;
+}
+</style>
+</div>
