@@ -15,12 +15,14 @@ angular.module('pali.tooltip', []).
     scope.onmouseleave = function() {
       // mouse leaves tooltip
       isMouseInTooltip = false;
-      tooltip.css('display', 'none');
+      tooltip.css('left', '-9999px');
     };
+    var _left = 0;
+    var _top = 0;
 
     // Wait for correct ng-mouseenter and ng-mouseleave
     // https://github.com/angular/angular.js/pull/2134
-    var tooltip = $compile('<div style="position: absolute; display: none; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
+    var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
 
     // append tooltip to the end of body element
     angular.element(document.getElementsByTagName('body')[0]).append(tooltip);
@@ -52,19 +54,20 @@ angular.module('pali.tooltip', []).
     }
 
     function setPosition(position) {
-      tooltip.css('left', position.left);
-      tooltip.css('top', position.top);
+      _left = parseInt(position.left.replace('px', ''));
+      _top = parseInt(position.top.replace('px', ''));
     }
 
     function show(isAdjustRatio) {
-      tooltip.css('display', '');
+      tooltip.css('left', _left + 'px');
+      tooltip.css('top', _top + 'px');
       if (isAdjustRatio !== false)
         adjustTooltipRatio();
     }
 
     function hide() {
       if (!isMouseInTooltip)
-        tooltip.css('display', 'none');
+        tooltip.css('left', '-9999px');
     }
 
     var serviceInstance = {
