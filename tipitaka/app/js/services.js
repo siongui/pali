@@ -116,8 +116,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliString', ['$rootScope', 'htmlString2Dom', 'jqlext', 'tooltipHandler', 'paliIndexes',
-                function($rootScope, htmlString2Dom, jqlext, tooltipHandler, paliIndexes) {
+  factory('paliString', ['$rootScope', 'jqlext', 'tooltipHandler', 'paliIndexes',
+                function($rootScope, jqlext, tooltipHandler, paliIndexes) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
@@ -159,7 +159,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function toDom(string) {
       // wrap all pali words in span
-      var spanContainer = htmlString2Dom.string2dom(markInSpan(string));
+      var spanContainer = htmlStr2Dom(markInSpan(string));
       for (var i=0; i<spanContainer.childNodes.length; i++) {
         var node = spanContainer.childNodes[i];
         var tagName = node.tagName;
@@ -172,25 +172,18 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       return spanContainer;
     }
 
-    function markInSpan(string) {
-      return string.replace(/[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀāĪīŪūṀṁṂṃŊŋṆṇṄṅÑñṬṭḌḍḶḷ]+/g, '<span>$&</span>');
-    }
-
-    var serviceInstance = { toDom: toDom };
-    return serviceInstance;
-  }]).
-
-  factory('htmlString2Dom', [function() {
-    /**
-     * @see http://stackoverflow.com/questions/3103962/converting-html-string-into-dom-elements
-     * @see http://stackoverflow.com/questions/888875/how-to-parse-html-from-javascript-in-firefox
-     */
-    function string2dom(string) {
+    function htmlStr2Dom(string) {
+      // @see http://stackoverflow.com/questions/3103962/converting-html-string-into-dom-elements
+      // @see http://stackoverflow.com/questions/888875/how-to-parse-html-from-javascript-in-firefox
       var spanContainer = document.createElement('span');
       spanContainer.innerHTML = string;
       return spanContainer;
     }
 
-    var serviceInstance = { string2dom: string2dom };
+    function markInSpan(string) {
+      return string.replace(/[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀāĪīŪūṀṁṂṃŊŋṆṇṄṅÑñṬṭḌḍḶḷ]+/g, '<span>$&</span>');
+    }
+
+    var serviceInstance = { toDom: toDom };
     return serviceInstance;
   }]);
