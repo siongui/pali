@@ -29,17 +29,15 @@ angular.module('pali.tooltip', []).
 
     function adjustTooltipRatio() {
       // offsetWidth and offsetHeight will be 0 if no delay
-      setTimeout( function() {
-        var width = tooltip.prop('offsetWidth');
-        var height = tooltip.prop('offsetHeight');
-        if (height/width > 2) {
-          //console.log('too tall! width: ' + width + ', height: ' + height);
-          var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
-          if (newLeft < 0) newLeft = 0;
-          tooltip.css('left', Math.floor(newLeft) + 'px');
-          // FIXME: sometimes adjustRatio will make tooltip disappear
-        }
-      }, 10);
+      var width = tooltip.prop('offsetWidth');
+      var height = tooltip.prop('offsetHeight');
+      if (height/width > 2) {
+        //console.log('too tall! width: ' + width + ', height: ' + height);
+        var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
+        if (newLeft < 0) newLeft = 0;
+        tooltip.css('left', Math.floor(newLeft) + 'px');
+        // FIXME: sometimes adjustRatio will make tooltip disappear
+      }
     }
 
     function setContent(content) {
@@ -59,10 +57,17 @@ angular.module('pali.tooltip', []).
     }
 
     function show(isAdjustRatio) {
-      tooltip.css('left', _left + 'px');
-      tooltip.css('top', _top + 'px');
-      if (isAdjustRatio !== false)
-        adjustTooltipRatio();
+      setTimeout( function() {
+        var _right = _left + tooltip.prop('offsetWidth');
+        if ( _right > document.width )
+          _left -= (_right - document.width);
+
+        if (isAdjustRatio !== false)
+          adjustTooltipRatio();
+
+        tooltip.css('left', _left + 'px');
+        tooltip.css('top', _top + 'px');
+      }, 10);
     }
 
     function hide() {
