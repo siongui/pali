@@ -31,18 +31,6 @@ angular.module('pali.tooltip', []).
     // FIXME: why -32 here?
     function viewWidth() { return (window.innerWidth || document.documentElement.clientWidth) - 32; }
 
-    function adjustTooltipRatio() {
-      // FIXME: first time lookup doesn't adjust!!!
-      var width = tooltip.prop('offsetWidth');
-      var height = tooltip.prop('offsetHeight');
-      if (height/width > 2) {
-        //console.log('too tall! width: ' + width + ', height: ' + height);
-        var newLeft = parseInt(tooltip.css('left').replace('px', '')) - height / 2;
-        if (newLeft < 0) newLeft = 0;
-        tooltip.css('left', Math.floor(newLeft) + 'px');
-      }
-    }
-
     function setContent(content) {
       tooltip.children().remove();
       if (angular.isUndefined(content)) {
@@ -60,20 +48,25 @@ angular.module('pali.tooltip', []).
     }
 
     function show(isAdjustRatio) {
-      // property of elements will be not update if no delay
-      setTimeout( function() {
-        var _right = _left + tooltip.prop('offsetWidth');
-        if ( _right > viewWidth() )
-          _left -= (_right - viewWidth());
+      if (angular.isUndefined(isAdjustRatio) || isAdjustRatio === true) {
+        // adjust tooltip ratio
+        var width = tooltip.prop('offsetWidth');
+        var height = tooltip.prop('offsetHeight');
+        if (height/width > 2) {
+          //console.log('too tall! width: ' + width + ', height: ' + height);
+          _left = Math.floor(_left - height / 2);
+          if (_left < 0) _left = 0;
+        }
+      }
 
-        if (isAdjustRatio !== false)
-          adjustTooltipRatio();
+      var _right = _left + tooltip.prop('offsetWidth');
+      if ( _right > viewWidth() )
+        _left -= (_right - viewWidth());
 
-        if (_left < 0) _left = 0;
+      if (_left < 0) _left = 0;
 
-        tooltip.css('left', _left + 'px');
-        tooltip.css('top', _top + 'px');
-      }, 10);
+      tooltip.css('left', _left + 'px');
+      tooltip.css('top', _top + 'px');
     }
 
     function hide() {
@@ -120,21 +113,21 @@ angular.module('pali.tooltip', []).
       scope.isLookingUp = true;
 
       if (paliIndexes.isValidPaliWord(word)) {
-        tooltip.show(true);
+        setTimeout(function(){tooltip.show(true);}, 10);
         paliJson.get(word).then( function(jsonData) {
           // get jsonData successfully via xhr CORS
           scope.isLookingUp = false;
           scope.isShortExp = true;
           scope.dicWordExps = jsonData;
-          tooltip.show(true);
+          setTimeout(function(){tooltip.show(true);}, 10);
         }, function(reason) {
           // fail to get word via xhr CORS
           scope.isLookingUp = false;
           scope.isNetErr = true;
-          tooltip.show(false);
+          setTimeout(function(){tooltip.show(false);}, 10);
         });
       } else {
-        tooltip.show(false);
+        setTimeout(function(){tooltip.show(false);}, 10);
         var possibleWords = paliIndexes.possibleWords(word);
         if (possibleWords) {
           scope.isLookingUp = false;
