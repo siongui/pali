@@ -4,11 +4,10 @@
 
 
 angular.module('paliTipitaka.directives', []).
-  directive('treeview', ['$compile', '$location', function($compile, $location) {
+  directive('treeview', ['$compile', '$location', 'tvServ', function($compile, $location, tvServ) {
     return {
       restrict: 'A',
       link: function(scope, elm, attrs) {
-        if (!angular.isObject(treeviewAllJson)) throw 'no treeviewAllJson';
 
         scope.leafNodeClicked = function(action, text, path) {
           scope.action = action;
@@ -17,7 +16,7 @@ angular.module('paliTipitaka.directives', []).
         };
 
         // show only tipitaka, no commentaries and sub-commentaries
-        elm.append(traverseTreeviewData(treeviewAllJson['child'][0], '/canon'));
+        elm.append(traverseTreeviewData(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath));
 
         function traverseTreeviewData(node, path) {
           if (node['child']) {

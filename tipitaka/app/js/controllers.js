@@ -3,13 +3,21 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $routeParams, paliXml, htmlDoc2View) {
+function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View) {
   var action = $scope.action;
   var text = $scope.text;
 
   if (angular.isUndefined(action) || angular.isUndefined(text)) {
-    console.log($routeParams);
-    return;
+    var info = tvServ.getInfo($location.path());
+    if (info.hasOwnProperty('action')) {
+      action = info['action'];
+      text = info['text'];
+      $scope.action = action;
+      $scope.text = action;
+    } else {
+      $scope.nodes = info;
+      return;
+    }
   }
 
   $scope.isShowLoading = true;
@@ -25,7 +33,7 @@ function canonCtrl($scope, $routeParams, paliXml, htmlDoc2View) {
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', '$routeParams', 'paliXml', 'htmlDoc2View'];
+canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View'];
 
 
 function noopCtrl($scope) {

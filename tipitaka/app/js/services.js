@@ -186,4 +186,51 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     var serviceInstance = { toDom: toDom };
     return serviceInstance;
+  }]).
+
+  factory('tvServ', [function() {
+    if (!angular.isObject(treeviewAllJson)) throw 'no treeviewAllJson';
+
+    function getInfo(path) {
+      // find the node corresponds to the path
+      var node;
+      var pathArray = path.split('/');
+      if (pathArray.length < 2) {
+        throw 'impossible path: ' + path;
+      } else if (pathArray.length === 2) {
+        node = treeviewAllJson['child'][0];
+      } else {
+        node = treeviewAllJson['child'][0];
+        for (var i=2; i<pathArray.length; i++) {
+          var pathi = pathArray[i];
+          for (var j=0; j<node['child'].length; j++) {
+            if (node['child'][j]['url'] === pathi) {
+              node = node['child'][j];
+              break;
+            }
+          }
+        }
+      }
+
+      // node found. build information
+      if (node.hasOwnProperty('action')) {
+        return {'action': node['action'], 'text': node['text']};
+      } else {
+        var childNodesInfo = [];
+        for (var i=0; i<node['child'].length; i++) {
+          childNodesInfo.push({
+            'text': node['child'][i]['text'],
+            'path': path + '/' + node['child'][i]['url']
+          });
+        }
+        return childNodesInfo;
+      }
+    }
+
+    var serviceInstance = {
+      getInfo: getInfo,
+      tipitakaRootNode: treeviewAllJson['child'][0],
+      tipitakaRootNodePath: '/canon'
+    };
+    return serviceInstance;
   }]);

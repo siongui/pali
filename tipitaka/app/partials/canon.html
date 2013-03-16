@@ -1,4 +1,5 @@
 <div>
   <div ng-show="isShowLoading">Loading {{text}} ...</div>
+  <div ng-repeat="node in nodes"><a href="{{node.path}}">{{node.text}}</a></div>
   <div bind-xml-doms><!-- $watch and append scope.xmlDoms (jqLite element) if changes --></div>
 </div>
