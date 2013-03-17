@@ -6,10 +6,10 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $locationProvider.html5Mode(true);
   }]).
   config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/', {templateUrl: '/partials/about.html', controller: noopCtrl});
-    $routeProvider.when('/en_US/', {templateUrl: '/partials/about.html', controller: noopCtrl});
-    $routeProvider.when('/zh_TW/', {templateUrl: '/partials/about.html', controller: noopCtrl});
-    $routeProvider.when('/zh_CN/', {templateUrl: '/partials/about.html', controller: noopCtrl});
+    $routeProvider.when('/', {templateUrl: '/partials/info.html', controller: infoCtrl});
+    $routeProvider.when('/en_US/', {templateUrl: '/partials/info.html', controller: infoCtrl});
+    $routeProvider.when('/zh_TW/', {templateUrl: '/partials/info.html', controller: infoCtrl});
+    $routeProvider.when('/zh_CN/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.when('/canon', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.when('/canon/:path1', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.when('/canon/:path1/:path2', {templateUrl: '/partials/canon.html', controller: canonCtrl});

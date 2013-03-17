@@ -5,6 +5,7 @@
   <title>Pāḷi Tipiṭaka ({$_("Pali Tipitaka")$})</title>
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/romn/tipitaka-latn.css">
+  <script type="text/ng-template" id="/partials/info.html">{% include 'info.html' %}</script>
   <script type="text/ng-template" id="/partials/about.html">{% include 'about.html' %}</script>
   <script type="text/ng-template" id="/partials/canon.html">{% include 'canon.html' %}</script>
   <script type="text/ng-template" id="/partials/tooltipContent.html">{% include 'tooltipContent.html' %}</script>
@@ -26,6 +27,8 @@
     <div style="clear: both;"></div>
   </div>
 </div>
+
+<p style="text-align: right;"><small>Powered by <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a>, <a href="http://angularjs.org/" target="_blank">AngularJS</a>.</p>
 
 <div id="locale" style="display:none">{$ userLocale $}</div>
 <div id="langQs" style="display:none">{$ langQs $}</div>
@@ -55,6 +58,7 @@
 <script src="/common/js/services-tooltip.js"></script>
 <script src="/common/js/filters.js"></script>
 <script src="/js/treeviewAllJson.js"></script>
+<script src="/js/i18nTpk-services.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/controllers.js"></script>
 <script src="/js/directives.js"></script>
