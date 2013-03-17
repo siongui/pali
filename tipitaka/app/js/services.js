@@ -188,7 +188,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('tvServ', ['i18nTpk', function(i18nTpk) {
+  factory('tvServ', [function() {
     if (!angular.isObject(treeviewAllJson)) throw 'no treeviewAllJson';
 
     function getInfo(path) {
@@ -227,50 +227,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       }
     }
 
-    function basename(str) { return str.split('/').reverse()[0]; }
-
-    function recursiveBuildPath(node, pathPrefix, xmlName) {
-      var path = pathPrefix + '/' + node['url'];
-      if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
-      if (node.hasOwnProperty('action')) {
-        if (basename(node['action']) === xmlName)
-          return path;
-      } else {
-        for (var i=0; i<node['child'].length; i++) {
-          var result = recursiveBuildPath(node['child'][i], path, xmlName);
-          if (angular.isString(result))
-            return result;
-        }
-      }
-    }
-
-    function xmlName2Path(xmlName) {
-      var node = treeviewAllJson['child'][0];
-      var pathPrefix = '/canon';
-      return recursiveBuildPath(node, pathPrefix, xmlName);
-    }
-
-    function getLocaleTranslations() {
-      var localeTranslations = [];
-      for (var locale in i18nTpk.translationInfo) {
-        var localeTranslation = {};
-        localeTranslation.locale = locale;
-        localeTranslation.translations = [];
-        for (var xmlName in i18nTpk.translationInfo[locale]['canon']) {
-          var translation = {};
-          translation.path = xmlName2Path(xmlName);
-          translation.canonName = i18nTpk.canonName[xmlName]['pali'];
-          translation.translatorCode = i18nTpk.translationInfo[locale]['canon'][xmlName];
-          translation.translator =  i18nTpk.translationInfo[locale]['source'][translation.translatorCode][0];
-          localeTranslation.translations.push(translation);
-        }
-        localeTranslations.push(localeTranslation);
-      }
-      return localeTranslations;
-    }
-
     var serviceInstance = {
-      getLocaleTranslations: getLocaleTranslations,
       getInfo: getInfo,
       tipitakaRootNode: treeviewAllJson['child'][0],
       tipitakaRootNodePath: '/canon'

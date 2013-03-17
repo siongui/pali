@@ -30,11 +30,11 @@ function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View) {
 canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View'];
 
 
-function infoCtrl($scope, $location, tvServ) {
+function infoCtrl($scope, $location, i18nTpkServ) {
   // setup translation links
   $scope.showCanon = function(path) { $location.path(path); };
 
-  $scope.localeTranslations = tvServ.getLocaleTranslations();
+  $scope.localeTranslations = i18nTpkServ.getLocaleTranslations();
 }
-infoCtrl.$inject = ['$scope', '$location', 'tvServ'];
+infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ'];
 
