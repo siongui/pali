@@ -33,6 +33,10 @@ canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View']
 function infoCtrl($scope, $location, i18nTpkServ) {
   // setup translation links
   $scope.showCanon = function(path) { $location.path(path); };
+  $scope.showTranslation = function(path, locale, translator) 
+    { $location.path(path + '/' + locale + '/' + translator); };
+  $scope.showContrastReading = function(path, locale, translator) 
+    { $location.path(path + '/' + locale + '/' + translator + '/ContrastReading'); };
 
   $scope.localeTranslations = i18nTpkServ.getLocaleTranslations();
 }

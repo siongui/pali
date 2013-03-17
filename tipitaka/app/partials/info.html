@@ -7,8 +7,8 @@
       <div ng-repeat="translation in localeTranslation.translations" style="padding-left: 1em; margin-top: 0.25em; border: 1px dotted rgb(224, 224, 224); border-radius: 10px;">
         <a href="javascript:void(0);" ng-click="showCanon(translation.path)">{{ translation.canonName }}</a>:
         <div style="padding-left: 1em;">
-          <a href="javascript:void(0);" ng-click="showTranslation(translation.path, localeTranslation.locale, localeTranslation.translatorCode)">{{ translation.translator }}</a>&nbsp;
-          (<a href="javascript:void(0);" ng-click="showContrastReading(translation.path, localeTranslation.locale, localeTranslation.translatorCode)" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
+          <a href="javascript:void(0);" ng-click="showTranslation(translation.path, localeTranslation.locale, translation.translator)">{{ translation.translator }}</a>&nbsp;
+          (<a href="javascript:void(0);" ng-click="showContrastReading(translation.path, localeTranslation.locale, translation.translator)" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
         </div>
       </div>
     </div>
