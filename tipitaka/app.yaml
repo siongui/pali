@@ -21,6 +21,10 @@ handlers:
   static_files: app/BingSiteAuth.xml
   upload: app/BingSiteAuth\.xml
 
+- url: /js/tipitaka\.js
+  static_files: app/all_compiled.js
+  upload: app/all_compiled\.js
+
 - url: /js
   static_dir: app/js
 
@@ -32,6 +36,10 @@ handlers:
 
 - url: /css
   static_dir: app/css
+
+- url: /partials/analytics\.html
+  static_files: app/partials/analytics.html
+  upload: app/partials/analytics\.html
 
 - url: /romn
   static_dir: common/romn
