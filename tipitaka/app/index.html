@@ -5,6 +5,7 @@
   <title>Pāḷi Tipiṭaka ({$_("Pali Tipitaka")$})</title>
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/romn/tipitaka-latn.css">
+  <script type="text/ng-template" id="/partials/about.html">{% include 'about.html' %}</script>
   <script type="text/ng-template" id="/partials/canon.html">{% include 'canon.html' %}</script>
   <script type="text/ng-template" id="/partials/tooltipContent.html">{% include 'tooltipContent.html' %}</script>
 </head>
@@ -18,7 +19,7 @@
   <div style="background-color: #f7f7f9;">
     <div id="treeview"><div treeview></div><div ng-include="leftsideUrl"></div></div>
     <div id="viewwrapper" style="padding-bottom:100%;"><div id="viewarrow"></div><div id="viewseparator"></div></div>
-    <div id="mainview"><div ng-view>{% if reqHandlerName == 'CanonPage' %}{$ canonPageHtml $}{% endif %}</div></div>
+    <div id="mainview"><div ng-view>{% if reqHandlerName == 'MainPage' %}{% include 'about.html' %}{% endif %}{% if reqHandlerName == 'CanonPage' %}{$ canonPageHtml $}{% endif %}</div></div>
     <div style="clear: both;"></div>
   </div>
 </div>
