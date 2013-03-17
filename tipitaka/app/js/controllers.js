@@ -4,20 +4,14 @@
 
 
 function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View) {
-  var action = $scope.action;
-  var text = $scope.text;
-
-  if (angular.isUndefined(action) || angular.isUndefined(text)) {
-    var info = tvServ.getInfo($location.path());
-    if (info.hasOwnProperty('action')) {
-      action = info['action'];
-      text = info['text'];
-      $scope.action = action;
-      $scope.text = action;
-    } else {
-      $scope.nodes = info;
-      return;
-    }
+  var info = tvServ.getInfo($location.path());
+  if (info.hasOwnProperty('action')) {
+    var action = info['action'];
+    var text = info['text'];
+    $scope.text = text;
+  } else {
+    $scope.nodes = info;
+    return;
   }
 
   $scope.isShowLoading = true;
