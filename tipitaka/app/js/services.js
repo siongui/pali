@@ -231,6 +231,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function recursiveBuildPath(node, pathPrefix, xmlName) {
       var path = pathPrefix + '/' + node['url'];
+      if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
       if (node.hasOwnProperty('action')) {
         if (basename(node['action']) === xmlName)
           return path;
@@ -265,7 +266,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         }
         localeTranslations.push(localeTranslation);
       }
-console.log(localeTranslations);
       return localeTranslations;
     }
 
