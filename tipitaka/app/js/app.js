@@ -59,4 +59,6 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
         $rootScope.analyticsUrl = '/partials/analytics.html';
       }
     }
+
+    $rootScope.initOK = true;
   }]);

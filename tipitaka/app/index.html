@@ -11,6 +11,9 @@
 </head>
 <body>
 
+<div id="hideAll" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 99; display: none; background-color: #F0F8FF; text-align: center; color: blue; font-size: 2em;" ng-hide="initOK"><br /><br />Loading ...<br />載入中 ...<br />载入中 ...<br /></div>
+<script type="text/javascript">document.getElementById("hideAll").style.display = "block";</script> 
+
 <div  id="allContainer">
   {% include 'mainbar.html' %}
   {% include 'setting.html' %}
