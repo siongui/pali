@@ -5,15 +5,16 @@
 
 function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View) {
   var info = tvServ.getInfo($location.path());
-  if (info.hasOwnProperty('action')) {
-    var action = info['action'];
-    var text = info['text'];
-    $scope.text = text;
-  } else {
+  if (!info.hasOwnProperty('action')) {
+    // not leaf node => shows only links
     $scope.nodes = info;
     return;
   }
 
+  // leaf node => contains pali texts
+  var action = info['action'];
+  var text = info['text'];
+  $scope.text = text;
   $scope.isShowLoading = true;
 
   var promise = paliXml.get(action);
@@ -41,4 +42,14 @@ function infoCtrl($scope, $location, i18nTpkServ) {
   $scope.localeTranslations = i18nTpkServ.getLocaleTranslations();
 }
 infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ'];
+
+
+function translationCtrl($scope, $location, i18nTpkServ) {
+}
+translationCtrl.$inject = ['$scope', '$location', 'i18nTpkServ'];
+
+
+function contrastReadingCtrl($scope, $location, i18nTpkServ) {
+}
+contrastReadingCtrl.$inject = ['$scope', '$location', 'i18nTpkServ'];
 

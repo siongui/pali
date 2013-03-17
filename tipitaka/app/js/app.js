@@ -10,12 +10,14 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $routeProvider.when('/en_US/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.when('/zh_TW/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.when('/zh_CN/', {templateUrl: '/partials/info.html', controller: infoCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_TW/:translator/ContrastReading', {template: 'contrast reading', controller: contrastReadingCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_CN/:translator/ContrastReading', {template: 'contrast reading', controller: contrastReadingCtrl});
+    $routeProvider.when('/canon/*canonPath/en_US/:translator/ContrastReading', {template: 'contrast reading', controller: contrastReadingCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_TW/:translator', {template: 'translation', controller: translationCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_CN/:translator', {template: 'translation', controller: translationCtrl});
+    $routeProvider.when('/canon/*canonPath/en_US/:translator', {template: 'translation', controller: translationCtrl});
+    $routeProvider.when('/canon/*canonPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.when('/canon', {templateUrl: '/partials/canon.html', controller: canonCtrl});
-    $routeProvider.when('/canon/:path1', {templateUrl: '/partials/canon.html', controller: canonCtrl});
-    $routeProvider.when('/canon/:path1/:path2', {templateUrl: '/partials/canon.html', controller: canonCtrl});
-    $routeProvider.when('/canon/:path1/:path2/:path3', {templateUrl: '/partials/canon.html', controller: canonCtrl});
-    $routeProvider.when('/canon/:path1/:path2/:path3/:path4', {templateUrl: '/partials/canon.html', controller: canonCtrl});
-    $routeProvider.when('/canon/:path1/:path2/:path3/:path4/:path5', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
   run(['$rootScope', '$location', '$document', 'i18nserv', 'resizableViews', function($rootScope, $location, $document, i18nserv, resizableViews) {
