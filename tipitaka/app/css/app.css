@@ -47,6 +47,7 @@ html, body { height: 100%; }
   float: left;
   font-family: Tahoma, Arial, serif;
   min-height: 100%;
+  background-color: #F0F8FF;
 }
 
 .item {
