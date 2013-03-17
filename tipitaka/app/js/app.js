@@ -50,10 +50,8 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     // initialize ng-include
     if ($location.host() === 'localhost') {
       $rootScope.isDevServer = true;
-      $rootScope.leftsideUrl = '/partials/devlinks.html';
     } else {
       $rootScope.isDevServer = false;
-      $rootScope.leftsideUrl = '/partials/buttons.html';
       if ($location.search()['track'] !== 'no') {
         /* Load Google Analytics Code */
         $rootScope.analyticsUrl = '/partials/analytics.html';

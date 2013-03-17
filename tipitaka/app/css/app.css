@@ -70,3 +70,12 @@ html, body { height: 100%; }
   padding-left: .4em;
   border-left: 1px dotted blue;
 }
+
+div.floating-buttons {
+  padding-top: 2em;
+}
+div.floating-buttons > div {
+  display: block;
+  margin-top: 10px;
+}
+

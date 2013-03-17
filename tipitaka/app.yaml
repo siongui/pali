@@ -33,10 +33,6 @@ handlers:
 - url: /css
   static_dir: app/css
 
-- url: /partials/devlinks\.html
-  static_files: app/partials/devlinks.html
-  upload: app/partials/devlinks\.html
-
 - url: /romn
   static_dir: common/romn
   http_headers:
