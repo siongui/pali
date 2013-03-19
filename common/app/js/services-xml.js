@@ -10,6 +10,10 @@ angular.module('pali.xml', []).
 
     function get(action) {
       var url = '/romn/' + action;
+      return getUrl(url);
+    }
+
+    function getUrl(url) {
       var xsltDoc = cache.get(xsltPath);
       if (xsltDoc) {
         var htmlDoc = cache.get(url);
@@ -37,7 +41,7 @@ angular.module('pali.xml', []).
       }
     }
 
-    var serviceInstance = { get: get };
+    var serviceInstance = { get: get, getUrl: getUrl };
     return serviceInstance;
   }]).
 

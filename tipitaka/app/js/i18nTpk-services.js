@@ -47,8 +47,37 @@ angular.module('paliTipitaka.i18nTpk', []).
       return localeTranslations;
     }
 
+    function getPathLocale(path) { return path.split('/').reverse()[1]; }
+
+    function getTranslatorCode(locale, xmlFilename, translator) {
+      var translatorCodes = i18nTpk.translationInfo[locale]['canon'][xmlFilename];
+      if (!angular.isArray(translatorCodes))
+        throw 'In getTranslatorCode: no codes';
+
+      for (var i=0; i<translatorCodes; i++) {
+        if (translator === i18nTpk.translationInfo[locale]['source'][translatorCodes[i]][0])
+          return translatorCodes[i];
+      }
+
+      throw 'In getTranslatorCode: cannot find translator code';
+    }
+
+    function getTranslationUrl(path, canonPath, translator) {
+      var info = tvServ.getInfo('/canon/' + canonPath);
+      if (!info.hasOwnProperty('action')) {
+        // not leaf node => impossible => FIXME: do error handling here
+        throw 'In getTranslationUrl: no action';
+        return;
+      }
+      var locale = getPathLocale(path);
+      var xmlFilename = basename(info.action);
+      var translatorCode = getTranslatorCode(locale, xmlFilename, translator);
+      return '/translation/' + locale + '/'+ translatorCode + '/' + xmlFilename;
+    }
+
     var serviceInstance = {
-      getLocaleTranslations: getLocaleTranslations
+      getLocaleTranslations: getLocaleTranslations,
+      getTranslationUrl: getTranslationUrl
     };
     return serviceInstance;
   }]).

@@ -13,9 +13,9 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $routeProvider.when('/canon/*canonPath/zh_TW/:translator/ContrastReading', {template: 'contrast reading', controller: contrastReadingCtrl});
     $routeProvider.when('/canon/*canonPath/zh_CN/:translator/ContrastReading', {template: 'contrast reading', controller: contrastReadingCtrl});
     $routeProvider.when('/canon/*canonPath/en_US/:translator/ContrastReading', {template: 'contrast reading', controller: contrastReadingCtrl});
-    $routeProvider.when('/canon/*canonPath/zh_TW/:translator', {template: 'translation', controller: translationCtrl});
-    $routeProvider.when('/canon/*canonPath/zh_CN/:translator', {template: 'translation', controller: translationCtrl});
-    $routeProvider.when('/canon/*canonPath/en_US/:translator', {template: 'translation', controller: translationCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_TW/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_CN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/canon/*canonPath/en_US/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/canon/*canonPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.when('/canon', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
