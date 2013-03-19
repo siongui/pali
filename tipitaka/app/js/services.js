@@ -112,7 +112,42 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       return angular.element(body);
     }
 
-    var serviceInstance = { getView: getView };
+    function getContrastReadingView(oriHtmlDoc, transHtmlDoc) {
+      var oriBody = oriHtmlDoc.getElementsByTagName('body')[0];
+      var transBody = transHtmlDoc.getElementsByTagName('body')[0];
+
+      var tb = document.createElement('table');
+      tb.style.width = '100%';
+
+      for (var i=0; i<oriBody.childNodes.length; i++) {
+        if (angular.isDefined(transBody.childNodes[i])) {
+          /* cloneNode() is important. otherwise the second time nothing will show up */
+          var oriChildNode = oriBody.childNodes[i].cloneNode(true);
+          var transChildNode = transBody.childNodes[i].cloneNode(true);
+          wrapWordsInElement(oriChildNode);
+
+          var td1 = document.createElement('td');
+          td1.appendChild(oriChildNode);
+          td1.style.width = '50%';
+
+          var td2 = document.createElement('td');
+          td2.appendChild(transChildNode);
+          td2.style.width = '50%';
+
+          var tr = document.createElement('tr');
+          tr.style.width = '100%';
+          tr.style.textAlign = 'left';
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+
+          tb.appendChild(tr);
+        }
+      }
+
+      return angular.element(tb);
+    }
+
+    var serviceInstance = { getView: getView, getContrastReadingView: getContrastReadingView };
     return serviceInstance;
   }]).
 
