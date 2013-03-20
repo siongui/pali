@@ -178,18 +178,18 @@ def recursivelyCheck2(node, path):
         # check if all remaining items are None
         for subPath in path[1:]:
           if subPath is not None:
-            return {'isValid': False, 'node': None }
+            return {'isValid': False }
         # all remaining items are None => True
         return {'isValid': True, 'node': child }
       else:
         if len(path) == 1:
-          return {'isValid': False, 'node': None }
+          return {'isValid': False }
         elif path[1] is None:
-          return {'isValid': False, 'node': None }
+          return {'isValid': False }
         else:
           return recursivelyCheck2(child, path[1:])
 
-  return {'isValid': False, 'node': None }
+  return {'isValid': False }
 
 
 def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator):
@@ -200,17 +200,22 @@ def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, l
   result = recursivelyCheck2(rootNode, path)
   if result['isValid']:
     if locale in translationInfo:
-      if os.path.basename(result['node']['action']) in translationInfo[locale]['canon']:
-        for translatorCode in translationInfo[locale]['canon'][os.path.basename(result['node']['action'])]:
+      xmlFilename = os.path.basename(result['node']['action'])
+      if xmlFilename in translationInfo[locale]['canon']:
+        for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
           if translationInfo[locale]['source'][translatorCode][0] == translator:
-            return True
-        return False
+            return {'isValid': True, 'node': result['node'] }
+        return {'isValid': False }
       else:
-        return False
+        return {'isValid': False }
     else:
-      return False
+      return {'isValid': False }
   else:
-    return False
+    return {'isValid': False }
+
+
+def getTranslationPageHtml(locale, translator, node):
+  return ''
 
 
 if __name__ == '__main__':
