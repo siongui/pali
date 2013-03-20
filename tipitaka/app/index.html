@@ -20,9 +20,9 @@
   {% include 'setting.html' %}
   {% if isCompiledJS %}<gcse:searchbox-only></gcse:searchbox-only>{% endif %}
 
-  <div style="background-color: #f7f7f9;">
+  <div style="width: 100%; overflow: hidden;">
     <div id="treeview"><div treeview></div>{% if isCompiledJS %}{% include 'buttons.html' %}{% else %}{% include 'devlinks.html' %}{% endif %}</div>
-    <div id="viewwrapper" style="padding-bottom:100%;"><div id="viewarrow"></div><div id="viewseparator"></div></div>
+    <div id="viewwrapper"><div id="viewarrow"></div><div id="viewseparator"></div></div>
     <div id="mainview"><div ng-view>{% if reqHandlerName == 'MainPage' %}{% include 'about.html' %}{% endif %}{% if reqHandlerName == 'CanonPage' %}{$ canonPageHtml $}{% endif %}</div></div>
     <div style="clear: both;"></div>
   </div>
