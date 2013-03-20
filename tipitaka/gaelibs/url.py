@@ -17,6 +17,69 @@ else:
   raise Exception('cannot fetch http://1.epalitipitaka.appspot.com/romn/cscd/tipitaka-latn.xsl')
 
 
+translationInfo = {
+  'zh_TW': {
+    'canon': {
+      's0502m.mul0.xml': ['2'],
+      's0502m.mul1.xml': ['2'],
+      's0502m.mul2.xml': ['2'],
+      's0502m.mul3.xml': ['2'],
+      's0502m.mul4.xml': ['2'],
+      's0505m.mul0.xml': ['1']
+    },
+    'source': {
+      '1': ['郭良鋆', 'http://blog.yam.com/benji/article/34665984'],
+      '2': ['了參法師(葉均)', 'http://myweb.ncku.edu.tw/~lsn46/Tipitaka/Sutta/Khuddaka/Dhammapada/ven-l-z-all.htm'],
+      '3': ['蕭式球', 'http://www.chilin.edu.hk/edu/report_section.asp?section_id=5']
+    }
+  },
+  'en_US': {
+    'canon': {
+      's0502m.mul0.xml': ['1'],
+      's0502m.mul1.xml': ['1'],
+      's0502m.mul2.xml': ['1'],
+      's0502m.mul3.xml': ['1'],
+      's0502m.mul4.xml': ['1']
+    },
+    'source': {
+      '1': ['Ṭhānissaro Bhikkhu', 'http://www.accesstoinsight.org/tipitaka/translators.html#than', 'http://www.accesstoinsight.org/lib/authors/thanissaro/dhammapada.pdf']
+    }
+  }
+}
+
+canonName = {
+  's0505m.mul0.xml': {
+    'pali': 'Suttanipāta, Uragavaggo',
+    'zh_TW': '經集, 蛇品'
+  },
+  's0502m.mul0.xml': {
+    'pali': 'Dhammapada, Yamakavaggo',
+    'en_US': 'Dhammapada, Pairs',
+    'zh_TW': '法句, 雙品'
+  },
+  's0502m.mul1.xml': {
+    'pali': 'Dhammapada, Appamādavaggo',
+    'en_US': 'Dhammapada, Heedfulness',
+    'zh_TW': '法句, 不放逸品'
+  },
+  's0502m.mul2.xml': {
+    'pali': 'Dhammapada, Cittavaggo',
+    'en_US': 'Dhammapada, The Mind',
+    'zh_TW': '法句, 心品'
+  },
+  's0502m.mul3.xml': {
+    'pali': 'Dhammapada, Pupphavaggo',
+    'en_US': 'Dhammapada, Blossoms',
+    'zh_TW': '法句, 華(花)品'
+  },
+  's0502m.mul4.xml': {
+    'pali': 'Dhammapada, Bālavaggo',
+    'en_US': 'Dhammapada, Fools',
+    'zh_TW': '法句, 愚品'
+  }
+}
+
+
 def getHtmlTitle(userLocale, reqHandlerName, i18n):
   return ''
 
@@ -106,6 +169,48 @@ def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, reqPath):
       html += u'<a href="%s/%s">%s</a>' % (reqPath, child['url'], child['text'])
 
   return html
+
+
+def recursivelyCheck2(node, path):
+  for child in node['child']:
+    if path[0].decode('utf-8') == child['url']:
+      if 'action' in child:
+        # check if all remaining items are None
+        for subPath in path[1:]:
+          if subPath is not None:
+            return {'isValid': False, 'node': None }
+        # all remaining items are None => True
+        return {'isValid': True, 'node': child }
+      else:
+        if len(path) == 1:
+          return {'isValid': False, 'node': None }
+        elif path[1] is None:
+          return {'isValid': False, 'node': None }
+        else:
+          return recursivelyCheck2(child, path[1:])
+
+  return {'isValid': False, 'node': None }
+
+
+def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator):
+  # rootNode is tipitaka, no commentaris and sub-commentaries
+  rootNode = treeviewData['child'][0]
+  path = [path1, path2, path3, path4, path5]
+
+  result = recursivelyCheck2(rootNode, path)
+  if result['isValid']:
+    if locale in translationInfo:
+      if os.path.basename(result['node']['action']) in translationInfo[locale]['canon']:
+        for translatorCode in translationInfo[locale]['canon'][os.path.basename(result['node']['action'])]:
+          if translationInfo[locale]['source'][translatorCode][0] == translator:
+            return True
+        return False
+      else:
+        return False
+    else:
+      return False
+  else:
+    return False
 
 
 if __name__ == '__main__':
