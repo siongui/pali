@@ -59,11 +59,27 @@ class CanonPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 
+class TranslationPage(webapp2.RequestHandler):
+  def get(self, path1, path2, path3, locale, translator, urlLocale=None, path4=None, path5=None):
+    self.redirect('/')
+
+
+class ContrastReadingPage(webapp2.RequestHandler):
+  def get(self, path1, path2, path3, locale, translator, urlLocale=None, path4=None, path5=None):
+    self.redirect('/')
+
+
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/', handler=MainPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
   webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>', handler=CanonPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
   webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>', handler=CanonPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
+  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
   webapp2.Route(r'/canon/<path1>/<path2>/<path3>', handler=CanonPage),
   webapp2.Route(r'/canon/<path1>/<path2>', handler=CanonPage),
   webapp2.Route(r'/canon/<path1>', handler=CanonPage),
