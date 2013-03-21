@@ -139,6 +139,7 @@ def getCanonPageHtml(node, reqPath):
   if 'action' in node:
     # fetch xml
     xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
+    # return only innerHTML of body
     html += getBodyDom(xmlUrl).toxml()[6:-7]
   else:
     for child in node['child']:
@@ -190,12 +191,7 @@ def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, l
     return {'isValid': False }
 
 
-def getTranslationPageHtml(locale, translator, node):
-  if 'action' not in node:
-    raise Exception('In getTranslationPageHtml: action attribute not in node!')
-
-  html = u''
-
+def getTranslationXmlBodyDom(locale, translator, node):
   # fetch xml
   xmlFilename = os.path.basename(node['action'])
   if xmlFilename in translationInfo[locale]['canon']:
@@ -209,8 +205,50 @@ def getTranslationPageHtml(locale, translator, node):
     raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
 
   xmlUrl = 'http://1.epalitipitaka.appspot.com/translation/%s/%s/%s' % (locale, code, xmlFilename)
-  html += getBodyDom(xmlUrl).toxml()[6:-7]
+  return getBodyDom(xmlUrl)
+
+
+def getTranslationPageHtml(locale, translator, node):
+  if 'action' not in node:
+    raise Exception('In getTranslationPageHtml: action attribute not in node!')
+
+  html = u''
+  # return only innerHTML of body
+  html += getTranslationXmlBodyDom(locale, translator, node).toxml()[6:-7]
   return html
+
+
+def generateContrastReadingTable(oriBody, trBody):
+  if (len(oriBody.childNodes) != len(trBody.childNodes)):
+    raise Exception('two XML document body childs # not match')
+
+  impl = xml.dom.minidom.getDOMImplementation()
+  dom = impl.createDocument(None, 'table', None)
+  tb = dom.documentElement
+  tb.setAttribute('id', "contrastReadingTable")
+  tb.setAttribute('style', "width: 100%")
+
+  for i in range(len(oriBody.childNodes)):
+    if oriBody.childNodes[i].nodeType != xml.dom.Node.ELEMENT_NODE and \
+       trBody.childNodes[i].nodeType != xml.dom.Node.ELEMENT_NODE:
+      continue
+
+    td1 = dom.createElement('td');
+    td1.appendChild(oriBody.childNodes[i].cloneNode(deep=True))
+    td1.setAttribute('style', "width: 50%")
+
+    td2 = dom.createElement('td');
+    td2.appendChild(trBody.childNodes[i].cloneNode(deep=True))
+    td2.setAttribute('style', "width: 50%")
+
+    tr = dom.createElement('tr');
+    tr.setAttribute('style', "text-align: left")
+    tr.appendChild(td1)
+    tr.appendChild(td2)
+
+    tb.appendChild(tr)
+
+  return tb.toxml()
 
 
 def getContrastReadingPageHtml(locale, translator, node):
@@ -218,6 +256,12 @@ def getContrastReadingPageHtml(locale, translator, node):
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
   html = u''
+
+  xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
+  oriBody= getBodyDom(xmlUrl)
+  trBody = getTranslationXmlBodyDom(locale, translator, node)
+  html += generateContrastReadingTable(oriBody, trBody)
+
   return html
 
 
