@@ -105,9 +105,9 @@ def recursivelyCheck(node, path):
     # check if all items are None
     for subPath in path:
       if subPath is not None:
-        return False
+        return {'isValid': False }
     # all items are None => True
-    return True
+    return {'isValid': True, 'node': node }
 
   else:
     for child in node['child']:
@@ -116,13 +116,13 @@ def recursivelyCheck(node, path):
           # check if all remaining items are None
           for subPath in path[1:]:
             if subPath is not None:
-              return False
+              return {'isValid': False }
           # all remaining items are None => True
-          return True
+          return {'isValid': True, 'node': child }
         else:
           return recursivelyCheck(child, path[1:])
 
-    return False
+    return {'isValid': False }
 
 
 def isValidCanonPath(path1, path2, path3, path4, path5):
@@ -133,36 +133,8 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
   return recursivelyCheck(rootNode, path)
 
 
-def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, reqPath):
+def getCanonPageHtml(node, reqPath):
   # before using this funtion, make sure to call 'isValidCanonPath' first
-
-  # rootNode is tipitaka, no commentaris and sub-commentaries
-  rootNode = treeviewData['child'][0]
-  path = [path1, path2, path3, path4, path5]
-
-  isFinished = False
-  node = rootNode
-  count = 0
-  # find the node which contains necessary information to build html
-  while True:
-    if path[0] is None:
-      isFinished = True
-    else:
-      for child in node['child']:
-        if path[0].decode('utf-8') == child['url']:
-          if 'action' in child:
-            isFinished = True
-          node = child
-          path = path[1:]
-          break
-
-    count += 1
-    if count > 5:
-      raise Exception('getCanonPageHtml: loop count too much')
-    if isFinished:
-      break
-
-  # the node we need is found. Start to build html
   html = u''
   if 'action' in node:
     # fetch xml
