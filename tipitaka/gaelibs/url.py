@@ -133,7 +133,7 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
   return recursivelyCheck(rootNode, path)
 
 
-def getCanonPageHtml(node, reqPath):
+def getCanonPageHtml(node, reqPath, i18n):
   # before using this funtion, make sure to call 'isValidCanonPath' first
   html = u''
   if 'action' in node:
@@ -208,11 +208,11 @@ def getTranslationXmlBodyDom(locale, translator, node):
   return getBodyDom(xmlUrl)
 
 
-def getTranslationPageHtml(locale, translator, node, reqPath):
+def getTranslationPageHtml(locale, translator, node, reqPath, i18n):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u'<div>&lt;&lt; <a href="%s">Original Pāḷi Text</a></div>' % os.path.sep.join(reqPath.split(os.path.sep)[:-2])
+  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-2]), i18n.gettext(u'Original Pāḷi Text'))
   # return only innerHTML of body
   html += getTranslationXmlBodyDom(locale, translator, node).toxml()[6:-7]
   return html
@@ -250,11 +250,11 @@ def generateContrastReadingTable(oriBody, trBody):
   return tb.toxml()
 
 
-def getContrastReadingPageHtml(locale, translator, node, reqPath):
+def getContrastReadingPageHtml(locale, translator, node, reqPath, i18n):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u'<div>&lt;&lt; <a href="%s">Original Pāḷi Text</a></div>' % os.path.sep.join(reqPath.split(os.path.sep)[:-3])
+  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-3]), i18n.gettext(u'Original Pāḷi Text'))
 
   xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
   oriBody= getBodyDom(xmlUrl)
