@@ -4,7 +4,7 @@
 import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml
+from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
@@ -75,7 +75,10 @@ class ContrastReadingPage(webapp2.RequestHandler):
     result = isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator)
     if not result['isValid']:
       self.abort(404)
-    self.redirect('/')
+    template_values = getCommonTemplateValues(self, urlLocale)
+    template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(locale, translator, result['node'])
+    template = jinja_environment.get_template('index.html')
+    self.response.out.write(template.render(template_values))
 
 
 app = webapp2.WSGIApplication([

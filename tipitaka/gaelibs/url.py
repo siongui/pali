@@ -84,6 +84,22 @@ def getHtmlTitle(userLocale, reqHandlerName, i18n):
   return ''
 
 
+def getBodyDom(xmlUrl):
+  result = urlfetch.fetch(xmlUrl)
+  if result.status_code == 200:
+    # successfully fetch xml
+    root = etree.fromstring(result.content)
+    # transform xml with xslt
+    root = transform(root)
+    # feed transformed data to minidom for processing
+    dom = xml.dom.minidom.parseString(etree.tostring(root))
+    # return only dom of body
+    return dom.documentElement.getElementsByTagName('body')[0]
+  else:
+    # fail to fetch xml
+    raise Exception('cannot fetch %s' % xmlUrl)
+
+
 def recursivelyCheck(node, path):
   if path[0] is None:
     # check if all items are None
@@ -151,19 +167,7 @@ def getCanonPageHtml(urlLocale, path1, path2, path3, path4, path5, reqPath):
   if 'action' in node:
     # fetch xml
     xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
-    result = urlfetch.fetch(xmlUrl)
-    if result.status_code == 200:
-      # successfully fetch xml
-      root = etree.fromstring(result.content)
-      # transform xml with xslt
-      root = transform(root)
-      # feed transformed data to minidom for processing
-      dom = xml.dom.minidom.parseString(etree.tostring(root))
-      # return only innerHTML of body
-      html += dom.documentElement.getElementsByTagName('body')[0].toxml()[6:-7]
-    else:
-      # fail to fetch xml
-      raise Exception('cannot fetch %s' % xmlUrl)
+    html += getBodyDom(xmlUrl).toxml()[6:-7]
   else:
     for child in node['child']:
       html += u'<a href="%s/%s">%s</a>' % (reqPath, child['url'], child['text'])
@@ -233,20 +237,15 @@ def getTranslationPageHtml(locale, translator, node):
     raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
 
   xmlUrl = 'http://1.epalitipitaka.appspot.com/translation/%s/%s/%s' % (locale, code, xmlFilename)
-  result = urlfetch.fetch(xmlUrl)
-  if result.status_code == 200:
-    # successfully fetch xml
-    root = etree.fromstring(result.content)
-    # transform xml with xslt
-    root = transform(root)
-    # feed transformed data to minidom for processing
-    dom = xml.dom.minidom.parseString(etree.tostring(root))
-    # return only innerHTML of body
-    html += dom.documentElement.getElementsByTagName('body')[0].toxml()[6:-7]
-  else:
-    # fail to fetch xml
-    raise Exception('cannot fetch %s' % xmlUrl)
+  html += getBodyDom(xmlUrl).toxml()[6:-7]
+  return html
 
+
+def getContrastReadingPageHtml(locale, translator, node):
+  if 'action' not in node:
+    raise Exception('In getTranslationPageHtml: action attribute not in node!')
+
+  html = u''
   return html
 
 

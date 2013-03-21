@@ -23,7 +23,7 @@
   <div style="width: 100%; overflow: hidden;">
     <div id="treeview"><div treeview></div>{% if isCompiledJS %}{% include 'buttons.html' %}{% else %}{% include 'devlinks.html' %}{% endif %}</div>
     <div id="viewwrapper"><div id="viewarrow"></div><div id="viewseparator"></div></div>
-    <div id="mainview"><div ng-view>{% if reqHandlerName == 'MainPage' %}{% include 'about.html' %}{% endif %}{% if reqHandlerName == 'CanonPage' %}{$ canonPageHtml $}{% endif %}{% if reqHandlerName == 'TranslationPage' %}{$ translationPageHtml $}{% endif %}</div></div>
+    <div id="mainview"><div ng-view>{% if reqHandlerName == 'MainPage' %}{% include 'about.html' %}{% endif %}{% if reqHandlerName == 'CanonPage' %}{$ canonPageHtml $}{% endif %}{% if reqHandlerName == 'TranslationPage' %}{$ translationPageHtml $}{% endif %}{% if reqHandlerName == 'ContrastReadingPage' %}{$ contrastReadingPageHtml $}{% endif %}</div></div>
     <div style="clear: both;"></div>
   </div>
 </div>
