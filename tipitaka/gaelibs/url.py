@@ -215,7 +215,39 @@ def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, l
 
 
 def getTranslationPageHtml(locale, translator, node):
-  return ''
+  if 'action' not in node:
+    raise Exception('In getTranslationPageHtml: action attribute not in node!')
+
+  html = u''
+
+  # fetch xml
+  xmlFilename = os.path.basename(node['action'])
+  if xmlFilename in translationInfo[locale]['canon']:
+    for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
+      if translationInfo[locale]['source'][translatorCode][0] == translator:
+        code = translatorCode
+        break
+    if code is None:
+      raise Exception('cannot find translatorCode')
+  else:
+    raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
+
+  xmlUrl = 'http://1.epalitipitaka.appspot.com/translation/%s/%s/%s' % (locale, code, xmlFilename)
+  result = urlfetch.fetch(xmlUrl)
+  if result.status_code == 200:
+    # successfully fetch xml
+    root = etree.fromstring(result.content)
+    # transform xml with xslt
+    root = transform(root)
+    # feed transformed data to minidom for processing
+    dom = xml.dom.minidom.parseString(etree.tostring(root))
+    # return only innerHTML of body
+    html += dom.documentElement.getElementsByTagName('body')[0].toxml()[6:-7]
+  else:
+    # fail to fetch xml
+    raise Exception('cannot fetch %s' % xmlUrl)
+
+  return html
 
 
 if __name__ == '__main__':
