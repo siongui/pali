@@ -66,7 +66,7 @@ class TranslationPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['translationPageHtml'] = getTranslationPageHtml(locale, translator, result['node'])
+    template_values['translationPageHtml'] = getTranslationPageHtml(locale, translator, result['node'], self.request.path)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 
@@ -77,7 +77,7 @@ class ContrastReadingPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(locale, translator, result['node'])
+    template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(locale, translator, result['node'], self.request.path)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 

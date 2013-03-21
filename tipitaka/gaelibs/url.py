@@ -208,11 +208,11 @@ def getTranslationXmlBodyDom(locale, translator, node):
   return getBodyDom(xmlUrl)
 
 
-def getTranslationPageHtml(locale, translator, node):
+def getTranslationPageHtml(locale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u''
+  html = u'<div>&lt;&lt; <a href="%s">Original Pāḷi Text</a></div>' % os.path.sep.join(reqPath.split(os.path.sep)[:-2])
   # return only innerHTML of body
   html += getTranslationXmlBodyDom(locale, translator, node).toxml()[6:-7]
   return html
@@ -225,7 +225,6 @@ def generateContrastReadingTable(oriBody, trBody):
   impl = xml.dom.minidom.getDOMImplementation()
   dom = impl.createDocument(None, 'table', None)
   tb = dom.documentElement
-  tb.setAttribute('id', "contrastReadingTable")
   tb.setAttribute('style', "width: 100%")
 
   for i in range(len(oriBody.childNodes)):
@@ -251,11 +250,11 @@ def generateContrastReadingTable(oriBody, trBody):
   return tb.toxml()
 
 
-def getContrastReadingPageHtml(locale, translator, node):
+def getContrastReadingPageHtml(locale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u''
+  html = u'<div>&lt;&lt; <a href="%s">Original Pāḷi Text</a></div>' % os.path.sep.join(reqPath.split(os.path.sep)[:-3])
 
   xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
   oriBody= getBodyDom(xmlUrl)
