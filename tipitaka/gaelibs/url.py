@@ -133,10 +133,31 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
   return recursivelyCheck(rootNode, path)
 
 
+def getI18nLinks(node, reqPath, i18n):
+  linksHtml = u''
+  xmlFilename = os.path.basename(node['action'])
+  for locale in translationInfo:
+    if xmlFilename in translationInfo[locale]['canon']:
+      # FIXME: translate locale here
+      linksHtml += u'<a href="javascript:void(0);">%s</a> :' % locale
+      for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
+        translator = translationInfo[locale]['source'][translatorCode][0].decode('utf-8')
+        linksHtml += (u'<div style="padding-left: 1em;">' +
+                        u'<a href="%s/%s/%s">%s</a>' % (reqPath, locale, translator, translator) +
+                        u' (<a href="%s/%s/%s/ContrastReading">%s</a>)' % (reqPath, locale, translator, i18n.gettext(u'Contrast Reading')) +
+                      u'</div>')
+
+  if linksHtml != u'':
+    linksHtml = u'<div>Translation of This Pāḷi Text <div>%s</div></div>' % linksHtml
+
+  return linksHtml
+
+
 def getCanonPageHtml(node, reqPath, i18n):
   # before using this funtion, make sure to call 'isValidCanonPath' first
   html = u''
   if 'action' in node:
+    html += getI18nLinks(node, reqPath, i18n)
     # fetch xml
     xmlUrl = 'http://1.epalitipitaka.appspot.com/romn/%s' % node['action']
     # return only innerHTML of body
