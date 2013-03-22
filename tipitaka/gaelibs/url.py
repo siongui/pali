@@ -148,7 +148,7 @@ def getI18nLinks(node, reqPath, i18n):
                       u'</div>')
 
   if linksHtml != u'':
-    linksHtml = u'<div>Translation of This Pāḷi Text <div>%s</div></div>' % linksHtml
+    linksHtml = u'<div>%s <div>%s</div></div>' % (i18n.gettext(u'Translation of This Pāḷi Text'), linksHtml)
 
   return linksHtml
 

@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View) {
+function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ) {
   var info = tvServ.getInfo($location.path());
   if (!info.hasOwnProperty('action')) {
     // not leaf node => shows only links
@@ -21,14 +21,16 @@ function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View) {
   promise.then(function(htmlDoc) {
     $scope.isShowLoading = false;
     $scope.xmlDoms = htmlDoc2View.getView(htmlDoc);
-
+    $scope.localeTranslations = i18nTpkServ.getI18nLinks(action);
+    if (angular.isDefined($scope.localeTranslations))
+      $scope.isTranslationAvailableLinks = true;
   }, function(reason) {
     // TODO: error handling here
     $scope.isShowLoading = false;
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View'];
+canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
 
 
 function infoCtrl($scope, $location, i18nTpkServ) {
@@ -51,6 +53,8 @@ function translationCtrl($scope, $location, $routeParams, i18nTpkServ, paliXml) 
 
   paliXml.getUrl(url).then( function(htmlDoc) {
     $scope.isShowLoading = false;
+    $scope.isShowOriPaliLink = true;
+    $scope.oriPaliLink = '/canon/' + $routeParams.canonPath;
     $scope.xmlDoms = angular.element(htmlDoc.getElementsByTagName('body')[0].cloneNode(true));
   }, function(reason) {
     // TODO: error handling here
@@ -76,6 +80,8 @@ function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTp
     var transHtmlDoc = htmlDocArray[1];
     $scope.xmlDoms = htmlDoc2View.getContrastReadingView(oriHtmlDoc, transHtmlDoc);
     $scope.isShowLoading = false;
+    $scope.isShowOriPaliLink = true;
+    $scope.oriPaliLink = '/canon/' + $routeParams.canonPath;
   }, function(reason) {
     // TODO: error handling here
     $scope.isShowLoading = false;

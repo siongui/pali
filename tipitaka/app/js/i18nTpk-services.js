@@ -72,7 +72,30 @@ angular.module('paliTipitaka.i18nTpk', []).
       return '/translation/' + locale + '/'+ translatorCode + '/' + xmlFilename;
     }
 
+    function getI18nLinks(action) {
+      var xmlFilename = basename(action);
+      var localeTranslations = [];
+      for (var locale in i18nTpk.translationInfo) {
+        var localeTranslation = {};
+        localeTranslation.locale = locale;
+        localeTranslation.translations = [];
+        if (i18nTpk.translationInfo[locale]['canon'].hasOwnProperty(xmlFilename)) {
+          var translation = {};
+          translation.path = xmlName2Path(xmlFilename);
+          translation.canonName = i18nTpk.canonName[xmlFilename]['pali'];
+          translation.translatorCode = i18nTpk.translationInfo[locale]['canon'][xmlFilename];
+          translation.translator =  i18nTpk.translationInfo[locale]['source'][translation.translatorCode][0];
+          localeTranslation.translations.push(translation);
+        }
+        if (localeTranslation.translations.length > 0)
+          localeTranslations.push(localeTranslation);
+      }
+      if (localeTranslations.length > 0)
+        return localeTranslations;
+    }
+
     var serviceInstance = {
+      getI18nLinks: getI18nLinks,
       getLocaleTranslations: getLocaleTranslations,
       getTranslationXmlUrl: getTranslationXmlUrl
     };

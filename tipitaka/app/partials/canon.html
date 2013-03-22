@@ -1,5 +1,15 @@
 <div>
   <div ng-show="isShowLoading" style="padding: .5em 0 0 1em;"><span i18n str="Loading">{$_("Loading")$}</span> {{text}} ...</div>
   <div ng-repeat="node in nodes" style="padding: .5em 0 0 1em;"><a href="{{node.path}}">{{node.text}}</a></div>
+  <div ng-show="isTranslationAvailableLinks">
+    <div i18n str="Translation of This Pāḷi Text">{$_("Translation of This Pāḷi Text")$}</div>
+    <div ng-repeat="localeTranslation in localeTranslations" style="padding: 1em; line-height: 1.5em; background-color: #FFFBE8; border: 1px solid #FFF1A9; border-radius: 10px;">
+      <a href="javascript:void(0);">{{ localeTranslation.locale | translate }}</a>:
+      <div ng-repeat="translation in localeTranslation.translations" style="padding-left: 1em;">
+        <a href="{{translation.path}}/{{localeTranslation.locale}}/{{translation.translator}}">{{translation.translator}}</a> (<a href="{{translation.path}}/{{localeTranslation.locale}}/{{translation.translator}}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
+      </div>
+    </div>
+  </div>
+  <div ng-show="isShowOriPaliLink" style="padding: 1em;">&lt;&lt; <a href="{{oriPaliLink}}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a></div>
   <div bind-xml-doms><!-- $watch and append scope.xmlDoms (jqLite element) if changes --></div>
 </div>
