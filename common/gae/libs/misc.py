@@ -4,6 +4,16 @@
 import os
 
 
+def isTrack(self):
+  if isProductionServer():
+    if self.request.GET.get('track') == 'no':
+      return False
+    else:
+      return True
+  else:
+    return False
+
+
 def isProductionServer():
   if os.environ['SERVER_SOFTWARE'].startswith("Development"):
     return False

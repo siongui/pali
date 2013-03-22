@@ -8,7 +8,7 @@ from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTransla
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
-from misc import isCompiledJS
+from misc import isCompiledJS, isTrack
 
 # zipimport babel and gaepytz
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'common/gae/libs/babel.zip'))
@@ -35,6 +35,7 @@ def getCommonTemplateValues(self, urlLocale):
     'langQs': json.dumps(parseAcceptLanguage(self.request.headers.get('accept_language'))),
     'urlLocale': urlLocale,
     'isCompiledJS': isCompiledJS(self),
+    'isTrack': isTrack(self),
     'urlpath': self.request.path,
     'reqHandlerName': self.__class__.__name__
   }

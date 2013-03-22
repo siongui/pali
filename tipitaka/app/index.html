@@ -45,7 +45,6 @@
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
 })();
 </script>
-<div ng-include="analyticsUrl"></div>
 {% else %}
 <script src="/common/lib/angular/angular.js"></script>
 <script src="/common/js/services-i18nStrings.js"></script>
@@ -70,5 +69,6 @@
 <script src="/common/js/ext/tongwen_table_ps2t.js"></script>
 <script src="/common/js/ext/tongwen_table_pt2s.js"></script>
 {% endif %}
+{% if isTrack %}{% include 'analytics.html' %}{% endif %}
 </body>
 </html>

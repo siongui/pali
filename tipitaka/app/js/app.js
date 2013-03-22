@@ -54,10 +54,6 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
       $rootScope.isDevServer = true;
     } else {
       $rootScope.isDevServer = false;
-      if ($location.search()['track'] !== 'no') {
-        /* Load Google Analytics Code */
-        $rootScope.analyticsUrl = '/partials/analytics.html';
-      }
     }
 
     $rootScope.initOK = true;

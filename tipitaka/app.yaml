@@ -37,10 +37,6 @@ handlers:
 - url: /css
   static_dir: app/css
 
-- url: /partials/analytics\.html
-  static_files: app/partials/analytics.html
-  upload: app/partials/analytics\.html
-
 - url: /romn
   static_dir: common/romn
   http_headers:
