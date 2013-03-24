@@ -6,7 +6,7 @@ import xml.dom.minidom
 
 
 urlPrefix = 'http://www.tipitaka.org/romn/'
-indexDir = os.path.join(os.path.dirname(__file__), 'index/')
+romnDir = os.path.join(os.path.dirname(__file__), 'romn/')
 rootTocXmlSrc = 'tipitaka_toc.xml'
 overwriteIfExist = False
 """
@@ -17,6 +17,16 @@ observation:
 separator = u'#@%'
 infoFileContent = ''
 infoFilePath = os.path.join(os.path.dirname(__file__), 'tocsInfo.txt')
+
+
+def getPaliXml(action, space):
+  url = os.path.join(urlPrefix, action)
+  path = os.path.join(romnDir, action)
+
+  if not os.path.exists(os.path.dirname(path)):
+    os.makedirs(os.path.dirname(path))
+
+  download(url, path, space)
 
 
 def download(url, path, space):
@@ -62,6 +72,8 @@ def parseTocElement(element, space):
       printAttrs(element, space)
       if (element.hasAttribute('src')):
         getTocXml(element.getAttribute('src'), space)
+      if (element.hasAttribute('action')):
+        getPaliXml(element.getAttribute('action'), space)
     else:
       raise Exception('In parseTocElement: strange node');
   else:
@@ -73,7 +85,7 @@ def parseTocElement(element, space):
 
 def getTocXml(src, space=0):
   url = os.path.join(urlPrefix, src)
-  path = os.path.join(indexDir, src)
+  path = os.path.join(romnDir, src)
 
   if not os.path.exists(os.path.dirname(path)):
     os.makedirs(os.path.dirname(path))
@@ -88,3 +100,6 @@ if __name__ == '__main__':
   getTocXml(rootTocXmlSrc)
   with open(infoFilePath, 'w') as f:
     f.write(infoFileContent.encode('utf-8'))
+
+  getPaliXml('cscd/tipitaka-latn.xsl', 0)
+  getPaliXml('cscd/tipitaka-latn.css', 0)
