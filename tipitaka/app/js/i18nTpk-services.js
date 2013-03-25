@@ -106,6 +106,7 @@ angular.module('paliTipitaka.i18nTpk', []).
     var translationInfo = {
       'zh_TW': {
         'canon': {
+          's0202m.mul0.xml': ['3'],
           's0502m.mul0.xml': ['2'],
           's0502m.mul1.xml': ['2'],
           's0502m.mul2.xml': ['2'],
@@ -135,6 +136,10 @@ angular.module('paliTipitaka.i18nTpk', []).
     };
 
     var canonName = {
+      's0202m.mul0.xml': {
+        'pali': 'Majjhima, Majjhimapaṇṇāsa, Gahapativaggo',
+        'zh_TW': '中部, 中分五十經篇, 居士品'
+      },
       's0505m.mul0.xml': {
         'pali': 'Suttanipāta, Uragavaggo',
         'zh_TW': '經集, 蛇品'
