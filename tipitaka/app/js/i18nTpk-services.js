@@ -108,6 +108,7 @@ angular.module('paliTipitaka.i18nTpk', []).
         'canon': {
           's0202m.mul0.xml': ['3'],
           's0202m.mul4.xml': ['3'],
+          's0402m2.mul6.xml': ['3'],
           's0502m.mul0.xml': ['2'],
           's0502m.mul1.xml': ['2'],
           's0502m.mul2.xml': ['2'],
@@ -144,6 +145,10 @@ angular.module('paliTipitaka.i18nTpk', []).
       's0202m.mul4.xml': {
         'pali': 'Majjhima, Majjhimapaṇṇāsa, Brāhmaṇavaggo',
         'zh_TW': '中部, 中分五十經篇, 婆羅門品'
+      },
+      's0402m2.mul6.xml': {
+        'pali': 'Aṅguttara, Tikanipāta, Mahāvaggo',
+        'zh_TW': '增支部, 三集, 大品'
       },
       's0505m.mul0.xml': {
         'pali': 'Suttanipāta, Uragavaggo',
