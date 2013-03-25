@@ -107,6 +107,7 @@ angular.module('paliTipitaka.i18nTpk', []).
       'zh_TW': {
         'canon': {
           's0201m.mul0.xml': ['3'],
+          's0201m.mul1.xml': ['3'],
           's0202m.mul0.xml': ['3'],
           's0202m.mul4.xml': ['3'],
           's0402m2.mul6.xml': ['3'],
@@ -142,6 +143,10 @@ angular.module('paliTipitaka.i18nTpk', []).
       's0201m.mul0.xml': {
         'pali': 'Majjhima, Mūlapaṇṇāsa, Mūlapariyāyavaggo',
         'zh_TW': '中部, 根本五十經, 根本法門品'
+      },
+      's0201m.mul1.xml': {
+        'pali': 'Majjhima, Mūlapaṇṇāsa, Sīhanādavaggo',
+        'zh_TW': '中部, 根本五十經, 獅子吼品'
       },
       's0202m.mul0.xml': {
         'pali': 'Majjhima, Majjhimapaṇṇāsa, Gahapativaggo',
