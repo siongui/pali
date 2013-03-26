@@ -6,7 +6,7 @@
 angular.module('pali.xml', []).
   factory('paliXml', ['$q', '$cacheFactory', 'xhrXml', 'xslt', function($q, $cacheFactory, xhrXml, xslt) {
     var cache = $cacheFactory('paliXml');
-    var xsltPath = '/romn/tipitaka-latn.xsl';
+    var xsltPath = '/romn/cscd/tipitaka-latn.xsl';
 
     function get(action) {
       var url = '/romn/' + action;

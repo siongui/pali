@@ -6,15 +6,19 @@ from google.appengine.api import urlfetch
 from lxml import etree
 import xml.dom.minidom
 
+paliXmlUrlPrefix = u'http://epalitipitaka.appspot.com/romn/'
+trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
+
+
 with open(os.path.join(os.path.dirname(__file__), '../common/gae/libs/json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
 
-result = urlfetch.fetch('http://dev.epalitipitaka.appspot.com/romn/cscd/tipitaka-latn.xsl')
+result = urlfetch.fetch(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
 if result.status_code == 200:
   xslt_root = etree.fromstring(result.content)
   transform = etree.XSLT(xslt_root)
 else:
-  raise Exception('cannot fetch http://dev.epalitipitaka.appspot.com/romn/cscd/tipitaka-latn.xsl')
+  raise Exception('cannot fetch xsl file!')
 
 
 translationInfo = {
@@ -204,7 +208,7 @@ def getCanonPageHtml(node, reqPath, i18n):
   if 'action' in node:
     html += getI18nLinks(node, reqPath, i18n)
     # fetch xml
-    xmlUrl = 'http://dev.epalitipitaka.appspot.com/romn/%s' % node['action']
+    xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
     # return only innerHTML of body
     html += getBodyDom(xmlUrl).toxml()[6:-7]
   else:
@@ -270,7 +274,7 @@ def getTranslationXmlBodyDom(locale, translator, node):
   else:
     raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
 
-  xmlUrl = 'http://dev.epalitipitaka.appspot.com/translation/%s/%s/%s' % (locale, code, xmlFilename)
+  xmlUrl = os.path.join(trXmlUrlPrefix, '%s/%s/%s' % (locale, code, xmlFilename))
   return getBodyDom(xmlUrl)
 
 
@@ -322,7 +326,7 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath, i18n):
 
   html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-3]), i18n.gettext(u'Original Pāḷi Text'))
 
-  xmlUrl = 'http://dev.epalitipitaka.appspot.com/romn/%s' % node['action']
+  xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
   oriBody= getBodyDom(xmlUrl)
   trBody = getTranslationXmlBodyDom(locale, translator, node)
   html += generateContrastReadingTable(oriBody, trBody)
