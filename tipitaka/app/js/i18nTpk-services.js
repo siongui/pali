@@ -37,7 +37,11 @@ angular.module('paliTipitaka.i18nTpk', []).
         for (var xmlName in i18nTpk.translationInfo[locale]['canon']) {
           var translation = {};
           translation.path = xmlName2Path(xmlName);
-          translation.canonName = i18nTpk.canonName[xmlName]['pali'];
+          if (i18nTpk.canonName[xmlName].hasOwnProperty(locale)) {
+            translation.canonName = i18nTpk.canonName[xmlName][locale];
+          } else {
+            translation.canonName = i18nTpk.canonName[xmlName]['pali'];
+          }
           translation.translatorCode = i18nTpk.translationInfo[locale]['canon'][xmlName];
           translation.translator =  i18nTpk.translationInfo[locale]['source'][translation.translatorCode][0];
           localeTranslation.translations.push(translation);
