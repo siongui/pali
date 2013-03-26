@@ -112,6 +112,7 @@ angular.module('paliTipitaka.i18nTpk', []).
         'canon': {
           's0201m.mul0.xml': ['3'],
           's0201m.mul1.xml': ['3'],
+          's0201m.mul2.xml': ['3'],
           's0202m.mul0.xml': ['3'],
           's0202m.mul4.xml': ['3'],
           's0402m2.mul6.xml': ['3'],
@@ -151,6 +152,10 @@ angular.module('paliTipitaka.i18nTpk', []).
       's0201m.mul1.xml': {
         'pali': 'Sīhanādavaggo, Mūlapaṇṇāsa, Majjhima, Sutta',
         'zh_TW': '獅子吼品, 根本五十經, 中部, 經藏'
+      },
+      's0201m.mul2.xml': {
+        'pali': 'Opammavaggo, Mūlapaṇṇāsa, Majjhima, Sutta',
+        'zh_TW': '譬喻品, 根本五十經, 中部, 經藏'
       },
       's0202m.mul0.xml': {
         'pali': 'Gahapativaggo, Majjhimapaṇṇāsa, Majjhima, Sutta',
