@@ -1,6 +1,9 @@
 *.pyc
 *.mo
 
+common/romn/
+common/translation/
+
 common/locale/messages.pot
 common/locale/en_US/LC_MESSAGES/messages.po
 common/locale/zh_CN/LC_MESSAGES/messages.po

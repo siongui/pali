@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, urllib2, tarfile, shutil
+import os, urllib2, tarfile, shutil, zipfile
 
 
 def download(url, path):
@@ -66,7 +66,53 @@ def setupSymlinks():
   ln('../common/locale/', 'locale')
 
 
+def setupXmls():
+  dataUrl = 'https://github.com/siongui/data/archive/master.zip'
+  path = os.path.join(os.path.dirname(__file__), 'master.zip')
+  commonDirPath = os.path.join(os.path.dirname(__file__), '..')
+
+  #if not os.path.exists(path):
+  #  download(dataUrl, path)
+
+  with zipfile.ZipFile(path, 'r') as zf:
+    for name in zf.namelist():
+      if name.startswith('data-master/pali/common/translation/'):
+        (dirname, filename) = os.path.split(name)
+        dstDir = os.path.join(commonDirPath, dirname.replace('data-master/pali/common/', ''))
+        dstPath = os.path.join(dstDir, filename)
+
+        if filename == '':
+          # directory
+          if not os.path.exists(dstDir):
+            print("creating " + dstDir)
+            os.mkdir(dstDir)
+        else:
+          print("Decompressing " + name + " to " + dstPath)
+          # file
+          with open(dstPath, 'w') as f:
+            f.write(zf.read(name))
+
+      if name.startswith('data-master/pali/common/romn/'):
+        (dirname, filename) = os.path.split(name)
+        dstDir = os.path.join(commonDirPath, dirname.replace('data-master/pali/common/', ''))
+        dstPath = os.path.join(dstDir, filename)
+
+        if filename == '':
+          # directory
+          if not os.path.exists(dstDir):
+            print("creating " + dstDir)
+            os.mkdir(dstDir)
+        else:
+          # file
+          if 'toc' not in filename:
+            if 'mul' in filename or filename.startswith('tipitaka-latn') or filename.startswith('s0518m.nrf') or filename.startswith('s0520m.nrf'):
+              print("Decompressing " + name + " to " + dstPath)
+              with open(dstPath, 'w') as f:
+                f.write(zf.read(name))
+
+
 if __name__ == '__main__':
   setupTongWen()
   setupJianfan()
   setupSymlinks()
+  setupXmls()
