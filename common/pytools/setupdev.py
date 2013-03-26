@@ -71,8 +71,8 @@ def setupXmls():
   path = os.path.join(os.path.dirname(__file__), 'master.zip')
   commonDirPath = os.path.join(os.path.dirname(__file__), '..')
 
-  #if not os.path.exists(path):
-  #  download(dataUrl, path)
+  if not os.path.exists(path):
+    download(dataUrl, path)
 
   with zipfile.ZipFile(path, 'r') as zf:
     for name in zf.namelist():
@@ -111,8 +111,21 @@ def setupXmls():
                 f.write(zf.read(name))
 
 
+def setupBabel():
+  babelUrl = 'http://ftp.edgewall.com/pub/babel/Babel-0.9.6.zip'
+  babelZipPath = os.path.join(os.path.dirname(__file__), 'Babel-0.9.6.zip')
+
+  if not os.path.exists(babelZipPath):
+    download(babelUrl, babelZipPath)
+
+  with zipfile.ZipFile(babelZipPath, 'r') as zf:
+    for name in zf.namelist():
+      print(name)
+
+
 if __name__ == '__main__':
   setupTongWen()
   setupJianfan()
   setupSymlinks()
   setupXmls()
+  #setupBabel()
