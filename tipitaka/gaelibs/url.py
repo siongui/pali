@@ -26,6 +26,7 @@ translationInfo = {
       's0201m.mul3.xml': ['3'],
       's0201m.mul4.xml': ['3'],
       's0202m.mul0.xml': ['3'],
+      's0202m.mul1.xml': ['3'],
       's0202m.mul4.xml': ['3'],
       's0402m2.mul6.xml': ['3'],
       's0502m.mul0.xml': ['2'],
@@ -79,6 +80,10 @@ canonName = {
   's0202m.mul0.xml': {
     'pali': 'Gahapativaggo, Majjhimapaṇṇāsa, Majjhima, Sutta',
     'zh_TW': '居士品, 中分五十經篇, 中部, 經藏'
+  },
+  's0202m.mul1.xml': {
+    'pali': 'Bhikkhuvaggo, Majjhimapaṇṇāsa, Majjhima, Sutta',
+    'zh_TW': '比丘品, 中分五十經篇, 中部, 經藏'
   },
   's0202m.mul4.xml': {
     'pali': 'Brāhmaṇavaggo, Majjhimapaṇṇāsa, Majjhima, Sutta',
