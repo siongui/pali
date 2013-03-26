@@ -54,28 +54,28 @@ translationInfo = {
 
 canonName = {
   's0201m.mul0.xml': {
-    'pali': 'Majjhima, Mūlapaṇṇāsa, Mūlapariyāyavaggo',
-    'zh_TW': '中部, 根本五十經, 根本法門品'
+    'pali': 'Mūlapariyāyavaggo, Mūlapaṇṇāsa, Majjhima, Sutta',
+    'zh_TW': '根本法門品, 根本五十經, 中部, 經藏'
   },
   's0201m.mul1.xml': {
-    'pali': 'Majjhima, Mūlapaṇṇāsa, Sīhanādavaggo',
-    'zh_TW': '中部, 根本五十經, 獅子吼品'
+    'pali': 'Sīhanādavaggo, Mūlapaṇṇāsa, Majjhima, Sutta',
+    'zh_TW': '獅子吼品, 根本五十經, 中部, 經藏'
   },
   's0202m.mul0.xml': {
-    'pali': 'Majjhima, Majjhimapaṇṇāsa, Gahapativaggo',
-    'zh_TW': '中部, 中分五十經篇, 居士品'
+    'pali': 'Gahapativaggo, Majjhimapaṇṇāsa, Majjhima, Sutta',
+    'zh_TW': '居士品, 中分五十經篇, 中部, 經藏'
   },
   's0202m.mul4.xml': {
-    'pali': 'Majjhima, Majjhimapaṇṇāsa, Brāhmaṇavaggo',
-    'zh_TW': '中部, 中分五十經篇, 婆羅門品'
+    'pali': 'Brāhmaṇavaggo, Majjhimapaṇṇāsa, Majjhima, Sutta',
+    'zh_TW': '婆羅門品, 中分五十經篇, 中部, 經藏'
   },
   's0402m2.mul6.xml': {
-    'pali': 'Aṅguttara, Tikanipāta, Mahāvaggo',
-    'zh_TW': '增支部, 三集, 大品'
+    'pali': 'Mahāvaggo, Tikanipāta, Aṅguttara, Sutta',
+    'zh_TW': '大品, 三集, 增支部, 經藏'
   },
   's0505m.mul0.xml': {
-    'pali': 'Suttanipāta, Uragavaggo',
-    'zh_TW': '經集, 蛇品'
+    'pali': 'Uragavaggo, Suttanipāta, Khuddaka, Sutta',
+    'zh_TW': '蛇品, 經集, 小部, 經藏'
   },
   's0502m.mul0.xml': {
     'pali': 'Dhammapada, Yamakavaggo',
