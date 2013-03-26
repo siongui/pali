@@ -1,0 +1,218 @@
+div.floating-buttons {
+  padding-top: 7em;
+  padding-right: 3%;
+  float: right;
+  z-index: 25;
+}
+div.floating-buttons > div {
+  display: block;
+  margin-top: 10px;
+}
+
+div.main {
+  width: 78%;
+  float: left;
+  border: 10px solid #98FB98;
+  border-radius: 13px;
+}
+
+div.title {
+  line-height: 5em;
+  background-color: #fff4c8;
+  text-align: center;
+}
+div.title span {
+  font-size: 2em;
+  font-weight: bold;
+  color:olive;
+}
+
+div.main-menu {
+  overflow: hidden;
+  background-color: #66FFFF;
+  word-spacing: 1em;
+}
+div.main-menu > div.left-main-menu {
+  float: left;
+  line-height: 2em;
+  padding-left: 1em;
+}
+div.main-menu > div.right-main-menu {
+  float: right;
+  line-height: 2em;
+  padding-right: 1em;
+} 
+div.right-main-menu > .dropdown {
+  text-decoration:none;
+  color: #00C;
+  font-size:small;
+  cursor:pointer;
+}
+
+#keyboard {
+  position: absolute;
+  display: none; 
+  border: 1px solid #ccc;  
+  padding: 10px;
+  cursor: move;
+  z-index: 21;
+  text-align: center;
+  background-color: #F0F8FF;
+}
+#keyboard input {
+  cursor: pointer;
+}
+
+.menuDiv {
+  border-top-color: #C9D7F1;
+  border-right-color: #36C;
+  border-bottom-color: #36C;
+  border-left-color: #A2BAE7;
+  border-style: solid;
+  border-width: 1px;
+  z-index: 22;
+  padding: 0;
+  background-color: white;
+  overflow: hidden;
+  font-size: small;
+  font-family: Arial;
+}
+
+.menuItem {
+  color: #00C;
+  padding: 3px;
+  text-decoration: none;
+  background: white;
+  display: block;
+  cursor: pointer;
+}
+a.menuItem:hover {
+  background: #00C;
+  color: white;
+}
+
+.suggest {
+  border-top-color: #C9D7F1;
+  border-right-color: #36C;
+  border-bottom-color: #36C;
+  border-left-color: #A2BAE7;
+  border-style: solid;
+  border-width: 1px;
+  z-index: 10;
+  padding: 0;
+  background-color: white;
+  overflow: hidden;
+  font-size: small;
+  font-family: Arial;
+  position: absolute;
+}
+
+.resultCurvedEdges {
+  border:10px solid #98FB98;
+  border-radius:13px;
+  width: 99%;
+  margin-left: .5%;
+  margin-right:.5%;
+  margin-bottom: 1em;
+}
+
+.titleWord {
+  font-size: 2em;
+  font-weight: bold;
+  color: GoldenRod;
+}
+
+.dicTable {
+  border: 1px solid #00FFFF;
+  background-color: #CCFFFF;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.dicTable th {
+  border: 3px solid #00FFFF;
+  width: 6em;
+  padding: 5px;
+}
+
+.dicTable td {
+  border: 3px solid #00FFFF;
+  padding: 5px;
+}
+
+.fakeLink {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+
+span.historyArrow {
+  color: blue;
+  cursor: pointer;
+}
+
+span.historyArrow:hover {
+  font-size: 120%;
+  background-color: #F0F8FF;
+}
+
+#setting-menu {
+  display: none;
+  padding: 1em;
+  background-color: #F0F8FF;
+  font-family: Gentium Basic, arial, serif;
+}
+
+#result {
+  text-align: center;
+  font-family: Gentium Basic, arial, serif;
+}
+
+#brdic {
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+  line-height: 1.5em;
+  text-align: left;
+  padding: 1em;
+  margin: 1em;
+  font-family: Gentium Basic, arial, serif;
+}
+
+#prefixesDiv {
+  word-spacing: .4em;
+  font-size:1.5em;
+  line-height: 3em;
+}
+
+#prefixesDiv a {
+  text-decoration: none;
+}
+
+.backToTop {
+  text-decoration: none;
+  color: #00C;
+  font-size: small;
+  cursor: pointer;
+}
+
+#suggestedWordPreview {
+  width: 32em;
+  text-align: left;
+}
+
+.previewWordName {
+  color: GoldenRod;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: .5em;
+}
+
+div.shortDicExp:hover {
+  font-size: 150%;
+  background-color: #F0F8FF;
+  border: 1px dotted aqua;
+}
+div.shortDicExp span {
+  color: red;
+}

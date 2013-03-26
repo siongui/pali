@@ -1,0 +1,56 @@
+<div class="main-menu">
+ <div class="left-main-menu">
+  <a id="linkHome" href="/">{{_("Home")}}</a>
+  <a id="linkBrowse" href="/browse">{{_("Browse")}}</a>
+  <a id="linkSetting" href="/">{{_("Setting")}}</a>
+  <a href="http://epalitipitaka.appspot.com/" target="_blank">{{_("Canon")}}</a>
+  <a id="linkAbout" href="/about">{{_("About")}}</a>
+  <a id="linkLink" href="/link">{{_("Link")}}</a>
+ </div>
+ <div class="right-main-menu">
+  <span id="lang-dropdown" class="dropdown">
+   <span id="lang" style="text-decoration:underline"></span><span style="font-size:.75em;">&#9660;</span>
+  </span>
+  <span id="site-dropdown" class="dropdown">
+   <span id="site" style="text-decoration:underline"></span><span style="font-size:.75em;">&#9660;</span>
+  </span>
+ </div>
+</div>
+
+<div id="setting-menu">
+<input type="checkbox" id="word-preview-option" />{{_("Input Word Explanation Preview")}}<br />
+<br />
+<input type="checkbox" id="toTraditionalCht" />{{_("Translate Pāli-Chinese Dictionaries to Traditional Chinese")}}<br />
+<br />
+<div style="border: 1px dotted aqua; padding: 5px">
+{{_("What languages of dictionaries to show?")}}<br />
+<input type="checkbox" id="p2en" checked="checked" />{{_("Pāli-English")}}<br />
+<input type="checkbox" id="p2ja" checked="checked" />{{_("Pāli-Japanese")}}<br />
+<input type="checkbox" id="p2zh" checked="checked" />{{_("Pāli-Chinese")}}<br />
+</div>
+<br />
+{{_("The order of languages of dictionaries to show?")}}<br />
+<select id="dicLangOrder">
+  <option value="hdr" selected="selected">{{_("according to language settings in browser")}}</option>
+  <option value="en2ja2zh">{{_("English")}} - {{_("Japanese")}} - {{_("Chinese")}}</option>
+  <option value="en2zh2ja">{{_("English")}} - {{_("Chinese")}} - {{_("Japanese")}}</option>
+  <option value="ja2en2zh">{{_("Japanese")}} - {{_("English")}} - {{_("Chinese")}}</option>
+  <option value="ja2zh2en">{{_("Japanese")}} - {{_("Chinese")}} - {{_("English")}}</option>
+  <option value="zh2en2ja">{{_("Chinese")}} - {{_("English")}} - {{_("Japanese")}}</option>
+  <option value="zh2ja2en">{{_("Chinese")}} - {{_("Japanese")}} - {{_("English")}}</option>
+</select>
+</div>
+
+<div class="menuDiv instance0" id="menuDiv-lang-dropdown" style="position: absolute; display: none; width: 95px; ">
+<div style="margin-top: 4px;">
+ <a class="menuItem" id="langItem1" href="/?locale=en_US">English</a>
+ <a class="menuItem" id="langItem2" href="/?locale=zh_CN">中文 (简体)</a>
+ <a class="menuItem" id="langItem3" href="/?locale=zh_TW">中文 (繁體)</a>
+</div></div>
+
+<div class="menuDiv instance1" id="menuDiv-site-dropdown" style="position: absolute; display: none; width: 115px; ">
+<div style="margin-top: 4px;">
+ <a class="menuItem" id="siteItem1" href="http://palidictionary.appspot.com">{{_("Main Site")}}</a>
+ <a class="menuItem" id="siteItem2" href="http://siongui.pythonanywhere.com">{{_("Backup Site #1")}}</a>
+ <a class="menuItem" id="siteItem3" href="http://siongui.webfactional.com">{{_("Backup Site #2")}}</a>
+</div></div>

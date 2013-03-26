@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{{titleword}}{{_("Pāli Dictionary")}} | Pali to English, Chinese, Japanese Dictionary</title>
+<meta name="keywords" content="Pāli, Pali, Pāli dictionary, Pali dictionary, Pāli-Chinese, Pāli-English, Pāli-Japanese,字典,辭典,巴利,巴利文,巴利語,巴利語字典,巴漢字典,巴英字典,巴日字典" />
+<meta name="description" content="Pāli dictionary (Pāli to Chinese, Pāli to English, Pāli to Japanese).巴利語字典,巴漢字典,巴英字典,巴日字典" />
+
+<script type="text/javascript">
+{% if compiledBootstrapJS == 'yes' %}
+  {% include "bootstrap-prd.js" %}
+{% else %}
+  {% include "bootstrap.js" %}
+{% endif %}
+</script>
+<script type="text/javascript">{% include "potI18N.js" %}</script>
+
+<script>
+  (function() {
+    var cx = '000759460633137666077:drd5sr9u6cw';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</head> 
+<body>
+<div style="width: 100%;">
+ <div style="width: 10%; float: left;">{% include "buttons.html" %}</div>
+ <div class="main">
+   <div class="title"><span>{{_("Pāli Dictionary")}}</span></div>
+   {% include "mainMenu.html" %}
+
+     <br style="line-height: 2em;" />
+     <!-- input pāli word -->
+     <form id="inputForm" style="text-align: center;" autocomplete="off">
+       <div>
+        <span id="leftHistoryArrow" class="historyArrow" title={{_("'Previous Word History'"|safe)}}>&#9668;</span>&nbsp;<span id="rightHistoryArrow" class="historyArrow" title={{_("'Next Word History'"|safe)}}>&#9658;</span>
+        <input id="PaliInput" type="text" name="word" value="" />
+        <input type="submit" value="Search" /><sub><span id="displayText" class="fakeLink">{{_("Show Pāli Keypad")}}</span></sub>
+        <div id="suggest" class="suggest" style="display: none;"></div><div id="suggestedWordPreview" class='suggest' style="display: none;"></div>
+       </div>
+     </form>
+     {% include "keyboard.html" %}
+     <br style="line-height: 2em;" />
+     <div id="result">{% if resultDivInnerHTML %}{{resultDivInnerHTML}}{% else %}{{_("New")}}! {{_("Online")}} <a href="http://epalitipitaka.appspot.com/">{{_("Pāḷi Tipiṭaka")}}</a>{{_(" Integrated Instant-Lookup Feature is available now")}}.{% endif %}</div>
+     <br style="line-height: 5em;" />
+<gcse:search></gcse:search>
+     {% include "browse.html" %}
+
+ </div>
+</div>
+<div id="locale" style="display:none">{{locale}}</div>
+{% include "info.html" %}
+<!-- @see http://tongwen.openfoundry.org/web.htm -->
+<script type="text/javascript" src="/js/ext/tongwen_core.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_s2t.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_t2s.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_ps2t.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_pt2s.js"></script>
+</body>
+</html>

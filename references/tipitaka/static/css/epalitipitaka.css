@@ -1,0 +1,187 @@
+html, body {
+  height: 100%;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#mainbar {
+  background-color: #FFF4C8;
+  line-height: 2em;
+  word-spacing: 1em;
+  padding-left: 1em;
+}
+
+#settingmenu {
+  display: none;
+  padding: 1em;
+  background-color: #F0F8FF;
+  font-family: Tahoma, Arial, serif;
+}
+
+.settingdiv {
+  border: 1px dotted aqua;
+  padding: 5px;
+}
+
+#treeview {
+  float: left;
+  overflow: auto;
+  font-family: Tahoma, Arial, serif;
+}
+
+div.floating-buttons {
+  padding-top: 2em;
+}
+div.floating-buttons > div {
+  display: block;
+  margin-top: 10px;
+}
+
+#viewwrapper {
+  float: left;
+  height: 100%;
+}
+
+#viewarrow {
+  width: 0;
+  height: 0;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+#viewseparator {
+  height: 100%;
+  width: 100%;
+  background-color: #EEE;
+  cursor: col-resize;
+}
+
+#mainview {
+  float: left;
+  height: 100%;
+  font-family: Tahoma, Arial, serif;
+}
+
+.item {
+  margin-bottom: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.item:hover {
+  background-color: #F0F8FF;
+}
+
+.treeNode:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.hiddenOriginalText {
+  display: none;
+}
+
+#tooltip {
+  background-color: #CCFFFF;
+  border-radius: 10px;
+  padding: .5em;
+  position: absolute;
+  display: none;
+  font-family: Tahoma, Arial, serif;
+}
+
+#locale {
+  display: none;
+}
+
+.infoDiv {
+  display: none;
+}
+
+.previewWordName {
+  color: GoldenRod;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: .5em;
+  text-decoration: none;
+}
+
+/*
+div.shortDicExp:hover {
+  font-size: 150%;
+  background-color: #F0F8FF;
+  border: 1px dotted aqua;
+}
+*/
+div.shortDicExp span {
+  color: red;
+}
+
+#showTranslation {
+  color: #00C;
+  cursor: pointer;
+}
+
+#htmlTranslation {
+  line-height: 1.5em;
+  padding: .5em;
+  background-color: #FFFBE8;
+  border: 1px solid #FFF1A9;
+  margin-bottom: 1em;
+}
+
+#localeTranslationDiv {
+  padding: 1em;
+  background-color: #F0F8FF;
+  min-height: 100%;
+}
+
+/* from http://www.tipitaka.org/romn/cscd/tipitaka-latn.css */
+.note {color: blue}
+.bld {font-weight: bold; }
+.paranum {font-weight: bold; }
+
+p {
+  display: block;
+  border-top: 0in; border-bottom: 0in;
+  padding-top: 0in; padding-bottom: 0in;
+  margin-top: 0in; margin-bottom: 0.5cm;
+}
+
+.indent { font-size: 12pt; text-indent: 2em; margin-left: 3em;}
+
+.bodytext { font-size: 12pt; text-indent: 2em;}
+
+.hangnum { font-size: 12pt; margin-bottom: -0.75cm; text-indent: 2em;}
+
+/* Namo tassa, and nitthita -- no unique structural distinction */
+.centered { font-size: 12pt; text-align:center;}
+
+.unindented { font-size: 12pt;}
+
+.book { font-size: 21pt; text-align:center; font-weight: bold;}
+
+.chapter { font-size: 18pt; text-align:center; font-weight: bold;}
+
+.nikaya { font-size: 24pt; text-align:center; font-weight: bold;}
+
+.title { font-size: 12pt; text-align:center; font-weight: bold;}
+
+.subhead { font-size: 12pt; text-align:center; font-weight: bold;}
+
+.subsubhead { font-size: 12pt; text-align:center; font-weight: bold;}
+
+/* Gatha line 1 */
+.gatha1 { font-size: 12pt; margin-bottom: 0em; margin-left: 4em;}
+
+/* Gatha line 2 */
+.gatha2 { font-size: 12pt; margin-bottom: 0em; margin-left: 4em;}
+
+/* Gatha line 3 */
+.gatha3 { font-size: 12pt; margin-bottom: 0em; margin-left: 4em;}
+
+/* Gatha last line */
+.gathalast { font-size: 12pt; margin-bottom: 0.5cm; margin-left: 4em;}

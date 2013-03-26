@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{{titleword}}Pāḷi Tipiṭaka</title>
+<meta name="keywords" content="Pāḷi Tipiṭaka (巴利三藏)" />
+<meta name="description" content="Pāḷi Tipiṭaka (巴利三藏)" />
+<link rel="stylesheet" type="text/css" href="/css/epalitipitaka.css" />
+
+<script>
+  (function() {
+    var cx = '000759460633137666077:ohvoelt1nog';
+    var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+</head> 
+<body>
+<div id="hideAll" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 99; display: none; background-color: #F0F8FF; text-align: center; color: blue; font-size: 2em;"><br /><br />Loading ...<br />載入中 ...<br />载入中 ...<br /></div>
+<script type="text/javascript">
+  document.getElementById("hideAll").style.display = "block";
+</script> 
+
+<div id="wrapper">
+
+ <div id="mainbar">
+  <a href="/">Home</a>
+  <a href="http://palidictionary.appspot.com/" target="_blank">Dictionary</a>
+  <a href="/" id='settingAnchor'>Setting</a>
+  <a href="/" id='aboutAnchor'>About</a>
+  <a href="/" id='translationAnchor'>Translation</a>
+  <a href="/" id='linkAnchor'>Link</a>
+
+<div style='float: right; padding-right: 1em;'>
+<select id="lang">
+  <option value="en_US" selected="selected">English</option>
+  <option value="zh_CN">中文 (简体)</option>
+  <option value="zh_TW">中文 (繁體)</option>
+</select>
+</div>
+
+ </div>
+
+<div id="settingmenu">
+<div class='settingdiv'>
+<span>What languages of dictionaries to show?</span><br />
+<input type="checkbox" id="p2en" checked="checked" /><span>Pāḷi-English</span><br />
+<input type="checkbox" id="p2ja" checked="checked" /><span>Pāḷi-Japanese</span><br />
+<input type="checkbox" id="p2zh" checked="checked" /><span>Pāḷi-Chinese</span><br />
+</div>
+<br />
+<div class='settingdiv'>
+<span>The order of languages of dictionaries to show?</span><br />
+<select id="dicLangOrder">
+  <option value="hdr" selected="selected">According to Language Settings in Browser</option>
+  <option value="en2ja2zh">English - Japanese - Chinese</option>
+  <option value="en2zh2ja">English - Chinese - Japanese</option>
+  <option value="ja2en2zh">Japanese - English - Chinese</option>
+  <option value="ja2zh2en">Japanese - Chinese - English</option>
+  <option value="zh2en2ja">Chinese - English - Japanese</option>
+  <option value="zh2ja2en">Chinese - Japanese - English</option>
+</select>
+</div>
+<br />
+<input type="checkbox" id="showTooltip" checked="checked" /><span>Show Tooltip When Hovering over Canon Texts</span><br />
+<br />
+<input type="checkbox" id="translateTreeview" /><span>Translate Pāḷi Texts on Left-side Treeview</span><br />
+<br />
+<input type="checkbox" id="toTraditionalCht" /><span>Translate Pāḷi-Chinese Dictionaries to Traditional Chinese</span><br />
+</div>
+<gcse:searchbox-only></gcse:searchbox-only>
+
+ <div id="treeview">
+<div class="floating-buttons">
+ <div class="g-plusone" data-size="tall" data-href="http://epalitipitaka.appspot.com/"></div>
+ <div class="fb-like" data-href="http://epalitipitaka.appspot.com/" data-send="true" data-layout="box_count" data-show-faces="true"></div>
+ <div>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://epalitipitaka.appspot.com/" data-count="vertical">Tweet</a>
+ </div>
+</div>
+ </div>
+ <div id="viewwrapper">
+  <div id="viewarrow"></div>
+  <div id="viewseparator">&nbsp;</div>
+ </div>
+ <div id="mainview">
+ {% if mainviewDivInnerHTML %}{{ mainviewDivInnerHTML }}{% endif %}
+ </div>
+</div>
+
+<div id='tooltip'></div>
+<div id='locale'>{{locale}}</div>
+
+<div id='aboutDiv' class='infoDiv'>
+<div style='height: 100%; padding: 1em; background-color: #F0F8FF; text-align: center;'>
+<h1 style="color: blue;">Welcome to Online Pāḷi Tipiṭaka Website!</h1>
+This website (website <a href="https://github.com/siongui/tipitaka" target="_blank">source code</a>) allows instant lookup of words when mouse cursor hovers over words. The dictionaries include Pāḷi-English, Pāḷi-Japanes, and Pāḷi-Chinese. The data of Pāḷi Tipiṭaka in this website comes from <a href="http://www.tipitaka.org/" target="_blank">Pāḷi Tipiṭaka</a>. Before using this website, please read <a href="http://www.tipitaka.org/help#howto" target="_blank">Howto</a> on <a href="http://www.tipitaka.org/" target="_blank">Pāḷi Tipiṭaka</a> first. If you only need to look up Pāḷi words, please visit <a href="http://palidictionary.appspot.com/" target="_blank">Pāḷi Dictionary</a> (website <a href="https://code.google.com/p/pali/" target="_blank">source code</a>). The data of dictionaries comes from <a href="http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html" target="_blank">Pali Dict Linux Web Ver 1.0</a>. This website is still under development, if any questions, problems, or suggestions, please <a href="mailto:siongui@gmail.com" target="_blank">contact me</a>.
+</div>
+</div>
+
+<div id='linkDiv' class='infoDiv'>
+<div style='height: 100%; padding: 1em; background-color: #F0F8FF;'>
+ <a href="http://www.buddha-vacana.org/" target="_blank">Buddha Vacana</a><br />
+ <a href="http://www.accesstoinsight.org/tipitaka/sltp/" target="_blank">Sri Lanka Tripitaka Project (Access to Insight)</a><br />
+ <a href="http://www.metta.lk/tipitaka/" target="_blank">Sri Lanka Tripitaka Project</a><br />
+ <a href="http://studies.worldtipitaka.org/" target="_blank"> World Tipiṭaka Edition</a><br />
+ <a href="http://agama.buddhason.org/" target="_blank">莊春江工作站</a><br />
+ <a href="http://www.accesstoinsight.org/" target="_blank">Access to Insight</a><br />
+{% if devjs == 'yes' %}
+ <a href="http://pali.googlecode.com/git/production/index-en_US.html?track=no&ugcfh=yes" target="_blank">en_US Pali Dictionary Website</a><br />
+ <a href="http://pali.googlecode.com/git/production/index-zh_TW.html?track=no&ugcfh=yes" target="_blank">zh_TW Pali Dictionary Website</a><br />
+ <a href="http://pali.googlecode.com/git/production/index-zh_CN.html?track=no&ugcfh=yes" target="_blank">zh_CN Pali Dictionary Website</a><br />
+{% endif %}
+</div>
+</div>
+
+<div class='infoDiv'>
+<a href="/canon">Pāḷi Tipiṭaka</a>
+</div>
+<!-- @see http://tongwen.openfoundry.org/web.htm -->
+<!--
+<script type="text/javascript" src="http://tongwen.openfoundry.org/src/web/tongwen_core.js"></script>
+<script type="text/javascript" src="http://tongwen.openfoundry.org/src/web/tongwen_table_s2t.js"></script>
+<script type="text/javascript" src="http://tongwen.openfoundry.org/src/web/tongwen_table_t2s.js"></script>
+<script type="text/javascript" src="http://tongwen.openfoundry.org/src/web/tongwen_table_ps2t.js"></script>
+<script type="text/javascript" src="http://tongwen.openfoundry.org/src/web/tongwen_table_pt2s.js"></script>
+-->
+{% if devjs == 'yes' %}
+<script type="text/javascript" src="/js/ext/tongwen_core.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_s2t.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_t2s.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_ps2t.js"></script>
+<script type="text/javascript" src="/js/ext/tongwen_table_pt2s.js"></script>
+<script type="text/javascript" src="/js/jsonPrefixWords.js"></script>
+<script type="text/javascript" src="/js/jsonTreeviewToc.js"></script>
+<script type="text/javascript" src="/js/i18n.js"></script>
+<script type="text/javascript" src="/js/base.js"></script>
+<script type="text/javascript" src="/js/movablecolumn.js"></script>
+<script type="text/javascript" src="/js/treeview.js"></script>
+<script type="text/javascript" src="/js/mainview.js"></script>
+<script type="text/javascript" src="/js/lookup.js"></script>
+<script type="text/javascript" src="/js/data2dom.js"></script>
+<script type="text/javascript" src="/js/epalitipitaka.js"></script>
+{% else %}
+<script type="text/javascript" src="/js/epalitipitaka-prd.js"></script>
+{% endif %}
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</body>
+</html>

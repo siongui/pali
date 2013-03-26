@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Pāli-Chinese Dictionary (巴漢字典) : Adminstration</title>
+<!--
+    <style type="text/css">
+    table.curvedEdges { border:10px solid #98FB98;-webkit-border-radius:13px;-moz-border-radius:13px;border-radius:13px; }
+    table.curvedEdges td, table.curvedEdges th { border-bottom:1px dotted black;padding:5px; }
+    </style>
+-->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32179549-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head> 
+  <body>
+    <center>
+      <h1>Add Pāli Words From Files</h1>
+      <h1>從檔案新增巴利單字</h1>
+    </center>
+
+    <center>
+<!--
+    <form action="/admin/addword" method="post">
+      <div>
+        <table class="curvedEdges">
+        <tr>
+        <th>字典</th><td><input type="text" name="dict" value=""></td>
+        </tr>
+        <tr>
+        <th>巴利單字</th><td><input type="text" name="word" value=""></td>
+        </tr>
+        <tr>
+        <th>解釋</th><td><input type="text" name="explain" value=""></td>
+        </tr>
+        </table>
+        <input type="submit" value="送出">
+      </div>
+    </form>
+-->
+
+      <h1 style="margin-top:20px;">請選擇一個或多個檔案上傳</h1>
+      <p>
+        <strong>Upload Files:</strong>
+        <form method="post" action="/admin/addfile" enctype="multipart/form-data">
+          <input type="file" name="filesToUpload[]" id="filesToUpload" multiple="" onChange="makeFileList();" />
+          <input type="submit" value="送出">
+        </form>
+      </p>
+      <p><strong>Files You Selected:</strong></p>
+      <ul id="fileList"><li>No Files Selected</li></ul>
+
+	<script type="text/javascript">
+		function makeFileList() {
+			var input = document.getElementById("filesToUpload");
+			var ul = document.getElementById("fileList");
+			while (ul.hasChildNodes()) {
+				ul.removeChild(ul.firstChild);
+			}
+			for (var i = 0; i < input.files.length; i++) {
+				var li = document.createElement("li");
+				li.innerHTML = input.files[i].name;
+				ul.appendChild(li);
+			}
+			if(!ul.hasChildNodes()) {
+				var li = document.createElement("li");
+				li.innerHTML = 'No Files Selected';
+				ul.appendChild(li);
+			}
+		}
+	</script>
+
+    </center>
+  </body>
+</html>
