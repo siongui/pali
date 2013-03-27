@@ -17,7 +17,7 @@
 <body ng-controller="mainCtrl">
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span2 visible-desktop"><div ng-include="leftsideUrl"></div></div>
+      <div class="span2 visible-desktop">{% if isCompiledJS %}{% include 'buttons.html' %}{% else %}{% include 'devlinks.html' %}{% endif %}</div>
       <div class="span8 main-content">
         <div class="alert alert-block text-center" style="margin: 0;">
           <h1 class="visible-desktop" i18n str="Pāḷi Dictionary">{$_("Pāḷi Dictionary")$}</h1>
@@ -81,7 +81,7 @@
         </div>
         </div>
       </div>
-      <div class="span2 visible-desktop"><div ng-include="rightsideUrl"></div></div>
+      <div class="span2 visible-desktop"></div>
     </div>
   </div>
 
@@ -119,6 +119,6 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
   })();
 </script>
-<div ng-include="analyticsUrl"></div>
+{% if isTrack %}{% include 'analytics.html' %}{% endif %}
 </body>
 </html>

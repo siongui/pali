@@ -34,18 +34,6 @@ handlers:
 - url: /css
   static_dir: app/css
 
-- url: /partials/devlinks\.html
-  static_files: app/partials/devlinks.html
-  upload: app/partials/devlinks\.html
-
-- url: /partials/buttons\.html
-  static_files: app/partials/buttons.html
-  upload: app/partials/buttons\.html
-
-- url: /partials/analytics\.html
-  static_files: app/partials/analytics.html
-  upload: app/partials/analytics\.html
-
 - url: /.*
   script: main.app
 

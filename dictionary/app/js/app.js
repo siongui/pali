@@ -23,13 +23,4 @@ angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', '
   }]).
   run(['$rootScope', '$location', function($rootScope, $location) {
     // initialization (similar to main)
-    if ($location.host() === 'localhost') {
-      $rootScope.rightsideUrl = '/partials/devlinks.html';
-    } else {
-      $rootScope.leftsideUrl = '/partials/buttons.html';
-      if ($location.search()['track'] !== 'no') {
-        /* Load Google Analytics Code */
-        $rootScope.analyticsUrl = '/partials/analytics.html';
-      }
-    }
   }]);
