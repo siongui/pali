@@ -192,14 +192,14 @@ def createEntryFromZipFile(zf, nameInZip, pathPrefix, replacePrefixStr):
 
 
 def setupAll():
-  dataUrl = 'https://github.com/siongui/data/archive/master.zip'
-  path = os.path.join(os.path.dirname(__file__), 'master.zip')
+  dataZipUrl = 'https://github.com/siongui/data/archive/master.zip'
+  dataZipPath = os.path.join(os.path.dirname(__file__), 'master.zip')
   commonDirPath = os.path.join(os.path.dirname(__file__), '..')
 
-  if not os.path.exists(path):
-    download(dataUrl, path)
+  if not os.path.exists(dataZipPath):
+    download(dataZipUrl, dataZipPath)
 
-  with zipfile.ZipFile(path, 'r') as zf:
+  with zipfile.ZipFile(dataZipPath, 'r') as zf:
     for name in zf.namelist():
       if name.startswith('data-master/pali/common/app/js/ext'):
         # setup TongWen
@@ -224,6 +224,9 @@ def setupAll():
       if name.startswith('data-master/pali/common/romn/'):
         # setup pali xmls
         createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
+
+  # setup symbolic links
+  setupSymlinks()
 
 
 if __name__ == '__main__':

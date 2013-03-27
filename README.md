@@ -4,26 +4,12 @@
 
 <i>REPO_DIR</i> below means the directory where you git clone this repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
 
-1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to set up [New Tong Wen Tang](http://tongwen.openfoundry.org/) library (translation between Traditional and Simplified Chinese on client side) and [Jianfan](https://code.google.com/p/python-jianfan/) library (translation between Traditional and Simplified Chinese on server side), and symbolic links.
+1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to set up [New Tong Wen Tang](http://tongwen.openfoundry.org/) library (translation between Traditional and Simplified Chinese on client side), [Jianfan](https://code.google.com/p/python-jianfan/) library (translation between Traditional and Simplified Chinese on server side), [Babel](http://babel.edgewall.org/) library (A collection of tools for internationalizing Python applications), [gaepytz](https://pypi.python.org/pypi/gaepytz) ([source code at Google Code](http://code.google.com/p/gae-pytz/)) library (pytz tuned for google app engine), and create symbolic links.
 ```bash
     python REPO_DIR/common/pytools/setupdev.py
 ```
 
-2. Install [Babel](http://babel.edgewall.org/) ([Download](http://ftp.edgewall.com/pub/babel/Babel-0.9.6.zip)) and [gaepytz](https://pypi.python.org/pypi/gaepytz) ([Download](https://pypi.python.org/packages/source/g/gaepytz/gaepytz-2011h.zip#md5=0f130ef491509775b5ed8c5f62bf66fb), [Google Code](http://code.google.com/p/gae-pytz/)) for [internationalization and localization with webapp2](http://webapp-improved.appspot.com/tutorials/i18n.html). After download, zip the package in the source code and put under <i>REPO_DIR/common/gae/libs/</i>. The two packages will be [zipimport](https://developers.google.com/appengine/articles/django10_zipimport)ed in the application.
-```bash
-    wget http://ftp.edgewall.com/pub/babel/Babel-0.9.6.zip
-    wget https://pypi.python.org/packages/source/g/gaepytz/gaepytz-2011h.zip#md5=0f130ef491509775b5ed8c5f62bf66fb
-    unzip Babel-0.9.6.zip
-    unzip gaepytz-2011h.zip
-    cd Babel-0.9.6/
-    zip -r babel.zip babel/
-    mv babel.zip REPO_DIR/common/gae/libs/
-    cd ../gaepytz-2011h/
-    zip -r pytz.zip pytz/
-    mv pytz.zip REPO_DIR/common/gae/libs/
-```
-
-3. Create i18n files for production use:
+2. Create i18n files for production use:
 ```bash
     cd REPO_DIR/common/pytools/
     # create i18n files
@@ -36,7 +22,7 @@
     python i18nUtils.py js
 ```
 
-4. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
+3. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
   Put pali-dict-linux-web1.zip under <i>REPO_DIR/common/pytools/</i> and unzip it.
 ```bash
     mv pali-dict-linux-web1.zip REPO_DIR/common/pytools/
@@ -44,20 +30,20 @@
     unzip pali-dict-linux-web1.zip
 ```
 
-5. Generate index files and compiled JavaScript file:
+4. Generate index files and compiled JavaScript file:
 ```bash
     cd REPO_DIR/common/pytools/
-    python xml2jsonIndex.py
-    python jsonIndex2group.py
-    python buildJsonDeployDir.py
+    python 1xml2jsonIndex.py
+    python 2jsonIndex2group.py
+    python 3buildJsonDeployDir.py
 
     # create JavaScript file ( REPO_DIR/common/app/js/dicPrefix.js ) of indexes of pali words for client side
-    python dicPrefix2js.py
+    python 4dicPrefix2js.py
     # create compiled JavaScript files ( REPO_DIR/dictionary/app/all_compiled.js and REPO_DIR/tipitaka/app/all_compiled.js ) by Google Closure Compiler Service API
     python compile.py
 ```
 
-6. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
+5. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
 ```bash
     # deploy json files of dictionary
     cd GAE_PYSDK_DIR/
