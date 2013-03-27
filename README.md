@@ -4,7 +4,7 @@
 
 <i>REPO_DIR</i> below means the directory where you git clone this repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
 
-1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to set up [New Tong Wen Tang](http://tongwen.openfoundry.org/) library (translation between Traditional and Simplified Chinese on client side), [Jianfan](https://code.google.com/p/python-jianfan/) library (translation between Traditional and Simplified Chinese on server side), [Babel](http://babel.edgewall.org/) library (A collection of tools for internationalizing Python applications), [gaepytz](https://pypi.python.org/pypi/gaepytz) ([source code at Google Code](http://code.google.com/p/gae-pytz/)) library (pytz tuned for google app engine), and create symbolic links.
+1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to set up [New Tong Wen Tang](http://tongwen.openfoundry.org/) library (translation between Traditional and Simplified Chinese on client side), [Jianfan](https://code.google.com/p/python-jianfan/) library (translation between Traditional and Simplified Chinese on server side), [Babel](http://babel.edgewall.org/) library (A collection of tools for internationalizing Python applications), [gaepytz](https://pypi.python.org/pypi/gaepytz) ([source code at Google Code](http://code.google.com/p/gae-pytz/)) library (pytz tuned for google app engine), xml files for [Pāḷi Tipiṭaka](http://www.tipitaka.org/) and [translations](https://github.com/siongui/data/tree/master/pali/common/translation), and create symbolic links.
 ```bash
     python REPO_DIR/common/pytools/setupdev.py
 ```
@@ -22,7 +22,15 @@
     python i18nUtils.py js
 ```
 
-3. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
+3. Create data files used for Pāḷi Tipiṭaka and path of webpages:
+```bash
+    cd REPO_DIR/common/pytools/
+    python tpk1getTocs.py
+    python tpk2tocsToJson.py
+    python tpk3addSubpathInJson.py
+```
+
+4. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
   Put pali-dict-linux-web1.zip under <i>REPO_DIR/common/pytools/</i> and unzip it.
 ```bash
     mv pali-dict-linux-web1.zip REPO_DIR/common/pytools/
@@ -30,7 +38,7 @@
     unzip pali-dict-linux-web1.zip
 ```
 
-4. Generate index files and compiled JavaScript file:
+5. Generate index files and compiled JavaScript file:
 ```bash
     cd REPO_DIR/common/pytools/
     python dic1xmlToJsonIndex.py
@@ -43,7 +51,7 @@
     python compile.py
 ```
 
-5. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
+6. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
 ```bash
     # deploy json files of dictionary
     cd GAE_PYSDK_DIR/
