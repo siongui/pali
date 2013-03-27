@@ -33,12 +33,12 @@
 4. Generate index files and compiled JavaScript file:
 ```bash
     cd REPO_DIR/common/pytools/
-    python 1xml2jsonIndex.py
-    python 2jsonIndex2group.py
-    python 3buildJsonDeployDir.py
+    python dic1xmlToJsonIndex.py
+    python dic2jsonIndexToGroup.py
+    python dic3buildJsonDeployDir.py
 
     # create JavaScript file ( REPO_DIR/common/app/js/dicPrefix.js ) of indexes of pali words for client side
-    python 4dicPrefix2js.py
+    python dic4dicPrefixTojs.py
     # create compiled JavaScript files ( REPO_DIR/dictionary/app/all_compiled.js and REPO_DIR/tipitaka/app/all_compiled.js ) by Google Closure Compiler Service API
     python compile.py
 ```
