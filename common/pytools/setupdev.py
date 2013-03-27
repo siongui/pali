@@ -175,14 +175,61 @@ def setupBabel():
       print(name)
 
 
+def createEntryFromZipFile(zf, nameInZip, pathPrefix, replacePrefixStr):
+  (dirname, filename) = os.path.split(nameInZip)
+  dstDir = os.path.join(pathPrefix, dirname.replace(replacePrefixStr, ''))
+  dstPath = os.path.join(dstDir, filename)
+  if filename == '':
+    # directory
+    if not os.path.exists(dstDir):
+      print("creating " + dstDir)
+      os.mkdir(dstDir)
+  else:
+    print("Decompressing " + nameInZip + " to " + dstPath)
+    # file
+    with open(dstPath, 'w') as f:
+      f.write(zf.read(nameInZip))
+
+
 def setupAll():
-  pass
+  dataUrl = 'https://github.com/siongui/data/archive/master.zip'
+  path = os.path.join(os.path.dirname(__file__), 'master.zip')
+  commonDirPath = os.path.join(os.path.dirname(__file__), '..')
+
+  if not os.path.exists(path):
+    download(dataUrl, path)
+
+  with zipfile.ZipFile(path, 'r') as zf:
+    for name in zf.namelist():
+      if name.startswith('data-master/pali/common/app/js/ext'):
+        # setup TongWen
+        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
+
+      if name.startswith('data-master/pali/common/gae/libs/jianfan'):
+        # setup jianfan
+        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
+
+      if name.startswith('data-master/pali/common/gae/libs/babel.zip'):
+        # setup Babel
+        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
+
+      if name.startswith('data-master/pali/common/gae/libs/pytz.zip'):
+        # setup gaepytz
+        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
+
+      if name.startswith('data-master/pali/common/translation/'):
+        # setup translation xmls
+        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
+
+      if name.startswith('data-master/pali/common/romn/'):
+        # setup pali xmls
+        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
 
 
 if __name__ == '__main__':
-  setupTongWen()
-  setupJianfan()
-  setupSymlinks()
-  setupXmls()
+  #setupTongWen()
+  #setupJianfan()
+  #setupSymlinks()
+  #setupXmls()
   #setupBabel()
-  #setupAll()
+  setupAll()
