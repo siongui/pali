@@ -6,11 +6,11 @@ import os, urllib2, tarfile, shutil, zipfile
 """
 $PALI_DIR is the dir of git clone https://github.com/siongui/pali.git
 Manual setup (for reference):
-1. TongWen:
+1. setup TongWen:
 ```bash
   cd $PALI_DIR
   mkdir -p common/app/js/ext
-  cd common/app/js/ext
+  cd common/app/js/ext/
   wget http://tongwen.openfoundry.org/src/web/tongwen_core.js
   wget http://tongwen.openfoundry.org/src/web/tongwen_table_s2t.js
   wget http://tongwen.openfoundry.org/src/web/tongwen_table_t2s.js
@@ -18,7 +18,7 @@ Manual setup (for reference):
   wget http://tongwen.openfoundry.org/src/web/tongwen_table_pt2s.js
 ```
 
-2. jianfan:
+2. setup jianfan:
 ```bash
   wget https://python-jianfan.googlecode.com/files/jianfan-0.0.1.tar.gz
   tar xvzf jianfan-0.0.1.tar.gz
@@ -36,6 +36,23 @@ Manual setup (for reference):
   ln -s ../common/locale/ locale
 ```
 
+4. setup Babel:
+```bash
+  wget http://ftp.edgewall.com/pub/babel/Babel-0.9.6.zip
+  unzip Babel-0.9.6.zip
+  cd Babel-0.9.6/
+  zip -r babel.zip babel/
+  mv babel.zip $PALI_DIR/common/gae/libs/
+```
+
+5. setup gaepytz:
+```bash
+  wget https://pypi.python.org/packages/source/g/gaepytz/gaepytz-2011h.zip#md5=0f130ef491509775b5ed8c5f62bf66fb
+  unzip gaepytz-2011h.zip
+  cd ../gaepytz-2011h/
+  zip -r pytz.zip pytz/
+  mv pytz.zip $PALI_DIR/common/gae/libs/
+```
 """
 
 
