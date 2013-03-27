@@ -89,11 +89,15 @@ if __name__ == '__main__':
   treeviewData = infoFile2TreeviewData(infoFilePath)
 
   serverJsonPath = os.path.join(os.path.dirname(__file__), '../gae/libs/json/treeview.json')
+  if not os.path.exists(os.path.dirname(serverJsonPath)):
+    os.makedirs(os.path.dirname(serverJsonPath))
   with open(serverJsonPath, 'w') as f:
     f.write(json.dumps(treeviewData))
 
   #clientJsPath = os.path.join(os.path.dirname(__file__), '../app/js/treeviewJson.js')
   clientJsPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app/js/treeviewJson.js')
+  if not os.path.exists(os.path.dirname(clientJsPath)):
+    os.makedirs(os.path.dirname(clientJsPath))
   with open(clientJsPath, 'w') as f:
     f.write('var treeviewJson = ')
     f.write(json.dumps(treeviewData))

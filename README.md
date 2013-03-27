@@ -120,7 +120,7 @@ jinja_environment = jinja2.Environment(
 
 jinja_environment.install_gettext_translations(i18n)
 ```
-The point is that zipimport babel and gaepytz which we install in advance. Then import i18n in webapp2_extras, enable i18n extension of jinja2, and install webapp2 i18n in jinja2.
+The point is that [zipimport](https://developers.google.com/appengine/articles/django10_zipimport) babel and gaepytz which we install in advance. Then import i18n in webapp2_extras, enable i18n extension of jinja2, and install webapp2 i18n in jinja2.
 
 To tell jinja2 to serve translalted strings, the strings in HTML files need to be marked like the following:
 ```bash

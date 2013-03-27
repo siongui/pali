@@ -6,7 +6,7 @@ import xml.dom.minidom
 
 
 urlPrefix = 'http://www.tipitaka.org/romn/'
-romnDir = os.path.join(os.path.dirname(__file__), 'romn/')
+romnDir = os.path.join(os.path.dirname(__file__), '../romn/')
 rootTocXmlSrc = 'tipitaka_toc.xml'
 overwriteIfExist = False
 """
