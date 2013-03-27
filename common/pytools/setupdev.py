@@ -3,6 +3,41 @@
 
 import os, urllib2, tarfile, shutil, zipfile
 
+"""
+$PALI_DIR is the dir of git clone https://github.com/siongui/pali.git
+Manual setup (for reference):
+1. TongWen:
+```bash
+  cd $PALI_DIR
+  mkdir -p common/app/js/ext
+  cd common/app/js/ext
+  wget http://tongwen.openfoundry.org/src/web/tongwen_core.js
+  wget http://tongwen.openfoundry.org/src/web/tongwen_table_s2t.js
+  wget http://tongwen.openfoundry.org/src/web/tongwen_table_t2s.js
+  wget http://tongwen.openfoundry.org/src/web/tongwen_table_ps2t.js
+  wget http://tongwen.openfoundry.org/src/web/tongwen_table_pt2s.js
+```
+
+2. jianfan:
+```bash
+  wget https://python-jianfan.googlecode.com/files/jianfan-0.0.1.tar.gz
+  tar xvzf jianfan-0.0.1.tar.gz
+  mv jianfan-0.0.1/jianfan $PALI_DIR/common/gae/libs/
+  rm -rf jianfan-0.0.1
+```
+
+3. create symbolic links:
+```bash
+  cd $PALI_DIR/dictionary
+  ln -s ../common/ common
+  ln -s ../common/locale/ locale
+  cd $PALI_DIR/tipitaka
+  ln -s ../common/ common
+  ln -s ../common/locale/ locale
+```
+
+"""
+
 
 def download(url, path):
   print('downloading %s ...' % url)
@@ -123,9 +158,14 @@ def setupBabel():
       print(name)
 
 
+def setupAll():
+  pass
+
+
 if __name__ == '__main__':
   setupTongWen()
   setupJianfan()
   setupSymlinks()
   setupXmls()
   #setupBabel()
+  #setupAll()
