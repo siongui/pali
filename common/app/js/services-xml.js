@@ -29,15 +29,13 @@ angular.module('pali.xml', []).
           }, function(reason) {return reason;});
         }
       } else {
-        var promise = $q.all([xhrXml.get(xsltPath), xhrXml.get(url)]);
-        return promise.then(function(xsltXmlArray) {
+        return $q.all([xhrXml.get(xsltPath), xhrXml.get(url)]).then(function(xsltXmlArray) {
           xsltDoc = xsltXmlArray[0];
           cache.put(xsltPath, xsltDoc);
           var htmlDoc = xslt.transform(xsltXmlArray[1], xsltDoc);
           cache.put(url, htmlDoc);
           return htmlDoc;
         }, function(reason) {return reason;});
-
       }
     }
 
@@ -81,9 +79,16 @@ angular.module('pali.xml', []).
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 
       xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {
-          if (xmlhttp.status == 200) {
-            deferred.resolve(xmlhttp.responseXML);
+        if (xmlhttp.readyState === 4) {
+          if (xmlhttp.status === 200) {
+            if (xmlhttp.responseXML) {
+              deferred.resolve(xmlhttp.responseXML);
+            } else {
+              // fix Chrome bug: sometimes responseText exists but no responseXML
+              var parser = new DOMParser();
+              var xmlDoc = parser.parseFromString(xmlhttp.responseText, "application/xml");
+              deferred.resolve(xmlDoc);
+            }
           } else {
             deferred.reject(xmlhttp.status);
           }
