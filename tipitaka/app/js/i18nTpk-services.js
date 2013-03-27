@@ -8,7 +8,7 @@ angular.module('paliTipitaka.i18nTpk', []).
     function basename(str) { return str.split('/').reverse()[0]; }
 
     function recursiveBuildPath(node, pathPrefix, xmlName) {
-      var path = pathPrefix + '/' + node['url'];
+      var path = pathPrefix + '/' + node['subpath'];
       if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
       if (node.hasOwnProperty('action')) {
         if (basename(node['action']) === xmlName)

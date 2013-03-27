@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext', 'paliTipitaka.i18nTpk']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext', 'paliTipitaka.i18nTpk', 'pali.treeviewAllJson']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
@@ -223,8 +223,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('tvServ', [function() {
-    if (!angular.isObject(treeviewAllJson)) throw 'no treeviewAllJson';
+  factory('tvServ', ['treeviewAllJson', function(treeviewAllJson) {
 
     function getInfo(path) {
       // find the node corresponds to the path
@@ -233,13 +232,13 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       if (pathArray.length < 2) {
         throw 'impossible path: ' + path;
       } else if (pathArray.length === 2) {
-        node = treeviewAllJson['child'][0];
+        node = treeviewAllJson.tpk;
       } else {
-        node = treeviewAllJson['child'][0];
+        node = treeviewAllJson.tpk;
         for (var i=2; i<pathArray.length; i++) {
           var pathi = pathArray[i];
           for (var j=0; j<node['child'].length; j++) {
-            if (node['child'][j]['url'] === pathi) {
+            if (node['child'][j]['subpath'] === pathi) {
               node = node['child'][j];
               break;
             }
@@ -255,7 +254,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         for (var i=0; i<node['child'].length; i++) {
           childNodesInfo.push({
             'text': node['child'][i]['text'],
-            'path': path + '/' + node['child'][i]['url']
+            'path': path + '/' + node['child'][i]['subpath']
           });
         }
         return childNodesInfo;
@@ -264,7 +263,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     var serviceInstance = {
       getInfo: getInfo,
-      tipitakaRootNode: treeviewAllJson['child'][0],
+      tipitakaRootNode: treeviewAllJson.tpk,
       tipitakaRootNodePath: '/canon'
     };
     return serviceInstance;

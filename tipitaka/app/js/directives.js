@@ -20,7 +20,7 @@ angular.module('paliTipitaka.directives', []).
 
         function traverseTreeviewData(node, path) {
           if (node['child']) {
-            // not leaf node, keys: 'text', 'child', 'url'
+            // not leaf node, keys: 'text', 'child', 'subpath'
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
             var text = angular.element('<span class="treeNode">'+ node['text'] + '</span>');
@@ -30,7 +30,7 @@ angular.module('paliTipitaka.directives', []).
             var childrenContainer = $compile('<div class="childrenContainer"></div>')(scope);
             for (var i=0; i<node['child'].length; i++) {
               var child = node['child'][i];
-              var childPath = path + '/' + child['url'];
+              var childPath = path + '/' + child['subpath'];
               childrenContainer.append(traverseTreeviewData(child, childPath));
             }
             childrenContainer.css('display', 'none');
@@ -55,7 +55,7 @@ angular.module('paliTipitaka.directives', []).
             all.append(childrenContainer);
             return all;
           } else {
-            // leaf node, keys: 'text', 'action', 'url'
+            // leaf node, keys: 'text', 'action', 'subpath'
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
                                    "'" + node['action'] + "', '" + node['text'] + "', '" + path + "'" +
                                    ')"><span class="treeNode">' +

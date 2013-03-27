@@ -67,8 +67,8 @@ if __name__ == '__main__':
   jsonPath = os.path.join(os.path.dirname(__file__), 'treeview.json')
 
   dstServerJsonPath = os.path.join(os.path.dirname(__file__), '../gae/libs/json/treeviewAll.json')
-  #dstClientJsPath = os.path.join(os.path.dirname(__file__), '../app/js/treeviewAllJson.js')
-  dstClientJsPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app/js/treeviewAllJson.js')
+  #dstClientJsPath = os.path.join(os.path.dirname(__file__), '../app/js/treeviewAllJson-service.js')
+  dstClientJsPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app/js/treeviewAllJson-service.js')
 
   with open(jsonPath, 'r') as f:
     treeviewJson = json.loads(f.read())
@@ -82,6 +82,11 @@ if __name__ == '__main__':
   with open(dstServerJsonPath, 'w') as f:
     f.write(json.dumps(treeviewJson))
   with open(dstClientJsPath, 'w') as f:
-    f.write('var treeviewAllJson = ')
+    f.write("angular.module('pali.treeviewAllJson', []).\n")
+    f.write("  factory('treeviewAllJson', [function() {\n")
+    f.write("    var treeviewData = ")
     f.write(json.dumps(treeviewJson))
-    f.write(';')
+    f.write(";\n")
+    f.write("    var serviceInstance = { all: treeviewData, tpk: treeviewData['child'][0] };\n")
+    f.write("    return serviceInstance;\n")
+    f.write("  }]);\n")

@@ -160,7 +160,7 @@ def recursivelyCheck(node, path):
 
   else:
     for child in node['child']:
-      if path[0].decode('utf-8') == child['url']:
+      if path[0].decode('utf-8') == child['subpath']:
         if 'action' in child:
           # check if all remaining items are None
           for subPath in path[1:]:
@@ -213,14 +213,14 @@ def getCanonPageHtml(node, reqPath, i18n):
     html += getBodyDom(xmlUrl).toxml()[6:-7]
   else:
     for child in node['child']:
-      html += u'<a href="%s/%s">%s</a>' % (reqPath, child['url'], child['text'])
+      html += u'<a href="%s/%s">%s</a>' % (reqPath, child['subpath'], child['text'])
 
   return html
 
 
 def recursivelyCheck2(node, path):
   for child in node['child']:
-    if path[0].decode('utf-8') == child['url']:
+    if path[0].decode('utf-8') == child['subpath']:
       if 'action' in child:
         # check if all remaining items are None
         for subPath in path[1:]:
