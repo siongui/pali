@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import httplib, urllib, os, json, sys
+import httplib, urllib, os, json, sys, re
 
 js_common_dir = os.path.join(os.path.dirname(__file__), '../app/js')
-js_common_ext_dir = os.path.join(os.path.dirname(__file__), '../app/js/ext')
 
 dic_js_dir = os.path.join(os.path.dirname(__file__), '../../dictionary/app/js')
 dic_compiledJSPath = os.path.join(os.path.dirname(__file__), '../../dictionary/app/all_compiled.js')
@@ -15,81 +14,56 @@ tpk_compiledJSPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app
 tpk_uncompiledJSPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app/all_uncompiled.js')
 
 
-def combindCommonJS():
+def getCode(path, flag):
+  if path.startswith('/common/js/'):
+    with open(os.path.join(js_common_dir, path[11:]), 'r') as f:
+      return f.read()
+
+  if path.startswith('/js/'):
+    if flag == 'dic':
+      jsPath = os.path.join(dic_js_dir, path[4:])
+    elif flag == 'tpk':
+      jsPath = os.path.join(tpk_js_dir, path[4:])
+    else:
+      raise Exception('wrong flag')
+
+    with open(jsPath, 'r') as f:
+      return f.read()
+
+  raise Exception('should not be here')
+
+
+def compile2(indexHtmlPath, flag, level):
   code = ''
+  with open(indexHtmlPath, 'r') as f:
+    for line in f.readlines():
+      match = re.search(r'<script src="(.+)"></script>', line)
+      if match:
+        path = match.group(1)
+        if path.startswith('//'):
+          continue
+        if path.startswith('/js/palidic.js'):
+          continue
+        if path.startswith('/js/tipitaka.js'):
+          continue
+        if path.startswith('/common/lib/'):
+          continue
 
-  for file in os.listdir(js_common_dir):
-    if not file.endswith('.js'):
-      continue
-    path = os.path.join(js_common_dir, file)
-    with open(path, 'r') as f:
-      print('combining %s ...' % file)
-      code += f.read()
-      code += '\n'
+        print('combining ' + path + ' ...')
+        code += getCode(path, flag)
+        code += '\n'
 
-  # tongwen_table_*.js depends on tongwen_core.js
-  # move tongwen_core.js to index 0 of list
-  tongwen_files = os.listdir(js_common_ext_dir)
-  try:
-    core_index = tongwen_files.index('tongwen_core.js')
-    tongwen_files.insert(0, tongwen_files.pop(core_index))
-  except:
-    pass
-
-  for file in tongwen_files:
-    if not file.endswith('.js'):
-      continue
-    path = os.path.join(js_common_ext_dir, file)
-    with open(path, 'r') as f:
-      print('combining %s ...' % file)
-      code += f.read()
-      code += '\n'
-
-  return code
-
-
-def combineJS(flag):
-  code = combindCommonJS()
-  if flag is 'dic':
-    js_dir = dic_js_dir
+  if flag == 'dic':
+    compiledJSPath = dic_compiledJSPath
     uncompiledJSPath = dic_uncompiledJSPath
-  if flag is 'tpk':
-    js_dir = tpk_js_dir
+  elif flag == 'tpk':
+    compiledJSPath = tpk_compiledJSPath
     uncompiledJSPath = tpk_uncompiledJSPath
-
-  for file in os.listdir(js_dir):
-    if not file.endswith('.js'):
-      continue
-    path = os.path.join(js_dir, file)
-    with open(path, 'r') as f:
-      print('combining %s ...' % file)
-      code += f.read()
-      code += '\n'
+  else:
+    raise Exception('wrong flag')
 
   with open(uncompiledJSPath, 'w') as f:
     f.write(code)
-
-  return code
-
-
-def recursivePrint(data):
-  if type(data) is dict:
-    for k, v in data.items():
-      sys.stdout.write('%s: \t' % k)
-      recursivePrint(v)
-  elif type(data) is list:
-    for item in data:
-      recursivePrint(item)
-  else:
-    print(data)
-
-
-def compile(flag, level):
-  code = combineJS(flag)
-  if flag is 'dic':
-    compiledJSPath = dic_compiledJSPath
-  if flag is 'tpk':
-    compiledJSPath = tpk_compiledJSPath
 
   print('initializing http post request ...')
   params = urllib.urlencode([
@@ -124,6 +98,18 @@ def compile(flag, level):
   conn.close()
 
 
+def recursivePrint(data):
+  if type(data) is dict:
+    for k, v in data.items():
+      sys.stdout.write('%s: \t' % k)
+      recursivePrint(v)
+  elif type(data) is list:
+    for item in data:
+      recursivePrint(item)
+  else:
+    print(data)
+
+
 if __name__ == '__main__':
   if len(sys.argv) == 1:
     level = 'WHITESPACE_ONLY'
@@ -135,5 +121,5 @@ if __name__ == '__main__':
     level = 'WHITESPACE_ONLY'
   print('compilation_level: %s' % level)
 
-  compile('dic', level)
-  compile('tpk', level)
+  compile2(os.path.join(os.path.dirname(__file__), '../../dictionary/app/index.html'), 'dic', level)
+  compile2(os.path.join(os.path.dirname(__file__), '../../tipitaka/app/index.html'), 'tpk', level)
