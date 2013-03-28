@@ -1,5 +1,7 @@
 # Pāḷi Tipiṭaka & Dictionary
 
+My development environment is Ubuntu 12.10 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you have <em>GNU gettext utils</em>, which includes <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. But I do not know how to install these utilities on Windows.
+
 ## Set Up Development Environment
 
 <i>REPO_DIR</i> below means the directory where you git clone this repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
