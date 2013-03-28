@@ -6,6 +6,7 @@ app/all_uncompiled.js
 app/js/treeviewAllJson-service.js
 gaelibs/json/treeviewAll.json
 
+app/js/data-i18nTpk-service.js
 gaelibs/json/translationInfo.json
 gaelibs/json/canonName.json
 

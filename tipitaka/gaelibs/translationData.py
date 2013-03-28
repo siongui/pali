@@ -125,16 +125,17 @@ if __name__ == '__main__':
   with open(dstCanonNamePath, 'w') as f:
     f.write(json.dumps(canonName))
 
-  """
-  dstTrServicePath = os.path.join(os.path.dirname(__file__), '../app/js/data-canon-translation-service.js')
+  dstTrServicePath = os.path.join(os.path.dirname(__file__), '../app/js/data-i18nTpk-service.js')
 
   with open(dstTrServicePath, 'w') as f:
-    f.write("angular.module('pali.i18nStrings', []).\n")
-    f.write("  factory('i18nStrings', [function() {\n")
-    f.write("    var str = ")
-    f.write(json.dumps(obj))
+    f.write("angular.module('pali.data.i18nTpk', []).\n")
+    f.write("  factory('i18nTpk', [function() {\n")
+    f.write("    var translationInfo = ")
+    f.write(json.dumps(translationInfo))
     f.write(";\n")
-    f.write("    var serviceInstance = { all: str };\n")
+    f.write("    var canonName = ")
+    f.write(json.dumps(canonName))
+    f.write(";\n")
+    f.write("    var serviceInstance = { translationInfo: translationInfo, canonName: canonName };\n")
     f.write("    return serviceInstance;\n")
     f.write("  }]);\n")
-  """
