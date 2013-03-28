@@ -11,7 +11,7 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     python REPO_DIR/common/pytools/setupdev.py
 ```
 
-2. Create i18n files for production use:
+2. Create i18n files (pot, po, mo files under <strong>REPO_DIR/common/locale/</strong> directory) for production use on server side:
 ```bash
     cd REPO_DIR/common/pytools/
     # create i18n files
@@ -20,11 +20,11 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     python i18nUtils.py cn
     python i18nUtils.py mo
 
-    # create JavaScript file ( REPO_DIR/common/app/js/locales.js ) of translated strings for client side
+    # create JavaScript file ( <strong>REPO_DIR/common/app/js/services-i18nStrings.js</strong> ) of translated strings for client side
     python i18nUtils.py js
 ```
 
-3. Create data files used for Pāḷi Tipiṭaka and path of webpages:
+3. Create data files (<strong>REPO_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/common/gae/libs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
 ```bash
     cd REPO_DIR/common/pytools/
     python tpk1getTocs.py
@@ -40,16 +40,17 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     unzip pali-dict-linux-web1.zip
 ```
 
-5. Generate index files and compiled JavaScript file:
+5. Generate index files and compiled JavaScript files:
 ```bash
+    # create json files (<strong>REPO_DIR/common/gae/libs/json/dicPrefixWordLists.json</strong> and <strong>REPO_DIR/common/gae/libs/json/dicPrefixGroup.json</strong>) for server side
     cd REPO_DIR/common/pytools/
     python dic1xmlToJsonIndex.py
     python dic2jsonIndexToGroup.py
     python dic3buildJsonDeployDir.py
 
-    # create JavaScript file ( REPO_DIR/common/app/js/dicPrefix.js ) of indexes of pali words for client side
+    # create JavaScript file ( <strong>REPO_DIR/common/app/js/services-dicPrefix.js</strong> ) of indexes of pali words for client side
     python dic4dicPrefixTojs.py
-    # create compiled JavaScript files ( REPO_DIR/dictionary/app/all_compiled.js and REPO_DIR/tipitaka/app/all_compiled.js ) by Google Closure Compiler Service API
+    # create compiled JavaScript files ( <strong>REPO_DIR/dictionary/app/all_compiled.js</strong> and <strong>REPO_DIR/tipitaka/app/all_compiled.js</strong> ) by Google Closure Compiler Service API
     python compile.py
 ```
 
