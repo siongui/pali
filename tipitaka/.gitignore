@@ -6,5 +6,8 @@ app/all_uncompiled.js
 app/js/treeviewAllJson-service.js
 gaelibs/json/treeviewAll.json
 
+gaelibs/json/translationInfo.json
+gaelibs/json/canonName.json
+
 common
 locale

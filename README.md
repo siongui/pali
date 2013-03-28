@@ -24,7 +24,7 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     python i18nUtils.py js
 ```
 
-3. Create data files (<strong>REPO_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/common/gae/libs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
+3. Create data files (<strong>REPO_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
 ```bash
     cd REPO_DIR/common/pytools/
     python tpk1getTocs.py
@@ -32,7 +32,13 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     python tpk3addSubpathInJson.py
 ```
 
-4. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
+4. Create Tipiṭaka-related translations for server and client.
+```bash
+    cd REPO_DIR/tipitaka/gaelibs/
+    python translationData.py
+```
+
+5. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
   Put pali-dict-linux-web1.zip under <i>REPO_DIR/common/pytools/</i> and unzip it.
 ```bash
     mv pali-dict-linux-web1.zip REPO_DIR/common/pytools/
@@ -40,7 +46,7 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     unzip pali-dict-linux-web1.zip
 ```
 
-5. Generate index files and compiled JavaScript files:
+6. Generate index files and compiled JavaScript files:
 ```bash
     # create json files (<strong>REPO_DIR/common/gae/libs/json/dicPrefixWordLists.json</strong> and <strong>REPO_DIR/common/gae/libs/json/dicPrefixGroup.json</strong>) for server side
     cd REPO_DIR/common/pytools/
@@ -54,7 +60,7 @@ My development environment is Ubuntu 12.10 with Python 2.7. If you are using Win
     python compile.py
 ```
 
-6. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
+7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
 ```bash
     # deploy json files of dictionary
     cd GAE_PYSDK_DIR/
