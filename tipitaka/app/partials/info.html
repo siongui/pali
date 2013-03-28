@@ -3,8 +3,8 @@
   <div style="margin: 1em; text-align: left; line-height: 1.5em; padding: .5em; background-color: #FFFBE8; border: 1px solid #FFF1A9; border-radius: 10px;">
     <h3 style="color: olive" i18n str="All Translations">{$_("All Translations")$}</h3>
     <div ng-repeat="localeTranslation in localeTranslations" style="padding-left: 1em; padding-bottom: 1em;">
-      <a href="javascript:void(0);">{{ localeTranslation.locale | translate }}</a>:
-      <div ng-repeat="translation in localeTranslation.translations" style="padding-left: 1em; margin-top: 0.25em; border: 1px dotted rgb(224, 224, 224); border-radius: 10px;">
+      <a href="javascript:void(0);" ng-init="isShowLocaleTranslation = false;" ng-click="isShowLocaleTranslation = !isShowLocaleTranslation;" style="text-decoration: none;"><span style="font-family: Tahoma,Arial,serif;" ng-show="isShowLocaleTranslation">&#9660;</span><span style="font-family: Tahoma,Arial,serif;" ng-hide="isShowLocaleTranslation">&#9658;</span>{{ localeTranslation.locale | translate }}</a>:
+      <div ng-repeat="translation in localeTranslation.translations" ng-show="isShowLocaleTranslation" style="padding-left: 1em; margin-top: 0.25em; border: 1px dotted rgb(224, 224, 224); border-radius: 10px;">
         <a href="{{translation.path}}">{{ translation.canonName }}</a>:
         <div style="padding-left: 1em;">
           <a href="{{translation.path}}/{{localeTranslation.locale}}/{{translation.translator}}">{{ translation.translator }}</a>&nbsp;

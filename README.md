@@ -1,6 +1,6 @@
 # Pāḷi Tipiṭaka & Dictionary
 
-My development environment is Ubuntu 12.10 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you have <em>GNU gettext utils</em>, which includes <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. But I do not know how to install these utilities on Windows.
+My development environment is Ubuntu 12.10 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
 ## Set Up Development Environment
 
