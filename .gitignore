@@ -14,7 +14,6 @@ common/gae/libs/jianfan/__init__.py
 common/gae/libs/jianfan/charsets.py
 common/gae/libs/json/dicPrefixGroup.json
 common/gae/libs/json/dicPrefixWordLists.json
-common/gae/libs/json/treeviewAll.json
 
 common/app/js/services-dicPrefix.js
 common/app/js/services-i18nStrings.js

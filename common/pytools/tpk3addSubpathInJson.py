@@ -66,8 +66,7 @@ def traverseTreeAndSetSubpathProperty(node, space=0):
 if __name__ == '__main__':
   jsonPath = os.path.join(os.path.dirname(__file__), 'treeview.json')
 
-  dstServerJsonPath = os.path.join(os.path.dirname(__file__), '../gae/libs/json/treeviewAll.json')
-  #dstClientJsPath = os.path.join(os.path.dirname(__file__), '../app/js/treeviewAllJson-service.js')
+  dstServerJsonPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/gaelibs/json/treeviewAll.json')
   dstClientJsPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app/js/treeviewAllJson-service.js')
 
   with open(jsonPath, 'r') as f:
@@ -79,8 +78,11 @@ if __name__ == '__main__':
 
   print(treeviewJson['child'][0])
 
+  if not os.path.exists(os.path.dirname(dstServerJsonPath)):
+    os.makedirs(os.path.dirname(dstServerJsonPath))
   with open(dstServerJsonPath, 'w') as f:
     f.write(json.dumps(treeviewJson))
+
   with open(dstClientJsPath, 'w') as f:
     f.write("angular.module('pali.treeviewAllJson', []).\n")
     f.write("  factory('treeviewAllJson', [function() {\n")

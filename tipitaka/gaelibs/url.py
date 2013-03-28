@@ -10,7 +10,7 @@ paliXmlUrlPrefix = u'http://epalitipitaka.appspot.com/romn/'
 trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
 
 
-with open(os.path.join(os.path.dirname(__file__), '../common/gae/libs/json/treeviewAll.json'), 'r') as f:
+with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
 
 result = urlfetch.fetch(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
