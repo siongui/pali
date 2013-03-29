@@ -4,7 +4,7 @@
 
 
 angular.module('paliTipitaka.directives', []).
-  directive('treeview', ['$compile', '$location', '$rootScope', 'tvServ', 'i18nTpkServ', function($compile, $location, $rootScope, tvServ, i18nTpkServ) {
+  directive('treeview', ['$compile', '$location', 'tvServ', 'i18nTpkServ', function($compile, $location, tvServ, i18nTpkServ) {
     return {
       restrict: 'A',
       link: function(scope, elm, attrs) {
@@ -16,7 +16,10 @@ angular.module('paliTipitaka.directives', []).
         };
 
         scope.translateNodeText = function(text) {
-          return i18nTpkServ.translateText2(text, $rootScope.i18nLocale);
+          if (scope.setting.translateTreeview)
+            return i18nTpkServ.translateText2(text, scope.i18nLocale);
+          else
+            return text;
         }
 
         // show only tipitaka, no commentaries and sub-commentaries
