@@ -33,11 +33,14 @@ function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ
 canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
 
 
-function infoCtrl($scope, $location, i18nTpkServ) {
+function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
   // setup translation links
   $scope.localeTranslations = i18nTpkServ.getLocaleTranslations();
+  $scope.getPath = i18nTpkConvert.xmlFilename2Path;
+  $scope.getTranslator = i18nTpkConvert.getTranslator;
+  $scope.getCanonName = i18nTpkConvert.getCanonName;
 }
-infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ'];
+infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ', 'i18nTpkConvert'];
 
 
 function translationCtrl($scope, $location, $routeParams, i18nTpkServ, paliXml) {
