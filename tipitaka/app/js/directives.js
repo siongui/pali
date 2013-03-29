@@ -16,14 +16,10 @@ angular.module('paliTipitaka.directives', []).
         };
 
         scope.translateNodeText = function(text) {
-          if (scope.setting.translateTreeview)
-            return i18nTpkServ.translateText2(text, scope.i18nLocale);
-          else
-            return text;
-        }
-        scope.oriNodeText = function(text) {
-          if (text !== scope.translateNodeText(text))
-            return text;
+          if (scope.setting.translateTreeview) {
+            var trText = i18nTpkServ.translateText2(text, scope.i18nLocale);
+            if (trText !== text) return trText;
+          }
           return '';
         }
 
@@ -38,8 +34,8 @@ angular.module('paliTipitaka.directives', []).
             // not leaf node, keys: 'text', 'child', 'subpath'
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
-            var textElm = $compile('<span class="treeNode">{{ translateNodeText("'+ text + '") }}<br />' +
-                                                           '<small style="color: red;">{{ oriNodeText("' + text + '") }}</small>' + '</span>')(scope);
+            var textElm = $compile('<span class="treeNode">'+ text + '<br />' +
+                                                           '<small style="color: red;">{{ translateNodeText("' + text + '") }}</small>' + '</span>')(scope);
             element.append(sign);
             element.append(textElm);
 
@@ -69,9 +65,8 @@ angular.module('paliTipitaka.directives', []).
             // leaf node, keys: 'text', 'action', 'subpath'
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
                                    "'" + node['action'] + "', '" + text + "', '" + path + "'" +
-                                   ')"><span class="treeNode">' +
-                                   '{{ translateNodeText("' + text +'") }}<br />' +
-                                   '<small style="color: red;">{{ oriNodeText("' + text + '") }}</small>' + '</span></div>')(scope);
+                                   ')"><span class="treeNode">' + text + '<br />' +
+                                   '<small style="color: red;">{{ translateNodeText("' + text + '") }}</small>' + '</span></div>')(scope);
             return element;
           }
         }
