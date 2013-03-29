@@ -23,9 +23,6 @@ else:
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
   translationInfo = json.loads(f.read())
 
-with open(os.path.join(os.path.dirname(__file__), 'json/canonName.json'), 'r') as f:
-  canonName = json.loads(f.read())
-
 
 def getHtmlTitle(userLocale, reqHandlerName, i18n):
   return ''

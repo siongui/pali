@@ -8,7 +8,6 @@ gaelibs/json/treeviewAll.json
 
 app/js/data-i18nTpk-service.js
 gaelibs/json/translationInfo.json
-gaelibs/json/canonName.json
 gaelibs/json/canonTextTranslation.json
 
 common
