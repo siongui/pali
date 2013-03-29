@@ -48,6 +48,7 @@ canonTextTranslation = {}
 # http://www.accesstoinsight.org/tipitaka/index.html
 # http://www.xin-yuan.com/cityzen/jiangtan/AHAN/ahan.htm
 canonTextTranslation['en_US'] = {
+'Tipiṭaka (Mūla)': 'Pāḷi Canon',
 'Vinayapiṭaka': 'The Basket of the Discipline',
 'Suttapiṭaka': 'The Basket of Discourses',
   'Dīghanikāya': 'Long Discourses',
@@ -227,6 +228,11 @@ canonTextTranslation['en_US'] = {
   'Khuddakanikāya': 'Division of Short Books',
     'Khuddakapāṭhapāḷi': 'The Short Passages',
     'Dhammapadapāḷi': 'The Path of Dhamma',
+      'Yamakavaggo': 'Pairs',
+      'Appamādavaggo': 'Heedfulness',
+      'Cittavaggo': 'The Mind',
+      'Pupphavaggo': 'Blossoms',
+      'Bālavaggo': 'Fools',
     'Udānapāḷi': 'Exclamations',
     'Itivuttakapāḷi': 'The Thus-saids',
     'Suttanipātapāḷi': 'The Discourses Collection',
@@ -519,6 +525,11 @@ canonTextTranslation['zh_TW'] = {
   'Khuddakanikāya': '小部',
     'Khuddakapāṭhapāḷi': '小誦',
     'Dhammapadapāḷi': '法句(經)',
+      'Yamakavaggo': '雙品',
+      'Appamādavaggo': '不放逸品',
+      'Cittavaggo': '心品',
+      'Pupphavaggo': '華(花)品',
+#     'Bālavaggo': '愚品',
     'Udānapāḷi': '自說',
     'Itivuttakapāḷi': '如是語',
     'Suttanipātapāḷi': '經集',
