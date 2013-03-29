@@ -4,7 +4,7 @@
 
 
 angular.module('paliTipitaka.directives', []).
-  directive('treeview', ['$compile', '$location', 'tvServ', function($compile, $location, tvServ) {
+  directive('treeview', ['$compile', '$location', '$rootScope', 'tvServ', 'i18nTpkServ', function($compile, $location, $rootScope, tvServ, i18nTpkServ) {
     return {
       restrict: 'A',
       link: function(scope, elm, attrs) {
@@ -14,6 +14,10 @@ angular.module('paliTipitaka.directives', []).
           scope.text = text;
           $location.path(path);
         };
+
+        scope.translateNodeText = function(text) {
+          return i18nTpkServ.translateText(text, $rootScope.i18nLocale);
+        }
 
         // show only tipitaka, no commentaries and sub-commentaries
         var tpkNode = traverseTreeviewData(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath);
@@ -26,7 +30,7 @@ angular.module('paliTipitaka.directives', []).
             // not leaf node, keys: 'text', 'child', 'subpath'
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
-            var textElm = angular.element('<span class="treeNode">'+ text + '</span>');
+            var textElm = $compile('<span class="treeNode">{{ translateNodeText("'+ text + '") }}</span>')(scope);
             element.append(sign);
             element.append(textElm);
 
@@ -57,7 +61,7 @@ angular.module('paliTipitaka.directives', []).
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
                                    "'" + node['action'] + "', '" + text + "', '" + path + "'" +
                                    ')"><span class="treeNode">' +
-                                   text +'</span></div>')(scope);
+                                   '{{ translateNodeText("' + text +'") }}</span></div>')(scope);
             return element;
           }
         }
