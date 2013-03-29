@@ -7,10 +7,12 @@ import os, json, re
 def text2subpath(text):
   subpath = text
 
+  # remove leading un-needed characters
   match = re.search(r'^[\d\s()-\.]+', subpath)
   if match:
     subpath = subpath[len(match.group()):]
 
+  # remove trailing un-needed characters
   match = re.search(r'-\d$', subpath)
   if match:
     subpath = subpath[:-len(match.group())]

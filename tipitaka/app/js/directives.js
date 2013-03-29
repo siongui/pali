@@ -16,16 +16,19 @@ angular.module('paliTipitaka.directives', []).
         };
 
         // show only tipitaka, no commentaries and sub-commentaries
-        elm.append(traverseTreeviewData(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath));
+        var tpkNode = traverseTreeviewData(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath);
+        tpkNode[0].lastChild.style.display = '';
+        elm.append(tpkNode);
 
         function traverseTreeviewData(node, path) {
+          var text = node['text'];
           if (node['child']) {
             // not leaf node, keys: 'text', 'child', 'subpath'
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
-            var text = angular.element('<span class="treeNode">'+ node['text'] + '</span>');
+            var textElm = angular.element('<span class="treeNode">'+ text + '</span>');
             element.append(sign);
-            element.append(text);
+            element.append(textElm);
 
             var childrenContainer = $compile('<div class="childrenContainer"></div>')(scope);
             for (var i=0; i<node['child'].length; i++) {
@@ -35,7 +38,7 @@ angular.module('paliTipitaka.directives', []).
             }
             childrenContainer.css('display', 'none');
 
-            text.bind('click', function() {
+            textElm.bind('click', function() {
               if (childrenContainer.css('display') === 'none') {
                 childrenContainer.css('display', '');
                 sign.html('-');
@@ -45,11 +48,6 @@ angular.module('paliTipitaka.directives', []).
               }
             });
 
-            if (node['text'] === 'Tipiṭaka (Mūla)') {
-               childrenContainer.css('display', '');
-               sign.html('-');
-            }
-
             var all = angular.element('<div></div>');
             all.append(element);
             all.append(childrenContainer);
@@ -57,9 +55,9 @@ angular.module('paliTipitaka.directives', []).
           } else {
             // leaf node, keys: 'text', 'action', 'subpath'
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
-                                   "'" + node['action'] + "', '" + node['text'] + "', '" + path + "'" +
+                                   "'" + node['action'] + "', '" + text + "', '" + path + "'" +
                                    ')"><span class="treeNode">' +
-                                   node['text'] +'</span></div>')(scope);
+                                   text +'</span></div>')(scope);
             return element;
           }
         }
