@@ -334,6 +334,7 @@ canonTextTranslation['en_US'] = {
 # http://www.therawikipedia.org/wiki/%E5%A2%9E%E6%94%AF%E9%83%A8
 # http://yifertw.blogspot.tw/2008/04/9-2008421.html
 canonTextTranslation['zh_TW'] = {
+'Tipiṭaka (Mūla)': '巴利三藏',
 'Vinayapiṭaka': '律藏',
   'Pārājikapāḷi': '波羅夷品',
 #   'Verañjakaṇḍaṃ': '',

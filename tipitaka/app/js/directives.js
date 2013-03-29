@@ -4,7 +4,7 @@
 
 
 angular.module('paliTipitaka.directives', []).
-  directive('treeview', ['$compile', '$location', 'tvServ', 'i18nTpkServ', function($compile, $location, tvServ, i18nTpkServ) {
+  directive('treeview', ['$compile', '$location', 'tvServ', 'i18nTpkConvert', function($compile, $location, tvServ, i18nTpkConvert) {
     return {
       restrict: 'A',
       link: function(scope, elm, attrs) {
@@ -17,7 +17,7 @@ angular.module('paliTipitaka.directives', []).
 
         scope.translateNodeText = function(text) {
           if (scope.setting.translateTreeview) {
-            var trText = i18nTpkServ.translateText2(text, scope.i18nLocale);
+            var trText = i18nTpkConvert.translateText2(text, scope.i18nLocale);
             if (trText !== text) return trText;
           }
           return '';

@@ -14,7 +14,7 @@ function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ
   // leaf node => contains pali texts
   var action = info['action'];
   var text = info['text'];
-  $scope.text = i18nTpkServ.translateText2(text, $scope.i18nLocale);
+  $scope.text = i18nTpkConvert.translateText2(text, $scope.i18nLocale);
   $scope.isShowLoading = true;
 
   var promise = paliXml.get(action);
@@ -42,6 +42,7 @@ function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
   $scope.getPath = i18nTpkConvert.xmlFilename2Path;
   $scope.getTranslator = i18nTpkConvert.getTranslator;
   $scope.getCanonName = i18nTpkConvert.xmlFilename2CanonName;
+  $scope.getTranslatedCanonName = i18nTpkConvert.xmlFilename2TranslatedCanonName;
 }
 infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ', 'i18nTpkConvert'];
 
@@ -65,13 +66,14 @@ function translationCtrl($scope, $location, $routeParams, i18nTpkServ, paliXml) 
 translationCtrl.$inject = ['$scope', '$location', '$routeParams', 'i18nTpkServ', 'paliXml'];
 
 
-function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTpkServ, paliXml, htmlDoc2View) {
+function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTpkServ, i18nTpkConvert, paliXml, htmlDoc2View) {
   $scope.isShowLoading = true;
   var locale = $location.path().split('/').reverse()[2];
   var url = i18nTpkServ.getTranslationXmlUrl($routeParams.canonPath, locale, $routeParams.translator);
 
   var info = tvServ.getInfo('/canon/' + $routeParams.canonPath);
-  $scope.text = i18nTpkServ.translateText2(info.text, $scope.i18nLocale);
+  $scope.text = i18nTpkConvert.translateText2(info.text, $scope.i18nLocale);
+
   var promise = paliXml.get(info.action);
   var promiseTrans = paliXml.getUrl(url);
 
@@ -88,5 +90,5 @@ function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTp
     console.log(reason);
   });
 }
-contrastReadingCtrl.$inject = ['$scope', '$location', '$routeParams', '$q', 'tvServ', 'i18nTpkServ', 'paliXml', 'htmlDoc2View'];
+contrastReadingCtrl.$inject = ['$scope', '$location', '$routeParams', '$q', 'tvServ', 'i18nTpkServ', 'i18nTpkConvert', 'paliXml', 'htmlDoc2View'];
 
