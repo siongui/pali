@@ -24,7 +24,7 @@ with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 
   translationInfo = json.loads(f.read())
 
 
-def getHtmlTitle(userLocale, reqHandlerName, i18n):
+def getHtmlTitle(userLocale, reqHandlerName, i18n, node):
   return ''
 
 
