@@ -98,7 +98,23 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         return localeTranslations;
     }
 
+    function translateText(text, locale) {
+      // remove leading un-needed characters
+      var str = text.replace(/^[\d\s()-\.]+/, '');
+      // remove trailing un-needed characters
+      str = str.replace(/-\d$/, '');
+
+      if (i18nTpk.canonTextTranslation.hasOwnProperty(locale)) {
+        if (i18nTpk.canonTextTranslation[locale].hasOwnProperty(str)) {
+          return i18nTpk.canonTextTranslation[locale][str];
+        }
+      }
+
+      return text;
+    }
+
     var serviceInstance = {
+      translateText: translateText,
       getI18nLinks: getI18nLinks,
       getLocaleTranslations: getLocaleTranslations,
       getTranslationXmlUrl: getTranslationXmlUrl
