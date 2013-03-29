@@ -21,6 +21,11 @@ angular.module('paliTipitaka.directives', []).
           else
             return text;
         }
+        scope.oriNodeText = function(text) {
+          if (text !== scope.translateNodeText(text))
+            return text;
+          return '';
+        }
 
         // show only tipitaka, no commentaries and sub-commentaries
         var tpkNode = traverseTreeviewData(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath);
@@ -33,7 +38,8 @@ angular.module('paliTipitaka.directives', []).
             // not leaf node, keys: 'text', 'child', 'subpath'
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
-            var textElm = $compile('<span class="treeNode">{{ translateNodeText("'+ text + '") }}</span>')(scope);
+            var textElm = $compile('<span class="treeNode">{{ translateNodeText("'+ text + '") }}<br />' +
+                                                           '<small style="color: red;">{{ oriNodeText("' + text + '") }}</small>' + '</span>')(scope);
             element.append(sign);
             element.append(textElm);
 
@@ -64,7 +70,8 @@ angular.module('paliTipitaka.directives', []).
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
                                    "'" + node['action'] + "', '" + text + "', '" + path + "'" +
                                    ')"><span class="treeNode">' +
-                                   '{{ translateNodeText("' + text +'") }}</span></div>')(scope);
+                                   '{{ translateNodeText("' + text +'") }}<br />' +
+                                   '<small style="color: red;">{{ oriNodeText("' + text + '") }}</small>' + '</span></div>')(scope);
             return element;
           }
         }

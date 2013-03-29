@@ -39,7 +39,7 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     // initialize setting
     $rootScope.setting = {
       'showTooltip': true,
-      'translateTreeview': false,
+      'translateTreeview': true,
       'toTraditionalCht': true,
       'p2en': true,
       'p2ja': true,
