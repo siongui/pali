@@ -41,7 +41,7 @@ function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
   $scope.localeTranslations = i18nTpkServ.getLocaleTranslations();
   $scope.getPath = i18nTpkConvert.xmlFilename2Path;
   $scope.getTranslator = i18nTpkConvert.getTranslator;
-  $scope.getCanonName = i18nTpkConvert.getCanonName;
+  $scope.getCanonName = i18nTpkConvert.xmlFilename2CanonName;
 }
 infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ', 'i18nTpkConvert'];
 
