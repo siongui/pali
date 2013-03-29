@@ -16,7 +16,7 @@ angular.module('paliTipitaka.directives', []).
         };
 
         scope.translateNodeText = function(text) {
-          return i18nTpkServ.translateText(text, $rootScope.i18nLocale);
+          return i18nTpkServ.translateText2(text, $rootScope.i18nLocale);
         }
 
         // show only tipitaka, no commentaries and sub-commentaries

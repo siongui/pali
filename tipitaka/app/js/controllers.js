@@ -14,7 +14,7 @@ function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ
   // leaf node => contains pali texts
   var action = info['action'];
   var text = info['text'];
-  $scope.text = text;
+  $scope.text = i18nTpkServ.translateText2(text, $scope.i18nLocale);
   $scope.isShowLoading = true;
 
   var promise = paliXml.get(action);
@@ -65,7 +65,7 @@ function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTp
   var url = i18nTpkServ.getTranslationXmlUrl($routeParams.canonPath, locale, $routeParams.translator);
 
   var info = tvServ.getInfo('/canon/' + $routeParams.canonPath);
-  $scope.text = info.text;
+  $scope.text = i18nTpkServ.translateText2(info.text, $scope.i18nLocale);
   var promise = paliXml.get(info.action);
   var promiseTrans = paliXml.getUrl(url);
 
