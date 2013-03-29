@@ -6,8 +6,11 @@
     <div ng-show="isShowLocaleTranslations">
       <div ng-repeat="localeTranslation in localeTranslations" style="padding: 1em; line-height: 1.5em; background-color: #FFFBE8; border: 1px solid #FFF1A9; border-radius: 10px; margin-bottom: 5px;">
         <a href="javascript:void(0);">{{ localeTranslation.locale | translate }}</a>:
-        <div ng-repeat="translation in localeTranslation.translations" style="padding-left: 1em;">
-          <a href="{{translation.path}}/{{localeTranslation.locale}}/{{translation.translator}}">{{translation.translator}}</a> (<a href="{{translation.path}}/{{localeTranslation.locale}}/{{translation.translator}}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
+        <div ng-repeat="translation in localeTranslation.translations" ng-init="path = getPath(translation.xmlFilename)" style="padding-left: 1em;">
+          <div ng-repeat="translatorCode in translation.translatorCodes" ng-init="translator = getTranslator(localeTranslation.locale, translatorCode)">
+            <a href="{{ path }}/{{ localeTranslation.locale }}/{{ translator }}">{{ translator }}</a>&nbsp;
+            (<a href="{{ path }}/{{ localeTranslation.locale }}/{{ translator }}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
+          </div>
         </div>
       </div>
     </div>

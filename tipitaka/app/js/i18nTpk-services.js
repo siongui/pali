@@ -52,15 +52,14 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       var xmlFilename = i18nTpkConvert.basename(action);
       var localeTranslations = [];
       for (var locale in i18nTpk.translationInfo) {
-        var localeTranslation = {};
-        localeTranslation.locale = locale;
+        var localeTranslation = { locale: locale };
         localeTranslation.translations = [];
         if (i18nTpk.translationInfo[locale]['canon'].hasOwnProperty(xmlFilename)) {
-          var translation = {};
-          translation.path = i18nTpkConvert.xmlFilename2Path(xmlFilename);
-          translation.canonName = i18nTpk.canonName[xmlFilename]['pali'];
-          translation.translatorCode = i18nTpk.translationInfo[locale]['canon'][xmlFilename];
-          translation.translator =  i18nTpk.translationInfo[locale]['source'][translation.translatorCode][0];
+          var translation = { xmlFilename: xmlFilename };
+          translation.translatorCodes = [];
+          for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
+            translation.translatorCodes.push(i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]);
+          }
           localeTranslation.translations.push(translation);
         }
         if (localeTranslation.translations.length > 0)

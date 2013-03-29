@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ) {
+function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ, i18nTpkConvert) {
   var info = tvServ.getInfo($location.path());
   if (!info.hasOwnProperty('action')) {
     // not leaf node => shows only links
@@ -22,15 +22,18 @@ function canonCtrl($scope, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ
     $scope.isShowLoading = false;
     $scope.xmlDoms = htmlDoc2View.getView(htmlDoc);
     $scope.localeTranslations = i18nTpkServ.getI18nLinks(action);
-    if (angular.isDefined($scope.localeTranslations))
+    if (angular.isDefined($scope.localeTranslations)) {
       $scope.isTranslationAvailableLinks = true;
+      $scope.getPath = i18nTpkConvert.xmlFilename2Path;
+      $scope.getTranslator = i18nTpkConvert.getTranslator;
+    }
   }, function(reason) {
     // TODO: error handling here
     $scope.isShowLoading = false;
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
+canonCtrl.$inject = ['$scope', '$location', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ', 'i18nTpkConvert'];
 
 
 function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
