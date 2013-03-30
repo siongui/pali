@@ -37,7 +37,7 @@ def nodeTextStrip(text):
 
 
 def nodeTextStrip2(text):
-  string = text
+  string = nodeTextStrip(text)
 
   if string.endswith(u'pāḷi'):
     string = string[:-4]
@@ -96,6 +96,7 @@ def recursivelyCheck(node, path, texts):
               return {'isValid': False }
           # all remaining items are None => True
           texts.append(node['text'])
+          texts.append(child['text'])
           return {'isValid': True, 'node': child, 'texts': texts }
         else:
           texts.append(node['text'])
