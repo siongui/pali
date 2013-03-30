@@ -105,47 +105,22 @@ def getCanonPageHtml(node, reqPath, i18n):
   return html
 
 
-def recursivelyCheck2(node, path):
-  for child in node['child']:
-    if path[0].decode('utf-8') == child['subpath']:
-      if 'action' in child:
-        # check if all remaining items are None
-        for subPath in path[1:]:
-          if subPath is not None:
-            return {'isValid': False }
-        # all remaining items are None => True
-        return {'isValid': True, 'node': child }
-      else:
-        if len(path) == 1:
-          return {'isValid': False }
-        elif path[1] is None:
-          return {'isValid': False }
-        else:
-          return recursivelyCheck2(child, path[1:])
-
-  return {'isValid': False }
-
-
 def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator):
   # rootNode is tipitaka, no commentaris and sub-commentaries
   rootNode = treeviewData['child'][0]
   path = [path1, path2, path3, path4, path5]
 
-  result = recursivelyCheck2(rootNode, path)
+  result = recursivelyCheck(rootNode, path)
   if result['isValid']:
-    if locale in translationInfo:
-      xmlFilename = os.path.basename(result['node']['action'])
-      if xmlFilename in translationInfo[locale]['canon']:
-        for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
-          if translationInfo[locale]['source'][translatorCode][0] == translator.decode('utf-8'):
-            return {'isValid': True, 'node': result['node'] }
-        return {'isValid': False }
-      else:
-        return {'isValid': False }
-    else:
-      return {'isValid': False }
-  else:
-    return {'isValid': False }
+    if 'action' in result['node']:
+      if locale in translationInfo:
+        xmlFilename = os.path.basename(result['node']['action'])
+        if xmlFilename in translationInfo[locale]['canon']:
+          for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
+            if translationInfo[locale]['source'][translatorCode][0] == translator.decode('utf-8'):
+              return {'isValid': True, 'node': result['node'] }
+
+  return {'isValid': False }
 
 
 def getTranslationXmlBodyDom(locale, translator, node):
@@ -264,3 +239,23 @@ if __name__ == '__main__':
   if result['isValid'] is not False:
     print('test failure:')
     print("isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False")
+
+  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '了參法師(葉均)')
+  if result['isValid'] is not True:
+    print('test failure:')
+    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '了參法師(葉均)') is not True")
+
+  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', None, None, 'zh_TW', '了參法師(葉均)')
+  if result['isValid'] is not False:
+    print('test failure:')
+    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', None, None, 'zh_TW', '了參法師(葉均)') is not False")
+
+  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW1', '了參法師(葉均)')
+  if result['isValid'] is not False:
+    print('test failure:')
+    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW1', '了參法師(葉均)') is not False")
+
+  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '1了參法師(葉均)')
+  if result['isValid'] is not False:
+    print('test failure:')
+    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '1了參法師(葉均)') is not False")
