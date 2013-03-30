@@ -36,7 +36,6 @@ def getCommonTemplateValues(self, urlLocale):
     'urlLocale': urlLocale,
     'isCompiledJS': isCompiledJS(self),
     'isTrack': isTrack(self),
-    'urlpath': self.request.path,
     'reqHandlerName': self.__class__.__name__
   }
 

@@ -77,7 +77,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     return serviceInstance;
   }]).
 
-  factory('i18nTpkConvert', ['tvServ', 'i18nTpk', function(tvServ, i18nTpk) {
+  factory('i18nTpkConvert', ['$location', 'tvServ', 'i18nTpk', function($location, tvServ, i18nTpk) {
     function basename(str) { return str.split('/').reverse()[0]; }
 
     function endswith(str, suffix) {
@@ -195,6 +195,18 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return recursiveGetTranslatedCanonName(tvServ.tipitakaRootNode, '', xmlFilename, locale);
     }
 
+    function redirectAccordingToUrlLocale(path) {
+      if ($location.path().indexOf('/en_US/') === 0) {
+        $location.path('/en_US' + path);
+      } else if ($location.path().indexOf('/zh_TW/') === 0) {
+        $location.path('/zh_TW' + path);
+      } else if ($location.path().indexOf('/zh_CN/') === 0) {
+        $location.path('/zh_CN' + path);
+      } else {
+        $location.path(path);
+      }
+    }
+
     var serviceInstance = {
       translateNodeText: translateNodeText,
       translateNodeText2: translateNodeText2,
@@ -202,6 +214,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       xmlFilename2CanonName: xmlFilename2CanonName,
       xmlFilename2TranslatedCanonName: xmlFilename2TranslatedCanonName,
       xmlFilename2Path: xmlFilename2Path,
+      redirectAccordingToUrlLocale: redirectAccordingToUrlLocale,
       basename: basename
     };
     return serviceInstance;
