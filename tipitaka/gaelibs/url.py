@@ -64,7 +64,7 @@ def translateNodeText(text, locale):
   return text
 
 
-def getHtmlTitle(urlLocale, texts, i18n):
+def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None, i18n=None):
   #import logging
   #logging.getLogger().setLevel(logging.DEBUG)
   #logging.debug(texts)
@@ -80,6 +80,10 @@ def getHtmlTitle(urlLocale, texts, i18n):
           title += trText + u' - '
       else:
         title += nodeTextStrip2(text) + u' - '
+
+  if translator:
+    title = translator.decode('utf-8') + u' ' + i18n.gettext(u'Translation')  + u' - ' + title
+  #i18n.gettext(u'Contrast Reading')
 
   return title
 

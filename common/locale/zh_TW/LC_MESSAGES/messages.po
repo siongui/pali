@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-22 08:24+0800\n"
+"POT-Creation-Date: 2013-03-31 00:21+0800\n"
 "PO-Revision-Date: 2013-03-10 05:19+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -150,6 +150,10 @@ msgstr "中文-日文-英文"
 msgid "Pali Tipitaka"
 msgstr "巴利三藏"
 
+#: ../../tipitaka/app/index.html:6
+msgid "Translation"
+msgstr "翻譯"
+
 #: ../../tipitaka/app/partials/setting.html:2
 msgid "Show Tooltip When Hovering over Canon Texts"
 msgstr "當游標移到單字上時顯示翻譯提示"
@@ -178,12 +182,12 @@ msgstr "載入中"
 msgid "Translation of This Pāḷi Text"
 msgstr "此巴利文件翻譯"
 
-#: ../../tipitaka/app/partials/canon.html:10
+#: ../../tipitaka/app/partials/canon.html:12
 #: ../../tipitaka/app/partials/info.html:11
 msgid "Contrast Reading"
 msgstr "比照對讀"
 
-#: ../../tipitaka/app/partials/canon.html:15
+#: ../../tipitaka/app/partials/canon.html:18
 msgid "Original Pāḷi Text"
 msgstr "原巴利文件"
 
