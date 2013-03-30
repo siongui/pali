@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json, urllib2
+import os, json, urllib2, re
 from lxml import etree
 import xml.dom.minidom
 
@@ -20,8 +20,48 @@ with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 
   translationInfo = json.loads(f.read())
 
 
-def getHtmlTitle(userLocale, reqHandlerName, i18n, node):
-  return ''
+def nodeTextStrip(text):
+  string = text
+
+  # remove leading un-needed characters
+  match = re.search(r'^[\d\s()-\.]+', string)
+  if match:
+    string = string[len(match.group()):]
+
+  # remove trailing un-needed characters
+  match = re.search(r'-\d$', string)
+  if match:
+    string = string[:-len(match.group())]
+
+  return string
+
+
+def nodeTextStrip2(text):
+  string = text
+
+  if string.endswith(u'pāḷi'):
+    string = string[:-4]
+
+  if string.endswith(u'nikāya'):
+    string = string[:-6]
+
+  if string.endswith(u'piṭaka'):
+    string = string[:-6]
+
+  return string
+
+
+def getHtmlTitle(urlLocale, texts, i18n):
+  #import logging
+  #logging.getLogger().setLevel(logging.DEBUG)
+  #logging.debug(texts)
+  title = u''
+
+  if texts:
+    for text in reversed(texts):
+      title += nodeTextStrip2(text) + u' - '
+
+  return title
 
 
 def getBodyDom(xmlUrl):
@@ -35,15 +75,16 @@ def getBodyDom(xmlUrl):
   # return only dom of body
   return dom.documentElement.getElementsByTagName('body')[0]
 
-
-def recursivelyCheck(node, path):
+# @see http://stackoverflow.com/questions/1132941/least-astonishment-in-python-the-mutable-default-argument
+def recursivelyCheck(node, path, texts):
   if path[0] is None:
     # check if all items are None
     for subPath in path:
       if subPath is not None:
         return {'isValid': False }
     # all items are None => True
-    return {'isValid': True, 'node': node }
+    texts.append(node['text'])
+    return {'isValid': True, 'node': node, 'texts': texts }
 
   else:
     for child in node['child']:
@@ -54,9 +95,11 @@ def recursivelyCheck(node, path):
             if subPath is not None:
               return {'isValid': False }
           # all remaining items are None => True
-          return {'isValid': True, 'node': child }
+          texts.append(node['text'])
+          return {'isValid': True, 'node': child, 'texts': texts }
         else:
-          return recursivelyCheck(child, path[1:])
+          texts.append(node['text'])
+          return recursivelyCheck(child, path[1:], texts)
 
     return {'isValid': False }
 
@@ -66,7 +109,7 @@ def isValidCanonPath(path1, path2, path3, path4, path5):
   rootNode = treeviewData['child'][0]
   path = [path1, path2, path3, path4, path5]
 
-  return recursivelyCheck(rootNode, path)
+  return recursivelyCheck(rootNode, path, [])
 
 
 def getI18nLinks(node, reqPath, i18n):
@@ -110,7 +153,7 @@ def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, l
   rootNode = treeviewData['child'][0]
   path = [path1, path2, path3, path4, path5]
 
-  result = recursivelyCheck(rootNode, path)
+  result = recursivelyCheck(rootNode, path, [])
   if result['isValid']:
     if 'action' in result['node']:
       if locale in translationInfo:
@@ -118,7 +161,7 @@ def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, l
         if xmlFilename in translationInfo[locale]['canon']:
           for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
             if translationInfo[locale]['source'][translatorCode][0] == translator.decode('utf-8'):
-              return {'isValid': True, 'node': result['node'] }
+              return {'isValid': True, 'node': result['node'], 'texts': result['texts'] }
 
   return {'isValid': False }
 
