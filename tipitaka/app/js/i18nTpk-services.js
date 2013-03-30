@@ -80,9 +80,24 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
   factory('i18nTpkConvert', ['tvServ', 'i18nTpk', function(tvServ, i18nTpk) {
     function basename(str) { return str.split('/').reverse()[0]; }
 
+    function endswith(str, suffix) {
+      return str.indexOf(suffix, str.length - suffix.length) != -1;
+    }
+
     function nodeTextStrip(text) {
       // remove leading and trailing un-needed characters
       return text.replace(/^[\d\s()-\.]+/, '').replace(/-\d$/, '');
+    }
+
+    function nodeTextStrip2(text) {
+      var str = nodeTextStrip(text); 
+      if (endswith(str, 'pāḷi'))
+        return str.slice(0, -4);
+      if (endswith(str, 'nikāya'))
+        return str.slice(0, -6);
+      if (endswith(str, 'piṭaka'))
+        return str.slice(0, -6);
+      return str;
     }
 
     function translateNodeText(text, locale) {
@@ -104,21 +119,6 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         return text;
       else
         return text.replace(str, trStr);
-    }
-
-    function endswith(str, suffix) {
-      return str.indexOf(suffix, str.length - suffix.length) != -1;
-    }
-
-    function nodeTextStrip2(text) {
-      var str = nodeTextStrip(text); 
-      if (endswith(str, 'pāḷi'))
-        return str.slice(0, -4);
-      if (endswith(str, 'nikāya'))
-        return str.slice(0, -6);
-      if (endswith(str, 'piṭaka'))
-        return str.slice(0, -6);
-      return str;
     }
 
     function recursiveBuildPath(node, pathPrefix, xmlFilename) {

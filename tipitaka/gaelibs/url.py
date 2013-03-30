@@ -19,6 +19,9 @@ transform = etree.XSLT(xslt_root)
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
   translationInfo = json.loads(f.read())
 
+with open(os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json'), 'r') as f:
+  canonTextTranslation = json.loads(f.read())
+
 
 def nodeTextStrip(text):
   string = text
@@ -51,6 +54,16 @@ def nodeTextStrip2(text):
   return string
 
 
+def translateNodeText(text, locale):
+  string = nodeTextStrip(text)
+
+  if locale in canonTextTranslation:
+    if string in canonTextTranslation[locale]:
+      return canonTextTranslation[locale][string]
+
+  return text
+
+
 def getHtmlTitle(urlLocale, texts, i18n):
   #import logging
   #logging.getLogger().setLevel(logging.DEBUG)
@@ -59,7 +72,14 @@ def getHtmlTitle(urlLocale, texts, i18n):
 
   if texts:
     for text in reversed(texts):
-      title += nodeTextStrip2(text) + u' - '
+      if urlLocale:
+        trText = translateNodeText(text, urlLocale)
+        if trText == text:
+          title += nodeTextStrip2(text) + u' - '
+        else:
+          title += trText + u' - '
+      else:
+        title += nodeTextStrip2(text) + u' - '
 
   return title
 
