@@ -84,3 +84,37 @@ div.floating-buttons > div {
   margin-top: 10px;
 }
 
+.dropdownLink {
+  word-spacing: 0;
+}
+
+.dropdownMenu {
+  border-top-color: #C9D7F1;
+  border-right-color: #36C;
+  border-bottom-color: #36C;
+  border-left-color: #A2BAE7;
+  border-style: solid;
+  border-width: 1px;
+  z-index: 22;
+  padding: 0;
+  background-color: white;
+  overflow: hidden;
+  font-size: small;
+  font-family: Arial;
+  line-height: 1.5em;
+  word-spacing: 0;
+}
+
+.dropdownMenuItem {
+  color: #00C;
+  padding: 3px;
+  text-decoration: none;
+  background: white;
+  display: block;
+  cursor: pointer;
+}
+
+a.dropdownMenuItem:hover {
+  background: #00C;
+  color: white;
+}
