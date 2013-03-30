@@ -85,7 +85,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return text.replace(/^[\d\s()-\.]+/, '').replace(/-\d$/, '');
     }
 
-    function translateText(text, locale) {
+    function translateNodeText(text, locale) {
       var str = nodeTextStrip(text);
 
       if (i18nTpk.canonTextTranslation.hasOwnProperty(locale)) {
@@ -97,9 +97,9 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return text;
     }
 
-    function translateText2(text, locale) {
+    function translateNodeText2(text, locale) {
       var str = nodeTextStrip(text);
-      var trStr = translateText(text, locale);
+      var trStr = translateNodeText(text, locale);
       if (trStr === text)
         return text;
       else
@@ -169,7 +169,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     function recursiveGetTranslatedCanonName(node, name, xmlFilename, locale) {
-      var trName = translateText(node['text'], locale);
+      var trName = translateNodeText(node['text'], locale);
       if (trName === node['text'])
         // cannot get translated name
         return;
@@ -196,8 +196,8 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     var serviceInstance = {
-      translateText: translateText,
-      translateText2: translateText2,
+      translateNodeText: translateNodeText,
+      translateNodeText2: translateNodeText2,
       getTranslator: getTranslator,
       xmlFilename2CanonName: xmlFilename2CanonName,
       xmlFilename2TranslatedCanonName: xmlFilename2TranslatedCanonName,

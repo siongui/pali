@@ -17,7 +17,7 @@ angular.module('paliTipitaka.directives', []).
 
         scope.translateNodeText = function(text) {
           if (scope.setting.translateTreeview) {
-            var trText = i18nTpkConvert.translateText2(text, scope.i18nLocale);
+            var trText = i18nTpkConvert.translateNodeText2(text, scope.i18nLocale);
             if (trText !== text) return trText;
           }
           return '';
