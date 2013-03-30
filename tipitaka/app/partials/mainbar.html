@@ -3,12 +3,7 @@
   <a href="http://palidictionary.appspot.com/" target="_blank" i18n str='Dictionary'>{$_("Dictionary")$}</a>
   <a href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting" style="text-decoration: none;"><span style="font-family: Tahoma,Arial,serif;" ng-show="isShowSetting">&#9660;</span><span style="font-family: Tahoma,Arial,serif;" ng-hide="isShowSetting">&#9658;</span><span style="text-decoration: underline;" i18n str='Setting'>{$_("Setting")$}</span></a>
   <a href="/canon" i18n str='Browse'>{$_("Browse")$}</a>
-  <select ng-model="langSelect">
-    <option value="en_US">English</option>
-    <option value="zh_TW">中文 (繁體)</option>
-    <option value="zh_CN">中文 (简体)</option>
-  </select>
-  <div dropdown classlink="dropdownLink" linktext="{{ i18nLocale | translate }}" classmenu="dropdownMenu">
+  <div dropdown classlink="dropdownLink" linktext="{{ i18nLocale | translate }} ▼" classmenu="dropdownMenu">
     <a href="/en_US/" class="dropdownMenuItem">English</a>
     <a href="/zh_TW/" class="dropdownMenuItem">中文 (繁體)</a>
     <a href="/zh_CN/" class="dropdownMenuItem">中文 (简体)</a>

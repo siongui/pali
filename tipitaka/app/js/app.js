@@ -48,18 +48,6 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     // initialize resizable views
     resizableViews.initViews('allContainer', 'treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
 
-    // initialize langSelect select element
-    $rootScope.langSelect = $rootScope.i18nLocale;
-    var firstTime = true;
-    $rootScope.$watch('langSelect', function(newValue) {
-      if (firstTime) {
-        firstTime = false;
-        return;
-      }
-      $document.prop('title', 'Pāḷi Tipiṭaka (' + i18nserv.gettext('Pali Tipitaka', newValue) + ')');
-      $location.path('/'+ newValue +'/');
-    });
-
     // initialize setting
     $rootScope.setting = {
       'showTooltip': true,
