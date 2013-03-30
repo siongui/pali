@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json
-from google.appengine.api import urlfetch
+import os, json, urllib2
 from lxml import etree
 import xml.dom.minidom
 
@@ -13,12 +12,9 @@ trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
 with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
 
-result = urlfetch.fetch(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
-if result.status_code == 200:
-  xslt_root = etree.fromstring(result.content)
-  transform = etree.XSLT(xslt_root)
-else:
-  raise Exception('cannot fetch xsl file!')
+result = urllib2.urlopen(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
+xslt_root = etree.fromstring(result.read())
+transform = etree.XSLT(xslt_root)
 
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
   translationInfo = json.loads(f.read())
@@ -29,19 +25,15 @@ def getHtmlTitle(userLocale, reqHandlerName, i18n, node):
 
 
 def getBodyDom(xmlUrl):
-  result = urlfetch.fetch(xmlUrl)
-  if result.status_code == 200:
-    # successfully fetch xml
-    root = etree.fromstring(result.content)
-    # transform xml with xslt
-    root = transform(root)
-    # feed transformed data to minidom for processing
-    dom = xml.dom.minidom.parseString(etree.tostring(root))
-    # return only dom of body
-    return dom.documentElement.getElementsByTagName('body')[0]
-  else:
-    # fail to fetch xml
-    raise Exception('cannot fetch %s' % xmlUrl)
+  result = urllib2.urlopen(xmlUrl)
+  # successfully fetch xml
+  root = etree.fromstring(result.read())
+  # transform xml with xslt
+  root = transform(root)
+  # feed transformed data to minidom for processing
+  dom = xml.dom.minidom.parseString(etree.tostring(root))
+  # return only dom of body
+  return dom.documentElement.getElementsByTagName('body')[0]
 
 
 def recursivelyCheck(node, path):
@@ -233,39 +225,42 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath, i18n):
 
 if __name__ == '__main__':
   # for test purpose
-  if isValidCanonPath(None, None, None, None, None) is not True:
+  result = isValidCanonPath(None, None, None, None, None)
+  if result['isValid'] is not True:
     print('test failure:')
     print('isValidCanonPath(None, None, None, None, None) is not True')
 
-  if isValidCanonPath(None, None, None, None, '123') is not False:
+  result = isValidCanonPath(None, None, None, None, '123')
+  if result['isValid'] is not False:
     print('test failure:')
     print("isValidCanonPath(None, None, None, None, '123') is not False")
 
-  if isValidCanonPath('sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None) is not True:
+  result = isValidCanonPath('sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None)
+  if result['isValid'] is not True:
     print('test failure:')
     print("isValidCanonPath('sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None) is not True")
 
-  if isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None) is not True:
+  result = isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None)
+  if result['isValid'] is not True:
     print('test failure:')
     print("isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None) is not True")
 
-  if isValidCanonPath('sutta', 'dīgha', None, None, None) is not True:
+  result = isValidCanonPath('sutta', 'dīgha', None, None, None)
+  if result['isValid'] is not True:
     print('test failure:')
     print("isValidCanonPath('sutta', 'dīgha', None, None, None) is not True")
 
-  if isValidCanonPath('sutta', None, None, None, None) is not True:
+  result = isValidCanonPath('sutta', None, None, None, None)
+  if result['isValid'] is not True:
     print('test failure:')
     print("isValidCanonPath('sutta', None, None, None, None) is not True")
 
-  if isValidCanonPath('sutta1', None, None, None, None) is not False:
+  result = isValidCanonPath('sutta1', None, None, None, None)
+  if result['isValid'] is not False:
     print('test failure:')
     print("isValidCanonPath('sutta', None, None, None, None) is not False")
 
-  if isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False:
+  result = isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None)
+  if result['isValid'] is not False:
     print('test failure:')
     print("isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False")
-
-  print(getCanonPageHtml(None, 'sutta', 'dīgha', None, None, None, u'/canon/sutta/dīgha'))
-  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', None, None, u'/canon/sutta/dīgha/sīlakkhandhavagga'))
-  print(getCanonPageHtml(None, 'sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None, u'/canon/sutta/dīgha/sīlakkhandhavagga/kūṭadantasuttaṃ'))
-  print(getCanonPageHtml(None, 'abhidhamma', 'kathāvatthu', 'puggalakathā', None, None, u'/canon/abhidhamma/kathāvatthu/puggalakathā'))
