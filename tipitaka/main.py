@@ -81,7 +81,7 @@ class ContrastReadingPage(webapp2.RequestHandler):
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
     template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(locale, translator, result['node'], self.request.path, i18n)
-    template_values['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'])
+    template_values['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'], translator, True, i18n)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 

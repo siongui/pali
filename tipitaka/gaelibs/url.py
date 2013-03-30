@@ -83,7 +83,8 @@ def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None, i18n=N
 
   if translator:
     title = translator.decode('utf-8') + u' ' + i18n.gettext(u'Translation')  + u' - ' + title
-  #i18n.gettext(u'Contrast Reading')
+    if contrastReading:
+      title = i18n.gettext(u'Contrast Reading') + u' - ' + title
 
   return title
 
