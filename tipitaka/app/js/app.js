@@ -6,11 +6,29 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $locationProvider.html5Mode(true);
   }]).
   config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/canon/*canonPath/zh_TW/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
-    $routeProvider.when('/canon/*canonPath/zh_CN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/en_US/canon/*canonPath/en_US/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/zh_TW/canon/*canonPath/en_US/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/zh_CN/canon/*canonPath/en_US/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
     $routeProvider.when('/canon/*canonPath/en_US/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/en_US/canon/*canonPath/zh_TW/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/zh_TW/canon/*canonPath/zh_TW/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/zh_CN/canon/*canonPath/zh_TW/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_TW/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/en_US/canon/*canonPath/zh_CN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/zh_TW/canon/*canonPath/zh_CN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/zh_CN/canon/*canonPath/zh_CN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/canon/*canonPath/zh_CN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/en_US/canon/*canonPath/en_US/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/zh_TW/canon/*canonPath/en_US/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/zh_CN/canon/*canonPath/en_US/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/canon/*canonPath/en_US/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/en_US/canon/*canonPath/zh_TW/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/zh_TW/canon/*canonPath/zh_TW/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/zh_CN/canon/*canonPath/zh_TW/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/canon/*canonPath/zh_TW/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/en_US/canon/*canonPath/zh_CN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/zh_TW/canon/*canonPath/zh_CN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/zh_CN/canon/*canonPath/zh_CN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/canon/*canonPath/zh_CN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/en_US/canon/*canonPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.when('/zh_TW/canon/*canonPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
