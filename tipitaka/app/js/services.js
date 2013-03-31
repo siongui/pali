@@ -231,8 +231,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       var pathArray = path.split('/');
       if (pathArray.length < 2) {
         throw 'impossible path: ' + path;
-      } else if (pathArray.length === 2) {
-        node = treeviewAllJson.tpk;
       } else {
         node = treeviewAllJson.tpk;
         for (var i=2; i<pathArray.length; i++) {
