@@ -8,6 +8,7 @@ translationInfo = {
   'zh_TW': {
     'canon': {
       's0101m.mul1.xml': ['3'],
+      's0102m.mul8.xml': ['3'],
       's0201m.mul0.xml': ['3'],
       's0201m.mul1.xml': ['3'],
       's0201m.mul2.xml': ['3'],
