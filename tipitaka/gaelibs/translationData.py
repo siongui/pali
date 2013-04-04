@@ -25,7 +25,8 @@ translationInfo = {
       's0502m.mul2.xml': ['2'],
       's0502m.mul3.xml': ['2'],
       's0502m.mul4.xml': ['2'],
-      's0505m.mul0.xml': ['1']
+      's0505m.mul0.xml': ['1'],
+      's0505m.mul1.xml': ['1']
     },
     'source': {
       '1': ['郭良鋆', 'http://blog.yam.com/benji/article/34665984'],
