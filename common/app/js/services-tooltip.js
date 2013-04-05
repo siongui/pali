@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('pali.tooltip', []).
+angular.module('pali.tooltip', ['pali.directives']).
   factory('tooltip', ['$rootScope', '$compile', function($rootScope, $compile) {
     // init tooltip
     var scope = $rootScope.$new(true);

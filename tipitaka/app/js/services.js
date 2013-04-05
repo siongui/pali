@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.directives', 'pali.jqlext', 'paliTipitaka.i18nTpk', 'pali.treeviewAllJson']).
+angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.jqlext', 'paliTipitaka.i18nTpk', 'pali.treeviewAllJson']).
   factory('resizableViews', ['$document', function($document) {
     var leftView, viewwrapper, arrow, separator, rightView;
     var startLeftViewWidth, startRightViewWidth, initialMouseX;
