@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', 'pali.services', 'pali.i18n']).
+angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', 'pali.services', 'pali.i18n', 'pali.dropdown']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).

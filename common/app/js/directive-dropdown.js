@@ -16,7 +16,7 @@ angular.module('pali.dropdown', []).
         linktext: '@'
       },
       template: '<span ng-init="isShowMenu = false">' +
-                  '<a ng-click="isShowMenu = !isShowMenu" ng-class="classlink" href="javascript:void(0);">{{linktext}}</a>' +
+                  '<a ng-click="isShowMenu = !isShowMenu" ng-class="classlink" href="javascript:void(0);" ng-bind-html-unsafe="linktext"></a>' +
                   '<span ng-show="isShowMenu" ng-click="isShowMenu = false" ng-class="classmenu" ng-style="menuStyle" ng-transclude></span>' +
                 '</span>',
       link: function(scope, elm, attrs) {

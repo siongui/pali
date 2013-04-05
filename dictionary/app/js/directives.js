@@ -203,7 +203,7 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
               && angular.isDefined(scope.currentSelectedWord());
         };
 
-        elm.focus();
+        elm[0].focus();
       }
     }
   }]);
