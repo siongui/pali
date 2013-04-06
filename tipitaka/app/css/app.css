@@ -101,13 +101,14 @@ div.floating-buttons > div {
   overflow: hidden;
   font-size: small;
   font-family: Arial;
-  line-height: 1.5em;
+  line-height: 2em;
   word-spacing: 0;
 }
 
 .dropdownMenuItem {
+  font-size: 1.25em;
   color: #00C;
-  padding: 3px;
+  padding: .25em 2em .25em 1em;
   text-decoration: none;
   background: white;
   display: block;
