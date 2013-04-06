@@ -11,7 +11,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
 try:
   from jianfan import jtof, ftoj
 except:
-  pass
+  import logging
+  logging.getLogger().setLevel(logging.DEBUG)
+  logging.debug('import jianfan library failed!')
 
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
