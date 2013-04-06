@@ -5,6 +5,9 @@ import os, json, urllib, jinja2
 from google.appengine.api import app_identity
 from google.appengine.api import urlfetch
 from google.appengine.api import memcache
+
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
 try:
   from jianfan import jtof, ftoj
 except:
