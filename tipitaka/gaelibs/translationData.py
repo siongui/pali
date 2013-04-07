@@ -38,6 +38,7 @@ translationInfo = {
       's0502m.mul15.xml': ['2'],
       's0502m.mul16.xml': ['2'],
       's0502m.mul17.xml': ['2'],
+      's0502m.mul18.xml': ['2'],
       's0505m.mul0.xml': ['1'],
       's0505m.mul1.xml': ['1']
     },
@@ -561,6 +562,7 @@ canonTextTranslation['zh_TW'] = {
       'Piyavaggo': '喜愛品',
       'Kodhavaggo': '忿怒品',
       'Malavaggo': '垢穢品',
+      'Dhammaṭṭhavaggo': '法住品',
     'Udānapāḷi': '自說',
     'Itivuttakapāḷi': '如是語',
     'Suttanipātapāḷi': '經集',
