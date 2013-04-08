@@ -74,7 +74,8 @@ translationInfo = {
       's0502m.mul14.xml': ['1'],
       's0502m.mul15.xml': ['1'],
       's0502m.mul16.xml': ['1'],
-      's0502m.mul17.xml': ['1']
+      's0502m.mul17.xml': ['1'],
+      's0502m.mul18.xml': ['1']
     },
     'source': {
       '1': ['Ṭhānissaro Bhikkhu', 'http://www.accesstoinsight.org/tipitaka/translators.html#than', 'http://www.accesstoinsight.org/lib/authors/thanissaro/dhammapada.pdf']
@@ -285,6 +286,7 @@ canonTextTranslation['en_US'] = {
       'Piyavaggo': 'Dear Ones',
       'Kodhavaggo': 'Anger',
       'Malavaggo': 'Impurities',
+      'Dhammaṭṭhavaggo': 'The Judge',
     'Udānapāḷi': 'Exclamations',
     'Itivuttakapāḷi': 'The Thus-saids',
     'Suttanipātapāḷi': 'The Discourses Collection',
