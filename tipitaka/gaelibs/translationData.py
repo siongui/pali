@@ -86,11 +86,10 @@ jstr = """{
     }
   }
 }"""
-jstr = re.sub(r"\s*", r'', jstr)
 jstr = re.sub(r"'", r'"', jstr)
+# http://stackoverflow.com/questions/7878933/is-possible-to-override-the-notation-so-i-get-an-ordereddict-instead-of
 d = json.JSONDecoder(object_pairs_hook = collections.OrderedDict)
 translationInfo = d.decode(jstr)
-translationInfo['en_US']['source']['1'][0] = 'Ṭhānissaro Bhikkhu'
 
 
 canonTextTranslation = {}
