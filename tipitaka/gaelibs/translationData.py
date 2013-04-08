@@ -648,6 +648,13 @@ canonTextTranslation['zh_TW'] = {
 
 
 if __name__ == '__main__':
+  from collections import OrderedDict
+  for locale in translationInfo:
+    # dictionary sorted by key
+    translationInfo[locale]['canon'] = OrderedDict(sorted(translationInfo[locale]['canon'].items(), key=lambda t: t[0]))
+    # dictionary sorted by value
+    #translationInfo[locale]['canon'] = OrderedDict(sorted(translationInfo[locale]['canon'].items(), key=lambda t: t[1]))
+
   dstTrInfoPath = os.path.join(os.path.dirname(__file__), 'json/translationInfo.json')
   dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json')
 
