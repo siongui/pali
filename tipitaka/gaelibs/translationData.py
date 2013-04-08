@@ -66,7 +66,8 @@ translationInfo = {
       's0502m.mul6.xml': ['1'],
       's0502m.mul7.xml': ['1'],
       's0502m.mul8.xml': ['1'],
-      's0502m.mul9.xml': ['1']
+      's0502m.mul9.xml': ['1'],
+      's0502m.mul10.xml': ['1']
     },
     'source': {
       '1': ['Ṭhānissaro Bhikkhu', 'http://www.accesstoinsight.org/tipitaka/translators.html#than', 'http://www.accesstoinsight.org/lib/authors/thanissaro/dhammapada.pdf']
@@ -269,6 +270,7 @@ canonTextTranslation['en_US'] = {
       'Sahassavaggo': 'Thousands',
       'Pāpavaggo': 'Evil',
       'Daṇḍavaggo': 'The Rod',
+      'Jarāvaggo': 'Aging',
     'Udānapāḷi': 'Exclamations',
     'Itivuttakapāḷi': 'The Thus-saids',
     'Suttanipātapāḷi': 'The Discourses Collection',
