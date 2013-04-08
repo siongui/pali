@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json
+import os, json, collections, re
 
 
-translationInfo = {
+jstr = """{
   'zh_TW': {
     'canon': {
       's0101m.mul1.xml': ['3'],
@@ -85,7 +85,12 @@ translationInfo = {
       '1': ['Ṭhānissaro Bhikkhu', 'http://www.accesstoinsight.org/tipitaka/translators.html#than', 'http://www.accesstoinsight.org/lib/authors/thanissaro/dhammapada.pdf']
     }
   }
-}
+}"""
+jstr = re.sub(r"\s*", r'', jstr)
+jstr = re.sub(r"'", r'"', jstr)
+d = json.JSONDecoder(object_pairs_hook = collections.OrderedDict)
+translationInfo = d.decode(jstr)
+translationInfo['en_US']['source']['1'][0] = 'Ṭhānissaro Bhikkhu'
 
 
 canonTextTranslation = {}
@@ -648,13 +653,6 @@ canonTextTranslation['zh_TW'] = {
 
 
 if __name__ == '__main__':
-  from collections import OrderedDict
-  for locale in translationInfo:
-    # dictionary sorted by key
-    translationInfo[locale]['canon'] = OrderedDict(sorted(translationInfo[locale]['canon'].items(), key=lambda t: t[0]))
-    # dictionary sorted by value
-    #translationInfo[locale]['canon'] = OrderedDict(sorted(translationInfo[locale]['canon'].items(), key=lambda t: t[1]))
-
   dstTrInfoPath = os.path.join(os.path.dirname(__file__), 'json/translationInfo.json')
   dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json')
 
