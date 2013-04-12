@@ -48,7 +48,8 @@ jstr = """{
       's0502m.mul25.xml': ['2'],
       's0505m.mul0.xml': ['1'],
       's0505m.mul1.xml': ['1'],
-      's0505m.mul2.xml': ['1']
+      's0505m.mul2.xml': ['1'],
+      's0505m.mul3.xml': ['1']
     },
     'source': {
       '1': ['郭良鋆', 'http://blog.yam.com/benji/article/34665984'],
