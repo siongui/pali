@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', 'pali.services', 'pali.i18n', 'pali.dropdown']).
+angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', 'pali.services', 'pali.i18n', 'pali.dropdown', 'ngCookies']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
@@ -21,20 +21,34 @@ angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', '
     $routeProvider.when('/zh_CN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', function($rootScope) {
+  run(['$rootScope', '$cookieStore', function($rootScope, $cookieStore) {
     // initialization (similar to main)
     $rootScope.message = '';
 
     // initialize setting
     $rootScope.isShowSetting = false;
-    $rootScope.setting = {
-      'isShowWordPreview': false,
-      'toTraditionalCht': true,
-      'p2en': true,
-      'p2ja': true,
-      'p2zh': true,
-      'dicLangOrder': 'hdr' 
-    };
+
+    var setting = $cookieStore.get('setting');
+    if (setting) {
+      $rootScope.setting = setting;
+    } else {
+      $rootScope.setting = {
+        'isShowWordPreview': false,
+        'toTraditionalCht': true,
+        'p2en': true,
+        'p2ja': true,
+        'p2zh': true,
+        'dicLangOrder': 'hdr' 
+      };
+    }
+
+    $rootScope.$watch('setting.isShowWordPreview', storeSettingInCookie);
+    $rootScope.$watch('setting.toTraditionalCht', storeSettingInCookie);
+    $rootScope.$watch('setting.p2en', storeSettingInCookie);
+    $rootScope.$watch('setting.p2ja', storeSettingInCookie);
+    $rootScope.$watch('setting.p2zh', storeSettingInCookie);
+    $rootScope.$watch('setting.dicLangOrder', storeSettingInCookie);
+    function storeSettingInCookie() { $cookieStore.put('setting', $rootScope.setting); }
 
     if ($rootScope.i18nLocale === 'zh_CN')
       $rootScope.setting.toTraditionalCht = false;
