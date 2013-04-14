@@ -59,9 +59,11 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
         // set position of suggestion preview
         var suggestionMenu = angular.element(document.getElementById('suggestion-menu'));
         scope.suggestPreviewStyle = function() {
-          return {'left': suggestionMenu.prop('offsetLeft') +
-                          suggestionMenu.prop('offsetWidth') +
-                          1 + 'px'};
+          var left_ = suggestionMenu.prop('offsetLeft') +
+                      suggestionMenu.prop('offsetWidth') + 1;
+          var width_ = $rootScope.docWidth - left_ - 1;
+          return {'left': left_ + 'px',
+                  'width': width_ + 'px'};
         };
 
         // set keypad position

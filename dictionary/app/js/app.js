@@ -52,4 +52,7 @@ angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', '
 
     if ($rootScope.i18nLocale === 'zh_CN')
       $rootScope.setting.toTraditionalCht = false;
+
+    // get width of document
+    $rootScope.docWidth = document.getElementById('allContainer').offsetWidth;
   }]);
