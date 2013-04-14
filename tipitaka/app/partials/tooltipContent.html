@@ -20,6 +20,7 @@
   <div ng-show="isNetErr" i18n str="Internet Connection Error">{$_("Internet Connection Error")$}</div>
 
   <div ng-show="isPossibleWords">
+    <input type="text" size="20" autocomplete="off" ng-model="paliWord" possible-words>
     <div ng-repeat="possibleWord in possibleWords">
       <a href="{{wordUrl(possibleWord)}}" target="_blank">{{possibleWord}}</a>
     </div>

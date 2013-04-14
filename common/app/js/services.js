@@ -345,12 +345,17 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
         if (firstIPrefixMatchedWords) {
           // FIXME: ekaṃ should include eka in result, but now eka not included!!!
           if (firstIPrefixMatchedWords.length > MAX_NUMBER_OF_POSSIBLE_WORDS)
-            return firstIPrefixMatchedWords.slice(0, MAX_NUMBER_OF_POSSIBLE_WORDS);
-          return firstIPrefixMatchedWords;
+            return [word.slice(0, i), firstIPrefixMatchedWords.slice(0, MAX_NUMBER_OF_POSSIBLE_WORDS)];
+          return [word.slice(0, i), firstIPrefixMatchedWords];
         }
       }
     }
 
+    function exactPrefixMatchPossibleWords(paliWord) {
+      var word = processWord(paliWord);
+      if (angular.isUndefined(word)) return;
+      return prefixExactMatch(word);
+    }
 
     function longestPrefixMatchedWord(paliWord) {
       var word = processWord(paliWord);
@@ -366,6 +371,7 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
     var serviceInstance = {
       prefixMatch: prefixMatch,
       possibleWords: possibleWords,
+      exactPrefixMatchPossibleWords: exactPrefixMatchPossibleWords,
       longestPrefixMatchedWord: longestPrefixMatchedWord,
       isValidPaliWord: isValidPaliWord,
 

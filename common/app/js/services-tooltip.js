@@ -15,7 +15,7 @@ angular.module('pali.tooltip', ['pali.directives']).
     scope.onmouseleave = function() {
       // mouse leaves tooltip
       isMouseInTooltip = false;
-      tooltip.css('left', '-9999px');
+      hide();
     };
     var _left = 0;
     var _top = 0;
@@ -128,11 +128,12 @@ angular.module('pali.tooltip', ['pali.directives']).
         });
       } else {
         setTimeout(function(){tooltip.show(false);}, 10);
-        var possibleWords = paliIndexes.possibleWords(word);
-        if (possibleWords) {
+        var result = paliIndexes.possibleWords(word);
+        if (result) {
           scope.isLookingUp = false;
           scope.isPossibleWords = true;
-          scope.possibleWords = possibleWords;
+          scope.paliWord = result[0];
+          scope.possibleWords = result[1];
         } else {
           scope.isLookingUp = false;
           scope.isNoSuchWord = true;
@@ -150,4 +151,20 @@ angular.module('pali.tooltip', ['pali.directives']).
       hideContent: hideContent
     };
     return serviceInstance;
+  }]).
+
+  directive('possibleWords', ['paliIndexes', function(paliIndexes) {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, elm, attrs, ngModelCtrl) {
+        // If the viewValue of 'paliWord' ngModel changes, i.e.,
+        // If user changes the input element value
+        ngModelCtrl.$parsers.push(updatePossibleWords);
+
+        function updatePossibleWords(viewValue) {
+          scope.possibleWords = paliIndexes.exactPrefixMatchPossibleWords(viewValue);
+        }
+      }
+    };
   }]);
