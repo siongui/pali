@@ -54,7 +54,7 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
         var width = parseInt(elm.css('paddingLeft').replace('px', '')) +
                     parseInt(elm.css('paddingRight').replace('px', '')) +
                     parseInt(elm.css('width').replace('px', ''));
-        scope.suggestMenuStyle = {minWidth: width + 'px'};
+        scope.suggestMenuStyle = {minWidth: width + 'px', maxWidth: elm.prop('offsetWidth') + 'px'};
 
         // set position of suggestion preview
         var suggestionMenu = angular.element(document.getElementById('suggestion-menu'));
