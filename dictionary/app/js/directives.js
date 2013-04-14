@@ -27,6 +27,8 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
       link: function(scope, elm, attrs, ngModelCtrl) {
         // initialize index for selection of suggested words
         var currentSelectedWordIndex = -1;
+        var paths = $location.path().split('/');
+        if (paths.length === 4) scope[attrs.ngModel] = paths[3];
 
         scope.lookupWord = function(opt_dicWordExp) {
           $rootScope.opt_dicWordExp = opt_dicWordExp;
