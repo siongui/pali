@@ -14,7 +14,7 @@
   <script type="text/ng-template" id="/partials/prefix.html">{% include 'prefix.html' %}</script>
   <script type="text/ng-template" id="/partials/about.html">{% include 'about.html' %}</script>
 </head>
-<body ng-controller="mainCtrl">
+<body>
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span2 visible-desktop">{% if isCompiledJS %}{% include 'buttons.html' %}{% else %}{% include 'devlinks.html' %}{% endif %}</div>
@@ -28,7 +28,7 @@
           <li class="hidden-phone"><a i18n str="Home" href="/">{$_("Home")$}</a></li>
           <li><a i18n str="Canon" target="_blank" href="http://epalitipitaka.appspot.com/">{$_("Canon")$}</a></li>
           <li><a i18n str="About" href="/about">{$_("About")$}</a></li>
-          <li><a i18n str="Setting" href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting">{$_("Setting")$}</a></li>
+          <li><a href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting"><span ng-show="isShowSetting">&#9660;</span><span ng-hide="isShowSetting">&#9658;</span><span i18n str="Setting">{$_("Setting")$}</span></a></li>
           <li>
             <div class="dropdownDiv" dropdown classlink="dropdown-toggle" linktext='{{ i18nLocale | translate }} <b class="caret"></b>' classmenu="dropdownMenu">
               <a href="/en_US/">English</a>

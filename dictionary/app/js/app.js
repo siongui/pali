@@ -21,6 +21,21 @@ angular.module('paliDictionary', ['paliDictionary.directives', 'pali.filters', '
     $routeProvider.when('/zh_CN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', '$location', function($rootScope, $location) {
+  run(['$rootScope', function($rootScope) {
     // initialization (similar to main)
+    $rootScope.message = '';
+
+    // initialize setting
+    $rootScope.isShowSetting = false;
+    $rootScope.setting = {
+      'isShowWordPreview': false,
+      'toTraditionalCht': true,
+      'p2en': true,
+      'p2ja': true,
+      'p2zh': true,
+      'dicLangOrder': 'hdr' 
+    };
+
+    if ($rootScope.i18nLocale === 'zh_CN')
+      $rootScope.setting.toTraditionalCht = false;
   }]);

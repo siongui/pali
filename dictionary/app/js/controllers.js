@@ -3,26 +3,6 @@
 /* Controllers */
 
 
-function mainCtrl($scope) {
-  $scope.message = '';
-
-  // initialize setting
-  $scope.isShowSetting = false;
-  $scope.setting = {
-    'isShowWordPreview': false,
-    'toTraditionalCht': true,
-    'p2en': true,
-    'p2ja': true,
-    'p2zh': true,
-    'dicLangOrder': 'hdr' 
-  };
-
-  if ($scope.i18nLocale === 'zh_CN')
-    $scope.setting.toTraditionalCht = false;
-}
-mainCtrl.$inject = ['$scope'];
-
-
 function noopCtrl($scope, i18nserv) {
   $scope.$parent.message = '';
   // set title of html document
