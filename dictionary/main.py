@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import webapp2, jinja2, os, sys, json
+import webapp2, jinja2, os, sys, json, urllib2
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import isValidPrefixAndWord, getPrefixHtml, getWordHtml, getHtmlTitle
@@ -81,6 +81,13 @@ class RedirectPage(webapp2.RequestHandler):
     self.redirect('/')
 
 
+class JsonPage(webapp2.RequestHandler):
+  def get(self, partialPathi=None):
+    url = 'http://%s.palidictionary.appspot.com/%s' % (self.request.get('v'), self.request.path)
+    result = urllib2.urlopen(url)
+    self.response.out.write(result.read())
+
+
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/browse/noSuchWord', handler=RedirectPage),
   webapp2.Route(r'/', handler=MainPage),
@@ -89,5 +96,6 @@ app = webapp2.WSGIApplication([
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/browse/<prefix:.+>/<word:.+>', handler=WordPage),
   webapp2.Route(r'/browse/<prefix:.+>/<word:.+>', handler=WordPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/browse/<prefix:.+>', handler=PrefixPage),
-  webapp2.Route(r'/browse/<prefix:.+>', handler=PrefixPage)],
+  webapp2.Route(r'/browse/<prefix:.+>', handler=PrefixPage),
+  webapp2.Route(r'/json/<:.*>', handler=JsonPage)],
   debug=True)

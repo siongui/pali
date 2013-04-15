@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import webapp2, jinja2, os, sys, json
+import webapp2, jinja2, os, sys, json, urllib2
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml
@@ -85,6 +85,13 @@ class ContrastReadingPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 
+class JsonPage(webapp2.RequestHandler):
+  def get(self, partialPathi=None):
+    url = 'http://%s.palidictionary.appspot.com/%s' % (self.request.get('v'), self.request.path)
+    result = urllib2.urlopen(url)
+    self.response.out.write(result.read())
+
+
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
   webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
@@ -111,5 +118,6 @@ app = webapp2.WSGIApplication([
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon', handler=CanonPage),
   webapp2.Route(r'/canon', handler=CanonPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage),
-  webapp2.Route(r'/', handler=MainPage)],
+  webapp2.Route(r'/', handler=MainPage),
+  webapp2.Route(r'/json/<:.*>', handler=JsonPage)],
   debug=True)

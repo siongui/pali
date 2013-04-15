@@ -82,7 +82,7 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
     return serviceInstance;
   }]).
 
-  factory('paliIndexes', ['dicPrefix', function(dicPrefix) {
+  factory('paliIndexes', ['dicPrefix', '$location', function(dicPrefix, $location) {
 
     var MAX_NUMBER_OF_MATCHED_WORDS = 30;
     var MAX_NUMBER_OF_POSSIBLE_WORDS = 10;
@@ -367,6 +367,12 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
       }
     }
 
+    function endswith(string, suffix) {
+      // JavaScript endswith
+      // @see http://stackoverflow.com/questions/280634/endswith-in-javascript
+      // @see http://www.w3schools.com/jsref/jsref_indexof.asp
+      return string.indexOf(suffix, string.length - suffix.length) != -1;
+    }
 
     var serviceInstance = {
       prefixMatch: prefixMatch,
@@ -377,11 +383,16 @@ angular.module('pali.services', ['pali.service-dic', 'pali.dicPrefix']).
 
       getJsonUrl: function(word) {
         // need to check sanity of argument 'word' here?
+        var suffix = window.encodeURIComponent(word[0]).replace(/%/g, 'Z') + '/' +
+                     window.encodeURIComponent(word).replace(/%/g, 'Z') + '.json';
 
-        return 'http://jsons' + dicPrefix.Group[word[0]] +
-               '.palidictionary.appspot.com/json/' +
-               window.encodeURIComponent(word[0]).replace(/%/g, 'Z') + '/' +
-               window.encodeURIComponent(word).replace(/%/g, 'Z') + '.json';
+        if (endswith($location.host(), 'appspot.com')) {
+          return 'http://jsons' + dicPrefix.Group[word[0]] +
+                 '.palidictionary.appspot.com/json/' + suffix;
+        } else {
+          return 'http://' + $location.host() + ':' + $location.port() +
+                 '/json/' + suffix + '?v=jsons' + dicPrefix.Group[word[0]];
+        }
       },
 
       getWordsStartsWithLetter: function(letter) {
