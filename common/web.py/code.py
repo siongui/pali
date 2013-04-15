@@ -9,6 +9,7 @@ from urlparse import parse_qs
 urls = (
   '(/|/about|/favicon.ico|/en_US/|/zh_TW/|/zh_CN/)', 'index',
   '(/|/en_US/|/zh_TW/|/zh_CN/)browse/.*', 'index',
+  '(/|/en_US/|/zh_TW/|/zh_CN/)canon.*', 'index',
   '/(js|css|romn|translation)/.*', 'index',
   '/json/.*', 'json',
   '/robots.txt', 'robot',
