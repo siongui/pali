@@ -89,6 +89,7 @@ class robot:
 
 # To work with Apache and mod_wsgi, Add WSGIScriptAlias / /path_to_python_script_dir/code.py
 # http://stackoverflow.com/questions/3613594/web-py-url-mapping-not-accepting
+# http://dfourtheye.blogspot.com/2013/03/deploying-webpy-application-in-apache.html
 
 if __name__ == "__main__":
   app = web.application(urls, globals())
