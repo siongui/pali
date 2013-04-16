@@ -5,6 +5,36 @@
 
 angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
   factory('i18nTpkServ', ['tvServ', 'i18nTpk', 'i18nTpkConvert', function(tvServ, i18nTpk, i18nTpkConvert) {
+    var xmlFilename2PathInfo = {};
+
+    function recursiveGetPath(node, pathPrefix, xmlFilename) {
+      var path = pathPrefix + '/' + node['subpath'];
+      if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
+      if (node.hasOwnProperty('action')) {
+        if (i18nTpkConvert.basename(node['action']) === xmlFilename)
+          return path;
+      } else {
+        for (var i=0; i<node['child'].length; i++) {
+          var result = recursiveGetPath(node['child'][i], path, xmlFilename);
+          if (angular.isString(result))
+            return result;
+        }
+      }
+    }
+
+    function xmlFilename2Path(xmlFilename) {
+      if (xmlFilename2PathInfo.hasOwnProperty(xmlFilename))
+        return xmlFilename2PathInfo[xmlFilename];
+
+      var result = recursiveGetPath(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath, xmlFilename);
+      if (angular.isUndefined(result)) {
+        throw 'cannot find ' + xmlFilename;
+      } else {
+        xmlFilename2PathInfo[xmlFilename] = result;
+        return result;
+      }
+    }
+
     function getTranslator(locale, translatorCode) {
       return i18nTpk.translationInfo[locale]['source'][translatorCode][0];
     }
@@ -15,7 +45,8 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         var localeTranslation = { locale: locale };
         localeTranslation.translations = [];
         for (var xmlFilename in i18nTpk.translationInfo[locale]['canon']) {
-          var translation = { xmlFilename: xmlFilename };
+          var translation = { xmlFilename: xmlFilename,
+                              path: xmlFilename2Path(xmlFilename) };
           translation.translators = [];
           for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
             translation.translators.push(getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]));
@@ -59,7 +90,8 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         var localeTranslation = { locale: locale };
         localeTranslation.translations = [];
         if (i18nTpk.translationInfo[locale]['canon'].hasOwnProperty(xmlFilename)) {
-          var translation = { xmlFilename: xmlFilename };
+          var translation = { xmlFilename: xmlFilename,
+                              path: xmlFilename2Path(xmlFilename) };
           translation.translators = [];
           for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
             translation.translators.push(getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]));
@@ -125,27 +157,6 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         return text.replace(str, trStr);
     }
 
-    function recursiveBuildPath(node, pathPrefix, xmlFilename) {
-      var path = pathPrefix + '/' + node['subpath'];
-      if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
-      if (node.hasOwnProperty('action')) {
-        if (basename(node['action']) === xmlFilename)
-          return path;
-      } else {
-        for (var i=0; i<node['child'].length; i++) {
-          var result = recursiveBuildPath(node['child'][i], path, xmlFilename);
-          if (angular.isString(result))
-            return result;
-        }
-      }
-    }
-
-    function xmlFilename2Path(xmlFilename) {
-      var node = tvServ.tipitakaRootNode;
-      var pathPrefix = tvServ.tipitakaRootNodePath;
-      return recursiveBuildPath(node, pathPrefix, xmlFilename);
-    }
-
     function recursiveGetCanonName(node, names, xmlFilename) {
       if (node.hasOwnProperty('action')) {
         if (basename(node['action']) === xmlFilename) {
@@ -208,7 +219,6 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       translateNodeText2: translateNodeText2,
       xmlFilename2CanonName: xmlFilename2CanonName,
       xmlFilename2TranslatedCanonName: xmlFilename2TranslatedCanonName,
-      xmlFilename2Path: xmlFilename2Path,
       redirectAccordingToUrlLocale: redirectAccordingToUrlLocale,
       basename: basename
     };
