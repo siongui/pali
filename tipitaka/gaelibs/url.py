@@ -23,15 +23,6 @@ with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 
 with open(os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json'), 'r') as f:
   canonTextTranslation = json.loads(f.read())
 
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
-try:
-  from jianfan import jtof, ftoj
-except:
-  import logging
-  logging.getLogger().setLevel(logging.DEBUG)
-  logging.error('import jianfan library failed!')
-
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
 

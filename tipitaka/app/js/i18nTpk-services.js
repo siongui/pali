@@ -139,15 +139,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     return serviceInstance;
   }]).
 
-  factory('i18nTpkConvert', ['$location', 'tvServ', 'i18nTpk', 'zhService', function($location, tvServ, i18nTpk, zhService) {
-    i18nTpk.canonTextTranslation['zh_CN'] = (function() {
-      var trCNs = {};
-      for (var key in i18nTpk.canonTextTranslation['zh_TW']) {
-        trCNs[key] = zhService.toSimp(i18nTpk.canonTextTranslation['zh_TW'][key]);
-      }
-      return trCNs;
-    })();
-
+  factory('i18nTpkConvert', ['$location', 'tvServ', 'i18nTpk', function($location, tvServ, i18nTpk) {
     function endswith(str, suffix) {
       return str.indexOf(suffix, str.length - suffix.length) != -1;
     }

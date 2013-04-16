@@ -2,6 +2,14 @@
 # -*- coding:utf-8 -*-
 
 import os, json, collections, re
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+try:
+  from jianfan import jtof, ftoj
+except:
+  import logging
+  logging.getLogger().setLevel(logging.DEBUG)
+  logging.error('import jianfan library failed!')
 
 
 jstr = """{
@@ -670,6 +678,9 @@ if __name__ == '__main__':
   with open(dstTrInfoPath, 'w') as f:
     f.write(json.dumps(translationInfo))
 
+  canonTextTranslation['zh_CN'] = {}
+  for key in canonTextTranslation['zh_TW']:
+    canonTextTranslation['zh_CN'][key] = ftoj(canonTextTranslation['zh_TW'][key])
   with open(dstCanonTextTranslationPath, 'w') as f:
     f.write(json.dumps(canonTextTranslation))
 
