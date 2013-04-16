@@ -40,7 +40,7 @@ canonCtrl.$inject = ['$scope', '$location', '$routeParams', 'tvServ', 'paliXml',
 
 function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
   // setup translation links
-  $scope.localeTranslations = i18nTpkServ.getLocaleTranslations();
+  $scope.localeTranslations = i18nTpkServ.getAllLocalesTranslations();
   $scope.getPath = i18nTpkConvert.xmlFilename2Path;
   $scope.getTranslator = i18nTpkConvert.getTranslator;
   $scope.getCanonName = i18nTpkConvert.xmlFilename2CanonName;

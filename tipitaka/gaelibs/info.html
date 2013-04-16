@@ -1,0 +1,16 @@
+{% for localeTranslation in localeTranslations %}
+  {{ localeTranslation['locale'] }}
+  {% for translation in localeTranslation['translations'] %}
+    {{ translation.xmlFilename }}
+    {% for translator in translation['translator'] %}
+      {{ translator }}
+      {% if urlLocale %}
+        <a href="/{{ urlLocale }}{{ translation.path }}/{{ localeTranslation['locale'] }}/{{ translator }}">Translation</a>
+        <a href="/{{ urlLocale }}{{ translation.path }}/{{ localeTranslation['locale'] }}/{{ translator }}/ContrastReading">Contrast Reading</a>
+      {% else %}
+        <a href="{{ translation.path }}/{{ localeTranslation['locale'] }}/{{ translator }}">Translation</a>
+        <a href="{{ translation.path }}/{{ localeTranslation['locale'] }}/{{ translator }}/ContrastReading">Contrast Reading</a>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}

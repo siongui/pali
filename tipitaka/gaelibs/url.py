@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json, urllib2, re
+import os, json, urllib2, re, jinja2
 from lxml import etree
 import xml.dom.minidom
 
@@ -11,6 +11,7 @@ trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
 
 with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
+  treeviewData['child'][0]['subpath'] = u'canon'
 
 result = urllib2.urlopen(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
 xslt_root = etree.fromstring(result.read())
@@ -21,6 +22,20 @@ with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 
 
 with open(os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json'), 'r') as f:
   canonTextTranslation = json.loads(f.read())
+
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+try:
+  from jianfan import jtof, ftoj
+except:
+  import logging
+  logging.getLogger().setLevel(logging.DEBUG)
+  logging.error('import jianfan library failed!')
+
+jj2env = jinja2.Environment(
+  loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+xmlFilename2PathInfo = {}
 
 
 def nodeTextStrip(text):
@@ -65,9 +80,6 @@ def translateNodeText(text, locale):
 
 
 def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None, i18n=None):
-  #import logging
-  #logging.getLogger().setLevel(logging.DEBUG)
-  #logging.debug(texts)
   title = u''
 
   if texts:
@@ -265,6 +277,47 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath, i18n):
   html += generateContrastReadingTable(oriBody, trBody)
 
   return html
+
+
+def recursiveGetPath(node, pathPrefix, xmlFilename):
+  path = pathPrefix + '/' + node['subpath']
+  if 'action' in node:
+    if os.path.basename(node['action']) == xmlFilename:
+      return path
+  else:
+    for child in node['child']:
+      result = recursiveGetPath(child, path, xmlFilename)
+      if result:
+        return result
+
+
+def xmlFilename2Path(xmlFilename):
+  if xmlFilename in xmlFilename2PathInfo:
+    return xmlFilename2PathInfo[xmlFilename]
+  result = recursiveGetPath(treeviewData['child'][0], u'', xmlFilename)
+  if result:
+    xmlFilename2PathInfo[xmlFilename] = result
+  else:
+    raise Exception('cannot get path of %s' % xmlFilename)
+  return result
+
+
+def getAllLocalesTranslationsHtml(urlLocale):
+  template = jj2env.get_template('info.html')
+  localeTranslations = []
+  for locale in translationInfo:
+    localeTranslation = { 'locale': locale }
+    localeTranslation['translations'] = []
+    for xmlFilename in translationInfo[locale]['canon']:
+      translation = { 'path': xmlFilename2Path(xmlFilename),
+                      'xmlFilename': xmlFilename }
+      translation['translator'] = []
+      for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
+        translation['translator'].append(translationInfo[locale]['source'][translatorCode][0])
+      localeTranslation['translations'].append(translation)
+    localeTranslations.append(localeTranslation)
+
+  return template.render({'urlLocale': urlLocale, 'localeTranslations': localeTranslations});
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@
 
 angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
   factory('i18nTpkServ', ['tvServ', 'i18nTpk', 'i18nTpkConvert', function(tvServ, i18nTpk, i18nTpkConvert) {
-    function getLocaleTranslations() {
+    function getAllLocalesTranslations() {
       var localeTranslations = [];
       for (var locale in i18nTpk.translationInfo) {
         var localeTranslation = { locale: locale };
@@ -71,7 +71,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
 
     var serviceInstance = {
       getI18nLinks: getI18nLinks,
-      getLocaleTranslations: getLocaleTranslations,
+      getAllLocalesTranslations: getAllLocalesTranslations,
       getTranslationXmlUrl: getTranslationXmlUrl
     };
     return serviceInstance;

@@ -4,7 +4,7 @@
 import webapp2, jinja2, os, sys, json, urllib2
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml
+from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml, getAllLocalesTranslationsHtml
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
@@ -45,6 +45,7 @@ def getCommonTemplateValues(self, urlLocale):
 class MainPage(webapp2.RequestHandler):
   def get(self, urlLocale=None):
     template_values = getCommonTemplateValues(self, urlLocale)
+    template_values['allLocalesTranslationsHtml'] = getAllLocalesTranslationsHtml(urlLocale)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 

@@ -13,7 +13,7 @@ try:
 except:
   import logging
   logging.getLogger().setLevel(logging.DEBUG)
-  logging.debug('import jianfan library failed!')
+  logging.error('import jianfan library failed!')
 
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
