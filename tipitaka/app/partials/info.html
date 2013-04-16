@@ -8,7 +8,7 @@
         <a href="{{ urlLocaleInPath }}{{ path }}" style="text-decoration: none; background-color: #FFF1A9; padding: 3px;">
           <span ng-repeat="canonName in canonNames">{{ canonName }}<sup><small><span style="color: red;">{{ translatedCanonNames[$index] }}</span></small></sup><span ng-show="!$last">,</span>&nbsp;</span>
         </a>
-        <div ng-repeat="translatorCode in translation.translatorCodes" ng-init="translator = getTranslator(localeTranslation.locale, translatorCode)" style="padding-left: 1em;">
+        <div ng-repeat="translator in translation.translators" style="padding-left: 1em;">
           <a href="{{ urlLocaleInPath }}{{ path }}/{{localeTranslation.locale}}/{{ translator }}">{{ translator }} <span i18n str="Translation">{$_("Translation")$}</span></a>&nbsp;
           (<a href="{{ urlLocaleInPath }}{{ path }}/{{localeTranslation.locale}}/{{ translator }}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
         </div>

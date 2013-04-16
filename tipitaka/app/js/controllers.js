@@ -25,7 +25,6 @@ function canonCtrl($scope, $location, $routeParams, tvServ, paliXml, htmlDoc2Vie
     if (angular.isDefined($scope.localeTranslations)) {
       $scope.isTranslationAvailableLinks = true;
       $scope.getPath = i18nTpkConvert.xmlFilename2Path;
-      $scope.getTranslator = i18nTpkConvert.getTranslator;
       if ($routeParams.urlLocale)
         $scope.urlLocaleInPath = '/' + $routeParams.urlLocale;
     }
@@ -42,7 +41,6 @@ function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
   // setup translation links
   $scope.localeTranslations = i18nTpkServ.getAllLocalesTranslations();
   $scope.getPath = i18nTpkConvert.xmlFilename2Path;
-  $scope.getTranslator = i18nTpkConvert.getTranslator;
   $scope.getCanonName = i18nTpkConvert.xmlFilename2CanonName;
   $scope.getTranslatedCanonName = i18nTpkConvert.xmlFilename2TranslatedCanonName;
 }
