@@ -7,26 +7,30 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
   factory('i18nTpkServ', ['tvServ', 'i18nTpk', 'i18nTpkConvert', function(tvServ, i18nTpk, i18nTpkConvert) {
     var xmlFilename2PathInfo = {};
 
-    function recursiveGetPath(node, pathPrefix, xmlFilename) {
+    function recursiveGetInfo(node, pathPrefix, canonNames, xmlFilename) {
       var path = pathPrefix + '/' + node['subpath'];
       if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
       if (node.hasOwnProperty('action')) {
-        if (i18nTpkConvert.basename(node['action']) === xmlFilename)
-          return path;
+        if (i18nTpkConvert.basename(node['action']) === xmlFilename) {
+          canonNames.push(i18nTpkConvert.nodeTextStrip2(node['text']));
+          return { path: path, canonNames: canonNames };
+        }
       } else {
         for (var i=0; i<node['child'].length; i++) {
-          var result = recursiveGetPath(node['child'][i], path, xmlFilename);
-          if (angular.isString(result))
+          var result = recursiveGetInfo(node['child'][i], path, canonNames, xmlFilename);
+          if (angular.isObject(result)) {
+            result.canonNames.push(i18nTpkConvert.nodeTextStrip2(node['text']));
             return result;
+          }
         }
       }
     }
 
-    function xmlFilename2Path(xmlFilename) {
+    function xmlFilename2Info(xmlFilename) {
       if (xmlFilename2PathInfo.hasOwnProperty(xmlFilename))
         return xmlFilename2PathInfo[xmlFilename];
 
-      var result = recursiveGetPath(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath, xmlFilename);
+      var result = recursiveGetInfo(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath, [], xmlFilename);
       if (angular.isUndefined(result)) {
         throw 'cannot find ' + xmlFilename;
       } else {
@@ -45,8 +49,10 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         var localeTranslation = { locale: locale };
         localeTranslation.translations = [];
         for (var xmlFilename in i18nTpk.translationInfo[locale]['canon']) {
+          var info = xmlFilename2Info(xmlFilename);
           var translation = { xmlFilename: xmlFilename,
-                              path: xmlFilename2Path(xmlFilename) };
+                              path: info.path,
+                              canonNames: info.canonNames };
           translation.translators = [];
           for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
             translation.translators.push(getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]));
@@ -91,7 +97,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         localeTranslation.translations = [];
         if (i18nTpk.translationInfo[locale]['canon'].hasOwnProperty(xmlFilename)) {
           var translation = { xmlFilename: xmlFilename,
-                              path: xmlFilename2Path(xmlFilename) };
+                              path: xmlFilename2Info(xmlFilename).path };
           translation.translators = [];
           for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
             translation.translators.push(getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]));
@@ -157,27 +163,6 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         return text.replace(str, trStr);
     }
 
-    function recursiveGetCanonName(node, names, xmlFilename) {
-      if (node.hasOwnProperty('action')) {
-        if (basename(node['action']) === xmlFilename) {
-          names.push(nodeTextStrip2(node['text']));
-          return names;
-        }
-      } else {
-        for (var i=0; i<node['child'].length; i++) {
-          var result = recursiveGetCanonName(node['child'][i], names, xmlFilename);
-          if (angular.isArray(result)) {
-            names.push(nodeTextStrip2(node['text']));
-            return result;
-          }
-        }
-      }
-    }
-
-    function xmlFilename2CanonName(xmlFilename) {
-      return recursiveGetCanonName(tvServ.tipitakaRootNode, [], xmlFilename);
-    }
-
     function recursiveGetTranslatedCanonName(node, names, xmlFilename, locale) {
       var trName = translateNodeText(node['text'], locale);
       if (trName === node['text']) trName = '';
@@ -215,9 +200,9 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     var serviceInstance = {
+      nodeTextStrip2: nodeTextStrip2,
       translateNodeText: translateNodeText,
       translateNodeText2: translateNodeText2,
-      xmlFilename2CanonName: xmlFilename2CanonName,
       xmlFilename2TranslatedCanonName: xmlFilename2TranslatedCanonName,
       redirectAccordingToUrlLocale: redirectAccordingToUrlLocale,
       basename: basename
