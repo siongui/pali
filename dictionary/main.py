@@ -18,6 +18,7 @@ from webapp2_extras import i18n
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader([os.path.join(os.path.dirname(__file__), 'app'),
+                                    os.path.join(os.path.dirname(__file__), 'app/css'),
                                     os.path.join(os.path.dirname(__file__), 'app/partials')]),
     extensions=['jinja2.ext.i18n'],
     variable_start_string='{$',

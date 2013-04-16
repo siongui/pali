@@ -31,9 +31,6 @@ handlers:
 - url: /common/js
   static_dir: common/app/js
 
-- url: /css
-  static_dir: app/css
-
 - url: /.*
   script: main.app
 

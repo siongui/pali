@@ -34,9 +34,6 @@ handlers:
 - url: /common/lib
   static_dir: common/app/lib
 
-- url: /css
-  static_dir: app/css
-
 - url: /romn
   static_dir: common/romn
   http_headers:
