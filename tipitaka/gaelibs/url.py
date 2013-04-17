@@ -5,9 +5,15 @@ import os, json, urllib2, re, jinja2
 from lxml import etree
 import xml.dom.minidom
 
-paliXmlUrlPrefix = u'http://epalitipitaka.appspot.com/romn/'
-trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
-
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+from misc import isProductionServer
+if isProductionServer():
+  paliXmlUrlPrefix = u'http://epalitipitaka.appspot.com/romn/'
+  trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
+else:
+  paliXmlUrlPrefix = u'http://localhost:8080/romn/'
+  trXmlUrlPrefix = u'http://localhost:8080/translation/'
 
 with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
