@@ -181,6 +181,14 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         return text.replace(str, trStr);
     }
 
+    function translateNodeText3(text, locale) {
+      var trStr = translateNodeText(text, locale);
+      if (trStr === text)
+        return '';
+      else
+        return ' (' + trStr + ')';
+    }
+
     function redirectAccordingToUrlLocale(path) {
       if ($location.path().indexOf('/en_US/') === 0) {
         $location.path('/en_US' + path);
@@ -197,6 +205,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       nodeTextStrip2: nodeTextStrip2,
       translateNodeText: translateNodeText,
       translateNodeText2: translateNodeText2,
+      translateNodeText3: translateNodeText3,
       redirectAccordingToUrlLocale: redirectAccordingToUrlLocale
     };
     return serviceInstance;

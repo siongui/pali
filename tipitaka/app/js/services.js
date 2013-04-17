@@ -227,17 +227,19 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function getInfo(path) {
       // find the node corresponds to the path
-      var node;
+      var node = treeviewAllJson.tpk;
+      var pathBreadcrumbs = [{ text: node['text'], path: '/canon' }];
       var pathArray = path.split('/');
       if (pathArray.length < 2) {
         throw 'impossible path: ' + path;
       } else {
-        node = treeviewAllJson.tpk;
         for (var i=2; i<pathArray.length; i++) {
           var pathi = pathArray[i];
           for (var j=0; j<node['child'].length; j++) {
             if (node['child'][j]['subpath'] === pathi) {
               node = node['child'][j];
+              pathBreadcrumbs.push({ text: node['text'],
+                                     path: pathBreadcrumbs[pathBreadcrumbs.length - 1].path + '/' + node['subpath'] });
               break;
             }
           }
@@ -246,7 +248,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
       // node found. build information
       if (node.hasOwnProperty('action')) {
-        return {'action': node['action'], 'text': node['text']};
+        return {'action': node['action'], 'text': node['text'], 'pathBreadcrumbs': pathBreadcrumbs};
       } else {
         var childNodesInfo = [];
         for (var i=0; i<node['child'].length; i++) {
@@ -255,7 +257,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
             'path': path + '/' + node['child'][i]['subpath']
           });
         }
-        return childNodesInfo;
+        return { childNodesInfo: childNodesInfo, pathBreadcrumbs: pathBreadcrumbs };
       }
     }
 

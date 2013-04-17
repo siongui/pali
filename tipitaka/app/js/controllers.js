@@ -3,18 +3,18 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $location, $routeParams, tvServ, paliXml, htmlDoc2View, i18nTpkServ, i18nTpkConvert) {
-  var info = tvServ.getInfo($location.path());
+function canonCtrl($scope, $routeParams, tvServ, paliXml, htmlDoc2View, i18nTpkServ, i18nTpkConvert) {
+  if (angular.isDefined($routeParams.canonPath))
+    var info = tvServ.getInfo('/canon/' + $routeParams.canonPath);
+  else
+    var info = tvServ.getInfo('/canon');
+
+  $scope.translateNodeText3 = i18nTpkConvert.translateNodeText3;
+  $scope.pathBreadcrumbs = info.pathBreadcrumbs;
+
   if (!info.hasOwnProperty('action')) {
     // not leaf node => shows only links
-    $scope.translateNodeText3 = function(text, locale) {
-      var trStr = i18nTpkConvert.translateNodeText(text, locale);
-      if (trStr === text)
-        return '';
-      else
-        return ' (' + trStr + ')';
-    };
-    $scope.nodes = info;
+    $scope.nodes = info.childNodesInfo;
     return;
   }
 
@@ -40,20 +40,23 @@ function canonCtrl($scope, $location, $routeParams, tvServ, paliXml, htmlDoc2Vie
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', '$location', '$routeParams', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ', 'i18nTpkConvert'];
+canonCtrl.$inject = ['$scope', '$routeParams', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ', 'i18nTpkConvert'];
 
 
-function infoCtrl($scope, $location, i18nTpkServ, i18nTpkConvert) {
+function infoCtrl($scope, i18nTpkServ) {
   // setup translation links
   $scope.localeTranslations = i18nTpkServ.getAllLocalesTranslations();
 }
-infoCtrl.$inject = ['$scope', '$location', 'i18nTpkServ', 'i18nTpkConvert'];
+infoCtrl.$inject = ['$scope', 'i18nTpkServ'];
 
 
-function translationCtrl($scope, $location, $routeParams, i18nTpkServ, paliXml) {
+function translationCtrl($scope, $location, $routeParams, i18nTpkServ, paliXml, tvServ, i18nTpkConvert) {
   $scope.isShowLoading = true;
   var locale = $location.path().split('/').reverse()[1];
   var url = i18nTpkServ.getTranslationXmlUrl($routeParams.canonPath, locale, $routeParams.translator);
+  var info = tvServ.getInfo('/canon/' + $routeParams.canonPath);
+  $scope.translateNodeText3 = i18nTpkConvert.translateNodeText3;
+  $scope.pathBreadcrumbs = info.pathBreadcrumbs;
 
   paliXml.getUrl(url).then( function(htmlDoc) {
     $scope.isShowLoading = false;
@@ -69,7 +72,7 @@ function translationCtrl($scope, $location, $routeParams, i18nTpkServ, paliXml) 
     console.log(reason);
   });
 }
-translationCtrl.$inject = ['$scope', '$location', '$routeParams', 'i18nTpkServ', 'paliXml'];
+translationCtrl.$inject = ['$scope', '$location', '$routeParams', 'i18nTpkServ', 'paliXml', 'tvServ', 'i18nTpkConvert'];
 
 
 function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTpkServ, i18nTpkConvert, paliXml, htmlDoc2View) {
@@ -78,6 +81,8 @@ function contrastReadingCtrl($scope, $location, $routeParams, $q, tvServ, i18nTp
   var url = i18nTpkServ.getTranslationXmlUrl($routeParams.canonPath, locale, $routeParams.translator);
 
   var info = tvServ.getInfo('/canon/' + $routeParams.canonPath);
+  $scope.translateNodeText3 = i18nTpkConvert.translateNodeText3;
+  $scope.pathBreadcrumbs = info.pathBreadcrumbs;
   $scope.text = i18nTpkConvert.translateNodeText2(info.text, $scope.i18nLocale);
 
   var promise = paliXml.get(info.action);
