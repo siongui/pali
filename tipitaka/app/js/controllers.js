@@ -7,6 +7,13 @@ function canonCtrl($scope, $location, $routeParams, tvServ, paliXml, htmlDoc2Vie
   var info = tvServ.getInfo($location.path());
   if (!info.hasOwnProperty('action')) {
     // not leaf node => shows only links
+    $scope.translateNodeText3 = function(text, locale) {
+      var trStr = i18nTpkConvert.translateNodeText(text, locale);
+      if (trStr === text)
+        return '';
+      else
+        return ' (' + trStr + ')';
+    };
     $scope.nodes = info;
     return;
   }

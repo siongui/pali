@@ -1,6 +1,6 @@
 <div>
   <div ng-show="isShowLoading" style="padding: .5em 0 0 1em;"><span i18n str="Loading">{$_("Loading")$}</span> {{text}} ...</div>
-  <div ng-repeat="node in nodes" style="padding: .5em 0 0 1em;"><a href="{{node.path}}">{{node.text}}</a></div>
+  <div ng-repeat="node in nodes" style="padding: .5em 0 0 1em;"><a href="{{node.path}}">{{node.text}}{{ translateNodeText3(node.text, i18nLocale) }}</a></div>
   <div ng-show="isTranslationAvailableLinks" style="padding: 1em;" ng-init="isShowLocaleTranslations = false;">
     <a href="javascript:void(0);" style="color: blue; text-decoration: none;" ng-click="isShowLocaleTranslations = !isShowLocaleTranslations;"><span style="font-family: Tahoma,Arial,serif;" ng-show="isShowLocaleTranslations">&#9660;</span><span style="font-family: Tahoma,Arial,serif;" ng-hide="isShowLocaleTranslations">&#9658;</span><span i18n str="Translation of This Pāḷi Text">{$_("Translation of This Pāḷi Text")$}</span></a>
     <div ng-show="isShowLocaleTranslations">
