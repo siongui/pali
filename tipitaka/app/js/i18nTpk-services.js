@@ -79,7 +79,8 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
           }
           localeTranslation.translations.push(translation);
         }
-        localeTranslations.push(localeTranslation);
+        if (localeTranslation.translations.length > 0)
+          localeTranslations.push(localeTranslation);
       }
       return localeTranslations;
     }
