@@ -64,8 +64,7 @@ jstr = """{
       '1': ['郭良鋆', 'http://blog.yam.com/benji/article/34665984'],
       '2': ['了參法師(葉均)', 'http://myweb.ncku.edu.tw/~lsn46/Tipitaka/Sutta/Khuddaka/Dhammapada/ven-l-z-all.htm'],
       '3': ['蕭式球', 'http://www.chilin.edu.hk/edu/report_section.asp?section_id=5'],
-      '4': ['莊春江', 'http://agama.buddhason.org/index.htm'],
-      '5': ['悟醒', 'http://www.online-dhamma.net/dhammarain/canon/cy-1-Khuddakapaatha-Dhammapada-Udaana-Itivuttaka.pdf']
+      '4': ['悟醒', 'http://www.online-dhamma.net/dhammarain/canon/cy-1-Khuddakapaatha-Dhammapada-Udaana-Itivuttaka.pdf']
     }
   },
   'en_US': {
@@ -98,7 +97,8 @@ jstr = """{
       's0502m.mul25.xml': ['1'],
       's0505m.mul0.xml': ['1'],
       's0505m.mul1.xml': ['1'],
-      's0505m.mul2.xml': ['1']
+      's0505m.mul2.xml': ['1'],
+      's0505m.mul3.xml': ['1']
     },
     'source': {
       '1': ['Ṭhānissaro Bhikkhu', 'http://www.accesstoinsight.org/tipitaka/translators.html#than', 'http://www.accesstoinsight.org/lib/authors/thanissaro/dhammapada.pdf']
