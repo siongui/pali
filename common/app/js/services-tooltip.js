@@ -95,6 +95,10 @@ angular.module('pali.tooltip', ['pali.directives']).
       if ($rootScope.isDevServer) url += '?track=no';
       return url;
     }
+    scope.redirectToDicSite = function(url) {
+      // http://stackoverflow.com/questions/4907843/open-url-in-new-tab-using-javascript
+      window.open(url, '_blank').focus();
+    };
     scope.setting = $rootScope.setting;
     var tooltipContent = $compile($templateCache.get('/partials/tooltipContent.html'))(scope);
     tooltip.setContent(tooltipContent);

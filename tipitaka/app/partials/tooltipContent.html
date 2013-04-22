@@ -19,10 +19,10 @@
 
   <div ng-show="isNetErr" i18n str="Internet Connection Error">{$_("Internet Connection Error")$}</div>
 
-  <div ng-show="isPossibleWords">
+  <div ng-show="isPossibleWords" ng-init="currentIndex = -1">
     <input type="text" size="20" autocomplete="off" ng-model="paliWord" possible-words>
-    <div ng-repeat="possibleWord in possibleWords">
-      <a href="{{wordUrl(possibleWord)}}" target="_blank">{{possibleWord}}</a>
+    <div ng-repeat="possibleWord in possibleWords" ng-mouseleave="$parent.currentIndex = -1" ng-mouseenter="$parent.currentIndex = $index; $parent.paliWord = possibleWord" ng-class="{mouseInWord: ($parent.currentIndex === $index)}" ng-click="redirectToDicSite(wordUrl(possibleWord))">
+      {{possibleWord}}
     </div>
   </div>
 <style>
@@ -32,6 +32,11 @@
   font-size: 1.5em;
   margin: .5em;
   text-decoration: none;
+}
+.mouseInWord {
+  background: #00C;
+  color: white;
+  cursor: pointer;
 }
 </style>
 </div>
