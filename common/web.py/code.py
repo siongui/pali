@@ -10,7 +10,8 @@ urls = (
   '(/|/about|/favicon.ico|/en_US/|/zh_TW/|/zh_CN/)', 'index',
   '(/|/en_US/|/zh_TW/|/zh_CN/)browse/.*', 'index',
   '(/|/en_US/|/zh_TW/|/zh_CN/)canon.*', 'index',
-  '/(js|css|romn|translation)/.*', 'index',
+  '/js/.*', 'index',
+  '/(css|romn|translation)/.*', 'xmlPage',
   '/json/.*', 'json',
   '/robots.txt', 'robot',
 )
@@ -71,9 +72,37 @@ class json:
         pass
     response = urllib2.urlopen(request)
     #web.debug(response.info()["Content-Type"])
-    for headerItem in response.info().items():
-      web.header(headerItem[0], headerItem[1])
+    #for headerItem in response.info().items():
+    #  web.header(headerItem[0], headerItem[1])
     web.header('Access-Control-Allow-Origin', '*')
+    web.header('Content-Type', 'application/json')
+    web.header('Content-Encoding', 'gzip')
+    return response.read()
+
+
+class xmlPage:
+  def GET(self, var1=None):
+    url = 'http://epalitipitaka.appspot.com%s%s' \
+          % (urllib2.quote(web.ctx.path.encode('utf-8')), web.ctx.query)
+    request = urllib2.Request(url)
+    for headerItem in web.ctx.env:
+      try:
+        if http_header_string[headerItem] != None:
+          if http_header_string[headerItem] == 'User-Agent':
+            request.add_header(http_header_string[headerItem], "".join([web.ctx.env[headerItem], " from: %s" % web.ctx.host]))
+          else:
+            request.add_header(http_header_string[headerItem], web.ctx.env[headerItem])
+      except KeyError:
+        pass
+    response = urllib2.urlopen(request)
+    #web.debug(response.info()["Content-Type"])
+    #for headerItem in response.info().items():
+    #  web.header(headerItem[0], headerItem[1])
+    web.header('Content-Encoding', 'gzip')
+    if web.ctx.path.endswith('.css'):
+      web.header('Content-Type', 'text/css')
+    if web.ctx.path.endswith('.xml'):
+      web.header('Content-Type', 'application/xml')
     return response.read()
 
 
