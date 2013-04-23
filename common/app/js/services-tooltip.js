@@ -24,7 +24,7 @@ angular.module('pali.tooltip', ['pali.directives']).
     // http://webdesignerwall.com/tutorials/word-wrap-force-text-to-wrap
     // Wait for correct ng-mouseenter and ng-mouseleave
     // https://github.com/angular/angular.js/pull/2134
-    var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif; word-wrap: break-word;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
+    var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; font-family: Tahoma, Arial, serif; word-wrap: break-word;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
     tooltip.css('max-width', viewWidth() + 'px');
 
     // append tooltip to the end of body element
@@ -87,6 +87,8 @@ angular.module('pali.tooltip', ['pali.directives']).
     }
 
     var serviceInstance = {
+      getLeftSpace: function() {return _left;},
+      getRightSpace: function() {return viewWidth() - _left - tooltip.prop('offsetWidth');},
       setContent: setContent,
       setPosition: setPosition,
       show: show,
@@ -120,6 +122,7 @@ angular.module('pali.tooltip', ['pali.directives']).
          // get jsonData successfully via xhr CORS
         scope.leftDicWordExps = undefined;
         scope.rightDicWordExps = jsonData;
+        scope.currentPossibleWordPreviewStyle = {width: tooltip.getRightSpace() + 'px'}
         scope.isShowRight = true;
       }, function(reason) {
         // fail to get word via xhr CORS

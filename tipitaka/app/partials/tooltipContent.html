@@ -1,4 +1,4 @@
-<div>
+<div style="padding: 5px">
   <div ng-show="isShortExp">
     <a class="wordShortDicExp" href="{{wordUrl(currentSelectedWord)}}" target="_blank">
       {{currentSelectedWord}}
@@ -31,7 +31,8 @@
       </div>
     </div>
     <div ng-show="currentPossibleWord && isShowRight"
-         style="float: left;">
+         style="float: left;"
+         ng-style="currentPossibleWordPreviewStyle">
       <a class="wordShortDicExp" href="{{wordUrl(currentPossibleWord)}}" target="_blank">
         {{currentPossibleWord}}
       </a>
