@@ -77,10 +77,52 @@ angular.module('pali.tooltip', ['pali.directives']).
     }
 
     var serviceInstance = {
+      viewWidth: viewWidth,
       setContent: setContent,
       setPosition: setPosition,
+      getPosition: function() {return {left: _left, top: _top, width: tooltip.prop('offsetWidth')};},
+      isShow: function() {return (tooltip.css('left') !== '-9999px');},
       show: show,
       hide: hide
+    };
+    return serviceInstance;
+  }]).
+
+  factory('possibleWordPreview', ['$rootScope', '$compile', 'tooltip', function($rootScope, $compile, tooltip) {
+    var scope = $rootScope.$new(true);
+    scope.isShowPreview = tooltip.isShow;
+    var isMouseInPreview = false;
+    scope.onmouseenter = function() {
+      // mouse enters Preview
+      isMouseInPreview = true;
+    };
+    scope.onmouseleave = function() {
+      // mouse leaves Preview
+      isMouseInPreview = false;
+    };
+
+    var _left = 0;
+    var _top = 0;
+
+    var preview = $compile('<div ng-show="isShowPreview()" style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif; word-wrap: break-word;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
+    // append preview to the end of body element
+    angular.element(document.getElementsByTagName('body')[0]).append(preview);
+
+    function setContent(word) {
+      setPosition();
+      preview.html(word);
+    }
+
+    function setPosition() {
+      var ttpos = tooltip.getPosition();
+      preview.css('left', '0');
+      preview.css('top', ttpos.top + 'px');
+    }
+
+//    function hide() { preview.css('left', '-9999px'); }
+
+    var serviceInstance = {
+      setContent: setContent
     };
     return serviceInstance;
   }]).
@@ -159,7 +201,7 @@ angular.module('pali.tooltip', ['pali.directives']).
     return serviceInstance;
   }]).
 
-  directive('possibleWords', ['paliIndexes', function(paliIndexes) {
+  directive('possibleWords', ['paliIndexes', 'possibleWordPreview', function(paliIndexes, possibleWordPreview) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -174,7 +216,7 @@ angular.module('pali.tooltip', ['pali.directives']).
 
         scope.$watch('currentPossibleWord', function(newValue) {
           if(angular.isDefined(newValue)) {
-console.log(newValue);
+            possibleWordPreview.setContent(newValue);
           }
         });
       }
