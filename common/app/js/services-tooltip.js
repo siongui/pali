@@ -157,7 +157,6 @@ angular.module('pali.tooltip', ['pali.directives']).
           scope.isNoSuchWord = true;
         }
       }
-      scope.$apply();
       setTimeout(function(){tooltip.show();}, 10);
     }
 

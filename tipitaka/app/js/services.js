@@ -174,6 +174,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
           var word = this.innerHTML.toLowerCase();
           tooltipHandler.showContent(word, tooltipPosition);
+          $rootScope.$apply();
         }
       }), DELAY_INTERVAL);
     }
@@ -184,8 +185,10 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       if (!$rootScope.setting.showTooltip) return;
 
       setTimeout(angular.bind(this, function() {
-        if (!isMouseInWord)
+        if (!isMouseInWord) {
           tooltipHandler.hideContent();
+          $rootScope.$apply();
+        }
       }), DELAY_INTERVAL);
     }
 
