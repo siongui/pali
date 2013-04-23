@@ -59,6 +59,15 @@ angular.module('pali.tooltip', ['pali.directives']).
           _left = Math.floor(_left - height / 2);
           if (_left < 0) _left = 0;
         }
+
+        // force chrome to update view after adjusting ratio
+        setTimeout(function() {
+          var raw = tooltip[0];
+          if (raw.firstChild.style.width === '100%')
+            raw.firstChild.style.width = '';
+          else
+            raw.firstChild.style.width = '100%';
+        }, 10);
       }
 
       // move tooltip to the right (don't cross the right side of browser inner window)
@@ -70,15 +79,6 @@ angular.module('pali.tooltip', ['pali.directives']).
 
       tooltip.css('left', _left + 'px');
       tooltip.css('top', _top + 'px');
-
-      // force chrome to update view
-      setTimeout(function() {
-        var raw = tooltip[0];
-        if (raw.firstChild.style.width === '100%')
-          raw.firstChild.style.width = '';
-        else
-          raw.firstChild.style.width = '100%';
-      }, 10);
     }
 
     function hide() {
