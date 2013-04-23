@@ -169,6 +169,12 @@ angular.module('pali.tooltip', ['pali.directives']).
         function updatePossibleWords(viewValue) {
           scope.possibleWords = paliIndexes.exactPrefixMatchPossibleWords(viewValue);
         }
+
+        scope.$watch('currentPossibleWord', function(newValue) {
+          if(angular.isDefined(newValue)) {
+console.log(newValue);
+          }
+        });
       }
     };
   }]);

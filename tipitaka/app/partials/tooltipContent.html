@@ -21,7 +21,11 @@
 
   <div ng-show="isPossibleWords" ng-init="currentIndex = -1">
     <input type="text" size="20" autocomplete="off" ng-model="paliWord" possible-words>
-    <div ng-repeat="possibleWord in possibleWords" ng-mouseleave="$parent.currentIndex = -1" ng-mouseenter="$parent.currentIndex = $index; $parent.paliWord = possibleWord" ng-class="{mouseInWord: ($parent.currentIndex === $index)}" ng-click="redirectToDicSite(wordUrl(possibleWord))">
+    <div ng-repeat="possibleWord in possibleWords"
+         ng-mouseleave="$parent.currentIndex = -1; $parent.currentPossibleWord = undefined"
+         ng-mouseenter="$parent.currentIndex = $index; $parent.paliWord = possibleWord; $parent.currentPossibleWord = possibleWord;"
+         ng-class="{mouseInWord: ($parent.currentIndex === $index)}"
+         ng-click="redirectToDicSite(wordUrl(possibleWord))">
       {{possibleWord}}
     </div>
   </div>
