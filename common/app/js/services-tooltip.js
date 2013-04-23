@@ -49,33 +49,11 @@ angular.module('pali.tooltip', ['pali.directives']).
       _top = parseInt(position.top.replace('px', ''));
     }
 
-    function show(isAdjustRatio) {
-      if (angular.isUndefined(isAdjustRatio) || isAdjustRatio === true) {
-        // adjust tooltip ratio
-        var width = tooltip.prop('offsetWidth');
-        var height = tooltip.prop('offsetHeight');
-        if (height/width > 2) {
-          //console.log('too tall! width: ' + width + ', height: ' + height);
-          _left = Math.floor(_left - height / 2);
-          if (_left < 0) _left = 0;
-        }
-
-        // force chrome to update view after adjusting ratio
-        setTimeout(function() {
-          var raw = tooltip[0];
-          if (raw.firstChild.style.width === '100%')
-            raw.firstChild.style.width = '';
-          else
-            raw.firstChild.style.width = '100%';
-        }, 10);
-      }
-
+    function show() {
       // move tooltip to the right (don't cross the right side of browser inner window)
       var _right = _left + tooltip.prop('offsetWidth');
       if ( _right > viewWidth() )
         _left -= (_right - viewWidth());
-
-      if (_left < 0) _left = 0;
 
       tooltip.css('left', _left + 'px');
       tooltip.css('top', _top + 'px');
@@ -87,6 +65,7 @@ angular.module('pali.tooltip', ['pali.directives']).
     }
 
     var serviceInstance = {
+      viewWidth: viewWidth,
       isHidden: function() {return (tooltip.css('left') === '-9999px');},
       getLeftSpace: function() {return _left;},
       getRightSpace: function() {return viewWidth() - _left - tooltip.prop('offsetWidth');},
@@ -137,6 +116,7 @@ angular.module('pali.tooltip', ['pali.directives']).
 
     scope.setting = $rootScope.setting;
     var tooltipContent = $compile($templateCache.get('/partials/tooltipContent.html'))(scope);
+    scope.shortExpStyle = {width: Math.floor(tooltip.viewWidth()/2) + 'px'};
     tooltip.setContent(tooltipContent);
 
     function showContent(word, tooltipPosition) {
@@ -151,7 +131,6 @@ angular.module('pali.tooltip', ['pali.directives']).
       scope.isNetErr = false;
       scope.isPossibleWords = false;
       scope.isLookingUp = true;
-      setTimeout(function(){tooltip.show(false);}, 10);
 
       if (paliIndexes.isValidPaliWord(word)) {
         paliJson.get(word).then( function(jsonData) {
@@ -159,12 +138,12 @@ angular.module('pali.tooltip', ['pali.directives']).
           scope.isLookingUp = false;
           scope.isShortExp = true;
           scope.dicWordExps = jsonData;
-          setTimeout(function(){tooltip.show(true);}, 10);
+          setTimeout(function(){tooltip.show();}, 10);
         }, function(reason) {
           // fail to get word via xhr CORS
           scope.isLookingUp = false;
           scope.isNetErr = true;
-          setTimeout(function(){tooltip.show(false);}, 10);
+          setTimeout(function(){tooltip.show();}, 10);
         });
       } else {
         var result = paliIndexes.possibleWords(word);
@@ -179,6 +158,7 @@ angular.module('pali.tooltip', ['pali.directives']).
         }
       }
       scope.$apply();
+      setTimeout(function(){tooltip.show();}, 10);
     }
 
     function hideContent() {
