@@ -20,21 +20,21 @@
   <div ng-show="isNetErr" i18n str="Internet Connection Error">{$_("Internet Connection Error")$}</div>
 
   <div ng-show="isPossibleWords" ng-init="currentIndex = -1">
-   <div style="float: left;">
-    <input type="text" size="20" autocomplete="off" ng-model="paliWord" possible-words>
-    <div ng-repeat="possibleWord in possibleWords"
-         ng-mouseleave="$parent.currentIndex = -1; $parent.currentPossibleWord = undefined"
-         ng-mouseenter="$parent.currentIndex = $index; $parent.paliWord = possibleWord; $parent.currentPossibleWord = possibleWord;"
-         ng-class="{mouseInWord: ($parent.currentIndex === $index)}"
-         ng-click="redirectToDicSite(wordUrl(possibleWord))">
-      {{possibleWord}}
+    <div style="float: left;">
+      <input type="text" size="20" autocomplete="off" ng-model="paliWord" possible-words>
+      <div ng-repeat="possibleWord in possibleWords"
+           ng-mouseleave="$parent.currentIndex = -1; $parent.currentPossibleWord = undefined"
+           ng-mouseenter="$parent.currentIndex = $index; $parent.paliWord = possibleWord; $parent.currentPossibleWord = possibleWord;"
+           ng-class="{mouseInWord: ($parent.currentIndex === $index)}"
+           ng-click="redirectToDicSite(wordUrl(possibleWord))">
+        {{possibleWord}}
+      </div>
     </div>
-   </div>
-   <div ng-show="currentPossibleWord"
-        style="float: left;">
-     {{currentPossibleWord}}
-   </div>
-   <div style="clear: both;"></div>
+    <div ng-show="currentPossibleWord"
+         style="float: left;">
+      {{currentPossibleWord}}
+    </div>
+    <div style="clear: both;"></div>
   </div>
 <style>
 .wordShortDicExp {
