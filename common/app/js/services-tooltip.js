@@ -111,6 +111,23 @@ angular.module('pali.tooltip', ['pali.directives']).
       // http://stackoverflow.com/questions/4907843/open-url-in-new-tab-using-javascript
       window.open(url, '_blank').focus();
     };
+    scope.$watch('currentPossibleWord', function(newValue) {
+      scope.leftDicWordExps = undefined;
+      scope.rightDicWordExps = undefined;
+      scope.isShowRight = false;
+      if (angular.isUndefined(newValue)) return;
+      paliJson.get(newValue).then( function(jsonData) {
+         // get jsonData successfully via xhr CORS
+        scope.leftDicWordExps = undefined;
+        scope.rightDicWordExps = jsonData;
+        scope.isShowRight = true;
+      }, function(reason) {
+        // fail to get word via xhr CORS
+        scope.leftDicWordExps = undefined;
+        scope.rightDicWordExps = undefined;
+        scope.isShowRight = false;
+      });
+    });
     scope.setting = $rootScope.setting;
     var tooltipContent = $compile($templateCache.get('/partials/tooltipContent.html'))(scope);
     tooltip.setContent(tooltipContent);
