@@ -156,7 +156,10 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
+    var isMouseInWord = false;
+
     function onWordMouseOver(e) {
+      isMouseInWord = true;
       this.style.color = 'red';
       if (!$rootScope.setting.showTooltip) return;
 
@@ -176,11 +179,13 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     }
 
     function onWordMouseOut(e) {
+      isMouseInWord = false;
       this.style.color = '';
       if (!$rootScope.setting.showTooltip) return;
 
       setTimeout(angular.bind(this, function() {
-        tooltipHandler.hideContent();
+        if (!isMouseInWord)
+          tooltipHandler.hideContent();
       }), DELAY_INTERVAL);
     }
 
