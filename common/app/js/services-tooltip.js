@@ -117,18 +117,16 @@ angular.module('pali.tooltip', ['pali.directives']).
       scope.leftDicWordExps = undefined;
       scope.rightDicWordExps = undefined;
       scope.isShowRight = false;
+      scope.isNetErr = false;
       if (angular.isUndefined(newValue)) return;
       paliJson.get(newValue).then( function(jsonData) {
          // get jsonData successfully via xhr CORS
-        scope.leftDicWordExps = undefined;
         scope.rightDicWordExps = jsonData;
-        scope.currentPossibleWordPreviewStyle = {width: tooltip.getRightSpace() + 'px'}
+        scope.currentPossibleWordPreviewStyle = {width: tooltip.getRightSpace() + 'px'};
         scope.isShowRight = true;
       }, function(reason) {
         // fail to get word via xhr CORS
-        scope.leftDicWordExps = undefined;
-        scope.rightDicWordExps = undefined;
-        scope.isShowRight = false;
+        scope.isNetErr = true;
       });
     });
     scope.setting = $rootScope.setting;
