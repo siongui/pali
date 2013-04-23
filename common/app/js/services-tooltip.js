@@ -20,9 +20,11 @@ angular.module('pali.tooltip', ['pali.directives']).
     var _left = 0;
     var _top = 0;
 
+    // keyword: css long word force line break
+    // http://webdesignerwall.com/tutorials/word-wrap-force-text-to-wrap
     // Wait for correct ng-mouseenter and ng-mouseleave
     // https://github.com/angular/angular.js/pull/2134
-    var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
+    var tooltip = $compile('<div style="position: absolute; left: -9999px; background-color: #CCFFFF; border-radius: 10px; padding: .5em; font-family: Tahoma, Arial, serif; word-wrap: break-word;" mouseenter="onmouseenter()" mouseleave="onmouseleave()"></div>')(scope);
     tooltip.css('max-width', viewWidth() + 'px');
 
     // append tooltip to the end of body element
