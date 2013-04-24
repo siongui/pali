@@ -74,11 +74,14 @@ if __name__ == '__main__':
   with open(jsonPath, 'r') as f:
     treeviewJson = json.loads(f.read())
 
-  print(type(treeviewJson))
-  # set only subpath of tipitaka, no commentries and sub-commentaries
-  traverseTreeAndSetSubpathProperty(treeviewJson['child'][0])
+  # set subpath of Tipiṭaka, commentries, and sub-commentaries
+  for child in treeviewJson['child']:
+    traverseTreeAndSetSubpathProperty(child)
 
-  print(treeviewJson['child'][0])
+  # set subpath of Tipiṭaka (Mūla) as canon
+  treeviewJson['child'][0]['subpath'] = 'canon'
+
+  print(treeviewJson)
 
   if not os.path.exists(os.path.dirname(dstServerJsonPath)):
     os.makedirs(os.path.dirname(dstServerJsonPath))
