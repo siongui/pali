@@ -235,19 +235,22 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function getInfo(path) {
       // find the node corresponds to the path
-      var node = treeviewAllJson.tpk;
-      var pathBreadcrumbs = [{ text: node['text'], path: '/canon' }];
+      var node = treeviewAllJson.all;
+      var pathBreadcrumbs = [];
       var pathArray = path.split('/');
       if (pathArray.length < 2) {
         throw 'impossible path: ' + path;
       } else {
-        for (var i=2; i<pathArray.length; i++) {
+        for (var i=1; i<pathArray.length; i++) {
           var pathi = pathArray[i];
           for (var j=0; j<node['child'].length; j++) {
             if (node['child'][j]['subpath'] === pathi) {
               node = node['child'][j];
-              pathBreadcrumbs.push({ text: node['text'],
-                                     path: pathBreadcrumbs[pathBreadcrumbs.length - 1].path + '/' + node['subpath'] });
+              if (pathBreadcrumbs.length === 0)
+                var bcPath = '/' + node['subpath'];
+              else
+                var bcPath = pathBreadcrumbs[pathBreadcrumbs.length - 1].path + '/' + node['subpath'];
+              pathBreadcrumbs.push({ text: node['text'], path: bcPath });
               break;
             }
           }

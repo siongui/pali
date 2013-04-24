@@ -3,11 +3,17 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $routeParams, tvServ, paliXml, htmlDoc2View, i18nTpkServ, i18nTpkConvert) {
-  if (angular.isDefined($routeParams.canonPath))
-    var info = tvServ.getInfo('/canon/' + $routeParams.canonPath);
+function canonCtrl($scope, $routeParams, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ, i18nTpkConvert) {
+  // determine basic pali text path
+  var paliTextPath = '/';
+  if (angular.isDefined($routeParams.urlLocale))
+     paliTextPath += $location.path().split('/')[2];
   else
-    var info = tvServ.getInfo('/canon');
+     paliTextPath += $location.path().split('/')[1];
+  if (angular.isDefined($routeParams.canonPath))
+    paliTextPath += ('/' + $routeParams.canonPath);
+
+  var info = tvServ.getInfo(paliTextPath);
 
   $scope.translateNodeText3 = i18nTpkConvert.translateNodeText3;
   $scope.pathBreadcrumbs = info.pathBreadcrumbs;
@@ -40,7 +46,7 @@ function canonCtrl($scope, $routeParams, tvServ, paliXml, htmlDoc2View, i18nTpkS
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', '$routeParams', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ', 'i18nTpkConvert'];
+canonCtrl.$inject = ['$scope', '$routeParams', '$location', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ', 'i18nTpkConvert'];
 
 
 function infoCtrl($scope, i18nTpkServ) {

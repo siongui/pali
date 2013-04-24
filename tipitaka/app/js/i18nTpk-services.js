@@ -25,8 +25,11 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     function recursiveGetInfo(node, pathPrefix, canonNames, translatedCanonNames, xmlFilename) {
-      var path = pathPrefix + '/' + node['subpath'];
-      if (path === '/canon/tipiṭaka (mūla)') path = '/canon';
+      if (node.hasOwnProperty('subpath'))
+        var path = pathPrefix + '/' + node['subpath'];
+      else
+        var path = pathPrefix;
+
       if (node.hasOwnProperty('action')) {
         if (basename(node['action']) === xmlFilename) {
           canonNames.push(i18nTpkConvert.nodeTextStrip2(node['text']));
@@ -37,8 +40,10 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         for (var i=0; i<node['child'].length; i++) {
           var result = recursiveGetInfo(node['child'][i], path, canonNames, translatedCanonNames, xmlFilename);
           if (angular.isObject(result)) {
-            result.canonNames.push(i18nTpkConvert.nodeTextStrip2(node['text']));
-            result.translatedCanonNames.push(getTranslatedCanonName(node['text']));
+            if (node.hasOwnProperty('text')) {
+              result.canonNames.push(i18nTpkConvert.nodeTextStrip2(node['text']));
+              result.translatedCanonNames.push(getTranslatedCanonName(node['text']));
+            }
             return result;
           }
         }
@@ -49,7 +54,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       if (xmlFilename2PathInfo.hasOwnProperty(xmlFilename))
         return xmlFilename2PathInfo[xmlFilename];
 
-      var result = recursiveGetInfo(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath, [], [], xmlFilename);
+      var result = recursiveGetInfo(tvServ.allPali, '', [], [], xmlFilename);
       if (angular.isUndefined(result)) {
         throw 'cannot find ' + xmlFilename;
       } else {
@@ -99,6 +104,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     function getTranslationXmlUrl(canonPath, locale, translator) {
+      // FIXME: change the argument supplied to tvServ.Info
       var info = tvServ.getInfo('/canon/' + canonPath);
       if (!info.hasOwnProperty('action')) {
         // not leaf node => impossible => FIXME: do error handling here
