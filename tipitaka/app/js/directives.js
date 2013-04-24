@@ -23,10 +23,12 @@ angular.module('paliTipitaka.directives', []).
           return '';
         }
 
-        // show only tipitaka, no commentaries and sub-commentaries
-        var tpkNode = traverseTreeviewData(tvServ.tipitakaRootNode, tvServ.tipitakaRootNodePath);
-        tpkNode[0].lastChild.style.display = '';
-        elm.append(tpkNode);
+        // show tipitaka, commentaries, and sub-commentaries
+        for (var i=0; i< tvServ.allPali['child'].length; i++) {
+          var node = traverseTreeviewData( tvServ.allPali['child'][i], '/' + tvServ.allPali['child'][i]['subpath'] );
+          if (i===0) node[0].lastChild.style.display = '';
+          elm.append(node);
+        }
 
         function traverseTreeviewData(node, path) {
           var text = node['text'];

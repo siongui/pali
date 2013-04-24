@@ -17,7 +17,6 @@ else:
 
 with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
-  treeviewData['child'][0]['subpath'] = u'canon'
 
 result = urllib2.urlopen(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
 xslt_root = etree.fromstring(result.read())

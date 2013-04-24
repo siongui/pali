@@ -271,6 +271,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     var serviceInstance = {
       getInfo: getInfo,
+      allPali: treeviewAllJson.all,
       tipitakaRootNode: treeviewAllJson.tpk,
       tipitakaRootNodePath: '/canon'
     };
