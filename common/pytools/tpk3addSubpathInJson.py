@@ -28,6 +28,33 @@ def text2subpath(text):
   if subpath.endswith(u'piṭaka'):
     subpath = subpath[:-6]
 
+  if subpath.endswith(u'piṭaka (aṭṭhakathā)'):
+    subpath = subpath[:-19]
+
+  if subpath.endswith(u'-aṭṭhakathā'):
+    if subpath.endswith(u'kaṇḍa-aṭṭhakathā'):
+      subpath = subpath[:-16]
+    else:
+      subpath = subpath[:-11]
+
+  if subpath.endswith(u'nikāya (aṭṭhakathā)'):
+    if subpath.endswith(u' nikāya (aṭṭhakathā)'):
+      subpath = subpath[:-20]
+    else:
+      subpath = subpath[:-19]
+
+  if subpath.endswith(u'piṭaka (ṭīkā)'):
+    subpath = subpath[:-13]
+
+  if subpath.endswith(u'nikāya (ṭīkā)'):
+    subpath = subpath[:-13]
+
+  if subpath.endswith(u'-mūlaṭīkā'):
+    subpath = subpath[:-9]
+
+  if subpath.endswith(u'-ṭīkā'):
+    subpath = subpath[:-5]
+
   return subpath
 
 
