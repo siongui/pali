@@ -98,6 +98,10 @@ def getTocXml(src, space=0):
 
 if __name__ == '__main__':
   getTocXml(rootTocXmlSrc)
+
+  # add this fake node to force stack update in next script
+  infoFileContent += (u'2' + separator + u'fake')
+
   with open(infoFilePath, 'w') as f:
     f.write(infoFileContent.encode('utf-8'))
 
