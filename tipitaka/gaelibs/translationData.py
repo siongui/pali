@@ -121,6 +121,7 @@ translationInfo = d.decode(jstr)
 canonTextTranslation = {}
 # http://www.accesstoinsight.org/tipitaka/index.html
 # http://www.xin-yuan.com/cityzen/jiangtan/AHAN/ahan.htm
+# http://www.dhammarain.org.tw/canon/pali-tipitaka-f1/index-pali.htm
 canonTextTranslation['en_US'] = {
 'Tipiṭaka (Mūla)': 'Pāḷi Canon',
 'Vinayapiṭaka': 'The Basket of the Discipline',
@@ -683,7 +684,18 @@ canonTextTranslation['zh_TW'] = {
 'Aṭṭhakathā': '義疏(註釋書)',
 'Tīkā': '復註(義疏再解釋)',
   'Abhidhammatthasaṅgaho': '攝阿毘達摩義論',
+'Anya': '藏外文獻',
   'Visuddhimagga': '清淨道論',
+    'Visuddhimagga-mahāṭīkā': '清淨道論大疏',
+    'Visuddhimagga nidānakathā': '清淨道論因緣論',
+    'Saṅgāyana-puccha vissajjanā': '結集問答',
+      'Dīghanikāya (pu-vi)': '長部結集問答',
+      'Majjhimanikāya (pu-vi)': '中部結集問答',
+      'Saṃyuttanikāya (pu-vi)': '相應部結集問答',
+      'Aṅguttaranikāya (pu-vi)': '增支部結集問答',
+      'Vinayapiṭaka (pu-vi)': '律藏結集問答',
+      'Abhidhammapiṭaka (pu-vi)': '阿毘達摩藏之結集問答',
+      'Aṭṭhakathā (pu-vi)': '注釋之結集問答',
 ' ': ' '
 }
 
