@@ -164,6 +164,28 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         return str.slice(0, -6);
       if (endswith(str, 'piṭaka'))
         return str.slice(0, -6);
+      if (endswith(str, 'piṭaka (aṭṭhakathā)'))
+        return str.slice(0, -19);
+      if (endswith(str, '-aṭṭhakathā')) {
+        if (endswith(str, 'kaṇḍa-aṭṭhakathā'))
+          return str.slice(0, -16);
+        else
+          return str.slice(0, -11);
+      }
+      if (endswith(str, 'nikāya (aṭṭhakathā)')) {
+        if (endswith(str, ' nikāya (aṭṭhakathā)'))
+          return str.slice(0, -20);
+        else
+          return str.slice(0, -19);
+      }
+      if (endswith(str, 'piṭaka (ṭīkā)'))
+        return str.slice(0, -13);
+      if (endswith(str, 'nikāya (ṭīkā)'))
+        return str.slice(0, -13);
+      if (endswith(str, '-mūlaṭīkā'))
+        return str.slice(0, -9);
+      if (endswith(str, '-ṭīkā'))
+        return str.slice(0, -5);
       return str;
     }
 
