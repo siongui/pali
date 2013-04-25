@@ -204,7 +204,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     function translateNodeText(text, locale) {
       var str = nodeTextStrip(text);
       var trText = gettextCanonName(str, locale)
-      if (trText == text) {
+      if (trText == str) {
         if (endswith(trText, ' (aṭṭhakathā)')) {
           return gettextCanonName(text.slice(0, -13), locale) + ' ' +
                  gettextCanonName('Aṭṭhakathā', locale);
@@ -221,6 +221,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
           return gettextFuzzyCanonName(text.slice(0, -5), locale) + ' ' +
                  gettextCanonName('Tīkā', locale);
         }
+        return text;
       }
       return trText;
     }
