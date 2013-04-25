@@ -189,16 +189,25 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return str;
     }
 
-    function translateNodeText(text, locale) {
-      var str = nodeTextStrip(text);
-
+    function gettextCanonName(name, locale) {
       if (i18nTpk.canonTextTranslation.hasOwnProperty(locale)) {
-        if (i18nTpk.canonTextTranslation[locale].hasOwnProperty(str)) {
-          return i18nTpk.canonTextTranslation[locale][str];
+        if (i18nTpk.canonTextTranslation[locale].hasOwnProperty(name)) {
+          return i18nTpk.canonTextTranslation[locale][name];
         }
       }
+      return name;
+    }
 
-      return text;
+    function translateNodeText(text, locale) {
+      var str = nodeTextStrip(text);
+      var trText = gettextCanonName(str, locale)
+      if (trText == text) {
+        if (endswith(trText, ' (aṭṭhakathā)')) {
+          return gettextCanonName(text.slice(0, -13), locale) + ' ' +
+                 gettextCanonName('Aṭṭhakathā', locale);
+        }
+      }
+      return trText;
     }
 
     function translateNodeText2(text, locale) {
