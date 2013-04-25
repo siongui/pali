@@ -206,6 +206,18 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
           return gettextCanonName(text.slice(0, -13), locale) + ' ' +
                  gettextCanonName('Aṭṭhakathā', locale);
         }
+        if (endswith(trText, '-aṭṭhakathā')) {
+          return gettextCanonName(text.slice(0, -11), locale) + ' ' +
+                 gettextCanonName('Aṭṭhakathā', locale);
+        }
+        if (endswith(trText, ' (ṭīkā)')) {
+          return gettextCanonName(text.slice(0, -7), locale) + ' ' +
+                 gettextCanonName('Tīkā', locale);
+        }
+        if (endswith(trText, '-ṭīkā')) {
+          return gettextCanonName(text.slice(0, -5), locale) + ' ' +
+                 gettextCanonName('Tīkā', locale);
+        }
       }
       return trText;
     }
