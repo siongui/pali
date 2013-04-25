@@ -3,37 +3,25 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $routeParams, $location, tvServ, paliXml, htmlDoc2View, i18nTpkServ) {
-  // determine basic pali text path
-  var paliTextPath = '/';
-  if (angular.isDefined($routeParams.urlLocale))
-     paliTextPath += $location.path().split('/')[2];
-  else
-     paliTextPath += $location.path().split('/')[1];
-  if (angular.isDefined($routeParams.canonPath))
-    paliTextPath += ('/' + $routeParams.canonPath);
+function canonCtrl($scope, pathInfo, paliXml, htmlDoc2View, i18nTpkServ) {
+  var pInfo = pathInfo.getInfoFromPath();
 
-  var info = tvServ.getInfo(paliTextPath);
+  $scope.pathBreadcrumbs = pInfo.tvInfo.pathBreadcrumbs;
+  $scope.text = pInfo.tvInfo['text'];
 
-  $scope.pathBreadcrumbs = info.pathBreadcrumbs;
-
-  if (!info.hasOwnProperty('action')) {
+  if (!pInfo.tvInfo.hasOwnProperty('action')) {
     // not leaf node => shows only links
-    $scope.nodes = info.childNodesInfo;
+    $scope.nodes = pInfo.tvInfo.childNodesInfo;
     return;
   }
 
   // leaf node => contains pali texts
-  var action = info['action'];
-
-  $scope.text = info['text'];
   $scope.isShowLoading = true;
-
-  var promise = paliXml.get(action);
+  var promise = paliXml.get(pInfo.tvInfo['action']);
   promise.then(function(htmlDoc) {
     $scope.isShowLoading = false;
     $scope.xmlDoms = htmlDoc2View.getView(htmlDoc);
-    $scope.localeTranslations = i18nTpkServ.getI18nLinks(action);
+    $scope.localeTranslations = i18nTpkServ.getI18nLinks(pInfo.tvInfo['action']);
     if (angular.isDefined($scope.localeTranslations)) {
       $scope.isTranslationAvailableLinks = true;
     }
@@ -43,7 +31,7 @@ function canonCtrl($scope, $routeParams, $location, tvServ, paliXml, htmlDoc2Vie
     console.log(reason);
   });
 }
-canonCtrl.$inject = ['$scope', '$routeParams', '$location', 'tvServ', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
+canonCtrl.$inject = ['$scope', 'pathInfo', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
 
 
 function infoCtrl($scope, i18nTpkServ) {
