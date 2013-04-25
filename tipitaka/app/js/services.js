@@ -281,7 +281,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('pathInfo', ['$location', '$routeParams', 'tvServ', function($location, $routeParams, tvServ) {
+  factory('pathInfo', ['$location', '$routeParams', 'tvServ', 'i18nTpkServ', function($location, $routeParams, tvServ, i18nTpkServ) {
     function getInfoFromPath() {
       var pathInfo = {};
       var subpathes = $location.path().split('/');
@@ -314,6 +314,11 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         pathInfo.paliTextPath += ('/' + subpathes[i]);
 
       pathInfo.tvInfo = tvServ.getInfo(pathInfo.paliTextPath);
+
+      if (angular.isDefined($routeParams.translator))
+        pathInfo.translationUrl = i18nTpkServ.getTranslationXmlUrl(pathInfo.tvInfo['action'],
+                                               pathInfo.translationLocale,
+                                               pathInfo.translator);
 
       return pathInfo;
     }

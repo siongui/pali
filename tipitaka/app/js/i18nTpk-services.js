@@ -103,15 +103,8 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       throw 'In getTranslatorCode: cannot find translator code';
     }
 
-    function getTranslationXmlUrl(canonPath, locale, translator) {
-      // FIXME: change the argument supplied to tvServ.Info
-      var info = tvServ.getInfo('/canon/' + canonPath);
-      if (!info.hasOwnProperty('action')) {
-        // not leaf node => impossible => FIXME: do error handling here
-        throw 'In getTranslationUrl: no action';
-        return;
-      }
-      var xmlFilename = basename(info.action);
+    function getTranslationXmlUrl(action, locale, translator) {
+      var xmlFilename = basename(action);
       var translatorCode = getTranslatorCode(locale, xmlFilename, translator);
       return '/translation/' + locale + '/'+ translatorCode + '/' + xmlFilename;
     }
@@ -146,7 +139,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     return serviceInstance;
   }]).
 
-  factory('i18nTpkConvert', ['$location', 'tvServ', 'i18nTpk', function($location, tvServ, i18nTpk) {
+  factory('i18nTpkConvert', ['$location', 'i18nTpk', function($location, i18nTpk) {
     function endswith(str, suffix) {
       return str.indexOf(suffix, str.length - suffix.length) != -1;
     }

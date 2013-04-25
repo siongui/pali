@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div ng-show="isShowOriPaliLink" style="padding: 1em;">&lt;&lt; <a href="{{oriPaliLink}}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a></div>
+  <div ng-show="isShowOriPaliLink" style="padding: 1em;">&lt;&lt; <a href="{{ urlLocaleInPath }}{{ paliTextPath }}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a></div>
 
   <div bind-xml-doms><!-- $watch and append scope.xmlDoms (jqLite element) if changes --></div>
 
