@@ -198,6 +198,16 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return name;
     }
 
+    function gettextFuzzyCanonName(name, locale) {
+      var trName = gettextCanonName(name, locale);
+      if (trName !== name)
+        return trName;
+      trName = gettextCanonName(name + 'pāḷi', locale);
+      if (trName !== (name + 'pāḷi'))
+        return trName;
+      return name;
+    }
+
     function translateNodeText(text, locale) {
       var str = nodeTextStrip(text);
       var trText = gettextCanonName(str, locale)
@@ -207,7 +217,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
                  gettextCanonName('Aṭṭhakathā', locale);
         }
         if (endswith(trText, '-aṭṭhakathā')) {
-          return gettextCanonName(text.slice(0, -11), locale) + ' ' +
+          return gettextFuzzyCanonName(text.slice(0, -11), locale) + ' ' +
                  gettextCanonName('Aṭṭhakathā', locale);
         }
         if (endswith(trText, ' (ṭīkā)')) {
@@ -215,7 +225,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
                  gettextCanonName('Tīkā', locale);
         }
         if (endswith(trText, '-ṭīkā')) {
-          return gettextCanonName(text.slice(0, -5), locale) + ' ' +
+          return gettextFuzzyCanonName(text.slice(0, -5), locale) + ' ' +
                  gettextCanonName('Tīkā', locale);
         }
       }
