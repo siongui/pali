@@ -361,6 +361,10 @@ canonTextTranslation['en_US'] = {
   'Kathāvatthupāḷi': 'Points of Controversy',
   'Yamakapāḷi': 'The Book of Pairs',
   'Paṭṭhānapāḷi': 'The Book of Relations',
+'Aṭṭhakathā': 'Commentaries',
+'Tīkā': 'Sub-commentaries',
+  'Abhidhammatthasaṅgaho': 'A Comprehensive Manual of Abhidhamma',
+  'Visuddhimagga': 'The Path of Purification',
 ' ': ' '
 }
 
@@ -676,6 +680,10 @@ canonTextTranslation['zh_TW'] = {
   'Kathāvatthupāḷi': '論事',
   'Yamakapāḷi': '雙對論',
   'Paṭṭhānapāḷi': '發趣論',
+'Aṭṭhakathā': '義疏(註釋書)',
+'Tīkā': '復註(義疏再解釋)',
+  'Abhidhammatthasaṅgaho': '攝阿毘達摩義論',
+  'Visuddhimagga': '清淨道論',
 ' ': ' '
 }
 
