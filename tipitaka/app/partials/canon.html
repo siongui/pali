@@ -1,5 +1,5 @@
 <div>
-  <div ng-show="isShowLoading" style="padding: .5em 0 0 1em;"><span i18n str="Loading">{$_("Loading")$}</span> {{text}} ...</div>
+  <div ng-show="isShowLoading" style="padding: .5em 0 0 1em;"><span i18n str="Loading">{$_("Loading")$}</span> {{ translateNodeText2(text, i18nLocale) }} ...</div>
 
   <div style="padding: .5em 0 .5em 1em;">
    <span ng-hide="isShowLoading" ng-repeat="node in pathBreadcrumbs">

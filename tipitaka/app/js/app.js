@@ -38,7 +38,7 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $routeProvider.when('/:urlLocale/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', '$location', '$document', 'i18nserv', 'resizableViews', function($rootScope, $location, $document, i18nserv, resizableViews) {
+  run(['$rootScope', '$location', '$document', 'i18nserv', 'resizableViews', 'i18nTpkConvert', function($rootScope, $location, $document, i18nserv, resizableViews, i18nTpkConvert) {
     // initialize resizable views
     resizableViews.initViews('allContainer', 'treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
 
@@ -63,4 +63,6 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     }
 
     $rootScope.initOK = true;
+    $rootScope.translateNodeText2 = i18nTpkConvert.translateNodeText2;
+    $rootScope.translateNodeText3 = i18nTpkConvert.translateNodeText3;
   }]);
