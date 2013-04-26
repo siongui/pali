@@ -15,7 +15,7 @@ angular.module('paliTipitaka.directives', []).
           i18nTpkConvert.redirectAccordingToUrlLocale(path);
         };
 
-        scope.translateNodeText = function(text) {
+        scope.treeviewTranslatedNodeText = function(text) {
           if (scope.setting.translateTreeview) {
             var trText = i18nTpkConvert.translateNodeText2(text, scope.i18nLocale);
             if (trText !== text) return trText;
@@ -37,7 +37,7 @@ angular.module('paliTipitaka.directives', []).
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
             var textElm = $compile('<span class="treeNode">'+ text + '<br />' +
-                                                           '<small style="color: red;">{{ translateNodeText("' + text + '") }}</small>' + '</span>')(scope);
+                                                           '<small style="color: red;">{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span>')(scope);
             element.append(sign);
             element.append(textElm);
 
@@ -68,7 +68,7 @@ angular.module('paliTipitaka.directives', []).
             var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
                                    "'" + node['action'] + "', '" + text + "', '" + path + "'" +
                                    ')"><span class="treeNode">' + text + '<br />' +
-                                   '<small style="color: red;">{{ translateNodeText("' + text + '") }}</small>' + '</span></div>')(scope);
+                                   '<small style="color: red;">{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span></div>')(scope);
             return element;
           }
         }
