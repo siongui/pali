@@ -4,7 +4,8 @@
 import webapp2, jinja2, os, sys, json, urllib2
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import getHtmlTitle, isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml, getAllLocalesTranslationsHtml
+from url import isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml, getAllLocalesTranslationsHtml
+from htmlTitle import getHtmlTitle 
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
