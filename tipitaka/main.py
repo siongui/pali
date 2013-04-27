@@ -101,9 +101,9 @@ app = webapp2.WSGIApplication([
   (r'/json/.+', JsonPage),
   PathPrefixRoute(r'/<urlLocale:en_US|zh_TW|zh_CN>', [
     webapp2.Route(r'/', handler=MainPage),
-    webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-    webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-    webapp2.Route(r'<paliTextPath:^/.+>', handler=CanonPage)
+    webapp2.Route(r'<paliTextPath:/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
+    webapp2.Route(r'<paliTextPath:/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
+    webapp2.Route(r'<paliTextPath:/.+>', handler=CanonPage)
   ]),
   webapp2.Route(r'/', handler=MainPage),
   webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),

@@ -52,7 +52,7 @@ def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None, i18n=N
   title = u''
 
   if texts:
-    for text in reversed(texts):
+    for text in texts:
       if urlLocale:
         trText = translateNodeText(text, urlLocale)
         if trText == text:
