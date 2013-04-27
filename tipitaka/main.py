@@ -2,10 +2,12 @@
 # -*- coding:utf-8 -*-
 
 import webapp2, jinja2, os, sys, json, urllib2
+from  webapp2_extras.routes import PathPrefixRoute
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import isValidCanonPath, getCanonPageHtml, isValidTranslationOrContrastReadingPage, getTranslationPageHtml, getContrastReadingPageHtml, getAllLocalesTranslationsHtml
-from htmlTitle import getHtmlTitle 
+from url import getCanonPageHtml, getTranslationPageHtml, getContrastReadingPageHtml, getAllLocalesTranslationsHtml
+from htmlTitle import getHtmlTitle
+from pathInfo import isValidPath
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
@@ -53,8 +55,8 @@ class MainPage(webapp2.RequestHandler):
 
 
 class CanonPage(webapp2.RequestHandler):
-  def get(self, urlLocale=None, path1=None, path2=None, path3=None, path4=None, path5=None):
-    result = isValidCanonPath(path1, path2, path3, path4, path5)
+  def get(self, paliTextPath, urlLocale=None):
+    result = isValidPath(paliTextPath)
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
@@ -65,8 +67,8 @@ class CanonPage(webapp2.RequestHandler):
 
 
 class TranslationPage(webapp2.RequestHandler):
-  def get(self, path1, path2, path3, locale, translator, urlLocale=None, path4=None, path5=None):
-    result = isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator)
+  def get(self, paliTextPath, translationLocale, translator, urlLocale=None):
+    result = isValidPath(paliTextPath, translationLocale, translator)
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
@@ -77,8 +79,8 @@ class TranslationPage(webapp2.RequestHandler):
 
 
 class ContrastReadingPage(webapp2.RequestHandler):
-  def get(self, path1, path2, path3, locale, translator, urlLocale=None, path4=None, path5=None):
-    result = isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator)
+  def get(self, paliTextPath, translationLocale, translator, urlLocale=None):
+    result = isValidPath(paliTextPath, translationLocale, translator)
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
@@ -89,38 +91,22 @@ class ContrastReadingPage(webapp2.RequestHandler):
 
 
 class JsonPage(webapp2.RequestHandler):
-  def get(self, partialPathi=None):
+  def get(self):
     url = 'http://%s.palidictionary.appspot.com/%s' % (self.request.get('v'), self.request.path)
     result = urllib2.urlopen(url)
     self.response.out.write(result.read())
 
 
 app = webapp2.WSGIApplication([
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>/<path5>', handler=CanonPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<path5>', handler=CanonPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<path4>', handler=CanonPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<path4>', handler=CanonPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<locale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>/<locale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>/<path3>', handler=CanonPage),
-  webapp2.Route(r'/canon/<path1>/<path2>/<path3>', handler=CanonPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>/<path2>', handler=CanonPage),
-  webapp2.Route(r'/canon/<path1>/<path2>', handler=CanonPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon/<path1>', handler=CanonPage),
-  webapp2.Route(r'/canon/<path1>', handler=CanonPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/canon', handler=CanonPage),
-  webapp2.Route(r'/canon', handler=CanonPage),
-  webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/', handler=MainPage),
+  (r'/json/.+', JsonPage),
+  PathPrefixRoute(r'/<urlLocale:en_US|zh_TW|zh_CN>', [
+    webapp2.Route(r'/', handler=MainPage),
+    webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
+    webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
+    webapp2.Route(r'<paliTextPath:^/.+>', handler=CanonPage)
+  ]),
   webapp2.Route(r'/', handler=MainPage),
-  webapp2.Route(r'/json/<:.*>', handler=JsonPage)],
+  webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
+  webapp2.Route(r'<paliTextPath:^/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),
+  webapp2.Route(r'<paliTextPath:^/.+>', handler=CanonPage)],
   debug=True)
