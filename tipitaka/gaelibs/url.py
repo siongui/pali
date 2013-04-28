@@ -4,6 +4,7 @@
 import os, json, urllib2, jinja2
 from lxml import etree
 import xml.dom.minidom
+from pathInfo import xmlFilename2Path
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
@@ -15,9 +16,6 @@ else:
   paliXmlUrlPrefix = u'http://localhost:8080/romn/'
   trXmlUrlPrefix = u'http://localhost:8080/translation/'
 
-with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
-  treeviewData = json.loads(f.read())
-
 result = urllib2.urlopen(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
 xslt_root = etree.fromstring(result.read())
 transform = etree.XSLT(xslt_root)
@@ -27,8 +25,6 @@ with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 
 
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
-
-xmlFilename2PathInfo = {}
 
 
 def getBodyDom(xmlUrl):
@@ -154,29 +150,6 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath, i18n):
   return html
 
 
-def recursiveGetPath(node, pathPrefix, xmlFilename):
-  path = pathPrefix + '/' + node['subpath']
-  if 'action' in node:
-    if os.path.basename(node['action']) == xmlFilename:
-      return path
-  else:
-    for child in node['child']:
-      result = recursiveGetPath(child, path, xmlFilename)
-      if result:
-        return result
-
-
-def xmlFilename2Path(xmlFilename):
-  if xmlFilename in xmlFilename2PathInfo:
-    return xmlFilename2PathInfo[xmlFilename]
-  result = recursiveGetPath(treeviewData['child'][0], u'', xmlFilename)
-  if result:
-    xmlFilename2PathInfo[xmlFilename] = result
-  else:
-    raise Exception('cannot get path of %s' % xmlFilename)
-  return result
-
-
 def getAllLocalesTranslationsHtml(urlLocale):
   template = jj2env.get_template('info.html')
   localeTranslations = []
@@ -197,62 +170,4 @@ def getAllLocalesTranslationsHtml(urlLocale):
 
 if __name__ == '__main__':
   # for test purpose
-  result = isValidCanonPath(None, None, None, None, None)
-  if result['isValid'] is not True:
-    print('test failure:')
-    print('isValidCanonPath(None, None, None, None, None) is not True')
-
-  result = isValidCanonPath(None, None, None, None, '123')
-  if result['isValid'] is not False:
-    print('test failure:')
-    print("isValidCanonPath(None, None, None, None, '123') is not False")
-
-  result = isValidCanonPath('sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None)
-  if result['isValid'] is not True:
-    print('test failure:')
-    print("isValidCanonPath('sutta', 'dīgha', 'sīlakkhandhavagga', 'kūṭadantasuttaṃ', None) is not True")
-
-  result = isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None)
-  if result['isValid'] is not True:
-    print('test failure:')
-    print("isValidCanonPath('abhidhamma', 'kathāvatthu', 'puggalakathā', None, None) is not True")
-
-  result = isValidCanonPath('sutta', 'dīgha', None, None, None)
-  if result['isValid'] is not True:
-    print('test failure:')
-    print("isValidCanonPath('sutta', 'dīgha', None, None, None) is not True")
-
-  result = isValidCanonPath('sutta', None, None, None, None)
-  if result['isValid'] is not True:
-    print('test failure:')
-    print("isValidCanonPath('sutta', None, None, None, None) is not True")
-
-  result = isValidCanonPath('sutta1', None, None, None, None)
-  if result['isValid'] is not False:
-    print('test failure:')
-    print("isValidCanonPath('sutta', None, None, None, None) is not False")
-
-  result = isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None)
-  if result['isValid'] is not False:
-    print('test failure:')
-    print("isValidCanonPath('abhidhamma', 'kathāvatthu2', 'puggalakathā', None, None) is not False")
-
-  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '了參法師(葉均)')
-  if result['isValid'] is not True:
-    print('test failure:')
-    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '了參法師(葉均)') is not True")
-
-  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', None, None, 'zh_TW', '了參法師(葉均)')
-  if result['isValid'] is not False:
-    print('test failure:')
-    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', None, None, 'zh_TW', '了參法師(葉均)') is not False")
-
-  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW1', '了參法師(葉均)')
-  if result['isValid'] is not False:
-    print('test failure:')
-    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW1', '了參法師(葉均)') is not False")
-
-  result = isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '1了參法師(葉均)')
-  if result['isValid'] is not False:
-    print('test failure:')
-    print("isValidTranslationOrContrastReadingPage('sutta', 'khuddaka', 'dhammapada', 'pupphavaggo', None, 'zh_TW', '1了參法師(葉均)') is not False")
+  pass

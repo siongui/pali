@@ -9,6 +9,8 @@ with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r')
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
   translationInfo = json.loads(f.read())
 
+xmlFilename2PathInfo = {}
+
 
 def recursivelyCheckPaliTextPath(node, subpathes):
   if len(subpathes) == 0:
@@ -57,3 +59,28 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
     return { 'isValid': False }
   else:
     return result
+
+
+def recursiveGetPath(node, pathPrefix, xmlFilename):
+  path = pathPrefix + '/' + node['subpath']
+  if 'action' in node:
+    if os.path.basename(node['action']) == xmlFilename:
+      return path
+  else:
+    for child in node['child']:
+      result = recursiveGetPath(child, path, xmlFilename)
+      if result:
+        return result
+
+
+def xmlFilename2Path(xmlFilename):
+  if xmlFilename in xmlFilename2PathInfo:
+    return xmlFilename2PathInfo[xmlFilename]
+
+  for child in treeviewData['child']:
+    result = recursiveGetPath(child, u'', xmlFilename)
+    if result:
+      xmlFilename2PathInfo[xmlFilename] = result
+      return result
+
+  raise Exception('cannot get path of %s' % xmlFilename)
