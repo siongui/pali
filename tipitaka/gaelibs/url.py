@@ -79,24 +79,6 @@ def getCanonPageHtml(node, reqPath, i18n):
   return html
 
 
-def isValidTranslationOrContrastReadingPage(path1, path2, path3, path4, path5, locale, translator):
-  # rootNode is tipitaka, no commentaris and sub-commentaries
-  rootNode = treeviewData['child'][0]
-  path = [path1, path2, path3, path4, path5]
-
-  result = recursivelyCheck(rootNode, path, [])
-  if result['isValid']:
-    if 'action' in result['node']:
-      if locale in translationInfo:
-        xmlFilename = os.path.basename(result['node']['action'])
-        if xmlFilename in translationInfo[locale]['canon']:
-          for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
-            if translationInfo[locale]['source'][translatorCode][0] == translator.decode('utf-8'):
-              return {'isValid': True, 'node': result['node'], 'texts': result['texts'] }
-
-  return {'isValid': False }
-
-
 def getTranslationXmlBodyDom(locale, translator, node):
   # fetch xml
   xmlFilename = os.path.basename(node['action'])

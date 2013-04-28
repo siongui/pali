@@ -6,6 +6,9 @@ import os, json
 with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
 
+with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
+  translationInfo = json.loads(f.read())
+
 
 def recursivelyCheckPaliTextPath(node, subpathes):
   if len(subpathes) == 0:
@@ -44,7 +47,13 @@ def isValidPaliTextPath(paliTextPath):
 def isValidPath(paliTextPath, translationLocale=None, translator=None):
   result = isValidPaliTextPath(paliTextPath)
   if result['isValid'] and translationLocale:
-    # TODO: check translationLocale and translator here
-    pass
-
-  return result
+    if 'action' in result['node']:
+      if translationLocale in translationInfo:
+        xmlFilename = os.path.basename(result['node']['action'])
+        if xmlFilename in translationInfo[translationLocale]['canon']:
+          for translatorCode in translationInfo[translationLocale]['canon'][xmlFilename]:
+            if translationInfo[translationLocale]['source'][translatorCode][0] == translator.decode('utf-8'):
+              return result
+    return { 'isValid': False }
+  else:
+    return result
