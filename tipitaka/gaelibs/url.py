@@ -42,43 +42,6 @@ def getBodyDom(xmlUrl):
   # return only dom of body
   return dom.documentElement.getElementsByTagName('body')[0]
 
-# @see http://stackoverflow.com/questions/1132941/least-astonishment-in-python-the-mutable-default-argument
-def recursivelyCheck(node, path, texts):
-  if path[0] is None:
-    # check if all items are None
-    for subPath in path:
-      if subPath is not None:
-        return {'isValid': False }
-    # all items are None => True
-    texts.append(node['text'])
-    return {'isValid': True, 'node': node, 'texts': texts }
-
-  else:
-    for child in node['child']:
-      if path[0].decode('utf-8') == child['subpath']:
-        if 'action' in child:
-          # check if all remaining items are None
-          for subPath in path[1:]:
-            if subPath is not None:
-              return {'isValid': False }
-          # all remaining items are None => True
-          texts.append(node['text'])
-          texts.append(child['text'])
-          return {'isValid': True, 'node': child, 'texts': texts }
-        else:
-          texts.append(node['text'])
-          return recursivelyCheck(child, path[1:], texts)
-
-    return {'isValid': False }
-
-
-def isValidCanonPath(path1, path2, path3, path4, path5):
-  # rootNode is tipitaka, no commentaris and sub-commentaries
-  rootNode = treeviewData['child'][0]
-  path = [path1, path2, path3, path4, path5]
-
-  return recursivelyCheck(rootNode, path, [])
-
 
 def getI18nLinks(node, reqPath, i18n):
   linksHtml = u''
