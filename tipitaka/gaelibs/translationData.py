@@ -98,7 +98,8 @@ jstr = """{
       's0505m.mul0.xml': ['1'],
       's0505m.mul1.xml': ['1'],
       's0505m.mul2.xml': ['1'],
-      's0505m.mul3.xml': ['1']
+      's0505m.mul3.xml': ['1'],
+      's0505m.mul4.xml': ['1']
     },
     'source': {
       '1': ['Ṭhānissaro Bhikkhu', 'http://www.accesstoinsight.org/tipitaka/translators.html#than', 'http://www.accesstoinsight.org/lib/authors/thanissaro/dhammapada.pdf']
