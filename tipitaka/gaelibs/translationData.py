@@ -28,6 +28,10 @@ jstr = """{
       's0202m.mul1.xml': ['3'],
       's0202m.mul4.xml': ['3'],
       's0402m2.mul6.xml': ['3'],
+      's0501m.mul0.xml': ['4', '5'],
+      's0501m.mul1.xml': ['4', '5'],
+      's0501m.mul2.xml': ['4', '5'],
+      's0501m.mul3.xml': ['4', '5'],
       's0502m.mul0.xml': ['2'],
       's0502m.mul1.xml': ['2'],
       's0502m.mul2.xml': ['2'],
@@ -64,7 +68,8 @@ jstr = """{
       '1': ['郭良鋆', 'http://blog.yam.com/benji/article/34665984'],
       '2': ['了參法師(葉均)', 'http://myweb.ncku.edu.tw/~lsn46/Tipitaka/Sutta/Khuddaka/Dhammapada/ven-l-z-all.htm'],
       '3': ['蕭式球', 'http://www.chilin.edu.hk/edu/report_section.asp?section_id=5'],
-      '4': ['悟醒', 'http://www.online-dhamma.net/dhammarain/canon/cy-1-Khuddakapaatha-Dhammapada-Udaana-Itivuttaka.pdf']
+      '4': ['悟醒', 'http://www.online-dhamma.net/dhammarain/canon/cy-1-Khuddakapaatha-Dhammapada-Udaana-Itivuttaka.pdf'],
+      '5': ['瑪欣德尊者', 'http://www.taiwandipa.org.tw/images/k/k473-0.zip', 'http://www.taiwandipa.org.tw/images/k/k485-0.zip']
     }
   },
   'en_US': {
@@ -650,6 +655,15 @@ canonTextTranslation['zh_TW'] = {
       'Rāgapeyyālaṃ': '貪品',
   'Khuddakanikāya': '小部',
     'Khuddakapāṭhapāḷi': '小誦',
+      'Saraṇattayaṃ': '三皈依',
+      'Dasasikkhāpadaṃ': '十戒',
+      'Dvattiṃsākāro': '三十二身分',
+      'Kumārapañhā': '問童子',
+      'Maṅgalasuttaṃ': '吉祥經',
+      'Ratanasuttaṃ': '寶經',
+      'Tirokuṭṭasuttaṃ': '戶外經',
+      'Nidhikaṇḍasuttaṃ': '伏藏經',
+      'Mettasuttaṃ': '慈經',
     'Dhammapadapāḷi': '法句(經)',
       'Yamakavaggo': '雙品',
       'Appamādavaggo': '不放逸品',
