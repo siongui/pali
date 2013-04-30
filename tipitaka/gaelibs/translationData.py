@@ -17,6 +17,7 @@ jstr = """{
     'canon': {
       's0101m.mul1.xml': ['3'],
       's0102m.mul2.xml': ['3'],
+      's0102m.mul6.xml': ['5'],
       's0102m.mul8.xml': ['3'],
       's0103m.mul7.xml': ['3'],
       's0201m.mul0.xml': ['3'],
