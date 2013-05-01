@@ -67,6 +67,21 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return i18nTpk.translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0];
     }
 
+    function getLocaleXmlTranslations(translationLocale, xmlFilename) {
+      var localeXmlTranslations = [];
+      for (var i=0; i<i18nTpk.translationInfo[translationLocale]['canon'][xmlFilename].length; i++) {
+        // ith translation of "translationLocale" and "xmlFilename"
+        var tmp = i18nTpk.translationInfo[translationLocale]['canon'][xmlFilename][i];
+
+        var localeXmlTranslation = {};
+        localeXmlTranslation.translator = getTranslator(translationLocale, tmp);
+        localeXmlTranslation.excerpt = tmp['excerpt'];
+
+        localeXmlTranslations.push(localeXmlTranslation);
+      }
+      return localeXmlTranslations;
+    }
+
     function getAllLocalesTranslations() {
       var localeTranslations = [];
       for (var locale in i18nTpk.translationInfo) {
@@ -78,13 +93,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
                               path: info.path,
                               translatedCanonNames: info.translatedCanonNames,
                               canonNames: info.canonNames };
-          translation.localeXmlTranslations = [];
-          for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
-            var localeXmlTranslation = {};
-            localeXmlTranslation.translator = getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]);
-            localeXmlTranslation.excerpt = i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]['excerpt'];
-            translation.localeXmlTranslations.push(localeXmlTranslation);
-          }
+          translation.localeXmlTranslations = getLocaleXmlTranslations(locale, xmlFilename);
           localeTranslation.translations.push(translation);
         }
         if (localeTranslation.translations.length > 0)
@@ -121,10 +130,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
         if (i18nTpk.translationInfo[locale]['canon'].hasOwnProperty(xmlFilename)) {
           var translation = { xmlFilename: xmlFilename,
                               path: xmlFilename2Info(xmlFilename).path };
-          translation.translators = [];
-          for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
-            translation.translators.push(getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]));
-          }
+          translation.localeXmlTranslations = getLocaleXmlTranslations(locale, xmlFilename);
           localeTranslation.translations.push(translation);
         }
         if (localeTranslation.translations.length > 0)
