@@ -315,9 +315,10 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
       if (angular.isDefined($routeParams.translator)) {
         // This is 'contrast reading' or 'translation' page
-        pathInfo.isExcerpt = i18nTpkServ.isExcerpt(pathInfo.tvInfo['action'],
-                                                   pathInfo.translationLocale,
-                                                   pathInfo.translator);
+        pathInfo.xmlLocaleTranslationInfo = i18nTpkServ.getXmlLocaleTranslationInfo(
+          pathInfo.tvInfo['action'],
+          pathInfo.translationLocale,
+          pathInfo.translator);
         pathInfo.translationUrl = i18nTpkServ.getTranslationXmlUrl(pathInfo.tvInfo['action'],
                                                                    pathInfo.translationLocale,
                                                                    pathInfo.translator);

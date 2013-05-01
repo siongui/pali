@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 05:37+0800\n"
+"POT-Creation-Date: 2013-05-02 07:00+0800\n"
 "PO-Revision-Date: 2013-03-10 05:19+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -190,7 +190,11 @@ msgstr "此巴利文件翻譯"
 msgid "Original Pāḷi Text"
 msgstr "原巴利文件"
 
-#: ../../tipitaka/app/partials/canon.html:32
+#: ../../tipitaka/app/partials/canon.html:33
+msgid "Copyright URL of the Translation"
+msgstr "此翻譯的版權網頁"
+
+#: ../../tipitaka/app/partials/canon.html:35
 msgid "Only Partial Translation Available"
 msgstr "只有部份翻譯可得"
 

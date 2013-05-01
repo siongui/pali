@@ -47,7 +47,7 @@ function translationCtrl($scope, pathInfo, paliXml) {
   $scope.text = pInfo.tvInfo['text'];
   $scope.pathBreadcrumbs = pInfo.tvInfo.pathBreadcrumbs;
   $scope.paliTextPath = pInfo.paliTextPath;
-  $scope.isExcerpt = pInfo.isExcerpt;
+  $scope.xmlLocaleTranslationInfo = pInfo.xmlLocaleTranslationInfo;
 
   paliXml.getUrl(pInfo.translationUrl).then( function(htmlDoc) {
     $scope.isShowLoading = false;
@@ -69,7 +69,7 @@ function contrastReadingCtrl($scope, $q, pathInfo, paliXml, htmlDoc2View) {
   $scope.text = pInfo.tvInfo['text'];
   $scope.pathBreadcrumbs = pInfo.tvInfo.pathBreadcrumbs;
   $scope.paliTextPath = pInfo.paliTextPath;
-  $scope.isExcerpt = pInfo.isExcerpt;
+  $scope.xmlLocaleTranslationInfo = pInfo.xmlLocaleTranslationInfo;
 
   var promise = paliXml.get(pInfo.tvInfo['action']);
   var promiseTrans = paliXml.getUrl(pInfo.translationUrl);

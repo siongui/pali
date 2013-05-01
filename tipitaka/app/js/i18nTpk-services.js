@@ -121,15 +121,18 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return '/translation/' + locale + '/'+ translatorCode + '/' + xmlFilename;
     }
 
-    function isExcerpt(action, translationLocale, translator) {
+    function getXmlLocaleTranslationInfo(action, translationLocale, translator) {
+      var info = { isExcerpt: undefined, translationCopyrightURL: undefined };
       var xmlFilename = basename(action);
       var localeXmlTranslations = i18nTpk.translationInfo[translationLocale]['canon'][xmlFilename];
       for (var i=0; i<localeXmlTranslations.length; i++) {
         if (translator === i18nTpk.translationInfo[translationLocale]['source'][ localeXmlTranslations[i]['source'] ][0]) {
-          if (localeXmlTranslations[i]['excerpt']) return true;
+          if (localeXmlTranslations[i]['excerpt']) info.isExcerpt = true;
+          if (angular.isDefined(localeXmlTranslations[i]['copyrightURL'])) info.translationCopyrightURL = localeXmlTranslations[i]['copyrightURL'];
+          break;
         }
       }
-      return false;
+      return info;
     }
 
     function getI18nLinks(action) {
@@ -154,7 +157,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     var serviceInstance = {
       getI18nLinks: getI18nLinks,
       getAllLocalesTranslations: getAllLocalesTranslations,
-      isExcerpt: isExcerpt,
+      getXmlLocaleTranslationInfo: getXmlLocaleTranslationInfo,
       getTranslationXmlUrl: getTranslationXmlUrl
     };
     return serviceInstance;
