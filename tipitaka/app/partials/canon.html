@@ -27,7 +27,10 @@
     </div>
   </div>
 
-  <div ng-show="isShowOriPaliLink" style="padding: 1em;">&lt;&lt; <a href="{{ urlLocaleInPath }}{{ paliTextPath }}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a></div>
+  <div ng-show="isShowOriPaliLink" style="padding: 1em;">
+    &lt;&lt; <a href="{{ urlLocaleInPath }}{{ paliTextPath }}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a>
+    <div ng-show="isExcerpt" class="canon2"><h3 i18n str="Only Partial Translation Available">{$_("Only Partial Translation Available")$}</h3></div>
+  </div>
 
   <div bind-xml-doms><!-- $watch and append scope.xmlDoms (jqLite element) if changes --></div>
 
@@ -39,6 +42,13 @@
   border: 1px solid #FFF1A9;
   border-radius: 10px;
   margin-bottom: 5px;
+}
+.canon2 {
+  background-color: #d9edf7;
+  text-align: center;
+  padding: .25em;
+  color: #3a87ad;
+  border-radius: 10px;
 }
   </style>
 </div>

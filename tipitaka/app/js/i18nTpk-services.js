@@ -121,6 +121,17 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       return '/translation/' + locale + '/'+ translatorCode + '/' + xmlFilename;
     }
 
+    function isExcerpt(action, translationLocale, translator) {
+      var xmlFilename = basename(action);
+      var localeXmlTranslations = i18nTpk.translationInfo[translationLocale]['canon'][xmlFilename];
+      for (var i=0; i<localeXmlTranslations.length; i++) {
+        if (translator === i18nTpk.translationInfo[translationLocale]['source'][ localeXmlTranslations[i]['source'] ][0]) {
+          if (localeXmlTranslations[i]['excerpt']) return true;
+        }
+      }
+      return false;
+    }
+
     function getI18nLinks(action) {
       var xmlFilename = basename(action);
       var localeTranslations = [];
@@ -143,6 +154,7 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     var serviceInstance = {
       getI18nLinks: getI18nLinks,
       getAllLocalesTranslations: getAllLocalesTranslations,
+      isExcerpt: isExcerpt,
       getTranslationXmlUrl: getTranslationXmlUrl
     };
     return serviceInstance;

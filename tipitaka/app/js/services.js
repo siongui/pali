@@ -313,10 +313,15 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
       pathInfo.tvInfo = tvServ.getInfo(pathInfo.paliTextPath);
 
-      if (angular.isDefined($routeParams.translator))
+      if (angular.isDefined($routeParams.translator)) {
+        // This is 'contrast reading' or 'translation' page
+        pathInfo.isExcerpt = i18nTpkServ.isExcerpt(pathInfo.tvInfo['action'],
+                                                   pathInfo.translationLocale,
+                                                   pathInfo.translator);
         pathInfo.translationUrl = i18nTpkServ.getTranslationXmlUrl(pathInfo.tvInfo['action'],
-                                               pathInfo.translationLocale,
-                                               pathInfo.translator);
+                                                                   pathInfo.translationLocale,
+                                                                   pathInfo.translator);
+      }
 
       return pathInfo;
     }
