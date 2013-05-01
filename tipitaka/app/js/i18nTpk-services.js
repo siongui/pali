@@ -63,8 +63,8 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
       }
     }
 
-    function getTranslator(locale, translatorCode) {
-      return i18nTpk.translationInfo[locale]['source'][translatorCode][0];
+    function getTranslator(locale, localeXmlTranslation) {
+      return i18nTpk.translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0];
     }
 
     function getAllLocalesTranslations() {
@@ -91,13 +91,13 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     function getTranslatorCode(locale, xmlFilename, translator) {
-      var translatorCodes = i18nTpk.translationInfo[locale]['canon'][xmlFilename];
-      if (!angular.isArray(translatorCodes))
+      var localeXmlTranslations = i18nTpk.translationInfo[locale]['canon'][xmlFilename];
+      if (!angular.isArray(localeXmlTranslations))
         throw 'In getTranslatorCode: no codes';
 
-      for (var i=0; i<translatorCodes.length; i++) {
-        if (translator === i18nTpk.translationInfo[locale]['source'][translatorCodes[i]][0])
-          return translatorCodes[i];
+      for (var i=0; i<localeXmlTranslations.length; i++) {
+        if (translator === i18nTpk.translationInfo[locale]['source'][ localeXmlTranslations[i]['source'] ][0])
+          return localeXmlTranslations[i]['source'];
       }
 
       throw 'In getTranslatorCode: cannot find translator code';

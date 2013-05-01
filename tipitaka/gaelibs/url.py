@@ -46,8 +46,8 @@ def getI18nLinks(node, reqPath, i18n):
     if xmlFilename in translationInfo[locale]['canon']:
       # FIXME: translate locale here
       linksHtml += u'<a href="javascript:void(0);">%s</a> :' % locale
-      for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
-        translator = translationInfo[locale]['source'][translatorCode][0]
+      for localeXmlTranslation in translationInfo[locale]['canon'][xmlFilename]:
+        translator = translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0]
         linksHtml += (u'<div style="padding-left: 1em;">' +
                         u'<a href="%s/%s/%s">%s</a>' % (reqPath, locale, translator, translator) +
                         u' (<a href="%s/%s/%s/ContrastReading">%s</a>)' % (reqPath, locale, translator, i18n.gettext(u'Contrast Reading')) +
@@ -79,14 +79,14 @@ def getTranslationXmlBodyDom(locale, translator, node):
   # fetch xml
   xmlFilename = os.path.basename(node['action'])
   if xmlFilename in translationInfo[locale]['canon']:
-    for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
-      if translationInfo[locale]['source'][translatorCode][0] == translator.decode('utf-8'):
-        code = translatorCode
+    for localeXmlTranslation in translationInfo[locale]['canon'][xmlFilename]:
+      if translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0] == translator.decode('utf-8'):
+        code = localeXmlTranslation['source']
         break
     try:
       code
     except:
-      raise Exception('cannot find translatorCode')
+      raise Exception('cannot find localeXmlTranslation["source"]')
   else:
     raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
 
@@ -160,8 +160,8 @@ def getAllLocalesTranslationsHtml(urlLocale):
       translation = { 'path': xmlFilename2Path(xmlFilename),
                       'xmlFilename': xmlFilename }
       translation['translator'] = []
-      for translatorCode in translationInfo[locale]['canon'][xmlFilename]:
-        translation['translator'].append(translationInfo[locale]['source'][translatorCode][0])
+      for localeXmlTranslation in translationInfo[locale]['canon'][xmlFilename]:
+        translation['translator'].append(translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0])
       localeTranslation['translations'].append(translation)
     localeTranslations.append(localeTranslation)
 

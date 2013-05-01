@@ -53,8 +53,8 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
       if translationLocale in translationInfo:
         xmlFilename = os.path.basename(result['node']['action'])
         if xmlFilename in translationInfo[translationLocale]['canon']:
-          for translatorCode in translationInfo[translationLocale]['canon'][xmlFilename]:
-            if translationInfo[translationLocale]['source'][translatorCode][0] == translator.decode('utf-8'):
+          for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
+            if translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0] == translator.decode('utf-8'):
               return result
     return { 'isValid': False }
   else:
