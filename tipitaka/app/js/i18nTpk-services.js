@@ -78,9 +78,12 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
                               path: info.path,
                               translatedCanonNames: info.translatedCanonNames,
                               canonNames: info.canonNames };
-          translation.translators = [];
+          translation.localeXmlTranslations = [];
           for (var i=0; i<i18nTpk.translationInfo[locale]['canon'][xmlFilename].length; i++) {
-            translation.translators.push(getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]));
+            var localeXmlTranslation = {};
+            localeXmlTranslation.translator = getTranslator(locale, i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]);
+            localeXmlTranslation.excerpt = i18nTpk.translationInfo[locale]['canon'][xmlFilename][i]['excerpt'];
+            translation.localeXmlTranslations.push(localeXmlTranslation);
           }
           localeTranslation.translations.push(translation);
         }

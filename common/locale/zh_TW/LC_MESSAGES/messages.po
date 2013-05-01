@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-31 00:21+0800\n"
+"POT-Creation-Date: 2013-05-02 02:23+0800\n"
 "PO-Revision-Date: 2013-03-10 05:19+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -51,31 +51,27 @@ msgstr "關於"
 msgid "Setting"
 msgstr "設定"
 
-#: ../../dictionary/app/index.html:49
+#: ../../dictionary/app/index.html:46
 #: ../../tipitaka/app/partials/tooltipContent.html:18
 msgid "No Such Word"
 msgstr "無此字"
 
-#: ../../dictionary/app/index.html:50
+#: ../../dictionary/app/index.html:47
 msgid "Looking Up ..."
 msgstr "正在查詢中 ..."
 
-#: ../../dictionary/app/index.html:51
+#: ../../dictionary/app/index.html:48
 msgid "Loading Words ..."
 msgstr "正在載入單字中 ..."
 
-#: ../../dictionary/app/index.html:52
+#: ../../dictionary/app/index.html:49
 #: ../../tipitaka/app/partials/tooltipContent.html:20
 msgid "Internet Connection Error"
 msgstr "網路連線錯誤"
 
-#: ../../dictionary/app/index.html:65
+#: ../../dictionary/app/index.html:62
 msgid "Browse Dictionary"
 msgstr "瀏覽字典"
-
-#: ../../dictionary/app/partials/input.html:81
-msgid "Keyboard"
-msgstr "鍵盤"
 
 #: ../../dictionary/app/partials/setting.html:2
 msgid "Input Word Explanation Preview"
@@ -146,13 +142,52 @@ msgstr "中文-英文-日文"
 msgid "Chinese - Japanese - English"
 msgstr "中文-日文-英文"
 
+#: ../../dictionary/app/partials/input.html:13
+msgid "Keyboard"
+msgstr "鍵盤"
+
 #: ../../tipitaka/app/index.html:5
 msgid "Pali Tipitaka"
 msgstr "巴利三藏"
 
-#: ../../tipitaka/app/index.html:6
+#: ../../tipitaka/app/index.html:6 ../../tipitaka/app/partials/info.html:13
+#: ../../tipitaka/app/partials/canon.html:21
 msgid "Translation"
 msgstr "翻譯"
+
+#: ../../tipitaka/app/partials/info.html:4
+msgid "All Translations"
+msgstr "所有翻譯"
+
+#: ../../tipitaka/app/partials/info.html:12
+msgid "Excerpt"
+msgstr "片段"
+
+#: ../../tipitaka/app/partials/info.html:14
+#: ../../tipitaka/app/partials/canon.html:22
+msgid "Contrast Reading"
+msgstr "比照對讀"
+
+#: ../../tipitaka/app/partials/mainbar.html:3
+msgid "Dictionary"
+msgstr "字典"
+
+#: ../../tipitaka/app/partials/mainbar.html:6
+#: ../../tipitaka/app/partials/mainbar.html:8
+msgid "Browse"
+msgstr "瀏覽"
+
+#: ../../tipitaka/app/partials/canon.html:2
+msgid "Loading"
+msgstr "載入中"
+
+#: ../../tipitaka/app/partials/canon.html:15
+msgid "Translation of This Pāḷi Text"
+msgstr "此巴利文件翻譯"
+
+#: ../../tipitaka/app/partials/canon.html:29
+msgid "Original Pāḷi Text"
+msgstr "原巴利文件"
 
 #: ../../tipitaka/app/partials/setting.html:2
 msgid "Show Tooltip When Hovering over Canon Texts"
@@ -165,32 +200,3 @@ msgstr "翻譯左側樹狀顯示裡的巴利文字"
 #: ../../tipitaka/app/partials/tooltipContent.html:13
 msgid "Looking up"
 msgstr "正在查詢中"
-
-#: ../../tipitaka/app/partials/mainbar.html:3
-msgid "Dictionary"
-msgstr "字典"
-
-#: ../../tipitaka/app/partials/mainbar.html:5
-msgid "Browse"
-msgstr "瀏覽"
-
-#: ../../tipitaka/app/partials/canon.html:2
-msgid "Loading"
-msgstr "載入中"
-
-#: ../../tipitaka/app/partials/canon.html:5
-msgid "Translation of This Pāḷi Text"
-msgstr "此巴利文件翻譯"
-
-#: ../../tipitaka/app/partials/canon.html:12
-#: ../../tipitaka/app/partials/info.html:11
-msgid "Contrast Reading"
-msgstr "比照對讀"
-
-#: ../../tipitaka/app/partials/canon.html:18
-msgid "Original Pāḷi Text"
-msgstr "原巴利文件"
-
-#: ../../tipitaka/app/partials/info.html:4
-msgid "All Translations"
-msgstr "所有翻譯"

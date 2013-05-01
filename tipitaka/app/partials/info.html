@@ -8,9 +8,10 @@
         <a href="{{ urlLocaleInPath }}{{ translation.path }}" class="allTrans3">
           <span ng-repeat="canonName in translation.canonNames">{{ canonName }}<sup><small><span style="color: red;">{{ translation.translatedCanonNames[$index][i18nLocale] }}</span></small></sup><span ng-show="!$last">,</span>&nbsp;</span>
         </a>
-        <div ng-repeat="translator in translation.translators" style="padding-left: 1em;">
-          <a href="{{ urlLocaleInPath }}{{ translation.path }}/{{localeTranslation.locale}}/{{ translator }}">{{ translator }} <span i18n str="Translation">{$_("Translation")$}</span></a>&nbsp;
-          (<a href="{{ urlLocaleInPath }}{{ translation.path }}/{{localeTranslation.locale}}/{{ translator }}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
+        <div ng-repeat="localeXmlTranslation in translation.localeXmlTranslations" style="padding-left: 1em;">
+          <span ng-show="localeXmlTranslation.excerpt" style="background-color: #d9edf7;">[<span i18n str="Excerpt">{$_("Excerpt")$}</span>]</span>&nbsp;
+          <a href="{{ urlLocaleInPath }}{{ translation.path }}/{{localeTranslation.locale}}/{{ localeXmlTranslation.translator }}">{{ localeXmlTranslation.translator }} <span i18n str="Translation">{$_("Translation")$}</span></a>&nbsp;
+          (<a href="{{ urlLocaleInPath }}{{ translation.path }}/{{localeTranslation.locale}}/{{ localeXmlTranslation.translator }}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
         </div>
       </div>
     </div>
