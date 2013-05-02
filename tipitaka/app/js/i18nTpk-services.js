@@ -122,13 +122,16 @@ angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     function getXmlLocaleTranslationInfo(action, translationLocale, translator) {
-      var info = { isExcerpt: undefined, translationCopyrightURL: undefined };
+      var info = { isExcerpt: undefined,
+                   translationURL: undefined,
+                   translationCopyrightURL: undefined };
       var xmlFilename = basename(action);
       var localeXmlTranslations = i18nTpk.translationInfo[translationLocale]['canon'][xmlFilename];
       for (var i=0; i<localeXmlTranslations.length; i++) {
         if (translator === i18nTpk.translationInfo[translationLocale]['source'][ localeXmlTranslations[i]['source'] ][0]) {
           if (localeXmlTranslations[i]['excerpt']) info.isExcerpt = true;
           if (angular.isDefined(localeXmlTranslations[i]['copyrightURL'])) info.translationCopyrightURL = localeXmlTranslations[i]['copyrightURL'];
+          if (angular.isDefined(localeXmlTranslations[i]['URL'])) info.translationURL = localeXmlTranslations[i]['URL'];
           break;
         }
       }

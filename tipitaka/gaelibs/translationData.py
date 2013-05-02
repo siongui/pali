@@ -83,8 +83,8 @@ jstr = """{
   },
   'en_US': {
     'canon': {
-      's0502m.mul0.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright' } ],
-      's0502m.mul1.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright' } ],
+      's0502m.mul0.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright', 'URL': 'http://www.accesstoinsight.org/tipitaka/kn/dhp/dhp.01.than.html' } ],
+      's0502m.mul1.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright', 'URL': 'http://www.accesstoinsight.org/tipitaka/kn/dhp/dhp.02.than.html' } ],
       's0502m.mul2.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright' } ],
       's0502m.mul3.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright' } ],
       's0502m.mul4.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright' } ],
