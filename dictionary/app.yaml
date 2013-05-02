@@ -51,3 +51,4 @@ skip_files:
 - ^(.*/)?common/romn/.*
 - ^(.*/)?common/translation/.*
 - ^(.*/)?common/pytools/.*
+- ^(.*/)?common/web\.py/.*

@@ -54,3 +54,17 @@ libraries:
 
 - name: lxml
   version: latest
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?common/romn/.*\.toc\.xml
+- ^(.*/)?common/pytools/.*
+- ^(.*/)?common/web\.py/.*
