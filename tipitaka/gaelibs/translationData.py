@@ -41,6 +41,7 @@ jstr = """{
                            { 'source': '5' } ],
       's0501m.mul5.xml': [ { 'source': '4' },
                            { 'source': '5' } ],
+      's0501m.mul6.xml': [ { 'source': '6', 'copyrightURL': 'http://www.cbeta.org/copyright.php', 'URL': 'http://tripitaka.cbeta.org/W05n0045_001' } ],
       's0502m.mul0.xml': [ { 'source': '2' } ],
       's0502m.mul1.xml': [ { 'source': '2' } ],
       's0502m.mul2.xml': [ { 'source': '2' } ],
@@ -78,7 +79,8 @@ jstr = """{
       '2': ['了參法師(葉均)', 'http://myweb.ncku.edu.tw/~lsn46/Tipitaka/Sutta/Khuddaka/Dhammapada/ven-l-z-all.htm'],
       '3': ['蕭式球', 'http://www.chilin.edu.hk/edu/report_section.asp?section_id=5'],
       '4': ['悟醒', 'http://www.online-dhamma.net/dhammarain/canon/cy-1-Khuddakapaatha-Dhammapada-Udaana-Itivuttaka.pdf'],
-      '5': ['瑪欣德尊者', 'http://www.taiwandipa.org.tw/images/k/k473-0.zip', 'http://www.taiwandipa.org.tw/images/k/k485-0.zip']
+      '5': ['瑪欣德尊者', 'http://www.taiwandipa.org.tw/images/k/k473-0.zip', 'http://www.taiwandipa.org.tw/images/k/k485-0.zip'],
+      '6': ['鄧殿臣', 'http://tripitaka.cbeta.org/mobile/index.php?index=W05']
     }
   },
   'en_US': {
