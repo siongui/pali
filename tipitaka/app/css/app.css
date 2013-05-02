@@ -89,6 +89,7 @@ div.floating-buttons > div {
 }
 
 .dropdownMenu {
+  border-radius: 5px;
   border-top-color: #C9D7F1;
   border-right-color: #36C;
   border-bottom-color: #36C;
