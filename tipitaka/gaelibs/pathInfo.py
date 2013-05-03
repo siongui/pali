@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import os, json
+from translationInfo import isValidTranslation
 
 # http://stackoverflow.com/questions/3898572/what-is-the-standard-python-docstring-format
 # http://stackoverflow.com/questions/2447109/showing-a-different-background-colour-in-vim-past-80-characters
@@ -22,10 +23,6 @@ This is a tree structure.
 """
 with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
   treeviewData = json.loads(f.read())
-
-# See translationInfo.py
-with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
-  translationInfo = json.loads(f.read())
 
 # cache of {xmlFilename, paliTextPath} pairs
 xmlFilename2PathInfo = {}
@@ -105,12 +102,8 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
   result = isValidPaliTextPath(paliTextPath)
   if result['isValid'] and translationLocale:
     if 'action' in result['node']:
-      if translationLocale in translationInfo:
-        xmlFilename = os.path.basename(result['node']['action'])
-        if xmlFilename in translationInfo[translationLocale]['canon']:
-          for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
-            if translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0] == translator.decode('utf-8'):
-              return result
+      if isValidTranslation(result['node']['action'], translationLocale, translator):
+        return result
     return { 'isValid': False }
   else:
     return result
