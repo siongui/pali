@@ -16,3 +16,19 @@ def isValidTranslation(xmlFilename, translationLocale, translator):
           return True
 
   return False
+
+
+def getTranslatorSource(xmlFilename, translationLocale, translator):
+  if xmlFilename in translationInfo[translationLocale]['canon']:
+    for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
+      if translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0] == translator.decode('utf-8'):
+        code = localeXmlTranslation['source']
+        break
+    try:
+      code
+    except:
+      raise Exception('cannot find localeXmlTranslation["source"]')
+  else:
+    raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
+
+  return code

@@ -5,6 +5,7 @@ import os, json, urllib2, jinja2
 from lxml import etree
 import xml.dom.minidom
 from pathInfo import xmlFilename2Path
+from translationInfo import getTranslatorSource
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
@@ -78,17 +79,7 @@ def getCanonPageHtml(node, reqPath, i18n):
 def getTranslationXmlBodyDom(locale, translator, node):
   # fetch xml
   xmlFilename = os.path.basename(node['action'])
-  if xmlFilename in translationInfo[locale]['canon']:
-    for localeXmlTranslation in translationInfo[locale]['canon'][xmlFilename]:
-      if translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0] == translator.decode('utf-8'):
-        code = localeXmlTranslation['source']
-        break
-    try:
-      code
-    except:
-      raise Exception('cannot find localeXmlTranslation["source"]')
-  else:
-    raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
+  code = getTranslatorSource(xmlFilename, locale, translator)
 
   xmlUrl = os.path.join(trXmlUrlPrefix, '%s/%s/%s' % (locale, code, xmlFilename))
   return getBodyDom(xmlUrl)
