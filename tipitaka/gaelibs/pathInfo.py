@@ -73,9 +73,8 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
       /{{urlLocale}}{{paliTextPath}}
       /{{urlLocale}}{{paliTextPath}}/{{translationLocale}}/{{translator}}
       /{{urlLocale}}{{paliTextPath}}/{{translationLocale}}/{{translator}}/ContrastReading
-  Before the path is being passed in this function, it has already been filtered
-  by Python web framework like webapp2 or web.py, so {{urlLocale}} has been
-  stripped.
+  Before this function is called, the path has already been parsed by Python
+  web framework like webapp2 or web.py, so {{urlLocale}} has been stripped.
 
   Args:
       paliTextPath: for example:
@@ -91,7 +90,7 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
           zh_TW: Traditional Chinese translation of pali text of 
               {{paliTextPath}}
 
-      translator: name of the translator
+      translator: the name of the translator
 
   Returns:
       A dict which contains the following information if the path is valid:
@@ -130,6 +129,17 @@ def recursiveGetPath(node, pathPrefix, xmlFilename):
 
 
 def xmlFilename2Path(xmlFilename):
+  """Convert xmlFilename to corresponding {{paliTextPath}}
+
+  Args:
+      xmlFilename: the name of the xml file of pali text, for example:
+          s0102m.mul2.xml
+          s0402m2.mul6.xml
+
+  Returns:
+      The corresponding {{paliTextPath}}, for example:
+          /canon/sutta/dīgha/sīlakkhandhavagga/sāmaññaphalasuttaṃ
+  """
   if xmlFilename in xmlFilename2PathInfo:
     return xmlFilename2PathInfo[xmlFilename]
 
