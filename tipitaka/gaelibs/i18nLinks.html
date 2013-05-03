@@ -1,0 +1,32 @@
+<div>
+  {% for localeTranslation in localeTranslations %}
+    <div class="canon1">
+      <a href="javascript:void(0);">{{ localeTranslation.translationLocale }}</a> :
+      {% for localeXmlTranslation in localeTranslation['localeXmlTranslations'] %}
+        <div style="padding-left: 1em;">
+           <a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}">
+             {{ localeXmlTranslation['translator'] }} {$_("Translation")$}
+           </a>&nbsp;
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+  <style>
+.canon1 {
+  padding: 1em;
+  line-height: 1.5em;
+  background-color: #FFFBE8;
+  border: 1px solid #FFF1A9;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+.canon2 {
+  background-color: #d9edf7;
+  text-align: center;
+  padding: .25em;
+  color: #3a87ad;
+  border-radius: 10px;
+}
+  </style>
+</div>

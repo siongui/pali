@@ -5,7 +5,7 @@ import os, json, urllib2, jinja2
 from lxml import etree
 import xml.dom.minidom
 from pathInfo import xmlFilename2Path
-from translationInfo import getTranslatorSource
+from translationInfo import getTranslatorSource, getI18nLinksTemplateValues
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
@@ -41,23 +41,14 @@ def getBodyDom(xmlUrl):
 
 
 def getI18nLinks(node, reqPath, i18n):
-  linksHtml = u''
   xmlFilename = os.path.basename(node['action'])
-  for locale in translationInfo:
-    if xmlFilename in translationInfo[locale]['canon']:
-      # FIXME: translate locale here
-      linksHtml += u'<a href="javascript:void(0);">%s</a> :' % locale
-      for localeXmlTranslation in translationInfo[locale]['canon'][xmlFilename]:
-        translator = translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0]
-        linksHtml += (u'<div style="padding-left: 1em;">' +
-                        u'<a href="%s/%s/%s">%s</a>' % (reqPath, locale, translator, translator) +
-                        u' (<a href="%s/%s/%s/ContrastReading">%s</a>)' % (reqPath, locale, translator, i18n.gettext(u'Contrast Reading')) +
-                      u'</div>')
-
-  if linksHtml != u'':
-    linksHtml = u'<div>%s <div>%s</div></div>' % (i18n.gettext(u'Translation of This Pāḷi Text'), linksHtml)
-
-  return linksHtml
+  template = jj2env.get_template('i18nLinks.html')
+  i18nLinksTemplateValues = getI18nLinksTemplateValues(xmlFilename)
+  if i18nLinksTemplateValues:
+    i18nLinksTemplateValues['reqPath'] = reqPath
+    return template.render(i18nLinksTemplateValues);
+  else:
+    return u''
 
 
 def getCanonPageHtml(node, reqPath, i18n):

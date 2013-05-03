@@ -32,3 +32,35 @@ def getTranslatorSource(xmlFilename, translationLocale, translator):
     raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
 
   return code
+
+
+def getTranslator(translationLocale, localeXmlTranslation):
+  return translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0]
+
+
+def getLocaleXmlTranslations(translationLocale, xmlFilename):
+  localeXmlTranslations = []
+  for tmp in translationInfo[translationLocale]['canon'][xmlFilename]:
+    localeXmlTranslation = { 'translator': getTranslator(translationLocale, tmp) }
+    if 'excerpt' in localeXmlTranslation:
+      localeXmlTranslation['excerpt'] = tmp['excerpt']
+    localeXmlTranslations.append(localeXmlTranslation)
+
+  return localeXmlTranslations
+
+
+def getI18nLinksTemplateValues(xmlFilename):
+  i18nLinksTmpValue = { 'localeTranslations': [] }
+  for translationLocale in translationInfo:
+    localeTranslation = { 'translationLocale': translationLocale }
+    if xmlFilename in translationInfo[translationLocale]['canon']:
+      localeTranslation['localeXmlTranslations'] = \
+        getLocaleXmlTranslations(translationLocale, xmlFilename)
+
+    if 'localeXmlTranslations' in localeTranslation:
+      i18nLinksTmpValue['localeTranslations'].append(localeTranslation)
+
+  if len(i18nLinksTmpValue['localeTranslations']) > 0:
+    i18nLinksTmpValue['xmlFilename'] = xmlFilename
+    return i18nLinksTmpValue
+
