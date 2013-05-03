@@ -5,8 +5,9 @@
       {% for localeXmlTranslation in localeTranslation['localeXmlTranslations'] %}
         <div style="padding-left: 1em;">
            <a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}">
-             {{ localeXmlTranslation['translator'] }} {$_("Translation")$}
+             {{ localeXmlTranslation['translator'] }} {{_("Translation")}}
            </a>&nbsp;
+           (<a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}/ContrastReading">{{_("Contrast Reading")}}</a>)
         </div>
       {% endfor %}
     </div>

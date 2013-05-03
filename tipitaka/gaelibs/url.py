@@ -25,7 +25,8 @@ with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 
   translationInfo = json.loads(f.read())
 
 jj2env = jinja2.Environment(
-  loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
+  loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
+  extensions=['jinja2.ext.i18n'])
 
 
 def getBodyDom(xmlUrl):
@@ -43,8 +44,11 @@ def getBodyDom(xmlUrl):
 def getI18nLinks(node, reqPath, i18n):
   xmlFilename = os.path.basename(node['action'])
   template = jj2env.get_template('i18nLinks.html')
+
   i18nLinksTemplateValues = getI18nLinksTemplateValues(xmlFilename)
   if i18nLinksTemplateValues:
+    # FIXME: remove i18n argument and from webapp2 import i18n in global scope
+    jj2env.install_gettext_translations(i18n)
     i18nLinksTemplateValues['reqPath'] = reqPath
     return template.render(i18nLinksTemplateValues);
   else:
