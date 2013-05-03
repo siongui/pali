@@ -102,7 +102,8 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
   result = isValidPaliTextPath(paliTextPath)
   if result['isValid'] and translationLocale:
     if 'action' in result['node']:
-      if isValidTranslation(result['node']['action'], translationLocale, translator):
+      xmlFilename = os.path.basename(result['node']['action'])
+      if isValidTranslation(xmlFilename, translationLocale, translator):
         return result
     return { 'isValid': False }
   else:
