@@ -5,7 +5,7 @@ import os, json, urllib2, jinja2
 from lxml import etree
 import xml.dom.minidom
 from pathInfo import xmlFilename2Path
-from translationInfo import getTranslatorSource, getI18nLinksTemplateValues
+from translationInfo import getTranslatorSource, getI18nLinksTemplateValues, getAllLocalesTranslationsTemplateValues
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
@@ -36,6 +36,7 @@ def translateLocale(value):
   return value
 
 jj2env.filters['translateLocale'] = translateLocale
+jj2env.filters['xmlFilename2Path'] = xmlFilename2Path
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
 import i18n
@@ -149,20 +150,8 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath):
 
 def getAllLocalesTranslationsHtml(urlLocale):
   template = jj2env.get_template('info.html')
-  localeTranslations = []
-  for locale in translationInfo:
-    localeTranslation = { 'locale': locale }
-    localeTranslation['translations'] = []
-    for xmlFilename in translationInfo[locale]['canon']:
-      translation = { 'path': xmlFilename2Path(xmlFilename),
-                      'xmlFilename': xmlFilename }
-      translation['translator'] = []
-      for localeXmlTranslation in translationInfo[locale]['canon'][xmlFilename]:
-        translation['translator'].append(translationInfo[locale]['source'][ localeXmlTranslation['source'] ][0])
-      localeTranslation['translations'].append(translation)
-    localeTranslations.append(localeTranslation)
-
-  return template.render({'urlLocale': urlLocale, 'localeTranslations': localeTranslations});
+  return template.render({'urlLocale': urlLocale,
+                          'localeTranslations': getAllLocalesTranslationsTemplateValues()})
 
 
 if __name__ == '__main__':

@@ -64,3 +64,19 @@ def getI18nLinksTemplateValues(xmlFilename):
     i18nLinksTmpValue['xmlFilename'] = xmlFilename
     return i18nLinksTmpValue
 
+
+def getAllLocalesTranslationsTemplateValues():
+  localeTranslations = []
+  for translationLocale in translationInfo:
+    localeTranslation = { 'translationLocale': translationLocale }
+    localeTranslation['translations'] = []
+    for xmlFilename in translationInfo[translationLocale]['canon']:
+      translation = { 'xmlFilename': xmlFilename }
+      translation['translator'] = []
+      for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
+        translation['translator'].append(translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0])
+      localeTranslation['translations'].append(translation)
+    localeTranslations.append(localeTranslation)
+
+  return localeTranslations
+
