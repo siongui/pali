@@ -116,8 +116,8 @@ def getPrefixHtml(prefix, urlLocale):
 
 def getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word):
   if reqHandlerName == 'WordPage':
-    return word.decode('utf-8') + ' - ' + i18n.gettext("Definition and Meaning") + ' - '
+    return word.decode('utf-8') + u' - ' + i18n.ugettext(u'Definition and Meaning') + u' - '
   elif reqHandlerName == 'PrefixPage':
-    return i18n.gettext('Words Start with') + ' ' + prefix.decode('utf-8') + ' - '
+    return i18n.ugettext(u'Words Start with') + u' ' + prefix.decode('utf-8') + u' - '
   else:
     return ''
