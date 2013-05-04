@@ -12,12 +12,7 @@ from pathInfo import isValidPath
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
 from misc import isCompiledJS, isTrack
-
-# zipimport babel and gaepytz
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'common/gae/libs/babel.zip'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'common/gae/libs/pytz.zip'))
-
-from webapp2_extras import i18n
+import i18n
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader([os.path.join(os.path.dirname(__file__), 'app'),
@@ -32,7 +27,7 @@ jinja_environment.install_gettext_translations(i18n)
 
 def getCommonTemplateValues(self, urlLocale):
   userLocale = getLocale(urlLocale, self.request.headers.get('accept_language'))
-  i18n.get_i18n().set_locale(userLocale)
+  i18n.setLocale(userLocale)
   template_values = {
     'htmlTitle': u'',
     'userLocale': userLocale,
@@ -60,7 +55,7 @@ class CanonPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['canonPageHtml'] = getCanonPageHtml(result['node'], self.request.path, i18n)
+    template_values['canonPageHtml'] = getCanonPageHtml(result['node'], self.request.path)
     template_values['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'])
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
@@ -72,7 +67,7 @@ class TranslationPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['translationPageHtml'] = getTranslationPageHtml(translationLocale, translator, result['node'], self.request.path, i18n)
+    template_values['translationPageHtml'] = getTranslationPageHtml(translationLocale, translator, result['node'], self.request.path)
     template_values['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'], translator, False, i18n)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
@@ -84,7 +79,7 @@ class ContrastReadingPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(translationLocale, translator, result['node'], self.request.path, i18n)
+    template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(translationLocale, translator, result['node'], self.request.path)
     template_values['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'], translator, True, i18n)
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))

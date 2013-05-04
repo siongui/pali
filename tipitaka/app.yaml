@@ -68,3 +68,4 @@ skip_files:
 - ^(.*/)?common/romn/.*\.toc\.xml
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
+- ^(.*/)?gaelibs/setTranslationData\.py

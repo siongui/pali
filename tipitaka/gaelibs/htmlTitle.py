@@ -63,8 +63,8 @@ def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None, i18n=N
         title += nodeTextStrip2(text) + u' - '
 
   if translator:
-    title = translator.decode('utf-8') + u' ' + i18n.gettext(u'Translation')  + u' - ' + title
+    title = translator.decode('utf-8') + u' ' + i18n.ugettext(u'Translation')  + u' - ' + title
     if contrastReading:
-      title = i18n.gettext(u'Contrast Reading') + u' - ' + title
+      title = i18n.ugettext(u'Contrast Reading') + u' - ' + title
 
   return title

@@ -37,6 +37,10 @@ def translateLocale(value):
 
 jj2env.filters['translateLocale'] = translateLocale
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+import i18n
+jj2env.install_gettext_translations(i18n)
+
 
 def getBodyDom(xmlUrl):
   result = urllib2.urlopen(xmlUrl)
@@ -50,25 +54,23 @@ def getBodyDom(xmlUrl):
   return dom.documentElement.getElementsByTagName('body')[0]
 
 
-def getI18nLinks(node, reqPath, i18n):
+def getI18nLinks(node, reqPath):
   xmlFilename = os.path.basename(node['action'])
   template = jj2env.get_template('i18nLinks.html')
 
   i18nLinksTemplateValues = getI18nLinksTemplateValues(xmlFilename)
   if i18nLinksTemplateValues:
-    # FIXME: remove i18n argument and from webapp2 import i18n in global scope
-    jj2env.install_gettext_translations(i18n)
     i18nLinksTemplateValues['reqPath'] = reqPath
     return template.render(i18nLinksTemplateValues);
   else:
     return u''
 
 
-def getCanonPageHtml(node, reqPath, i18n):
+def getCanonPageHtml(node, reqPath):
   # before using this funtion, make sure to call 'isValidCanonPath' first
   html = u''
   if 'action' in node:
-    html += getI18nLinks(node, reqPath, i18n)
+    html += getI18nLinks(node, reqPath)
     # fetch xml
     xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
     # return only innerHTML of body
@@ -89,11 +91,11 @@ def getTranslationXmlBodyDom(locale, translator, node):
   return getBodyDom(xmlUrl)
 
 
-def getTranslationPageHtml(locale, translator, node, reqPath, i18n):
+def getTranslationPageHtml(locale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-2]), i18n.gettext(u'Original Pāḷi Text'))
+  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-2]), i18n.ugettext(u'Original Pāḷi Text'))
   # return only innerHTML of body
   html += getTranslationXmlBodyDom(locale, translator, node).toxml()[6:-7]
   return html
@@ -131,11 +133,11 @@ def generateContrastReadingTable(oriBody, trBody):
   return tb.toxml()
 
 
-def getContrastReadingPageHtml(locale, translator, node, reqPath, i18n):
+def getContrastReadingPageHtml(locale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-3]), i18n.gettext(u'Original Pāḷi Text'))
+  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-3]), i18n.ugettext(u'Original Pāḷi Text'))
 
   xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
   oriBody= getBodyDom(xmlUrl)
