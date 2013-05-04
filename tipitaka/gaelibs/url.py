@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json, urllib2, jinja2
+import os, urllib2
 from lxml import etree
 import xml.dom.minidom
-from pathInfo import xmlFilename2Path
 from translationInfo import getTranslatorSource, getI18nLinksTemplateValues, getAllLocalesTranslationsTemplateValues
+from template import getJinja2Env, getTranslationPageOriPaliLinkHtml, getContrastReadingPageOriPaliLinkHtml
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
@@ -20,27 +20,6 @@ else:
 result = urllib2.urlopen(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
 xslt_root = etree.fromstring(result.read())
 transform = etree.XSLT(xslt_root)
-
-with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
-  translationInfo = json.loads(f.read())
-
-jj2env = jinja2.Environment(
-  loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
-  extensions=['jinja2.ext.i18n'])
-
-def translateLocale(value):
-  if value == u'en_US': return u'English'
-  if value == u'zh_TW': return u'中文 (繁體)'
-  if value == u'zh_CN': return u'中文 (简体)'
-  if value == u'ja_JP': return u'日本語'
-  return value
-
-jj2env.filters['translateLocale'] = translateLocale
-jj2env.filters['xmlFilename2Path'] = xmlFilename2Path
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
-import i18n
-jj2env.install_gettext_translations(i18n)
 
 
 def getBodyDom(xmlUrl):
@@ -57,7 +36,7 @@ def getBodyDom(xmlUrl):
 
 def getI18nLinks(node, reqPath):
   xmlFilename = os.path.basename(node['action'])
-  template = jj2env.get_template('i18nLinks.html')
+  template = getJinja2Env().get_template('i18nLinks.html')
 
   i18nLinksTemplateValues = getI18nLinksTemplateValues(xmlFilename)
   if i18nLinksTemplateValues:
@@ -96,7 +75,7 @@ def getTranslationPageHtml(locale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-2]), i18n.ugettext(u'Original Pāḷi Text'))
+  html = getTranslationPageOriPaliLinkHtml(reqPath)
   # return only innerHTML of body
   html += getTranslationXmlBodyDom(locale, translator, node).toxml()[6:-7]
   return html
@@ -138,7 +117,7 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
-  html = u'<div>&lt;&lt; <a href="%s">%s</a></div>' % (os.path.sep.join(reqPath.split(os.path.sep)[:-3]), i18n.ugettext(u'Original Pāḷi Text'))
+  html = getContrastReadingPageOriPaliLinkHtml(reqPath)
 
   xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
   oriBody= getBodyDom(xmlUrl)
@@ -149,7 +128,7 @@ def getContrastReadingPageHtml(locale, translator, node, reqPath):
 
 
 def getAllLocalesTranslationsHtml(urlLocale):
-  template = jj2env.get_template('info.html')
+  template = getJinja2Env().get_template('info.html')
   return template.render({'urlLocale': urlLocale,
                           'localeTranslations': getAllLocalesTranslationsTemplateValues()})
 
