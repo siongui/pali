@@ -1,7 +1,7 @@
 <div>
   {% for localeTranslation in localeTranslations %}
     <div class="canon1">
-      <a href="javascript:void(0);">{{ localeTranslation.translationLocale }}</a> :
+      <a href="javascript:void(0);">{{ localeTranslation.translationLocale | translateLocale }}</a> :
       {% for localeXmlTranslation in localeTranslation['localeXmlTranslations'] %}
         <div style="padding-left: 1em;">
            <a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}">

@@ -28,6 +28,15 @@ jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
   extensions=['jinja2.ext.i18n'])
 
+def translateLocale(value):
+  if value == u'en_US': return u'English'
+  if value == u'zh_TW': return u'中文 (繁體)'
+  if value == u'zh_CN': return u'中文 (简体)'
+  if value == u'ja_JP': return u'日本語'
+  return value
+
+jj2env.filters['translateLocale'] = translateLocale
+
 
 def getBodyDom(xmlUrl):
   result = urllib2.urlopen(xmlUrl)

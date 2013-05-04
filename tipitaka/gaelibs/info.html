@@ -1,5 +1,5 @@
 {% for localeTranslation in localeTranslations %}
-  {{ localeTranslation['locale'] }}
+  {{ localeTranslation['locale'] | translateLocale }}
   {% for translation in localeTranslation['translations'] %}
     {{ translation.xmlFilename }}
     {% for translator in translation['translator'] %}
