@@ -1,31 +1,24 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, urllib2
+import os
 from lxml import etree
 import xml.dom.minidom
 from translationInfo import getTranslatorSource, getI18nLinksTemplateValues, getAllLocalesTranslationsTemplateValues
 from template import getJinja2Env, getTranslationPageOriPaliLinkHtml, getContrastReadingPageOriPaliLinkHtml
 
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
-from misc import isProductionServer
-if isProductionServer():
-  paliXmlUrlPrefix = u'http://epalitipitaka.appspot.com/romn/'
-  trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
-else:
-  paliXmlUrlPrefix = u'http://localhost:8080/romn/'
-  trXmlUrlPrefix = u'http://localhost:8080/translation/'
+paliXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'romn')
+trXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'translation')
 
-result = urllib2.urlopen(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
-xslt_root = etree.fromstring(result.read())
+with open(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'), 'r') as f:
+  xslt_root = etree.fromstring(f.read())
 transform = etree.XSLT(xslt_root)
 
 
 def getBodyDom(xmlUrl):
-  result = urllib2.urlopen(xmlUrl)
-  # successfully fetch xml
-  root = etree.fromstring(result.read())
+  # read xml
+  with open(xmlUrl, 'r') as f:
+    root = etree.fromstring(f.read())
   # transform xml with xslt
   root = transform(root)
   # feed transformed data to minidom for processing

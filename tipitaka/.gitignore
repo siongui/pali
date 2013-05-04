@@ -11,4 +11,5 @@ gaelibs/json/translationInfo.json
 gaelibs/json/canonTextTranslation.json
 
 common
-locale
+gaelibs/romn
+gaelibs/translation

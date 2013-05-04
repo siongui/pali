@@ -112,10 +112,11 @@ def ln(source, link_name):
 def setupSymlinks():
   os.chdir(os.path.join(os.path.dirname(__file__), '../../tipitaka'))
   ln('../common/', 'common')
-  ln('../common/locale/', 'locale')
-  os.chdir('../dictionary')
+  os.chdir('gaelibs')
+  ln('../../common/translation/', 'translation')
+  ln('../../common/romn/', 'romn')
+  os.chdir('../../dictionary')
   ln('../common/', 'common')
-  ln('../common/locale/', 'locale')
 
 
 def setupXmls():
@@ -209,14 +210,6 @@ def setupAll():
         # setup jianfan
         createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
 
-      if name.startswith('data-master/pali/common/gae/libs/babel.zip'):
-        # setup Babel
-        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
-
-      if name.startswith('data-master/pali/common/gae/libs/pytz.zip'):
-        # setup gaepytz
-        createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
-
       if name.startswith('data-master/pali/common/translation/'):
         # setup translation xmls
         createEntryFromZipFile(zf, name, commonDirPath, 'data-master/pali/common/')
@@ -232,7 +225,7 @@ def setupAll():
 if __name__ == '__main__':
   #setupTongWen()
   #setupJianfan()
-  #setupSymlinks()
   #setupXmls()
   #setupBabel()
+  setupSymlinks()
   setupAll()
