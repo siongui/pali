@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json
+import os
+import json
+import collections
 
 # See setTranslationData.py
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
-  translationInfo = json.loads(f.read())
+  d = json.JSONDecoder(object_pairs_hook = collections.OrderedDict)
+  translationInfo = d.decode(f.read())
 
 
 def isValidTranslation(xmlFilename, translationLocale, translator):
