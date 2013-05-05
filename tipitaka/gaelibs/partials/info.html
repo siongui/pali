@@ -4,13 +4,11 @@
     <a href="{{ translation.xmlFilename | xmlFilename2Path }}">{{ translation.xmlFilename }}</a>
     {% for localeXmlTranslation in translation['localeXmlTranslations'] %}
       {{ localeXmlTranslation.translator }}
-      {% if urlLocale %}
-        <a href="/{{ urlLocale }}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">{{_("Translation")}}</a>
-        <a href="/{{ urlLocale }}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading">{{_("Contrast Reading")}}</a>
-      {% else %}
-        <a href="{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">{{_("Translation")}}</a>
-        <a href="{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading">{{_("Contrast Reading")}}</a>
+      {% if localeXmlTranslation.excerpt %}
+        <span>[{{_("Excerpt")}}]</span>&nbsp;
       {% endif %}
+      <a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">{{_("Translation")}}</a>
+      (<a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading">{{_("Contrast Reading")}}</a>)
     {% endfor %}
   {% endfor %}
 {% endfor %}
