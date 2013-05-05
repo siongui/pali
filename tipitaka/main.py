@@ -17,9 +17,10 @@ from misc import isCompiledJS, isTrack
 import i18n
 
 jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader([os.path.join(os.path.dirname(__file__), 'app'),
-                                    os.path.join(os.path.dirname(__file__), 'app/css'),
-                                    os.path.join(os.path.dirname(__file__), 'app/partials')]),
+    loader=jinja2.FileSystemLoader(
+      [os.path.join(os.path.dirname(__file__), 'app'),
+       os.path.join(os.path.dirname(__file__), 'app/css'),
+       os.path.join(os.path.dirname(__file__), 'app/partials')]),
     extensions=['jinja2.ext.i18n'],
     variable_start_string='{$',
     variable_end_string='$}')
@@ -57,7 +58,7 @@ class CanonPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['canonPageHtml'] = getCanonPageHtml(result['node'], self.request.path)
+    template_values['pageHtml'] = result['pageHtml']
     template_values['htmlTitle'] = result['htmlTitle']
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
@@ -69,7 +70,7 @@ class TranslationPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['translationPageHtml'] = getTranslationPageHtml(translationLocale, translator, result['node'], self.request.path)
+    template_values['pageHtml'] = result['pageHtml']
     template_values['htmlTitle'] = result['htmlTitle']
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
@@ -81,7 +82,7 @@ class ContrastReadingPage(webapp2.RequestHandler):
     if not result['isValid']:
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale)
-    template_values['contrastReadingPageHtml'] = getContrastReadingPageHtml(translationLocale, translator, result['node'], self.request.path)
+    template_values['pageHtml'] = result['pageHtml']
     template_values['htmlTitle'] = result['htmlTitle']
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))

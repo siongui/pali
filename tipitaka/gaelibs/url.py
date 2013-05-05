@@ -31,13 +31,18 @@ def checkPath(reqPath, urlLocale, paliTextPath,
         # contrast reading page
         result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
                                            translator, True)
+        result['pageHtml'] = getContrastReadingPageHtml(translationLocale,
+                                           translator, result['node'], reqPath)
       else:
         # translation page
         result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
                                            translator, False)
+        result['pageHtml'] = getTranslationPageHtml(translationLocale,
+                                           translator, result['node'], reqPath)
     else:
       # canon page
       result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'])
+      result['pageHtml'] = getCanonPageHtml(result['node'], reqPath)
 
   return result
 
