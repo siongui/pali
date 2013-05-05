@@ -4,8 +4,14 @@
 import os
 from lxml import etree
 import xml.dom.minidom
-from translationInfo import getTranslatorSource, getI18nLinksTemplateValues, getAllLocalesTranslationsTemplateValues
-from template import getJinja2Env, getTranslationPageOriPaliLinkHtml, getContrastReadingPageOriPaliLinkHtml
+from translationInfo import getTranslatorSource
+from translationInfo import getI18nLinksTemplateValues
+from translationInfo import getAllLocalesTranslationsTemplateValues
+from template import getJinja2Env
+from template import getTranslationPageOriPaliLinkHtml
+from template import getContrastReadingPageOriPaliLinkHtml
+from pathInfo import isValidPath
+from htmlTitle import getHtmlTitle
 
 paliXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'romn')
 trXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'translation')
@@ -13,6 +19,27 @@ trXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'translation')
 with open(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'), 'r') as f:
   xslt_root = etree.fromstring(f.read())
 transform = etree.XSLT(xslt_root)
+
+
+def checkPath(reqPath, urlLocale, paliTextPath,
+              translationLocale=None, translator=None):
+  result = isValidPath(paliTextPath, translationLocale, translator)
+  if result['isValid']:
+    # this is a valid path
+    if translationLocale:
+      if reqPath.endswith('ContrastReading'):
+        # contrast reading page
+        result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
+                                           translator, True)
+      else:
+        # translation page
+        result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
+                                           translator, False)
+    else:
+      # canon page
+      result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'])
+
+  return result
 
 
 def getBodyDom(xmlUrl):

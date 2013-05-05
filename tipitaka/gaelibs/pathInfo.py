@@ -21,7 +21,8 @@ where each node contains the following attribute:
           'subpath': string }
 This is a tree structure.
 """
-with open(os.path.join(os.path.dirname(__file__), 'json/treeviewAll.json'), 'r') as f:
+with open(os.path.join(os.path.dirname(__file__), 
+                       'json/treeviewAll.json' ), 'r') as f:
   treeviewData = json.loads(f.read())
 
 # cache of {xmlFilename, paliTextPath} pairs

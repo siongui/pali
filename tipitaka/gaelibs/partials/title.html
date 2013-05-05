@@ -1,0 +1,13 @@
+{%- if translator -%}
+  {%- if contrastReading -%}
+    {{_("Contrast Reading")}}{{ ' - ' }}
+  {%- endif -%}
+  {{ translator }}{{ ' ' }}{{_("Translation")}}{{ ' - ' }}
+{%- endif -%}
+{%- for text in texts -%}
+  {%- if urlLocale -%}
+    {{ text | translateNodeText4(urlLocale) }}{{ ' - ' }}
+  {%- else -%}
+    {{ text | nodeTextStrip2 }}{{ ' - ' }}
+  {%- endif -%}
+{%- endfor -%}

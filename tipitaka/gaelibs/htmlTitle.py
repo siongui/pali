@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json, re
+import os
+import json
+import re
 
-with open(os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json'), 'r') as f:
+with open(os.path.join(os.path.dirname(__file__),
+                       'json/canonTextTranslation.json'), 'r') as f:
   canonTextTranslation = json.loads(f.read())
 
 
@@ -48,23 +51,27 @@ def translateNodeText(text, locale):
   return text
 
 
-def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None, i18n=None):
-  title = u''
+def translateNodeText4(text, locale):
+  trText = translateNodeText(text, locale)
+  if trText == text:
+    return nodeTextStrip2(text)
+  else:
+    return trText
 
-  if texts:
-    for text in texts:
-      if urlLocale:
-        trText = translateNodeText(text, urlLocale)
-        if trText == text:
-          title += nodeTextStrip2(text) + u' - '
-        else:
-          title += trText + u' - '
-      else:
-        title += nodeTextStrip2(text) + u' - '
 
+# FIXME: ugly coding style
+from template import getJinja2Env
+
+jj2env = getJinja2Env()
+jj2env.filters['nodeTextStrip2'] = nodeTextStrip2
+jj2env.filters['translateNodeText4'] = translateNodeText4
+titleTemplate = jj2env.get_template('title.html')
+
+def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None):
+  tmpValue = {'urlLocale': urlLocale,
+              'texts': texts }
   if translator:
-    title = translator.decode('utf-8') + u' ' + i18n.ugettext(u'Translation')  + u' - ' + title
-    if contrastReading:
-      title = i18n.ugettext(u'Contrast Reading') + u' - ' + title
+    tmpValue['translator'] = translator.decode('utf-8')
+    tmpValue['contrastReading'] = contrastReading
 
-  return title
+  return titleTemplate.render(tmpValue)
