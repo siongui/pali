@@ -2,14 +2,14 @@
   {{ localeTranslation['translationLocale'] | translateLocale }}
   {% for translation in localeTranslation['translations'] %}
     <a href="{{ translation.xmlFilename | xmlFilename2Path }}">{{ translation.xmlFilename }}</a>
-    {% for translator in translation['translator'] %}
-      {{ translator }}
+    {% for localeXmlTranslation in translation['localeXmlTranslations'] %}
+      {{ localeXmlTranslation.translator }}
       {% if urlLocale %}
-        <a href="/{{ urlLocale }}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ translator }}">{{_("Translation")}}</a>
-        <a href="/{{ urlLocale }}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ translator }}/ContrastReading">{{_("Contrast Reading")}}</a>
+        <a href="/{{ urlLocale }}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">{{_("Translation")}}</a>
+        <a href="/{{ urlLocale }}{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading">{{_("Contrast Reading")}}</a>
       {% else %}
-        <a href="{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ translator }}">{{_("Translation")}}</a>
-        <a href="{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ translator }}/ContrastReading">{{_("Contrast Reading")}}</a>
+        <a href="{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">{{_("Translation")}}</a>
+        <a href="{{ translation.xmlFilename | xmlFilename2Path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading">{{_("Contrast Reading")}}</a>
       {% endif %}
     {% endfor %}
   {% endfor %}

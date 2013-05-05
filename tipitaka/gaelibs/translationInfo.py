@@ -22,16 +22,9 @@ def getTranslatorSource(xmlFilename, translationLocale, translator):
   if xmlFilename in translationInfo[translationLocale]['canon']:
     for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
       if translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0] == translator.decode('utf-8'):
-        code = localeXmlTranslation['source']
-        break
-    try:
-      code
-    except:
-      raise Exception('cannot find localeXmlTranslation["source"]')
-  else:
-    raise Exception("%s not in translationInfo[%s]['canon']" % (xmlFilename, locale))
+        return localeXmlTranslation['source']
 
-  return code
+  raise Exception('cannot find translator source %s %s %s' % (xmlFilename, translationLocale, translator))
 
 
 def getTranslator(translationLocale, localeXmlTranslation):
@@ -40,11 +33,19 @@ def getTranslator(translationLocale, localeXmlTranslation):
 
 def getLocaleXmlTranslations(translationLocale, xmlFilename):
   localeXmlTranslations = []
-  for tmp in translationInfo[translationLocale]['canon'][xmlFilename]:
-    localeXmlTranslation = { 'translator': getTranslator(translationLocale, tmp) }
+  for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
+    tmp = { 'source': localeXmlTranslation['source'],
+            'translator': getTranslator(translationLocale, localeXmlTranslation) }
+
+    # retrieve additional information if available
     if 'excerpt' in localeXmlTranslation:
-      localeXmlTranslation['excerpt'] = tmp['excerpt']
-    localeXmlTranslations.append(localeXmlTranslation)
+      tmp['excerpt'] = localeXmlTranslation['excerpt']
+    if 'URL' in localeXmlTranslation:
+      tmp['URL'] = localeXmlTranslation['URL']
+    if 'copyrightURL' in localeXmlTranslation:
+      tmp['copyrightURL'] = localeXmlTranslation['copyrightURL']
+
+    localeXmlTranslations.append(tmp)
 
   return localeXmlTranslations
 
@@ -72,11 +73,12 @@ def getAllLocalesTranslationsTemplateValues():
     localeTranslation['translations'] = []
     for xmlFilename in translationInfo[translationLocale]['canon']:
       translation = { 'xmlFilename': xmlFilename }
-      translation['translator'] = []
-      for localeXmlTranslation in translationInfo[translationLocale]['canon'][xmlFilename]:
-        translation['translator'].append(translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0])
+      translation['localeXmlTranslations'] = \
+        getLocaleXmlTranslations(translationLocale, xmlFilename)
       localeTranslation['translations'].append(translation)
-    localeTranslations.append(localeTranslation)
+
+    if len(localeTranslation['translations']) > 0:
+      localeTranslations.append(localeTranslation)
 
   return localeTranslations
 
