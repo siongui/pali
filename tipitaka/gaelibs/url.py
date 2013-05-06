@@ -4,7 +4,6 @@
 import os
 from lxml import etree
 import xml.dom.minidom
-from translationInfo import getTranslatorSource
 from translationInfo import getI18nLinksTemplateValues
 from translationInfo import getAllLocalesTranslationsTemplateValues
 from template import getJinja2Env
@@ -12,13 +11,9 @@ from template import getTranslationPageOriPaliLinkHtml
 from template import getContrastReadingPageOriPaliLinkHtml
 from pathInfo import isValidPath
 from htmlTitle import getHtmlTitle
-
-paliXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'romn')
-trXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'translation')
-
-with open(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'), 'r') as f:
-  xslt_root = etree.fromstring(f.read())
-transform = etree.XSLT(xslt_root)
+from xml2html import paliXslt
+from xml2html import getCanonXmlUrl
+from xml2html import getTranslationXmlUrl
 
 
 def checkPath(reqPath, urlLocale, paliTextPath,
@@ -48,19 +43,13 @@ def checkPath(reqPath, urlLocale, paliTextPath,
 
 
 def getBodyDom(xmlUrl):
-  # read xml
-  with open(xmlUrl, 'r') as f:
-    root = etree.fromstring(f.read())
-  # transform xml with xslt
-  root = transform(root)
   # feed transformed data to minidom for processing
-  dom = xml.dom.minidom.parseString(etree.tostring(root))
+  dom = xml.dom.minidom.parseString(etree.tostring(paliXslt(xmlUrl)))
   # return only dom of body
   return dom.documentElement.getElementsByTagName('body')[0]
 
 
-def getI18nLinks(node, reqPath):
-  xmlFilename = os.path.basename(node['action'])
+def getI18nLinks(xmlFilename, reqPath):
   template = getJinja2Env().get_template('i18nLinks.html')
 
   i18nLinksTemplateValues = getI18nLinksTemplateValues(xmlFilename)
@@ -72,37 +61,33 @@ def getI18nLinks(node, reqPath):
 
 
 def getCanonPageHtml(node, reqPath):
-  # before using this funtion, make sure to call 'isValidCanonPath' first
   html = u''
   if 'action' in node:
-    html += getI18nLinks(node, reqPath)
+    html += getI18nLinks(os.path.basename(node['action']), reqPath)
     # fetch xml
-    xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
+    xmlUrl = getCanonXmlUrl(node['action'])
     # return only innerHTML of body
     html += getBodyDom(xmlUrl).toxml()[6:-7]
   else:
     for child in node['child']:
-      html += u'<a href="%s/%s">%s</a>' % (reqPath, child['subpath'], child['text'])
+      html += u'\n<a href="%s/%s">%s</a>\n' % (
+                    reqPath, child['subpath'], child['text'])
 
   return html
 
 
-def getTranslationXmlBodyDom(locale, translator, node):
-  # fetch xml
-  xmlFilename = os.path.basename(node['action'])
-  code = getTranslatorSource(xmlFilename, locale, translator)
-
-  xmlUrl = os.path.join(trXmlUrlPrefix, '%s/%s/%s' % (locale, code, xmlFilename))
-  return getBodyDom(xmlUrl)
+def getTranslationXmlBodyDom(translationLocale, translator, node):
+  return getBodyDom(getTranslationXmlUrl(os.path.basename(node['action']),
+                                         translationLocale, translator))
 
 
-def getTranslationPageHtml(locale, translator, node, reqPath):
+def getTranslationPageHtml(translationLocale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
   html = getTranslationPageOriPaliLinkHtml(reqPath)
   # return only innerHTML of body
-  html += getTranslationXmlBodyDom(locale, translator, node).toxml()[6:-7]
+  html += getTranslationXmlBodyDom(translationLocale, translator, node).toxml()[6:-7]
   return html
 
 
@@ -138,15 +123,15 @@ def generateContrastReadingTable(oriBody, trBody):
   return tb.toxml()
 
 
-def getContrastReadingPageHtml(locale, translator, node, reqPath):
+def getContrastReadingPageHtml(translationLocale, translator, node, reqPath):
   if 'action' not in node:
     raise Exception('In getTranslationPageHtml: action attribute not in node!')
 
   html = getContrastReadingPageOriPaliLinkHtml(reqPath)
 
-  xmlUrl = os.path.join(paliXmlUrlPrefix, node['action'])
+  xmlUrl = getCanonXmlUrl(node['action'])
   oriBody= getBodyDom(xmlUrl)
-  trBody = getTranslationXmlBodyDom(locale, translator, node)
+  trBody = getTranslationXmlBodyDom(translationLocale, translator, node)
   html += generateContrastReadingTable(oriBody, trBody)
 
   return html
