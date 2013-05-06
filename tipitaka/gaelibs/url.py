@@ -91,32 +91,17 @@ def generateContrastReadingTable(oriBody, trBody):
   if (len(oriBody.childNodes) != len(trBody.childNodes)):
     raise Exception('two XML document body childs # not match')
 
-  impl = xml.dom.minidom.getDOMImplementation()
-  dom = impl.createDocument(None, 'table', None)
-  tb = dom.documentElement
-  tb.setAttribute('style', "width: 100%")
-
+  contrastReadings = []
   for i in range(len(oriBody.childNodes)):
     if oriBody.childNodes[i].nodeType != xml.dom.Node.ELEMENT_NODE and \
        trBody.childNodes[i].nodeType != xml.dom.Node.ELEMENT_NODE:
       continue
 
-    td1 = dom.createElement('td');
-    td1.appendChild(oriBody.childNodes[i].cloneNode(deep=True))
-    td1.setAttribute('style', "width: 50%")
+    contrastReadings.append([oriBody.childNodes[i].toxml(),
+                             trBody.childNodes[i].toxml()])
 
-    td2 = dom.createElement('td');
-    td2.appendChild(trBody.childNodes[i].cloneNode(deep=True))
-    td2.setAttribute('style', "width: 50%")
-
-    tr = dom.createElement('tr');
-    tr.setAttribute('style', "text-align: left")
-    tr.appendChild(td1)
-    tr.appendChild(td2)
-
-    tb.appendChild(tr)
-
-  return tb.toxml()
+  template = getJinja2Env().get_template('contrastReading.html')
+  return template.render({'contrastReadings': contrastReadings })
 
 
 def getContrastReadingPageHtml(translationLocale, translator, action, reqPath):
