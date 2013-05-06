@@ -5,15 +5,14 @@ import webapp2, jinja2, os, sys, json, urllib2
 from  webapp2_extras.routes import PathPrefixRoute
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import getCanonPageHtml
-from url import getTranslationPageHtml
-from url import getContrastReadingPageHtml
 from url import getAllLocalesTranslationsHtml
 from url import checkPath
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
-from localeUtil import getLocale, parseAcceptLanguage
-from misc import isCompiledJS, isTrack
+from localeUtil import getLocale
+from localeUtil import parseAcceptLanguage
+from misc import isCompiledJS
+from misc import isTrack
 import i18n
 
 jinja_environment = jinja2.Environment(
