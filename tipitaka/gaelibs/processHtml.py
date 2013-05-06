@@ -2,22 +2,12 @@
 # -*- coding:utf-8 -*-
 
 import os
-import xml.dom.minidom
 from lxml import etree
 from xml2html import paliXslt
 from xml2html import getCanonXmlUrl
 from xml2html import getTranslationXmlUrl
 from template import getJinja2Env
-from template import getTranslationPageOriPaliLinkHtml
-from template import getContrastReadingPageOriPaliLinkHtml
 from translationInfo import getI18nLinksTemplateValues
-
-
-def getBodyDom(xmlUrl):
-  # feed transformed data to minidom for processing
-  dom = xml.dom.minidom.parseString(etree.tostring(paliXslt(xmlUrl)))
-  # return only dom of body
-  return dom.documentElement.getElementsByTagName('body')[0]
 
 
 def getCanonPageHtml(node, reqPath):
@@ -39,40 +29,47 @@ def getCanonPageHtml(node, reqPath):
   return template.render(canonPageTemplateValue);
 
 
-def getTranslationXmlBodyDom(translationLocale, translator, action):
-  return getBodyDom(getTranslationXmlUrl(action, translationLocale, translator))
-
-
 def getTranslationPageHtml(translationLocale, translator, action, reqPath):
-  html = getTranslationPageOriPaliLinkHtml(reqPath)
-  # return only innerHTML of body
-  html += getTranslationXmlBodyDom(translationLocale, translator, action).toxml()[6:-7]
-  return html
+  translationPageTemplateValue = { 'reqPath': reqPath }
+  # xslt
+  transformedHtml = paliXslt(getTranslationXmlUrl(
+                               action, translationLocale, translator))
+  # get innerHTML of body
+  translationPageTemplateValue['body'] = etree.tostring(
+                                    transformedHtml.find('body'))[6:-7]
+
+  template = getJinja2Env().get_template('translationPage.html')
+  return template.render(translationPageTemplateValue);
 
 
-def generateContrastReadingTable(oriBody, trBody):
-  if (len(oriBody.childNodes) != len(trBody.childNodes)):
+def contrastReadingTemplateValue(oriBody, trBody):
+  if (len(oriBody) != len(trBody)):
     raise Exception('two XML document body childs # not match')
 
   contrastReadings = []
-  for i in range(len(oriBody.childNodes)):
-    if oriBody.childNodes[i].nodeType != xml.dom.Node.ELEMENT_NODE and \
-       trBody.childNodes[i].nodeType != xml.dom.Node.ELEMENT_NODE:
+  for i in range(len(oriBody)):
+    if oriBody[i].tag != 'p' and \
+       trBody[i].tag != 'p':
       continue
 
-    contrastReadings.append([oriBody.childNodes[i].toxml(),
-                             trBody.childNodes[i].toxml()])
+    contrastReadings.append([etree.tostring(oriBody[i]),
+                             etree.tostring(trBody[i]) ])
 
-  template = getJinja2Env().get_template('contrastReading.html')
-  return template.render({'contrastReadings': contrastReadings })
+  return contrastReadings
 
 
 def getContrastReadingPageHtml(translationLocale, translator, action, reqPath):
-  html = getContrastReadingPageOriPaliLinkHtml(reqPath)
+  contrastReadingPageTemplateValue = { 'reqPath': reqPath }
+  # xslt
+  oriTransformedHtml = paliXslt(getCanonXmlUrl(action))
+  trTransformedHtml = paliXslt(getTranslationXmlUrl(
+                               action, translationLocale, translator))
 
-  xmlUrl = getCanonXmlUrl(action)
-  oriBody= getBodyDom(xmlUrl)
-  trBody = getTranslationXmlBodyDom(translationLocale, translator, action)
-  html += generateContrastReadingTable(oriBody, trBody)
+  oriBody = oriTransformedHtml.find('body')
+  trBody = trTransformedHtml.find('body')
 
-  return html
+  contrastReadingPageTemplateValue['contrastReadings'] = \
+    contrastReadingTemplateValue(oriBody, trBody)
+
+  template = getJinja2Env().get_template('contrastReadingPage.html')
+  return template.render(contrastReadingPageTemplateValue)
