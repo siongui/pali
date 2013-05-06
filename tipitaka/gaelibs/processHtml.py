@@ -20,31 +20,23 @@ def getBodyDom(xmlUrl):
   return dom.documentElement.getElementsByTagName('body')[0]
 
 
-def getI18nLinks(xmlFilename, reqPath):
-  template = getJinja2Env().get_template('i18nLinks.html')
-
-  i18nLinksTemplateValues = getI18nLinksTemplateValues(xmlFilename)
-  if i18nLinksTemplateValues:
-    i18nLinksTemplateValues['reqPath'] = reqPath
-    return template.render(i18nLinksTemplateValues);
-  else:
-    return u''
-
-
 def getCanonPageHtml(node, reqPath):
-  html = u''
+  canonPageTemplateValue = { 'reqPath': reqPath }
   if 'action' in node:
-    html += getI18nLinks(os.path.basename(node['action']), reqPath)
-    # fetch xml
-    xmlUrl = getCanonXmlUrl(node['action'])
-    # return only innerHTML of body
-    html += getBodyDom(xmlUrl).toxml()[6:-7]
+    canonPageTemplateValue['isPaliText'] = True
+    # set links of translation and contrast reading if any
+    canonPageTemplateValue['i18nLinks'] = \
+             getI18nLinksTemplateValues(os.path.basename(node['action']))
+    # xslt
+    transformedHtml = paliXslt(getCanonXmlUrl(node['action']))
+    # get innerHTML of body
+    canonPageTemplateValue['body'] = etree.tostring(
+                                      transformedHtml.find('body'))[6:-7]
   else:
-    for child in node['child']:
-      html += u'\n<a href="%s/%s">%s</a>\n' % (
-                    reqPath, child['subpath'], child['text'])
+    canonPageTemplateValue['childs'] = node['child']
 
-  return html
+  template = getJinja2Env().get_template('canonPage.html')
+  return template.render(canonPageTemplateValue);
 
 
 def getTranslationXmlBodyDom(translationLocale, translator, action):

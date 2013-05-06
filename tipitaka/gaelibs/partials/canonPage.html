@@ -1,5 +1,6 @@
 <div>
-  {% for localeTranslation in localeTranslations %}
+{% if isPaliText %}
+  {% for localeTranslation in i18nLinks['localeTranslations'] %}
     <div class="canon1">
       <a href="javascript:void(0);">{{ localeTranslation.translationLocale | translateLocale }}</a> :
       {% for localeXmlTranslation in localeTranslation['localeXmlTranslations'] %}
@@ -13,6 +14,13 @@
     </div>
   {% endfor %}
 
+  {{ body }}
+
+{% else %}
+  {% for child in childs %}
+    <a href="{{ reqPath }}/{{ child['subpath'] }}">{{ child['text'] }}</a>
+  {% endfor %}
+{% endif %}
   <style>
 .canon1 {
   padding: 1em;
