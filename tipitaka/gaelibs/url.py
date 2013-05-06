@@ -27,13 +27,13 @@ def checkPath(reqPath, urlLocale, paliTextPath,
         result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
                                            translator, True)
         result['pageHtml'] = getContrastReadingPageHtml(translationLocale,
-                                           translator, result['node'], reqPath)
+                               translator, result['node']['action'], reqPath)
       else:
         # translation page
         result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
                                            translator, False)
         result['pageHtml'] = getTranslationPageHtml(translationLocale,
-                                           translator, result['node'], reqPath)
+                               translator, result['node']['action'], reqPath)
     else:
       # canon page
       result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'])
@@ -76,18 +76,14 @@ def getCanonPageHtml(node, reqPath):
   return html
 
 
-def getTranslationXmlBodyDom(translationLocale, translator, node):
-  return getBodyDom(getTranslationXmlUrl(os.path.basename(node['action']),
-                                         translationLocale, translator))
+def getTranslationXmlBodyDom(translationLocale, translator, action):
+  return getBodyDom(getTranslationXmlUrl(action, translationLocale, translator))
 
 
-def getTranslationPageHtml(translationLocale, translator, node, reqPath):
-  if 'action' not in node:
-    raise Exception('In getTranslationPageHtml: action attribute not in node!')
-
+def getTranslationPageHtml(translationLocale, translator, action, reqPath):
   html = getTranslationPageOriPaliLinkHtml(reqPath)
   # return only innerHTML of body
-  html += getTranslationXmlBodyDom(translationLocale, translator, node).toxml()[6:-7]
+  html += getTranslationXmlBodyDom(translationLocale, translator, action).toxml()[6:-7]
   return html
 
 
@@ -123,15 +119,12 @@ def generateContrastReadingTable(oriBody, trBody):
   return tb.toxml()
 
 
-def getContrastReadingPageHtml(translationLocale, translator, node, reqPath):
-  if 'action' not in node:
-    raise Exception('In getTranslationPageHtml: action attribute not in node!')
-
+def getContrastReadingPageHtml(translationLocale, translator, action, reqPath):
   html = getContrastReadingPageOriPaliLinkHtml(reqPath)
 
-  xmlUrl = getCanonXmlUrl(node['action'])
+  xmlUrl = getCanonXmlUrl(action)
   oriBody= getBodyDom(xmlUrl)
-  trBody = getTranslationXmlBodyDom(translationLocale, translator, node)
+  trBody = getTranslationXmlBodyDom(translationLocale, translator, action)
   html += generateContrastReadingTable(oriBody, trBody)
 
   return html

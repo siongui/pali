@@ -15,7 +15,8 @@ transform = etree.XSLT(xslt_root)
 def getCanonXmlUrl(action):
   return os.path.join(paliXmlUrlPrefix, action)
 
-def getTranslationXmlUrl(xmlFilename, translationLocale, translator):
+def getTranslationXmlUrl(action, translationLocale, translator):
+  xmlFilename = os.path.basename(action)
   code = getTranslatorSource(xmlFilename, translationLocale, translator)
   return os.path.join(trXmlUrlPrefix, '%s/%s/%s' % (
                                        translationLocale, code, xmlFilename))
