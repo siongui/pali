@@ -12,6 +12,7 @@ from misc import isGoogleAppEngine
 from misc import isProductionServer
 
 if isGoogleAppEngine():
+  import urllib2
   if isProductionServer():
     paliXmlUrlPrefix = u'http://epalitipitaka.appspot.com/romn/'
     trXmlUrlPrefix = u'http://epalitipitaka.appspot.com/translation/'
@@ -26,8 +27,9 @@ else:
 
 
 if isGoogleAppEngine():
-  xslt_root = etree.parse(os.path.join(
-                paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
+  result = urllib2.urlopen(os.path.join(
+             paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'))
+  xslt_root = etree.parse(result)
   transform = etree.XSLT(xslt_root)
 else:
   # add amazon ec2 support here
@@ -49,7 +51,12 @@ def getTranslationXmlUrl(action, translationLocale, translator):
                                        translationLocale, code, xmlFilename))
 
 def xslt(url):
-  root = etree.parse(url)
+  if isGoogleAppEngine():
+    result = urllib2.urlopen(url)
+    root = etree.parse(result)
+  else:
+    # add amazon ec2 support here
+    raise Exception('currently only Google App Engine is supported')
   # transform xml with xslt
   return transform(root)
 
