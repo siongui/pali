@@ -10,7 +10,7 @@ from processHtml import getTranslationPageHtml
 from processHtml import getContrastReadingPageHtml
 
 
-def checkPath(reqPath, urlLocale, paliTextPath,
+def checkPath(reqPath, urlLocale, paliTextPath, userLocale,
               translationLocale=None, translator=None):
   result = isValidPath(paliTextPath, translationLocale, translator)
   if result['isValid']:
@@ -19,25 +19,25 @@ def checkPath(reqPath, urlLocale, paliTextPath,
       if reqPath.endswith('ContrastReading'):
         # contrast reading page
         result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
-                                           translator, True)
+                                userLocale, translator, True)
         result['pageHtml'] = getContrastReadingPageHtml(translationLocale,
-                               translator, result['node']['action'], reqPath)
+          translator, result['node']['action'], reqPath, userLocale)
       else:
         # translation page
         result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'],
-                                           translator, False)
+                                userLocale, translator, False)
         result['pageHtml'] = getTranslationPageHtml(translationLocale,
-                               translator, result['node']['action'], reqPath)
+          translator, result['node']['action'], reqPath, userLocale)
     else:
       # canon page
-      result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'])
-      result['pageHtml'] = getCanonPageHtml(result['node'], reqPath)
+      result['htmlTitle'] = getHtmlTitle(urlLocale, result['texts'], userLocale)
+      result['pageHtml'] = getCanonPageHtml(result['node'], reqPath, userLocale)
 
   return result
 
 
-def getAllLocalesTranslationsHtml(urlLocale):
-  template = getJinja2Env().get_template('info.html')
+def getAllLocalesTranslationsHtml(urlLocale, userLocale):
+  template = getJinja2Env(userLocale).get_template('info.html')
   return template.render({'urlLocale': urlLocale,
                           'localeTranslations': getAllLocalesTranslationsTemplateValues()})
 

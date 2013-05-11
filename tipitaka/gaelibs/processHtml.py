@@ -9,7 +9,7 @@ from template import getJinja2Env
 from translationInfo import getI18nLinksTemplateValues
 
 
-def getCanonPageHtml(node, reqPath):
+def getCanonPageHtml(node, reqPath, userLocale):
   canonPageTemplateValue = { 'reqPath': reqPath }
   if 'action' in node:
     canonPageTemplateValue['isPaliText'] = True
@@ -24,11 +24,12 @@ def getCanonPageHtml(node, reqPath):
   else:
     canonPageTemplateValue['childs'] = node['child']
 
-  template = getJinja2Env().get_template('canonPage.html')
+  template = getJinja2Env(userLocale).get_template('canonPage.html')
   return template.render(canonPageTemplateValue);
 
 
-def getTranslationPageHtml(translationLocale, translator, action, reqPath):
+def getTranslationPageHtml(translationLocale, translator, action,
+                           reqPath, userLocale):
   translationPageTemplateValue = { 'reqPath': reqPath }
   # xslt
   transformedHtml = translationXslt(action, translationLocale, translator)
@@ -36,7 +37,7 @@ def getTranslationPageHtml(translationLocale, translator, action, reqPath):
   translationPageTemplateValue['body'] = etree.tostring(
                                     transformedHtml.find('body'))[6:-7]
 
-  template = getJinja2Env().get_template('translationPage.html')
+  template = getJinja2Env(userLocale).get_template('translationPage.html')
   return template.render(translationPageTemplateValue);
 
 
@@ -56,7 +57,8 @@ def contrastReadingTemplateValue(oriBody, trBody):
   return contrastReadings
 
 
-def getContrastReadingPageHtml(translationLocale, translator, action, reqPath):
+def getContrastReadingPageHtml(translationLocale, translator, action,
+                               reqPath, userLocale):
   contrastReadingPageTemplateValue = { 'reqPath': reqPath }
   # xslt
   oriTransformedHtml = paliXslt(action)
@@ -68,5 +70,5 @@ def getContrastReadingPageHtml(translationLocale, translator, action, reqPath):
   contrastReadingPageTemplateValue['contrastReadings'] = \
     contrastReadingTemplateValue(oriBody, trBody)
 
-  template = getJinja2Env().get_template('contrastReadingPage.html')
+  template = getJinja2Env(userLocale).get_template('contrastReadingPage.html')
   return template.render(contrastReadingPageTemplateValue)

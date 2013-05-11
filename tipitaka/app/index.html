@@ -37,10 +37,8 @@
     <div id="mainview"><div ng-view>
       {% if reqHandlerName == 'MainPage' %}
         {% include 'about.html' %}
-        {$ allLocalesTranslationsHtml $}
-      {% else %}
-        {$ pageHtml $}
       {% endif %}
+      {$ pageHtml $}
     </div></div>
     <div style="clear: both;"></div>
   </div>

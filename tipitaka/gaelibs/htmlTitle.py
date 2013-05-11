@@ -62,16 +62,18 @@ def translateNodeText4(text, locale):
 # FIXME: ugly coding style
 from template import getJinja2Env
 
-jj2env = getJinja2Env()
+jj2env = getJinja2Env('en_US')
 jj2env.filters['nodeTextStrip2'] = nodeTextStrip2
 jj2env.filters['translateNodeText4'] = translateNodeText4
-titleTemplate = jj2env.get_template('title.html')
 
-def getHtmlTitle(urlLocale, texts, translator=None, contrastReading=None):
+
+def getHtmlTitle(urlLocale, texts, userLocale,
+                 translator=None, contrastReading=None):
   tmpValue = {'urlLocale': urlLocale,
               'texts': texts }
   if translator:
     tmpValue['translator'] = translator.decode('utf-8')
     tmpValue['contrastReading'] = contrastReading
 
+  titleTemplate = getJinja2Env(userLocale).get_template('title.html')
   return titleTemplate.render(tmpValue)
