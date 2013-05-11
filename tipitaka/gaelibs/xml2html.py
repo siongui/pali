@@ -35,7 +35,7 @@ else:
   # add amazon ec2 support here
   """
   with open(os.path.join(paliXmlUrlPrefix, 'cscd/tipitaka-latn.xsl'), 'r') as f:
-    xslt_root = etree.fromstring(f.read())
+    xslt_root = etree.parse(f)
   transform = etree.XSLT(xslt_root)
   """
   raise Exception('currently only Google App Engine is supported')

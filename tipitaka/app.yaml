@@ -44,6 +44,9 @@ handlers:
   http_headers:
     Access-Control-Allow-Origin: "*"
 
+- url: /json/.+
+  script: jsonhdr.app
+
 - url: /.*
   script: main.app
 

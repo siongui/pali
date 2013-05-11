@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import webapp2, jinja2, os, sys, json, urllib2
+import webapp2, jinja2, os, sys, json
 from  webapp2_extras.routes import PathPrefixRoute
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
@@ -91,15 +91,7 @@ class ContrastReadingPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 
-class JsonPage(webapp2.RequestHandler):
-  def get(self):
-    url = 'http://%s.palidictionary.appspot.com/%s' % (self.request.get('v'), self.request.path)
-    result = urllib2.urlopen(url)
-    self.response.out.write(result.read())
-
-
 app = webapp2.WSGIApplication([
-  (r'/json/.+', JsonPage),
   PathPrefixRoute(r'/<urlLocale:en_US|zh_TW|zh_CN>', [
     webapp2.Route(r'/', handler=MainPage),
     webapp2.Route(r'<paliTextPath:/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
