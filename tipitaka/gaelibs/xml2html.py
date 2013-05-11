@@ -21,8 +21,15 @@ def getTranslationXmlUrl(action, translationLocale, translator):
   return os.path.join(trXmlUrlPrefix, '%s/%s/%s' % (
                                        translationLocale, code, xmlFilename))
 
-def paliXslt(xmlUrl):
-  root = etree.parse(xmlUrl)
+def xslt(url):
+  root = etree.parse(url)
   # transform xml with xslt
   return transform(root)
 
+
+def paliXslt(action):
+  return xslt(getCanonXmlUrl(action))
+
+
+def translationXslt(action, translationLocale, translator):
+  return xslt(getTranslationXmlUrl(action, translationLocale, translator))

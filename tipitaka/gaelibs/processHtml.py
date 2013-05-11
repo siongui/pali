@@ -4,8 +4,7 @@
 import os
 from lxml import etree
 from xml2html import paliXslt
-from xml2html import getCanonXmlUrl
-from xml2html import getTranslationXmlUrl
+from xml2html import translationXslt
 from template import getJinja2Env
 from translationInfo import getI18nLinksTemplateValues
 
@@ -18,7 +17,7 @@ def getCanonPageHtml(node, reqPath):
     canonPageTemplateValue['i18nLinks'] = \
              getI18nLinksTemplateValues(os.path.basename(node['action']))
     # xslt
-    transformedHtml = paliXslt(getCanonXmlUrl(node['action']))
+    transformedHtml = paliXslt(node['action'])
     # get innerHTML of body
     canonPageTemplateValue['body'] = etree.tostring(
                                       transformedHtml.find('body'))[6:-7]
@@ -32,8 +31,7 @@ def getCanonPageHtml(node, reqPath):
 def getTranslationPageHtml(translationLocale, translator, action, reqPath):
   translationPageTemplateValue = { 'reqPath': reqPath }
   # xslt
-  transformedHtml = paliXslt(getTranslationXmlUrl(
-                               action, translationLocale, translator))
+  transformedHtml = translationXslt(action, translationLocale, translator)
   # get innerHTML of body
   translationPageTemplateValue['body'] = etree.tostring(
                                     transformedHtml.find('body'))[6:-7]
@@ -61,9 +59,8 @@ def contrastReadingTemplateValue(oriBody, trBody):
 def getContrastReadingPageHtml(translationLocale, translator, action, reqPath):
   contrastReadingPageTemplateValue = { 'reqPath': reqPath }
   # xslt
-  oriTransformedHtml = paliXslt(getCanonXmlUrl(action))
-  trTransformedHtml = paliXslt(getTranslationXmlUrl(
-                               action, translationLocale, translator))
+  oriTransformedHtml = paliXslt(action)
+  trTransformedHtml = translationXslt(action, translationLocale, translator)
 
   oriBody = oriTransformedHtml.find('body')
   trBody = trTransformedHtml.find('body')
