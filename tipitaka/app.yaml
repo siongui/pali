@@ -69,3 +69,5 @@ skip_files:
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?gaelibs/setTranslationData\.py
+- ^(.*/)?gaelibs/romn/.*
+- ^(.*/)?gaelibs/translation/.*

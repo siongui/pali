@@ -14,6 +14,14 @@ def isTrack(self):
     return False
 
 
+def isGoogleAppEngine():
+  try:
+    from google.appengine.api import app_identity
+    return True
+  except:
+    return False
+
+
 def isProductionServer():
   if os.environ['SERVER_SOFTWARE'].startswith("Development"):
     return False
