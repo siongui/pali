@@ -72,11 +72,29 @@ class CanonPage:
 
 class TranslationPage:
   def GET(self, paliTextPath, translationLocale, translator):
-    return 'TranslationPage'
+    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+    result = checkPath(web.ctx.path, None, paliTextPath.encode('utf-8'),
+               userLocale, translationLocale, translator.encode('utf-8'))
+    if not result['isValid']:
+      raise web.notfound()
+    template_values = getCommonTemplateValues(None, userLocale, 'TranslationPage')
+    template_values['pageHtml'] = result['pageHtml']
+    template_values['htmlTitle'] = result['htmlTitle']
+    template = jinja_environment.get_template('index.html')
+    return template.render(template_values)
 
 class ContrastReadingPage:
   def GET(self, paliTextPath, translationLocale, translator):
-    return 'ContrastReadingPage'
+    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+    result = checkPath(web.ctx.path, None, paliTextPath.encode('utf-8'),
+               userLocale, translationLocale, translator.encode('utf-8'))
+    if not result['isValid']:
+      raise web.notfound()
+    template_values = getCommonTemplateValues(None, userLocale, 'ContrastReadingPage')
+    template_values['pageHtml'] = result['pageHtml']
+    template_values['htmlTitle'] = result['htmlTitle']
+    template = jinja_environment.get_template('index.html')
+    return template.render(template_values)
 
 
 app = web.application(urls, globals())
