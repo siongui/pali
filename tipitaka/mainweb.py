@@ -36,7 +36,8 @@ urls = (
   r"(.+)", "CanonPage",
 )
 
-def getCommonTemplateValues(urlLocale, userLocale, className):
+
+def commonTemplateValues(urlLocale, userLocale, className):
   i18n.setLocale(userLocale)
   template_values = {
     'htmlTitle': u'',
@@ -47,54 +48,43 @@ def getCommonTemplateValues(urlLocale, userLocale, className):
     'isTrack': isTrack(web.input(track=None).track),
     'reqHandlerName': className
   }
-
   return template_values
+
+
+def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=None):
+  userLocale = getLocale(urlLocale, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+  result = checkPath(web.ctx.path, urlLocale, paliTextPath,
+                     userLocale, translationLocale, translator)
+  if not result['isValid']:
+    raise web.notfound()
+  template_values = commonTemplateValues(urlLocale, userLocale, 'OtherPage')
+  template_values['pageHtml'] = result['pageHtml']
+  template_values['htmlTitle'] = result['htmlTitle']
+  template = jinja_environment.get_template('index.html')
+  return template.render(template_values)
+
 
 class MainPage:
   def GET(self):
     userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
-    template_values = getCommonTemplateValues(None, userLocale, 'MainPage')
+    template_values = commonTemplateValues(None, userLocale, 'MainPage')
     template_values['pageHtml'] = getAllLocalesTranslationsHtml(None, userLocale)
     template = jinja_environment.get_template('index.html')
     return template.render(template_values)
 
 class CanonPage:
   def GET(self, paliTextPath):
-    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
-    result = checkPath(web.ctx.path, None, paliTextPath.encode('utf-8'), userLocale)
-    if not result['isValid']:
-      raise web.notfound()
-    template_values = getCommonTemplateValues(None, userLocale, 'CanonPage')
-    template_values['pageHtml'] = result['pageHtml']
-    template_values['htmlTitle'] = result['htmlTitle']
-    template = jinja_environment.get_template('index.html')
-    return template.render(template_values)
+    return commonPage(paliTextPath.encode('utf-8'))
 
 class TranslationPage:
   def GET(self, paliTextPath, translationLocale, translator):
-    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
-    result = checkPath(web.ctx.path, None, paliTextPath.encode('utf-8'),
-               userLocale, translationLocale, translator.encode('utf-8'))
-    if not result['isValid']:
-      raise web.notfound()
-    template_values = getCommonTemplateValues(None, userLocale, 'TranslationPage')
-    template_values['pageHtml'] = result['pageHtml']
-    template_values['htmlTitle'] = result['htmlTitle']
-    template = jinja_environment.get_template('index.html')
-    return template.render(template_values)
+    return commonPage(paliTextPath.encode('utf-8'), translationLocale,
+                      translator.encode('utf-8'))
 
 class ContrastReadingPage:
   def GET(self, paliTextPath, translationLocale, translator):
-    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
-    result = checkPath(web.ctx.path, None, paliTextPath.encode('utf-8'),
-               userLocale, translationLocale, translator.encode('utf-8'))
-    if not result['isValid']:
-      raise web.notfound()
-    template_values = getCommonTemplateValues(None, userLocale, 'ContrastReadingPage')
-    template_values['pageHtml'] = result['pageHtml']
-    template_values['htmlTitle'] = result['htmlTitle']
-    template = jinja_environment.get_template('index.html')
-    return template.render(template_values)
+    return commonPage(paliTextPath.encode('utf-8'), translationLocale,
+                      translator.encode('utf-8'))
 
 
 app = web.application(urls, globals())
