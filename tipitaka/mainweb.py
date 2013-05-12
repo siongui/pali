@@ -30,10 +30,10 @@ jinja_environment = jinja2.Environment(
 jinja_environment.install_gettext_translations(i18n)
 
 urls = (
-  r"/(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage",
-  r"/(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage",
-  r"/(.+)", "CanonPage",
   r"/", "MainPage",
+  r"(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage",
+  r"(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage",
+  r"(.+)", "CanonPage",
 )
 
 def getCommonTemplateValues(urlLocale, userLocale, className):
@@ -60,7 +60,15 @@ class MainPage:
 
 class CanonPage:
   def GET(self, paliTextPath):
-    return 'CanonPage'
+    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+    result = checkPath(web.ctx.path, None, paliTextPath.encode('utf-8'), userLocale)
+    if not result['isValid']:
+      raise web.notfound()
+    template_values = getCommonTemplateValues(None, userLocale, 'CanonPage')
+    template_values['pageHtml'] = result['pageHtml']
+    template_values['htmlTitle'] = result['htmlTitle']
+    template = jinja_environment.get_template('index.html')
+    return template.render(template_values)
 
 class TranslationPage:
   def GET(self, paliTextPath, translationLocale, translator):
