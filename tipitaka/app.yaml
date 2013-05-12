@@ -45,7 +45,7 @@ handlers:
     Access-Control-Allow-Origin: "*"
 
 - url: /json/.+
-  script: jsonhdr.app
+  script: serviceweb.app
 
 - url: /.*
   script: mainweb.app
