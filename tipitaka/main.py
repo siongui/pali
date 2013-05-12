@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+# deprecated! Now use web.py framework!
+
 import webapp2, jinja2, os, sys, json
 from  webapp2_extras.routes import PathPrefixRoute
 
