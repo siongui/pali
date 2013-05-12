@@ -30,6 +30,10 @@ jinja_environment = jinja2.Environment(
 jinja_environment.install_gettext_translations(i18n)
 
 urls = (
+  r"/(zh_TW|en_US|zh_CN)/", "MainPage2",
+  r"/(zh_TW|en_US|zh_CN)(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage2",
+  r"/(zh_TW|en_US|zh_CN)(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage2",
+  r"/(zh_TW|en_US|zh_CN)(.+)", "CanonPage2",
   r"/", "MainPage",
   r"(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage",
   r"(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage",
@@ -64,27 +68,47 @@ def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=
   return template.render(template_values)
 
 
+def commonMainPage(urlLocale=None):
+  userLocale = getLocale(urlLocale, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+  template_values = commonTemplateValues(urlLocale, userLocale, 'MainPage')
+  template_values['pageHtml'] = getAllLocalesTranslationsHtml(urlLocale, userLocale)
+  template = jinja_environment.get_template('index.html')
+  return template.render(template_values)
+
+
 class MainPage:
-  def GET(self):
-    userLocale = getLocale(None, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
-    template_values = commonTemplateValues(None, userLocale, 'MainPage')
-    template_values['pageHtml'] = getAllLocalesTranslationsHtml(None, userLocale)
-    template = jinja_environment.get_template('index.html')
-    return template.render(template_values)
+  def GET(self): return commonMainPage()
+
+class MainPage2:
+  def GET(self, urlLocale): return commonMainPage(urlLocale)
 
 class CanonPage:
   def GET(self, paliTextPath):
     return commonPage(paliTextPath.encode('utf-8'))
+
+class CanonPage2:
+  def GET(self, urlLocale, paliTextPath):
+    return commonPage(paliTextPath.encode('utf-8'), None, None, urlLocale)
 
 class TranslationPage:
   def GET(self, paliTextPath, translationLocale, translator):
     return commonPage(paliTextPath.encode('utf-8'), translationLocale,
                       translator.encode('utf-8'))
 
+class TranslationPage2:
+  def GET(self, urlLocale, paliTextPath, translationLocale, translator):
+    return commonPage(paliTextPath.encode('utf-8'), translationLocale,
+                      translator.encode('utf-8'), urlLocale)
+
 class ContrastReadingPage:
   def GET(self, paliTextPath, translationLocale, translator):
     return commonPage(paliTextPath.encode('utf-8'), translationLocale,
                       translator.encode('utf-8'))
+
+class ContrastReadingPage2:
+  def GET(self, urlLocale, paliTextPath, translationLocale, translator):
+    return commonPage(paliTextPath.encode('utf-8'), translationLocale,
+                      translator.encode('utf-8'), urlLocale)
 
 
 app = web.application(urls, globals())
