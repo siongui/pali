@@ -34,8 +34,8 @@ def getCommonTemplateValues(self, urlLocale, userLocale):
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(self.request.headers.get('accept_language'))),
     'urlLocale': urlLocale,
-    'isCompiledJS': isCompiledJS(self),
-    'isTrack': isTrack(self),
+    'isCompiledJS': isCompiledJS(self.request.GET.get('js')),
+    'isTrack': isTrack(self.request.GET.get('track')),
     'reqHandlerName': self.__class__.__name__
   }
 

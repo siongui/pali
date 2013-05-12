@@ -4,9 +4,9 @@
 import os
 
 
-def isTrack(self):
+def isTrack(trackQry):
   if isProductionServer():
-    if self.request.GET.get('track') == 'no':
+    if trackQry == 'no':
       return False
     else:
       return True
@@ -29,10 +29,10 @@ def isProductionServer():
     return True
 
 
-def isCompiledJS(self):
-  if self.request.GET.get('js') == 'yes':
+def isCompiledJS(jsQry):
+  if jsQry == 'yes':
     return True
-  elif self.request.GET.get('js') == 'no':
+  elif jsQry == 'no':
     return False
   else:
     return isProductionServer()

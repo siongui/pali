@@ -43,10 +43,8 @@ def getCommonTemplateValues(urlLocale, userLocale, className):
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env['HTTP_ACCEPT_LANGUAGE'])),
     'urlLocale': urlLocale,
-#    'isCompiledJS': isCompiledJS(web.input().js),
-#    'isTrack': isTrack(web.input().track),
-    'isCompiledJS': False,
-    'isTrack': False,
+    'isCompiledJS': isCompiledJS(web.input(js=None).js),
+    'isTrack': isTrack(web.input(track=None).track),
     'reqHandlerName': className
   }
 
