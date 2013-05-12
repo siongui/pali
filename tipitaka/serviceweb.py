@@ -9,9 +9,8 @@ import urllib2
 
 urls = (
   "/json/.+", "json",
+  "/robots.txt", "robots",
 )
-
-app = web.application(urls, globals())
 
 class json:
   def GET(self):
@@ -20,4 +19,9 @@ class json:
     result = urllib2.urlopen(url)
     return result.read()
 
+class robots:
+  def GET(self):
+    return 'User-agent: *\nDisallow:\n'
+
+app = web.application(urls, globals())
 app = app.gaerun()

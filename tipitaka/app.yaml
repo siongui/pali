@@ -5,10 +5,6 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /robots\.txt
-  static_files: common/gae/robots.txt
-  upload: common/gae/robots\.txt
-
 - url: /favicon\.ico
   static_files: common/app/img/favicon.ico
   upload: common/app/img/favicon\.ico
@@ -43,6 +39,9 @@ handlers:
   static_dir: common/translation
   http_headers:
     Access-Control-Allow-Origin: "*"
+
+- url: /robots\.txt
+  script: serviceweb.app
 
 - url: /json/.+
   script: serviceweb.app
