@@ -35,7 +35,7 @@
       <div id="viewseparator"></div>
     </div>
     <div id="mainview"><div ng-view>
-      {% if reqHandlerName == 'MainPage' %}
+      {% if isIncludeAbout %}
         {% include 'about.html' %}
       {% endif %}
       {$ pageHtml $}

@@ -38,7 +38,6 @@ def getCommonTemplateValues(self, urlLocale, userLocale):
     'urlLocale': urlLocale,
     'isCompiledJS': isCompiledJS(self.request.GET.get('js')),
     'isTrack': isTrack(self.request.GET.get('track')),
-    'reqHandlerName': self.__class__.__name__
   }
 
   return template_values
@@ -48,6 +47,7 @@ class MainPage(webapp2.RequestHandler):
   def get(self, urlLocale=None):
     userLocale = getLocale(urlLocale, self.request.headers.get('accept_language'))
     template_values = getCommonTemplateValues(self, urlLocale, userLocale)
+    template_values['isIncludeAbout'] = True
     template_values['pageHtml'] = getAllLocalesTranslationsHtml(
                                     urlLocale, userLocale)
     template = jinja_environment.get_template('index.html')

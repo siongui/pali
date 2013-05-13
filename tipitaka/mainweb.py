@@ -41,7 +41,7 @@ urls = (
 )
 
 
-def commonTemplateValues(urlLocale, userLocale, className):
+def commonTemplateValues(urlLocale, userLocale):
   i18n.setLocale(userLocale)
   template_values = {
     'htmlTitle': u'',
@@ -50,7 +50,6 @@ def commonTemplateValues(urlLocale, userLocale, className):
     'urlLocale': urlLocale,
     'isCompiledJS': isCompiledJS(web.input(js=None).js),
     'isTrack': isTrack(web.input(track=None).track),
-    'reqHandlerName': className
   }
   return template_values
 
@@ -61,7 +60,7 @@ def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=
                      userLocale, translationLocale, translator)
   if not result['isValid']:
     raise web.notfound()
-  template_values = commonTemplateValues(urlLocale, userLocale, 'OtherPage')
+  template_values = commonTemplateValues(urlLocale, userLocale)
   template_values['pageHtml'] = result['pageHtml']
   template_values['htmlTitle'] = result['htmlTitle']
   template = jinja_environment.get_template('index.html')
@@ -70,7 +69,8 @@ def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=
 
 def commonMainPage(urlLocale=None):
   userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
-  template_values = commonTemplateValues(urlLocale, userLocale, 'MainPage')
+  template_values = commonTemplateValues(urlLocale, userLocale)
+  template_values['isIncludeAbout'] = True
   template_values['pageHtml'] = getAllLocalesTranslationsHtml(urlLocale, userLocale)
   template = jinja_environment.get_template('index.html')
   return template.render(template_values)

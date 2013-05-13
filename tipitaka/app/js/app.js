@@ -19,7 +19,7 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $routeProvider.when('/*prefixPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', '$location', '$document', 'i18nserv', 'resizableViews', 'i18nTpkConvert', function($rootScope, $location, $document, i18nserv, resizableViews, i18nTpkConvert) {
+  run(['$rootScope', '$location', '$document', 'resizableViews', 'i18nTpkConvert', function($rootScope, $location, $document, resizableViews, i18nTpkConvert) {
     // initialize resizable views
     resizableViews.initViews('allContainer', 'treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
 
