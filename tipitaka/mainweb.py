@@ -46,7 +46,7 @@ def commonTemplateValues(urlLocale, userLocale, className):
   template_values = {
     'htmlTitle': u'',
     'userLocale': userLocale,
-    'langQs': json.dumps(parseAcceptLanguage(web.ctx.env['HTTP_ACCEPT_LANGUAGE'])),
+    'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
     'urlLocale': urlLocale,
     'isCompiledJS': isCompiledJS(web.input(js=None).js),
     'isTrack': isTrack(web.input(track=None).track),
@@ -56,7 +56,7 @@ def commonTemplateValues(urlLocale, userLocale, className):
 
 
 def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=None):
-  userLocale = getLocale(urlLocale, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+  userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
   result = checkPath(web.ctx.path, urlLocale, paliTextPath,
                      userLocale, translationLocale, translator)
   if not result['isValid']:
@@ -69,7 +69,7 @@ def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=
 
 
 def commonMainPage(urlLocale=None):
-  userLocale = getLocale(urlLocale, web.ctx.env['HTTP_ACCEPT_LANGUAGE'])
+  userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
   template_values = commonTemplateValues(urlLocale, userLocale, 'MainPage')
   template_values['pageHtml'] = getAllLocalesTranslationsHtml(urlLocale, userLocale)
   template = jinja_environment.get_template('index.html')

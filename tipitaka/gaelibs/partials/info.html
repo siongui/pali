@@ -1,3 +1,6 @@
+<div>
+<div class="allTrans">
+<h3 style="color: olive" i18n str="All Translations">{$_("All Translations")$}</h3>
 {% for localeTranslation in localeTranslations %}
   {{ localeTranslation['translationLocale'] | translateLocale }}
   {% for translation in localeTranslation['translations'] %}
@@ -12,3 +15,27 @@
     {% endfor %}
   {% endfor %}
 {% endfor %}
+</div>
+<style>
+.allTrans {
+  margin: 1em;
+  text-align: left;
+  line-height: 1.5em;
+  padding: .5em;
+  background-color: #FFFBE8;
+  border: 1px solid #FFF1A9;
+  border-radius: 10px;
+}
+.allTrans2 {
+  padding-left: 1em;
+  margin-top: 0.25em;
+  border: 1px dotted rgb(224, 224, 224);
+  border-radius: 10px;
+}
+.allTrans3 {
+  text-decoration: none;
+  background-color: #FFF1A9;
+  padding: 3px;
+}
+</style>
+</div>

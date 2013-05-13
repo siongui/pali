@@ -21,6 +21,8 @@ class json:
 
 class robots:
   def GET(self):
+    if web.ctx.host == 'localhost:8080':
+      return 'User-agent: *\nDisallow: /'
     return 'User-agent: *\nDisallow:\n'
 
 app = web.application(urls, globals())
