@@ -39,6 +39,7 @@ def checkPath(reqPath, urlLocale, paliTextPath, userLocale,
 def getAllLocalesTranslationsHtml(urlLocale, userLocale):
   template = getJinja2Env(userLocale).get_template('info.html')
   return template.render({'urlLocale': urlLocale,
+                          'userLocale': userLocale,
                           'localeTranslations': getAllLocalesTranslationsTemplateValues()})
 
 

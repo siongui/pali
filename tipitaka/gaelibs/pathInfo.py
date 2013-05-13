@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import os, json
+# from translationInfo import isValidTranslation (cannot use because of circular import)
 import translationInfo
 from htmlTitle import nodeTextStrip2
 from htmlTitle import getTranslatedCanonName
@@ -110,21 +111,19 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
     return result
 
 
-def recursiveGetInfo(node, pathPrefix, canonNames, translatedCanonNames, xmlFilename):
+def recursiveGetInfo(node, pathPrefix, xmlFilename):
   path = pathPrefix + '/' + node['subpath']
   if 'action' in node:
     if os.path.basename(node['action']) == xmlFilename:
-      canonNames.append(nodeTextStrip2(node['text']))
-      translatedCanonNames.append(getTranslatedCanonName(node['text']))
       return { 'path': path,
-               'canonNames': canonNames,
-               'translatedCanonNames': translatedCanonNames }
+               'canonNames': [nodeTextStrip2(node['text'])],
+               'translatedCanonNames': [getTranslatedCanonName(node['text'])] }
   else:
     for child in node['child']:
-      result = recursiveGetInfo(child, path, canonNames, translatedCanonNames, xmlFilename)
+      result = recursiveGetInfo(child, path, xmlFilename)
       if result:
-        canonNames.append(nodeTextStrip2(node['text']))
-        translatedCanonNames.append(getTranslatedCanonName(node['text']))
+        result['canonNames'].append(nodeTextStrip2(node['text']))
+        result['translatedCanonNames'].append(getTranslatedCanonName(node['text']))
         return result
 
 # cache
@@ -148,7 +147,7 @@ def xmlFilename2Info(xmlFilename):
     return xmlFilename2InfoCache[xmlFilename]
 
   for child in treeviewData['child']:
-    result = recursiveGetInfo(child, u'', [], [], xmlFilename)
+    result = recursiveGetInfo(child, u'', xmlFilename)
     if result:
       xmlFilename2InfoCache[xmlFilename] = result
       return result

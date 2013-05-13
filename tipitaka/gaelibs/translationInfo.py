@@ -4,6 +4,7 @@
 import os
 import json
 import collections
+# from pathInfo import xmlFilename2Info (cannot use because of circular import)
 import pathInfo
 
 # See setTranslationData.py

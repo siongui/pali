@@ -2,6 +2,7 @@
 <div class="allTrans">
 <h3 style="color: olive" i18n str="All Translations">{{_("All Translations")}}</h3>
 {% for localeTranslation in localeTranslations %}
+  {# translations of specific locale #}
   <div style="padding-left: 1em; padding-bottom: 1em;">
   <a href="javascript:void(0);"
      ng-init="isShowLocaleTranslation = false;"
@@ -13,7 +14,18 @@
   </a>:
   <div ng-show="isShowLocaleTranslation" class="allTrans2">
   {% for translation in localeTranslation['translations'] %}
-    <a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}">{{ translation.xmlFilename }}</a>
+    {# translations of specific xmlFilename of specific locale #}
+    <a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}" class="allTrans3">
+      {% for canonName in translation.canonNames %}
+        <span>
+          {{ canonName }}
+          <sup><small>
+            <span style="color: red;">{{ translation.translatedCanonNames[loop.index0][userLocale] }}</span>
+          </small></sup>
+          {% if not loop.last %}<span>,</span>{% endif %}&nbsp;
+        </span>
+      {% endfor %}
+    </a>
     {% for localeXmlTranslation in translation['localeXmlTranslations'] %}
       {{ localeXmlTranslation.translator }}
       {% if localeXmlTranslation.excerpt %}
