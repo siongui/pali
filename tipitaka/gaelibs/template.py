@@ -3,7 +3,6 @@
 
 import os
 import jinja2
-from pathInfo import xmlFilename2Path
 
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(
@@ -26,7 +25,6 @@ def originalPaliLink(reqPath, flag):
     return os.path.sep.join(reqPath.split(os.path.sep)[:-3])
 
 jj2env.filters['translateLocale'] = translateLocale
-jj2env.filters['xmlFilename2Path'] = xmlFilename2Path
 jj2env.filters['originalPaliLink'] = originalPaliLink
 
 import sys

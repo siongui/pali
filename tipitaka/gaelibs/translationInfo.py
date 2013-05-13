@@ -4,6 +4,7 @@
 import os
 import json
 import collections
+import pathInfo
 
 # See setTranslationData.py
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
@@ -75,7 +76,11 @@ def getAllLocalesTranslationsTemplateValues():
     localeTranslation = { 'translationLocale': translationLocale }
     localeTranslation['translations'] = []
     for xmlFilename in translationInfo[translationLocale]['canon']:
-      translation = { 'xmlFilename': xmlFilename }
+      info = pathInfo.xmlFilename2Info(xmlFilename)
+      translation = { 'xmlFilename': xmlFilename,
+                      'path': info['path'],
+                      'translatedCanonNames': info['translatedCanonNames'],
+                      'canonNames': info['canonNames'] }
       translation['localeXmlTranslations'] = \
         getLocaleXmlTranslations(translationLocale, xmlFilename)
       localeTranslation['translations'].append(translation)

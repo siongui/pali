@@ -59,6 +59,25 @@ def translateNodeText4(text, locale):
     return trText
 
 
+# cache
+translatedCanonNameCache = {}
+
+def getTranslatedCanonName(text):
+  # check cache first
+  if text in translatedCanonNameCache:
+    return translatedCanonNameCache[text]
+
+  # cache miss, go find translated names
+  trText = {}
+  for locale in canonTextTranslation:
+    trText[locale] = translateNodeText(text, locale)
+    if trText[locale] == text: trText[locale] = ''
+
+  # store translated canon names in cache
+  translatedCanonNameCache[text] = trText
+  return trText
+
+
 # FIXME: ugly coding style
 from template import getJinja2Env
 

@@ -2,7 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import os, json
-from translationInfo import isValidTranslation
+import translationInfo
+from htmlTitle import nodeTextStrip2
+from htmlTitle import getTranslatedCanonName
 
 # http://stackoverflow.com/questions/3898572/what-is-the-standard-python-docstring-format
 # http://stackoverflow.com/questions/2447109/showing-a-different-background-colour-in-vim-past-80-characters
@@ -24,9 +26,6 @@ This is a tree structure.
 with open(os.path.join(os.path.dirname(__file__), 
                        'json/treeviewAll.json' ), 'r') as f:
   treeviewData = json.loads(f.read())
-
-# cache of {xmlFilename, paliTextPath} pairs
-xmlFilename2PathInfo = {}
 
 
 def recursivelyCheckPaliTextPath(node, subpathes):
@@ -104,27 +103,35 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
   if result['isValid'] and translationLocale:
     if 'action' in result['node']:
       xmlFilename = os.path.basename(result['node']['action'])
-      if isValidTranslation(xmlFilename, translationLocale, translator):
+      if translationInfo.isValidTranslation(xmlFilename, translationLocale, translator):
         return result
     return { 'isValid': False }
   else:
     return result
 
 
-def recursiveGetPath(node, pathPrefix, xmlFilename):
+def recursiveGetInfo(node, pathPrefix, canonNames, translatedCanonNames, xmlFilename):
   path = pathPrefix + '/' + node['subpath']
   if 'action' in node:
     if os.path.basename(node['action']) == xmlFilename:
-      return path
+      canonNames.append(nodeTextStrip2(node['text']))
+      translatedCanonNames.append(getTranslatedCanonName(node['text']))
+      return { 'path': path,
+               'canonNames': canonNames,
+               'translatedCanonNames': translatedCanonNames }
   else:
     for child in node['child']:
-      result = recursiveGetPath(child, path, xmlFilename)
+      result = recursiveGetInfo(child, path, canonNames, translatedCanonNames, xmlFilename)
       if result:
+        canonNames.append(nodeTextStrip2(node['text']))
+        translatedCanonNames.append(getTranslatedCanonName(node['text']))
         return result
 
+# cache
+xmlFilename2InfoCache = {}
 
-def xmlFilename2Path(xmlFilename):
-  """Convert xmlFilename to corresponding {{paliTextPath}}
+def xmlFilename2Info(xmlFilename):
+  """Convert xmlFilename to corresponding information.
 
   Args:
       xmlFilename: the name of the xml file of pali text, for example:
@@ -132,16 +139,18 @@ def xmlFilename2Path(xmlFilename):
           s0402m2.mul6.xml
 
   Returns:
-      The corresponding {{paliTextPath}}, for example:
-          /canon/sutta/dīgha/sīlakkhandhavagga/sāmaññaphalasuttaṃ
+      The corresponding information.
+          { 'path': {{paliTextPath}},
+            'canonNames': canonNames,
+            'translatedCanonNames': translatedCanonNames }
   """
-  if xmlFilename in xmlFilename2PathInfo:
-    return xmlFilename2PathInfo[xmlFilename]
+  if xmlFilename in xmlFilename2InfoCache:
+    return xmlFilename2InfoCache[xmlFilename]
 
   for child in treeviewData['child']:
-    result = recursiveGetPath(child, u'', xmlFilename)
+    result = recursiveGetInfo(child, u'', [], [], xmlFilename)
     if result:
-      xmlFilename2PathInfo[xmlFilename] = result
+      xmlFilename2InfoCache[xmlFilename] = result
       return result
 
-  raise Exception('cannot get path of %s' % xmlFilename)
+  raise Exception('cannot get info of %s' % xmlFilename)
