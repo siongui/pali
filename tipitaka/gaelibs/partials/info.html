@@ -27,12 +27,18 @@
       {% endfor %}
     </a>
     {% for localeXmlTranslation in translation['localeXmlTranslations'] %}
-      {{ localeXmlTranslation.translator }}
-      {% if localeXmlTranslation.excerpt %}
-        <span>[{{_("Excerpt")}}]</span>&nbsp;
-      {% endif %}
-      <a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">{{_("Translation")}}</a>
-      (<a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading">{{_("Contrast Reading")}}</a>)
+      {# translation of specific translator of specific xmlFilename of specific locale #}
+      <div style="padding-left: 1em;">
+        {% if localeXmlTranslation.excerpt %}
+          <span style="background-color: #d9edf7;">
+            [<span i18n str="Excerpt">{{_("Excerpt")}}</span>]
+          </span>&nbsp;
+        {% endif %}
+        <a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}">
+          {{ localeXmlTranslation.translator }} <span i18n str="Translation">{{_("Translation")}}</span>
+        </a>&nbsp;
+        (<a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}/{{ localeTranslation['translationLocale'] }}/{{ localeXmlTranslation.translator }}/ContrastReading" i18n str="Contrast Reading">{{_("Contrast Reading")}}</a>)
+      </div>
     {% endfor %}
   {% endfor %}
   </div>
