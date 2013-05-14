@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-function canonCtrl($scope, $http, $compile, pathInfo, paliXml, htmlDoc2View) {
+function canonCtrl($scope, $http, $compile, pathInfo, htmlDoc2View) {
   var pInfo = pathInfo.getInfoFromPath();
 
   $scope.text = pInfo.tvInfo['text'];
@@ -27,29 +27,14 @@ function canonCtrl($scope, $http, $compile, pathInfo, paliXml, htmlDoc2View) {
   $http.post('/html/CanonPage', JSON.stringify(data)).
     success(function(data, status, headers, config) {
       $scope.isShowLoading = false;
-      $scope.xmlDoms = $compile(data.html)($scope);
+      $scope.xmlDoms = htmlDoc2View.markPaliWord($compile(data.html)($scope));
       document.title = data.title;
     }).error(function(data, status, headers, config) {
       // TODO: error handling
       $scope.isShowLoading = false;
     });
-/*
-  $scope.isShowLoading = true;
-  paliXml.get(pInfo.tvInfo['action']).then(function(htmlDoc) {
-    $scope.isShowLoading = false;
-    $scope.xmlDoms = htmlDoc2View.getView(htmlDoc);
-    $scope.localeTranslations = i18nTpkServ.getI18nLinks(pInfo.tvInfo['action']);
-    if (angular.isDefined($scope.localeTranslations)) {
-      $scope.isTranslationAvailableLinks = true;
-    }
-  }, function(reason) {
-    // TODO: error handling here
-    $scope.isShowLoading = false;
-    console.log(reason);
-  });
-*/
 }
-canonCtrl.$inject = ['$scope', '$http', '$compile', 'pathInfo', 'paliXml', 'htmlDoc2View'];
+canonCtrl.$inject = ['$scope', '$http', '$compile', 'pathInfo', 'htmlDoc2View'];
 
 
 function infoCtrl($scope, $http, $compile) {

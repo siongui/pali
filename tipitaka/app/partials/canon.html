@@ -11,22 +11,6 @@
 
   <div ng-repeat="node in nodes" style="padding: .5em 0 0 1em;"><a href="{{ urlLocaleInPath }}{{node.path}}">{{node.text}}{{ translateNodeText3(node.text, i18nLocale) }}</a></div>
 
-  <div ng-show="isTranslationAvailableLinks" style="padding: 1em;" ng-init="isShowLocaleTranslations = false;">
-    <a href="javascript:void(0);" style="color: blue; text-decoration: none;" ng-click="isShowLocaleTranslations = !isShowLocaleTranslations;"><span style="font-family: Tahoma,Arial,serif;" ng-show="isShowLocaleTranslations">&#9660;</span><span style="font-family: Tahoma,Arial,serif;" ng-hide="isShowLocaleTranslations">&#9658;</span><span i18n str="Translation of This Pāḷi Text">{$_("Translation of This Pāḷi Text")$}</span></a>
-    <div ng-show="isShowLocaleTranslations">
-      <div ng-repeat="localeTranslation in localeTranslations" class="canon1">
-        <a href="javascript:void(0);">{{ localeTranslation.locale | translate }}</a>:
-        <div ng-repeat="translation in localeTranslation.translations" style="padding-left: 1em;">
-          <div ng-repeat="localeXmlTranslation in translation.localeXmlTranslations">
-            <span ng-show="localeXmlTranslation.excerpt" style="background-color: #d9edf7;">[<span i18n str="Excerpt">{$_("Excerpt")$}</span>]</span>&nbsp;
-            <a href="{{ urlLocaleInPath }}{{ translation.path }}/{{ localeTranslation.locale }}/{{ localeXmlTranslation.translator }}">{{ localeXmlTranslation.translator }} <span i18n str="Translation">{$_("Translation")$}</span></a>&nbsp;
-            (<a href="{{ urlLocaleInPath }}{{ translation.path }}/{{ localeTranslation.locale }}/{{ localeXmlTranslation.translator }}/ContrastReading" i18n str="Contrast Reading">{$_("Contrast Reading")$}</a>)
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div ng-show="isShowOriPaliLink" style="padding: 1em;">
     &lt;&lt; <a href="{{ urlLocaleInPath }}{{ paliTextPath }}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a>
     <div ng-show="xmlLocaleTranslationInfo.translationURL" class="canon2">

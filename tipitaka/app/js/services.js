@@ -112,6 +112,18 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       return angular.element(body);
     }
 
+    /**
+     * make pali words lookup-able.
+     * @param {jqLite DOM element}
+     */
+    function markPaliWord(canonPageDom) {
+      /* FIXME: cloneNode() here? */
+      var pElems = canonPageDom[0].getElementsByTagName('p');
+      for (var i=0; i<pElems.length; i++)
+        wrapWordsInElement(pElems[i]);
+      return canonPageDom;
+    }
+
     function getContrastReadingView(oriHtmlDoc, transHtmlDoc) {
       var oriBody = oriHtmlDoc.getElementsByTagName('body')[0];
       var transBody = transHtmlDoc.getElementsByTagName('body')[0];
@@ -147,7 +159,9 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       return angular.element(tb);
     }
 
-    var serviceInstance = { getView: getView, getContrastReadingView: getContrastReadingView };
+    var serviceInstance = { getView: getView,
+                            getContrastReadingView: getContrastReadingView,
+                            markPaliWord: markPaliWord };
     return serviceInstance;
   }]).
 

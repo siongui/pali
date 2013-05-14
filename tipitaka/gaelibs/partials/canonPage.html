@@ -1,18 +1,37 @@
-<div>
+<div style="font-family: Tahoma,Arial,serif;">
 {% if isPaliText %}
+  {% if i18nLinks %}
+  <div style="padding: 1em;" ng-init="isShowLocaleTranslations = false;">
+  <a href="javascript:void(0);" 
+     style="color: blue; text-decoration: none;" 
+     ng-click="isShowLocaleTranslations = !isShowLocaleTranslations;">
+    <span ng-show="isShowLocaleTranslations">&#9660;</span>
+    <span ng-hide="isShowLocaleTranslations">&#9658;</span>
+    <span i18n str="Translation of This Pāḷi Text">{{_("Translation of This Pāḷi Text")}}</span>
+  </a>
+  <div ng-show="isShowLocaleTranslations">
   {% for localeTranslation in i18nLinks['localeTranslations'] %}
     <div class="canon1">
       <a href="javascript:void(0);">{{ localeTranslation.translationLocale | translateLocale }}</a> :
       {% for localeXmlTranslation in localeTranslation['localeXmlTranslations'] %}
         <div style="padding-left: 1em;">
+           {% if localeXmlTranslation.excerpt %}
+             <span style="background-color: #d9edf7;">
+               [<span i18n str="Excerpt">{{_("Excerpt")}}</span>]
+             </span>&nbsp;
+           {% endif %}
            <a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}">
-             {{ localeXmlTranslation['translator'] }} {{_("Translation")}}
+             {{ localeXmlTranslation['translator'] }} 
+             <span i18n str="Translation">{{_("Translation")}}</span>
            </a>&nbsp;
-           (<a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}/ContrastReading">{{_("Contrast Reading")}}</a>)
+           (<a href="{{ reqPath }}/{{ localeTranslation.translationLocale }}/{{ localeXmlTranslation['translator'] }}/ContrastReading" i18n str="Contrast Reading">{{_("Contrast Reading")}}</a>)
         </div>
       {% endfor %}
     </div>
   {% endfor %}
+  </div>
+  </div>
+  {% endif %}
 
   {{ body }}
 
