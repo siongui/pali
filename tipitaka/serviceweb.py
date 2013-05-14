@@ -8,6 +8,7 @@ import web
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import getAllLocalesTranslationsHtml
 from url import serveCanonPageHtml
+from url import serveTranslationPageHtml
 
 import urllib2
 import json
@@ -17,6 +18,7 @@ urls = (
   "/robots.txt", "robots",
   "/html/MainPage", "htmlMainPage",
   "/html/CanonPage", "htmlCanonPage",
+  "/html/TranslationPage", "htmlTranslationPage",
 )
 
 class jsonService:
@@ -52,6 +54,19 @@ class htmlCanonPage:
                                 data['urlLocale'],
                                 data['paliTextPath'].encode('utf-8'),
                                 data['userLocale'])
+    if result: return json.dumps(result)
+    else: raise web.notfound()
+
+class htmlTranslationPage:
+  def POST(self):
+    data = json.loads(web.data())
+    checkData(data['urlLocale'], data['userLocale'])
+    result = serveTranslationPageHtml(data['reqPath'],
+                                      data['urlLocale'],
+                                      data['paliTextPath'].encode('utf-8'),
+                                      data['userLocale'],
+                                      data['translationLocale'],
+                                      data['translator'].encode('utf-8'))
     if result: return json.dumps(result)
     else: raise web.notfound()
 

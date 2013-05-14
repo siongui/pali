@@ -61,6 +61,17 @@ def serveCanonPageHtml(reqPath, urlLocale, paliTextPath, userLocale):
     return data
 
 
+def serveTranslationPageHtml(reqPath, urlLocale, paliTextPath, userLocale,
+                             translationLocale, translator):
+  result = isValidPath(paliTextPath, translationLocale, translator)
+  if result['isValid']:
+    data = { 'title': getHtmlTitle(urlLocale, result['texts'], userLocale,
+                                   translator, False),
+             'html': getTranslationPageHtml(translationLocale, translator,
+                         result['node']['action'], reqPath, userLocale) }
+    return data
+
+
 if __name__ == '__main__':
   # for test purpose
   pass

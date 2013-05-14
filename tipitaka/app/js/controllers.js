@@ -54,26 +54,34 @@ function infoCtrl($scope, $http, $compile) {
 infoCtrl.$inject = ['$scope', '$http', '$compile'];
 
 
-function translationCtrl($scope, pathInfo, paliXml) {
+function translationCtrl($scope, $http, pathInfo) {
   $scope.isShowLoading = true;
 
   var pInfo = pathInfo.getInfoFromPath();
   $scope.text = pInfo.tvInfo['text'];
   $scope.pathBreadcrumbs = pInfo.tvInfo.pathBreadcrumbs;
-  $scope.paliTextPath = pInfo.paliTextPath;
-  $scope.xmlLocaleTranslationInfo = pInfo.xmlLocaleTranslationInfo;
 
-  paliXml.getUrl(pInfo.translationUrl).then( function(htmlDoc) {
-    $scope.isShowLoading = false;
-    $scope.isShowOriPaliLink = true;
-    $scope.xmlDoms = angular.element(htmlDoc.getElementsByTagName('body')[0].cloneNode(true));
-  }, function(reason) {
-    // TODO: error handling here
-    $scope.isShowLoading = false;
-    console.log(reason);
-  });
+  var data = { userLocale: $scope.i18nLocale,
+               reqPath: pInfo.reqPath,
+               paliTextPath: pInfo.paliTextPath,
+               translationLocale: pInfo.translationLocale,
+               translator: pInfo.translator };
+  if (angular.isDefined($scope.urlLocale))
+    data.urlLocale = $scope.urlLocale;
+  else
+    data.urlLocale = null;
+
+  $http.post('/html/TranslationPage', JSON.stringify(data)).
+    success(function(data, status, headers, config) {
+      $scope.isShowLoading = false;
+      $scope.xmlDoms = angular.element(data.html);
+      document.title = data.title;
+    }).error(function(data, status, headers, config) {
+      // TODO: error handling
+      $scope.isShowLoading = false;
+    });
 }
-translationCtrl.$inject = ['$scope', 'pathInfo', 'paliXml'];
+translationCtrl.$inject = ['$scope', '$http', 'pathInfo'];
 
 
 function contrastReadingCtrl($scope, $q, pathInfo, paliXml, htmlDoc2View) {

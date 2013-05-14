@@ -7,6 +7,7 @@ from xml2html import paliXslt
 from xml2html import translationXslt
 from template import getJinja2Env
 from translationInfo import getI18nLinksTemplateValues
+from translationInfo import getXmlLocaleTranslationInfo
 
 
 def getCanonPageHtml(node, reqPath, userLocale):
@@ -30,7 +31,11 @@ def getCanonPageHtml(node, reqPath, userLocale):
 
 def getTranslationPageHtml(translationLocale, translator, action,
                            reqPath, userLocale):
-  translationPageTemplateValue = { 'reqPath': reqPath }
+  translationPageTemplateValue = {
+      'reqPath': reqPath,
+      'trInfo': getXmlLocaleTranslationInfo(action,
+                                            translationLocale,
+                                            translator) }
   # xslt
   transformedHtml = translationXslt(action, translationLocale, translator)
   # get innerHTML of body
