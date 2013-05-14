@@ -53,6 +53,14 @@ def getAllLocalesTranslationsHtml(urlLocale, userLocale):
   return AllTransCache[key]
 
 
+def serveCanonPageHtml(reqPath, urlLocale, paliTextPath, userLocale):
+  result = isValidPath(paliTextPath)
+  if result['isValid']:
+    data = { 'title': getHtmlTitle(urlLocale, result['texts'], userLocale),
+             'html': getCanonPageHtml(result['node'], reqPath, userLocale) }
+    return data
+
+
 if __name__ == '__main__':
   # for test purpose
   pass

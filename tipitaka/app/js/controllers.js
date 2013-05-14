@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-function canonCtrl($scope, pathInfo, paliXml, htmlDoc2View, i18nTpkServ) {
+function canonCtrl($scope, $http, $compile, pathInfo, paliXml, htmlDoc2View) {
   var pInfo = pathInfo.getInfoFromPath();
 
   $scope.text = pInfo.tvInfo['text'];
@@ -16,6 +16,24 @@ function canonCtrl($scope, pathInfo, paliXml, htmlDoc2View, i18nTpkServ) {
   }
 
   // leaf node => contains pali texts
+  var data = { userLocale: $scope.i18nLocale,
+               reqPath: pInfo.reqPath,
+               paliTextPath: pInfo.paliTextPath };
+  if (angular.isDefined($scope.urlLocale))
+    data.urlLocale = $scope.urlLocale;
+  else
+    data.urlLocale = null;
+
+  $http.post('/html/CanonPage', JSON.stringify(data)).
+    success(function(data, status, headers, config) {
+      $scope.isShowLoading = false;
+      $scope.xmlDoms = $compile(data.html)($scope);
+      document.title = data.title;
+    }).error(function(data, status, headers, config) {
+      // TODO: error handling
+      $scope.isShowLoading = false;
+    });
+/*
   $scope.isShowLoading = true;
   paliXml.get(pInfo.tvInfo['action']).then(function(htmlDoc) {
     $scope.isShowLoading = false;
@@ -29,8 +47,9 @@ function canonCtrl($scope, pathInfo, paliXml, htmlDoc2View, i18nTpkServ) {
     $scope.isShowLoading = false;
     console.log(reason);
   });
+*/
 }
-canonCtrl.$inject = ['$scope', 'pathInfo', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
+canonCtrl.$inject = ['$scope', '$http', '$compile', 'pathInfo', 'paliXml', 'htmlDoc2View'];
 
 
 function infoCtrl($scope, $http, $compile) {

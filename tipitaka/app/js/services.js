@@ -281,7 +281,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
   factory('pathInfo', ['$location', '$routeParams', 'tvServ', 'i18nTpkServ', function($location, $routeParams, tvServ, i18nTpkServ) {
     function getInfoFromPath() {
-      var pathInfo = {};
+      var pathInfo = { reqPath: $location.path() };
       var subpathes = $location.path().split('/');
 
       // check if this is 'contrast reading' or 'translation' page
