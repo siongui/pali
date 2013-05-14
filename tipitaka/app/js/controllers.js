@@ -33,11 +33,26 @@ function canonCtrl($scope, pathInfo, paliXml, htmlDoc2View, i18nTpkServ) {
 canonCtrl.$inject = ['$scope', 'pathInfo', 'paliXml', 'htmlDoc2View', 'i18nTpkServ'];
 
 
-function infoCtrl($scope, i18nTpkServ) {
-  // setup translation links
-  $scope.localeTranslations = i18nTpkServ.getAllLocalesTranslations();
+function infoCtrl($scope, $http, $compile) {
+  var url = '/html/MainPage/';
+
+  // add urlLoclae to url
+  if (angular.isString($scope.urlLocale))
+    url += ($scope.urlLocale + '/');
+  else
+    url += ('None' + '/');
+
+  // add i18nLocale (userLocale) to url
+  url += $scope.i18nLocale;
+
+  $http.get(url).
+    success(function(data, status, headers, config) {
+      $scope.xmlDoms = $compile(data)($scope);
+    }).error(function(data, status, headers, config) {
+      // TODO
+    });
 }
-infoCtrl.$inject = ['$scope', 'i18nTpkServ'];
+infoCtrl.$inject = ['$scope', '$http', '$compile'];
 
 
 function translationCtrl($scope, pathInfo, paliXml) {

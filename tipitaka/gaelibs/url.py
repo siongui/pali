@@ -36,11 +36,21 @@ def checkPath(reqPath, urlLocale, paliTextPath, userLocale,
   return result
 
 
+# cache
+AllTransCache = {}
 def getAllLocalesTranslationsHtml(urlLocale, userLocale):
+  # check cache first
+  key = '%s#%s' % (urlLocale, userLocale)
+  if key in AllTransCache:
+    return AllTransCache[key]
+
+  # cache miss
   template = getJinja2Env(userLocale).get_template('info.html')
-  return template.render({'urlLocale': urlLocale,
-                          'userLocale': userLocale,
-                          'localeTranslations': getAllLocalesTranslationsTemplateValues()})
+  AllTransCache[key] = template.render({'urlLocale': urlLocale,
+      'userLocale': userLocale,
+      'localeTranslations': getAllLocalesTranslationsTemplateValues()})
+
+  return AllTransCache[key]
 
 
 if __name__ == '__main__':

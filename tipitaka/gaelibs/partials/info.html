@@ -5,14 +5,14 @@
   {# translations of specific locale #}
   <div style="padding-left: 1em; padding-bottom: 1em;">
   <a href="javascript:void(0);"
-     ng-init="isShowLocaleTranslation = false;"
-     ng-click="isShowLocaleTranslation = !isShowLocaleTranslation;"
+     ng-init="isShowLocaleTranslation{{ loop.index0 }} = false;"
+     ng-click="isShowLocaleTranslation{{ loop.index0 }} = !isShowLocaleTranslation{{ loop.index0 }};"
      style="text-decoration: none;">
-    <span ng-show="isShowLocaleTranslation">&#9660;</span>
-    <span ng-hide="isShowLocaleTranslation">&#9658;</span>
+    <span ng-show="isShowLocaleTranslation{{ loop.index0 }}">&#9660;</span>
+    <span ng-hide="isShowLocaleTranslation{{ loop.index0 }}">&#9658;</span>
     {{ localeTranslation['translationLocale'] | translateLocale }}
   </a>:
-  <div ng-show="isShowLocaleTranslation" class="allTrans2">
+  <div ng-show="isShowLocaleTranslation{{ loop.index0 }}" class="allTrans2">
   {% for translation in localeTranslation['translations'] %}
     {# translations of specific xmlFilename of specific locale #}
     <a href="{% if urlLocale %}/{{ urlLocale }}{% endif %}{{ translation.path }}" class="allTrans3">

@@ -46,6 +46,9 @@ handlers:
 - url: /json/.+
   script: serviceweb.app
 
+- url: /html/.+
+  script: serviceweb.app
+
 - url: /.*
   script: mainweb.app
 
