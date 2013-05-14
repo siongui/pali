@@ -9,14 +9,15 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import getAllLocalesTranslationsHtml
 
 import urllib2
+import json
 
 urls = (
-  "/json/.+", "json",
+  "/json/.+", "jsonService",
   "/robots.txt", "robots",
-  "/html/MainPage/([^/]+)/([^/]+)", "htmlMainPage",
+  "/html/MainPage", "htmlMainPage",
 )
 
-class json:
+class jsonService:
   def GET(self):
     url = 'http://%s.palidictionary.appspot.com/%s' % \
           (web.input().v, web.ctx.path)
@@ -30,11 +31,13 @@ class robots:
     return 'User-agent: *\nDisallow:\n'
 
 class htmlMainPage:
-  def GET(self, urlLocale, userLocale):
-    if urlLocale == 'None':
-      return getAllLocalesTranslationsHtml(None, userLocale)
-    else:
-      return getAllLocalesTranslationsHtml(urlLocale, userLocale)
+  def POST(self):
+    data = json.loads(web.data())
+    if data['userLocale'] not in ['en_US', 'zh_TW', 'zh_CN']:
+      raise web.notfound()
+    if data['urlLocale'] not in ['en_US', 'zh_TW', 'zh_CN', None]:
+      raise web.notfound()
+    return getAllLocalesTranslationsHtml(data['urlLocale'], data['userLocale'])
 
 app = web.application(urls, globals())
 app = app.gaerun()

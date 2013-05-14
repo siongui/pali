@@ -34,22 +34,17 @@ canonCtrl.$inject = ['$scope', 'pathInfo', 'paliXml', 'htmlDoc2View', 'i18nTpkSe
 
 
 function infoCtrl($scope, $http, $compile) {
-  var url = '/html/MainPage/';
-
-  // add urlLoclae to url
-  if (angular.isString($scope.urlLocale))
-    url += ($scope.urlLocale + '/');
+  var data = { userLocale: $scope.i18nLocale };
+  if (angular.isDefined($scope.urlLocale))
+    data.urlLocale = $scope.urlLocale;
   else
-    url += ('None' + '/');
+    data.urlLocale = null;
 
-  // add i18nLocale (userLocale) to url
-  url += $scope.i18nLocale;
-
-  $http.get(url).
+  $http.post('/html/MainPage', JSON.stringify(data)).
     success(function(data, status, headers, config) {
       $scope.xmlDoms = $compile(data)($scope);
     }).error(function(data, status, headers, config) {
-      // TODO
+      // TODO: error handling
     });
 }
 infoCtrl.$inject = ['$scope', '$http', '$compile'];
