@@ -15,6 +15,7 @@ function canonCtrl($scope, $http, $compile, pathInfo, htmlDoc2View) {
     return;
   }
 
+  $scope.isShowLoading = true;
   // leaf node => contains pali texts
   var data = { userLocale: $scope.i18nLocale,
                reqPath: pInfo.reqPath,

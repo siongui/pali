@@ -52,10 +52,11 @@ class htmlCanonPage:
   def POST(self):
     data = json.loads(web.data())
     checkData(data['urlLocale'], data['userLocale'])
-    result = serveCanonPageHtml(data['reqPath'],
-                                data['urlLocale'],
-                                data['paliTextPath'].encode('utf-8'),
-                                data['userLocale'])
+    result = serveCanonPageHtml(
+        data['reqPath'],
+        data['urlLocale'],
+        data['paliTextPath'].encode('utf-8'),
+        data['userLocale'])
     if result: return json.dumps(result)
     else: raise web.notfound()
 
@@ -63,12 +64,13 @@ class htmlTranslationPage:
   def POST(self):
     data = json.loads(web.data())
     checkData(data['urlLocale'], data['userLocale'])
-    result = serveTranslationPageHtml(data['reqPath'],
-                                      data['urlLocale'],
-                                      data['paliTextPath'].encode('utf-8'),
-                                      data['userLocale'],
-                                      data['translationLocale'],
-                                      data['translator'].encode('utf-8'))
+    result = serveTranslationPageHtml(
+        data['reqPath'],
+        data['urlLocale'],
+        data['paliTextPath'].encode('utf-8'),
+        data['userLocale'],
+        data['translationLocale'],
+        data['translator'].encode('utf-8'))
     if result: return json.dumps(result)
     else: raise web.notfound()
 
