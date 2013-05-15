@@ -102,19 +102,10 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       console.log(xmlElement);
     }
 
-    function getView(htmlDoc) {
-      /* cloneNode() is important. otherwise the second time nothing will show up */
-      var body = htmlDoc.getElementsByTagName('body')[0].cloneNode(true);
-      for (var i=0; i<body.childNodes.length; i++) {
-        wrapWordsInElement(body.childNodes[i]);
-      }
-
-      return angular.element(body);
-    }
-
     /**
      * make pali words lookup-able.
      * @param {jqLite DOM element}
+     * @return {jqLite DOM element}
      */
     function markPaliWord(canonPageDom) {
       /* FIXME: cloneNode() here? */
@@ -124,44 +115,17 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
       return canonPageDom;
     }
 
-    function getContrastReadingView(oriHtmlDoc, transHtmlDoc) {
-      var oriBody = oriHtmlDoc.getElementsByTagName('body')[0];
-      var transBody = transHtmlDoc.getElementsByTagName('body')[0];
-
-      var tb = document.createElement('table');
-      tb.style.width = '100%';
-
-      for (var i=0; i<oriBody.childNodes.length; i++) {
-        if (angular.isDefined(transBody.childNodes[i])) {
-          /* cloneNode() is important. otherwise the second time nothing will show up */
-          var oriChildNode = oriBody.childNodes[i].cloneNode(true);
-          var transChildNode = transBody.childNodes[i].cloneNode(true);
-          wrapWordsInElement(oriChildNode);
-
-          var td1 = document.createElement('td');
-          td1.appendChild(oriChildNode);
-          td1.style.width = '50%';
-
-          var td2 = document.createElement('td');
-          td2.appendChild(transChildNode);
-          td2.style.width = '50%';
-
-          var tr = document.createElement('tr');
-          tr.style.width = '100%';
-          tr.style.textAlign = 'left';
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-
-          tb.appendChild(tr);
-        }
-      }
-
-      return angular.element(tb);
+    function markCRPaliWord(htmlString) {
+      /* FIXME: cloneNode() here? */
+      var jqLiteDom = angular.element(htmlString);
+      var trElems = jqLiteDom[0].getElementsByTagName('tr');
+      for (var i=0; i<trElems.length; i++)
+        wrapWordsInElement(trElems[i].cells[0]);
+      return jqLiteDom;
     }
 
-    var serviceInstance = { getView: getView,
-                            getContrastReadingView: getContrastReadingView,
-                            markPaliWord: markPaliWord };
+    var serviceInstance = { markPaliWord: markPaliWord,
+                            markCRPaliWord: markCRPaliWord };
     return serviceInstance;
   }]).
 
@@ -293,7 +257,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('pathInfo', ['$location', '$routeParams', 'tvServ', 'i18nTpkServ', function($location, $routeParams, tvServ, i18nTpkServ) {
+  factory('pathInfo', ['$location', '$routeParams', 'tvServ', function($location, $routeParams, tvServ) {
     function getInfoFromPath() {
       var pathInfo = { reqPath: $location.path() };
       var subpathes = $location.path().split('/');
@@ -326,17 +290,6 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
         pathInfo.paliTextPath += ('/' + subpathes[i]);
 
       pathInfo.tvInfo = tvServ.getInfo(pathInfo.paliTextPath);
-
-      if (angular.isDefined($routeParams.translator)) {
-        // This is 'contrast reading' or 'translation' page
-        pathInfo.xmlLocaleTranslationInfo = i18nTpkServ.getXmlLocaleTranslationInfo(
-          pathInfo.tvInfo['action'],
-          pathInfo.translationLocale,
-          pathInfo.translator);
-        pathInfo.translationUrl = i18nTpkServ.getTranslationXmlUrl(pathInfo.tvInfo['action'],
-                                                                   pathInfo.translationLocale,
-                                                                   pathInfo.translator);
-      }
 
       return pathInfo;
     }

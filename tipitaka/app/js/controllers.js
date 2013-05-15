@@ -84,29 +84,32 @@ function translationCtrl($scope, $http, pathInfo) {
 translationCtrl.$inject = ['$scope', '$http', 'pathInfo'];
 
 
-function contrastReadingCtrl($scope, $q, pathInfo, paliXml, htmlDoc2View) {
+function contrastReadingCtrl($scope, $http, pathInfo, htmlDoc2View) {
   $scope.isShowLoading = true;
 
   var pInfo = pathInfo.getInfoFromPath();
   $scope.text = pInfo.tvInfo['text'];
   $scope.pathBreadcrumbs = pInfo.tvInfo.pathBreadcrumbs;
-  $scope.paliTextPath = pInfo.paliTextPath;
-  $scope.xmlLocaleTranslationInfo = pInfo.xmlLocaleTranslationInfo;
 
-  var promise = paliXml.get(pInfo.tvInfo['action']);
-  var promiseTrans = paliXml.getUrl(pInfo.translationUrl);
+  var data = { userLocale: $scope.i18nLocale,
+               reqPath: pInfo.reqPath,
+               paliTextPath: pInfo.paliTextPath,
+               translationLocale: pInfo.translationLocale,
+               translator: pInfo.translator };
+  if (angular.isDefined($scope.urlLocale))
+    data.urlLocale = $scope.urlLocale;
+  else
+    data.urlLocale = null;
 
-  $q.all([promise, promiseTrans]).then( function(htmlDocArray) {
-    var oriHtmlDoc = htmlDocArray[0];
-    var transHtmlDoc = htmlDocArray[1];
-    $scope.xmlDoms = htmlDoc2View.getContrastReadingView(oriHtmlDoc, transHtmlDoc);
-    $scope.isShowLoading = false;
-    $scope.isShowOriPaliLink = true;
-  }, function(reason) {
-    // TODO: error handling here
-    $scope.isShowLoading = false;
-    console.log(reason);
-  });
+  $http.post('/html/ContrastReadingPage', JSON.stringify(data)).
+    success(function(data, status, headers, config) {
+      $scope.isShowLoading = false;
+      $scope.xmlDoms = htmlDoc2View.markCRPaliWord(data.html);
+      document.title = data.title;
+    }).error(function(data, status, headers, config) {
+      // TODO: error handling
+      $scope.isShowLoading = false;
+    });
 }
-contrastReadingCtrl.$inject = ['$scope', '$q', 'pathInfo', 'paliXml', 'htmlDoc2View'];
+contrastReadingCtrl.$inject = ['$scope', '$http', 'pathInfo', 'htmlDoc2View'];
 

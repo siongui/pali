@@ -11,34 +11,5 @@
 
   <div ng-repeat="node in nodes" style="padding: .5em 0 0 1em;"><a href="{{ urlLocaleInPath }}{{node.path}}">{{node.text}}{{ translateNodeText3(node.text, i18nLocale) }}</a></div>
 
-  <div ng-show="isShowOriPaliLink" style="padding: 1em;">
-    &lt;&lt; <a href="{{ urlLocaleInPath }}{{ paliTextPath }}" i18n str="Original Pāḷi Text">{$_("Original Pāḷi Text")$}</a>
-    <div ng-show="xmlLocaleTranslationInfo.translationURL" class="canon2">
-      <a target="_blank" href="{{xmlLocaleTranslationInfo.translationURL}}" i18n str="URL of the Translation">{$_("URL of the Translation")$}</a>
-    </div>
-    <div ng-show="xmlLocaleTranslationInfo.translationCopyrightURL" class="canon2">
-      <a target="_blank" href="{{xmlLocaleTranslationInfo.translationCopyrightURL}}" i18n str="Copyright URL of the Translation">{$_("Copyright URL of the Translation")$}</a>
-    </div>
-    <div ng-show="xmlLocaleTranslationInfo.isExcerpt" class="canon2"><h3 i18n str="Only Partial Translation Available">{$_("Only Partial Translation Available")$}</h3></div>
-  </div>
-
   <div bind-xml-doms><!-- $watch and append scope.xmlDoms (jqLite element) if changes --></div>
-
-  <style>
-.canon1 {
-  padding: 1em;
-  line-height: 1.5em;
-  background-color: #FFFBE8;
-  border: 1px solid #FFF1A9;
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-.canon2 {
-  background-color: #d9edf7;
-  text-align: center;
-  padding: .25em;
-  color: #3a87ad;
-  border-radius: 10px;
-}
-  </style>
 </div>

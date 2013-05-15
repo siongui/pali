@@ -64,7 +64,11 @@ def contrastReadingTemplateValue(oriBody, trBody):
 
 def getContrastReadingPageHtml(translationLocale, translator, action,
                                reqPath, userLocale):
-  contrastReadingPageTemplateValue = { 'reqPath': reqPath }
+  contrastReadingPageTemplateValue = {
+      'reqPath': reqPath,
+      'trInfo': getXmlLocaleTranslationInfo(action,
+                                            translationLocale,
+                                            translator) }
   # xslt
   oriTransformedHtml = paliXslt(action)
   trTransformedHtml = translationXslt(action, translationLocale, translator)

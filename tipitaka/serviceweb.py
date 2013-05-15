@@ -9,6 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import getAllLocalesTranslationsHtml
 from url import serveCanonPageHtml
 from url import serveTranslationPageHtml
+from url import serveContrastReadingPageHtml
 
 import urllib2
 import json
@@ -19,6 +20,7 @@ urls = (
   "/html/MainPage", "htmlMainPage",
   "/html/CanonPage", "htmlCanonPage",
   "/html/TranslationPage", "htmlTranslationPage",
+  "/html/ContrastReadingPage", "htmlContrastReadingPage",
 )
 
 class jsonService:
@@ -67,6 +69,20 @@ class htmlTranslationPage:
                                       data['userLocale'],
                                       data['translationLocale'],
                                       data['translator'].encode('utf-8'))
+    if result: return json.dumps(result)
+    else: raise web.notfound()
+
+class htmlContrastReadingPage:
+  def POST(self):
+    data = json.loads(web.data())
+    checkData(data['urlLocale'], data['userLocale'])
+    result = serveContrastReadingPageHtml(
+        data['reqPath'],
+        data['urlLocale'],
+        data['paliTextPath'].encode('utf-8'),
+        data['userLocale'],
+        data['translationLocale'],
+        data['translator'].encode('utf-8'))
     if result: return json.dumps(result)
     else: raise web.notfound()
 
