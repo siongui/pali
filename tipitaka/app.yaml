@@ -49,6 +49,10 @@ handlers:
 - url: /html/.+
   script: serviceweb.app
 
+- url: /uploadOver1mb
+  script: uploadOver1mb.app
+  login: admin
+
 - url: /.*
   script: mainweb.app
 
