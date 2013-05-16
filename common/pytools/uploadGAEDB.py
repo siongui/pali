@@ -6,6 +6,8 @@
 import os
 import sys
 import json
+import urllib2
+import base64
 
 SDK_PATH = os.path.expanduser("~/google_appengine/")
 """
@@ -22,11 +24,20 @@ from google.appengine.ext import ndb
 
 import getpass
 
+"""
 def auth_func():
   return (raw_input('Username:'), getpass.getpass('Password:'))
 
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'epalitipitaka.appspot.com')
+"""
+# For credentials of remote api on dev server of app engine,
+# http://stackoverflow.com/questions/1260835/which-credentials-should-i-put-in-for-google-app-engine-bulkloader-at-developmen
+def auth_func():
+  return ("test@example.com", "")
+
+remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
+                                   'localhost:8080')
 
 class Xml(ndb.Model):
   # maybe can try optional keyword argument "compressed". See
@@ -98,7 +109,31 @@ def uploadXmlsToBlobstore():
         XmlBlobKey(id=key, blob_key=files.blobstore.get_blob_key(file_name)).put()
 
 
+def uploadXmlsViaCustomRemoteBlobstoreAPI():
+  romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
+
+  for dirpath, dirnames, filenames in os.walk(romn_dir):
+    for filename in filenames:
+      path = os.path.join(dirpath, filename)
+      key = path.lstrip(romn_dir)
+      print('uploading %s ...' % key)
+
+      """Python HTTP POST json-format data (payload is encoded with base64).
+
+      Reference:
+          http://stackoverflow.com/questions/4348061/how-to-use-python-urllib2-to-send-json-data-for-login
+          http://stackoverflow.com/questions/16329786/how-can-i-get-python-base64-encoding-to-play-nice-with-json
+      """
+      with open(path, 'rb') as f:
+        jdata = json.dumps({'key': key,
+                            'path': path,
+                            'payload': base64.b64encode(f.read()) })
+      response = urllib2.urlopen("http://localhost:8080/customRemoteBlobstoreAPI", jdata)
+      print(response.read())
+
+
 if __name__ == '__main__':
   #deleteAllXmlModel()
   #uploadXmls()
   #uploadXmlsToBlobstore()
+  uploadXmlsViaCustomRemoteBlobstoreAPI()

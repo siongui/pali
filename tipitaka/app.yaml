@@ -49,7 +49,7 @@ handlers:
 - url: /html/.+
   script: serviceweb.app
 
-- url: /uploadOver1mb
+- url: /customRemoteBlobstoreAPI
   script: uploadOver1mb.app
   login: admin
 
