@@ -5,6 +5,7 @@
 
 import os
 import sys
+import json
 
 SDK_PATH = os.path.expanduser("~/google_appengine/")
 
@@ -25,11 +26,31 @@ remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
 class Xml(ndb.Model):
   content = ndb.BlobProperty()
 
-if __name__ == '__main__':
-  romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
-  key = 'cscd/s0502m.mul5.xml'
-  print(key)
 
-  with open(os.path.join(romn_dir, key), 'rb') as f:
-    xml = Xml(id=key, content=f.read())
-  xml.put()
+def uploadXmls():
+  romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
+  fail_to_uploaded_xmls = []
+
+  for dirpath, dirnames, filenames in os.walk(romn_dir):
+    for filename in filenames:
+      path = os.path.join(dirpath, filename)
+      key = path.lstrip(romn_dir)
+      print('uploading %s ...' % key)
+      with open(path, 'rb') as f:
+        try:
+          Xml(id=key, content=f.read()).put()
+        except:
+          fail_to_uploaded_xmls.append(key)
+          print('fail to upload %s' % key)
+
+  with open(os.path.join(os.path.dirname(__file__), 'fail.json'), 'w') as f:
+    f.write(json.dumps(fail_to_uploaded_xmls))
+
+
+def deleteAll():
+  ndb.delete_multi(Xml.query().fetch(999999, keys_only=True))
+
+
+if __name__ == '__main__':
+  #deleteAll()
+  uploadXmls()
