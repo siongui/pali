@@ -50,7 +50,7 @@ handlers:
   script: serviceweb.app
 
 - url: /customRemoteBlobstoreAPI
-  script: uploadOver1mb.app
+  script: customRemoteBlobstoreAPI.app
   login: admin
 
 - url: /.*

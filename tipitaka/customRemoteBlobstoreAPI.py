@@ -21,11 +21,12 @@ class XmlBlobKey(ndb.Model):
   blob_key = ndb.BlobKeyProperty()
 
 urls = (
-  "/uploadOver1mb", "upload",
+#  "/uploadOver1mb", "upload",
   "/customRemoteBlobstoreAPI", "customRemoteBlobstoreAPIHandler",
 )
 
 class upload:
+  """deprecated"""
   def GET(self):
     return """<html><head></head><body>
         <form method="POST" enctype="multipart/form-data" action="">
@@ -80,7 +81,10 @@ class customRemoteBlobstoreAPIHandler:
     # Get the file's blob key
     blob_key = files.blobstore.get_blob_key(file_name)
 
-    return blob_key
+    # store blob_key in datastore
+    XmlBlobKey(id=data['key'], blob_key=blob_key).put()
+
+    return 'OK<br />%s<br />%s' % (data['key'], blob_key)
 
 
 app = web.application(urls, globals())

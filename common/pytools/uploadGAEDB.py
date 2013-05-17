@@ -24,7 +24,6 @@ from google.appengine.ext import ndb
 
 import getpass
 
-"""
 def auth_func():
   return (raw_input('Username:'), getpass.getpass('Password:'))
 
@@ -38,16 +37,18 @@ def auth_func():
 
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'localhost:8080')
+"""
 
 class Xml(ndb.Model):
+  """deprecated"""
   # maybe can try optional keyword argument "compressed". See
   # https://developers.google.com/appengine/docs/python/ndb/properties#compressed
   content = ndb.BlobProperty()
 
 
 def uploadXmls():
-  """Upload all xml files to the datastore of production server programmatically
-     via remote api.
+  """(deprecated) Upload all xml files to the datastore of production server
+     programmatically via remote api.
   """
   romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
   fail_to_be_uploaded_xmls = []
@@ -72,6 +73,7 @@ def uploadXmls():
 
 
 def deleteAllXmlModel():
+  """deprecated"""
   ndb.delete_multi(Xml.query().fetch(999999, keys_only=True))
 
 
@@ -126,10 +128,16 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
       """
       with open(path, 'rb') as f:
         jdata = json.dumps({'key': key,
-                            'path': path,
                             'payload': base64.b64encode(f.read()) })
-      response = urllib2.urlopen("http://localhost:8080/customRemoteBlobstoreAPI", jdata)
-      print(response.read())
+      #response = urllib2.urlopen("http://localhost:8080/customRemoteBlobstoreAPI", jdata)
+      response = urllib2.urlopen(
+          "http://epalitipitaka.appspot.com/customRemoteBlobstoreAPI",
+          jdata)
+      result_array = response.read().split('<br />')
+      if result_array[0] == 'OK':
+        print('key: %s, blob_key: %s' % (result_array[1], result_array[2]))
+      else:
+        raise Exception('server return error: %s' % response.read())
 
 
 if __name__ == '__main__':
