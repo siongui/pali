@@ -34,7 +34,7 @@ handlers:
   script: serviceweb.app
 
 - url: /.*
-  script: main.app
+  script: mainweb.app
 
 libraries:
 - name: jinja2
