@@ -77,13 +77,6 @@ class RedirectPage(webapp2.RequestHandler):
     self.redirect('/')
 
 
-class JsonPage(webapp2.RequestHandler):
-  def get(self, partialPathi=None):
-    url = 'http://%s.palidictionary.appspot.com/%s' % (self.request.get('v'), self.request.path)
-    result = urllib2.urlopen(url)
-    self.response.out.write(result.read())
-
-
 app = webapp2.WSGIApplication([
   webapp2.Route(r'/browse/noSuchWord', handler=RedirectPage),
   webapp2.Route(r'/', handler=MainPage),
@@ -92,6 +85,5 @@ app = webapp2.WSGIApplication([
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/browse/<prefix:.+>/<word:.+>', handler=WordPage),
   webapp2.Route(r'/browse/<prefix:.+>/<word:.+>', handler=WordPage),
   webapp2.Route(r'/<urlLocale:en_US|zh_TW|zh_CN>/browse/<prefix:.+>', handler=PrefixPage),
-  webapp2.Route(r'/browse/<prefix:.+>', handler=PrefixPage),
-  webapp2.Route(r'/json/<:.*>', handler=JsonPage)],
+  webapp2.Route(r'/browse/<prefix:.+>', handler=PrefixPage)],
   debug=True)

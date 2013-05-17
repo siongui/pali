@@ -13,10 +13,6 @@ handlers:
   static_files: app/BingSiteAuth.xml
   upload: app/BingSiteAuth\.xml
 
-- url: /robots\.txt
-  static_files: common/gae/robots.txt
-  upload: common/gae/robots\.txt
-
 - url: /favicon\.ico
   static_files: common/app/img/favicon.ico
   upload: common/app/img/favicon\.ico
@@ -30,6 +26,12 @@ handlers:
 
 - url: /common/js
   static_dir: common/app/js
+
+- url: /robots\.txt
+  script: serviceweb.app
+
+- url: /json/.+
+  script: serviceweb.app
 
 - url: /.*
   script: main.app
