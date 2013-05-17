@@ -26,9 +26,10 @@ import getpass
 
 def auth_func():
   return (raw_input('Username:'), getpass.getpass('Password:'))
-
+"""
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'epalitipitaka.appspot.com')
+"""
 """
 # For credentials of remote api on dev server of app engine,
 # http://stackoverflow.com/questions/1260835/which-credentials-should-i-put-in-for-google-app-engine-bulkloader-at-developmen
@@ -112,6 +113,19 @@ def uploadXmlsToBlobstore():
 
 
 def uploadXmlsViaCustomRemoteBlobstoreAPI():
+  """
+  http://stackoverflow.com/questions/101742/how-do-you-access-an-authenticated-google-app-engine-service-from-a-non-web-py
+  http://stackoverflow.com/questions/10118585/how-to-make-an-authenticated-request-from-a-script-to-appengine?lq=1
+  """
+  from google.appengine.tools import appengine_rpc
+  rpcServer = appengine_rpc.HttpRpcServer(
+      "epalitipitaka.appspot.com",
+      auth_func,
+      None,
+      "epalitipitaka",
+      save_cookies=True,
+      secure=True)
+
   romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
 
   for dirpath, dirnames, filenames in os.walk(romn_dir):
@@ -130,10 +144,11 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
         jdata = json.dumps({'key': key,
                             'payload': base64.b64encode(f.read()) })
       #response = urllib2.urlopen("http://localhost:8080/customRemoteBlobstoreAPI", jdata)
-      response = urllib2.urlopen(
-          "http://epalitipitaka.appspot.com/customRemoteBlobstoreAPI",
-          jdata)
-      result_array = response.read().split('<br />')
+      #response = urllib2.urlopen(
+      #    "http://epalitipitaka.appspot.com/customRemoteBlobstoreAPI",
+      #    jdata)
+      #result_array = response.read().split('<br />')
+      result_array = rpcServer.Send('/customRemoteBlobstoreAPI', jdata).split('<br />')
       if result_array[0] == 'OK':
         print('key: %s, blob_key: %s' % (result_array[1], result_array[2]))
       else:
