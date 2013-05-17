@@ -17,7 +17,13 @@
 <body>
   <div class="container-fluid">
     <div class="row-fluid" id="allContainer">
-      <div class="span2 visible-desktop">{% if isCompiledJS %}{% include 'buttons.html' %}{% else %}{% include 'devlinks.html' %}{% endif %}</div>
+      <div class="span2 visible-desktop">
+        {% if isCompiledJS %}
+          {% include 'buttons.html' %}
+        {% else %}
+          {% include 'devlinks.html' %}
+        {% endif %}
+      </div>
       <div class="span8 main-content">
         <div class="alert alert-block text-center" style="margin: 0;">
           <h1 class="visible-desktop" i18n str="Pāḷi Dictionary">{$_("Pāḷi Dictionary")$}</h1>
@@ -50,11 +56,8 @@
               <span ng-switch-default></span>
             </div>
             <div ng-view ng-cloak>
-              {% if reqHandlerName == 'MainPage' %}
-                {% if urlpath == '/about' %}{% include 'about.html' %}{% endif %}
-              {% endif %}
-              {% if reqHandlerName == 'WordPage' %}{$ wordHtml $}{% endif %}
-              {% if reqHandlerName == 'PrefixPage' %}{$ prefixHtml $}{% endif %}
+              {% include 'about.html' %}
+              {$ pageHtml $}
             </div>
           </div>
           <br style="line-height: 4em;"/>
@@ -63,18 +66,25 @@
             <div class="prefixesDiv">
               <a ng-repeat="prefix in ['a', 'ā', 'b', 'c', 'd', 'ḍ', 'e', 'g', 'h', 'i', 'ī', 'j', 'k', 'l', 'ḷ', 'm', 'ŋ', 'n', 'ñ', 'ṅ', 'ṇ', 'o', 'p', 'r', 's', 't', 'ṭ', 'u', 'ū', 'v', 'y', '-', '°']" ng-href="{{urlLocaleInPath}}/browse/{{prefix}}" ng-cloak>{{prefix}}</a>
               <div class="for-web-crawler">
-                {% for prefix in ['a', 'ā', 'b', 'c', 'd', 'ḍ', 'e', 'g', 'h', 'i', 'ī', 'j', 'k', 'l', 'ḷ', 'm', 'ŋ', 'n', 'ñ', 'ṅ', 'ṇ', 'o', 'p', 'r', 's', 't', 'ṭ', 'u', 'ū', 'v', 'y', '-', '°'] %}
+                {%- for prefix in ['a', 'ā', 'b', 'c', 'd', 'ḍ', 'e', 'g', 'h', 'i', 'ī', 'j', 'k', 'l', 'ḷ', 'm', 'ŋ', 'n', 'ñ', 'ṅ', 'ṇ', 'o', 'p', 'r', 's', 't', 'ṭ', 'u', 'ū', 'v', 'y', '-', '°'] -%}
                   {% if urlLocale %}
                     <a href="/{$ urlLocale  $}/browse/{$ prefix $}">{$ prefix $}</a>
-                  {% else %}
+                  {%- else -%}
                     <a href="/browse/{$ prefix $}">{$ prefix $}</a>
                   {% endif %}
-                {% endfor %}
+                {%- endfor -%}
               </div>
             </div>
           </div>
           <gcse:search></gcse:search>
-          <p class="text-right muted"><small>Powered by <a href="http://webpy.org/" target="_blank">web.py</a>, <a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a>, <a href="http://angularjs.org/" target="_blank">AngularJS</a>, <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>, <a href="http://glyphicons.com/" target="_blank">Glyphicons Halflings</a>, <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a></small></p>
+          <p class="text-right muted"><small>Powered by 
+            <a href="http://webpy.org/" target="_blank">web.py</a>, 
+            <a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a>, 
+            <a href="http://angularjs.org/" target="_blank">AngularJS</a>, 
+            <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>, 
+            <a href="http://glyphicons.com/" target="_blank">Glyphicons Halflings</a>, 
+            <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a>
+          </small></p>
         </div>
         </div>
       </div>

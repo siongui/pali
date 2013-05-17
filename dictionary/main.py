@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import webapp2, jinja2, os, sys, json, urllib2
+import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import isValidPrefixAndWord, getPrefixHtml, getWordHtml, getHtmlTitle
@@ -30,10 +30,8 @@ def getCommonTemplateValues(self, urlLocale, prefix=None, word=None):
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(self.request.headers.get('accept_language'))),
     'urlLocale': urlLocale,
-    'isCompiledJS': isCompiledJS(self),
-    'isTrack': isTrack(self),
-    'urlpath': self.request.path,
-    'reqHandlerName': self.__class__.__name__
+    'isCompiledJS': isCompiledJS(self.request.GET.get('js')),
+    'isTrack': isTrack(self.request.GET.get('track')),
   }
 
   return template_values
@@ -54,7 +52,7 @@ class WordPage(webapp2.RequestHandler):
     wordHtml = getWordHtml(prefix, word, urlLocale)
     if wordHtml is None:
       self.abort(404)
-    template_values['wordHtml'] = wordHtml
+    template_values['pageHtml'] = wordHtml
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 
@@ -67,7 +65,7 @@ class PrefixPage(webapp2.RequestHandler):
     prefixHtml = getPrefixHtml(prefix, urlLocale)
     if prefixHtml is None:
       self.abort(404)
-    template_values['prefixHtml'] = prefixHtml
+    template_values['pageHtml'] = prefixHtml
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 
