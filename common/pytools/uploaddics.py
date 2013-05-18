@@ -62,16 +62,14 @@ except:
   sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
   from jianfan import jtof
 
+
 dictBooksCSVPath = os.path.join(os.path.dirname(__file__),
     "../../../data/pali/common/dictionary/dict-books.csv")
 dictWordsCSVPath = os.path.join(os.path.dirname(__file__),
     "../../../data/pali/common/dictionary/dict-words.csv")
 
 
-def processDictionariesData():
-  """Upload all pali words definitions to the datastore of dev server 
-     programmatically via remote api.
-  """
+def processDictionariesBooks():
   import csv
   with open(dictBooksCSVPath, "r") as booksCsvfile:
     bookreader = csv.reader(booksCsvfile, delimiter=',', quotechar='"')
@@ -84,12 +82,11 @@ def processDictionariesData():
       if row[0] == 'b_lang':
         continue
 
-      dicIndex[row[1]] = {'locale': None, 'data': None}
+      dicIndex[row[1]] = { 'locale': None,
+                           'data': row }
 
       if row[0] == 'C':
         # Chinese and Japanese dictionaries
-        dicIndex[row[1]]['data'] = row
-
         if row[1] == 'A':
           # Japanese dictionary
           dicIndex[row[1]]['locale'] = 'ja'
@@ -108,8 +105,6 @@ def processDictionariesData():
 
       else:
         # English, Vietnam, Myanmar dictionaries
-        dicIndex[row[1]]['data'] = row
-
         if row[1] == 'U' or \
            row[1] == 'Q' or \
            row[1] == 'E':
@@ -126,25 +121,30 @@ def processDictionariesData():
           dicIndex[row[1]]['locale'] = 'en'
 
       print(dicIndex[row[1]]['locale'])
+      for cell in dicIndex[row[1]]['data']:
+        print(cell)
+
+    import json
+    with open(os.path.join(os.path.dirname(__file__), 'books.json'), 'w') as f:
+      f.write(json.dumps(dicIndex))
+
+
+def processDictionariesWords():
+  """Upload all pali words definitions to the datastore of dev server 
+     programmatically via remote api.
+  """
+  import csv
+  with open(dictWordsCSVPath, "r") as wordsCsvfile:
+    wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
+    index = 0
+    for row in wordreader:
+      if len(row) != 7:
+        raise Exception('len(row) != 7')
+      index += 1
       print(row)
-      print('---')
-      #row[2] = row[2].decode('utf-8')
-      #row[3] = row[3].decode('utf-8')
-
-    #print(dicIndex)
-
-    """
-    with open(dictWordsCSVPath, "r") as wordsCsvfile:
-      wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
-      index = 0
-      for row in wordreader:
-        if len(row) != 7:
-          raise Exception('len(row) != 7')
-        index += 1
-        print(row)
-        if index > 10: break
-    """
+      if index > 10: break
 
 
 if __name__ == '__main__':
-  processDictionariesData()
+  #processDictionariesBooks()
+  processDictionariesWords()
