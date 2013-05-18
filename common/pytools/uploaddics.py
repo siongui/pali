@@ -68,34 +68,49 @@ dictWordsCSVPath = os.path.join(os.path.dirname(__file__),
     "../../../data/pali/common/dictionary/dict-words.csv")
 
 
-def uploadWords2DevStore():
+def processDictionariesData():
   """Upload all pali words definitions to the datastore of dev server 
      programmatically via remote api.
   """
   import csv
   with open(dictBooksCSVPath, "r") as booksCsvfile:
     bookreader = csv.reader(booksCsvfile, delimiter=',', quotechar='"')
+    dicIndex = {}
     for row in bookreader:
+
       if len(row) != 4:
         raise Exception('len(row) != 4')
+
+      if row[0] == 'b_lang':
+        continue
+
       #row[2] = row[2].decode('utf-8')
       #row[3] = row[3].decode('utf-8')
+      dicIndex[row[1]] = {'locale': None, 'data': None}
+
       if row[0] == 'C':
-        print(row[2])
-        print(row[3])
+        # Chinese and Japanese dictionaries
+        dicIndex[row[1]]['data'] = row
         if row[1] == 'A':
-          print('《パーリ語辞典》')
-          print('増補改訂パーリ語辞典  水野弘元著')
+          dicIndex[row[1]]['locale'] = 'ja'
+          row[2] = '《パーリ語辞典》'
+          row[3] = '増補改訂パーリ語辞典  水野弘元著'
         elif row[1] == 'S':
-          print('《パーリ語辞典》')
-          print('パーリ語辞典  水野弘元著')
+          dicIndex[row[1]]['locale'] = 'ja'
+          row[2] = '《パーリ語辞典》'
+          row[3] = 'パーリ語辞典  水野弘元著'
         else:
-          print(jtof(row[2]))
-          print(jtof(row[3]))
+          dicIndex[row[1]]['locale'] = 'zh'
+          row[2] = jtof(row[2])
+          row[3] = jtof(row[3])
+
+        print(row)
         print('---')
-      #for cell in row:
-      #  print(cell)
-      #  print(type(cell))
+      else:
+        # English, Vietnam, Myanmar dictionaries
+        dicIndex[row[1]]['data'] = row
+
+    #print(dicIndex)
 
     """
     with open(dictWordsCSVPath, "r") as wordsCsvfile:
@@ -111,4 +126,4 @@ def uploadWords2DevStore():
 
 
 if __name__ == '__main__':
-  uploadWords2DevStore()
+  processDictionariesData()
