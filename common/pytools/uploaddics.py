@@ -84,31 +84,52 @@ def processDictionariesData():
       if row[0] == 'b_lang':
         continue
 
-      #row[2] = row[2].decode('utf-8')
-      #row[3] = row[3].decode('utf-8')
       dicIndex[row[1]] = {'locale': None, 'data': None}
 
       if row[0] == 'C':
         # Chinese and Japanese dictionaries
         dicIndex[row[1]]['data'] = row
+
         if row[1] == 'A':
+          # Japanese dictionary
           dicIndex[row[1]]['locale'] = 'ja'
           row[2] = '《パーリ語辞典》'
           row[3] = '増補改訂パーリ語辞典  水野弘元著'
         elif row[1] == 'S':
+          # Japanese dictionary
           dicIndex[row[1]]['locale'] = 'ja'
           row[2] = '《パーリ語辞典》'
           row[3] = 'パーリ語辞典  水野弘元著'
         else:
+          # Chinese dictionary
           dicIndex[row[1]]['locale'] = 'zh'
           row[2] = jtof(row[2])
           row[3] = jtof(row[3])
 
-        print(row)
-        print('---')
       else:
         # English, Vietnam, Myanmar dictionaries
         dicIndex[row[1]]['data'] = row
+
+        if row[1] == 'U' or \
+           row[1] == 'Q' or \
+           row[1] == 'E':
+          # Vietnamese dictionary
+          dicIndex[row[1]]['locale'] = 'vi'
+        elif row[1] == 'B' or \
+             row[1] == 'K' or \
+             row[1] == 'O' or \
+             row[1] == 'R':
+          # Burmese(Myanmar) dictionary
+          dicIndex[row[1]]['locale'] = 'my'
+        else:
+          # English dictionary
+          dicIndex[row[1]]['locale'] = 'en'
+
+      print(dicIndex[row[1]]['locale'])
+      print(row)
+      print('---')
+      #row[2] = row[2].decode('utf-8')
+      #row[3] = row[3].decode('utf-8')
 
     #print(dicIndex)
 
