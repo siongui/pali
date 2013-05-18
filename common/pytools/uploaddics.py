@@ -133,16 +133,33 @@ def processDictionariesWords():
   """Upload all pali words definitions to the datastore of dev server 
      programmatically via remote api.
   """
+  import json
+  with open(os.path.join(os.path.dirname(__file__), 'books.json'), 'r') as f:
+    dicIndex = json.loads(f.read())
+
+  import shutil
+  output_dir = os.path.join(os.path.dirname(__file__), 'paliwords')
+  if os.path.exists(output_dir):
+    shutil.rmtree(output_dir)
+    os.makedirs(output_dir)
+  else:
+    os.makedirs(output_dir)
+
   import csv
   with open(dictWordsCSVPath, "r") as wordsCsvfile:
     wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
     index = 0
     for row in wordreader:
+      if row[0] == 'db_id': continue
       if len(row) != 7:
         raise Exception('len(row) != 7')
       index += 1
-      print(row)
-      if index > 10: break
+      print(dicIndex[row[2]]['locale'])
+      print(dicIndex[row[2]]['data'][2])
+      print(dicIndex[row[2]]['data'][3])
+      print(row[4])
+      print(row[6])
+      if index > 1000: break
 
 
 if __name__ == '__main__':
