@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+# deprecated! Now use web.py framework!
+
 import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))

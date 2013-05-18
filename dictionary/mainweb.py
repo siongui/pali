@@ -36,10 +36,10 @@ urls = (
   r"/", "MainPage",
   r"/about", "MainPage",
   r"/(en_US|zh_TW|zh_CN)/", "MainPage",
-  r"/(en_US|zh_TW|zh_CN)/browse/(.+)/(.+)", "WordPage",
-  r"/browse/(.+)/(.+)", "WordPage2",
-  r"/(en_US|zh_TW|zh_CN)/browse/(.+)", "PrefixPage",
-  r"/browse/(.+)", "PrefixPage2",
+  r"/(en_US|zh_TW|zh_CN)/browse/([^/]+)/([^/]+)", "WordPage2",
+  r"/browse/([^/]+)/([^/]+)", "WordPage",
+  r"/(en_US|zh_TW|zh_CN)/browse/([^/]+)", "PrefixPage2",
+  r"/browse/([^/]+)", "PrefixPage",
 )
 
 def commonTemplateValues(urlLocale, reqHandlerName, prefix=None, word=None):
@@ -60,6 +60,28 @@ class MainPage:
     template_values = commonTemplateValues(urlLocale, self.__class__.__name__)
     template = jinja_environment.get_template('index.html')
     return template.render(template_values)
+
+def commonWordPage(prefix, word, reqHandlerName, urlLocale=None):
+  prefix = prefix.encode('utf-8')
+  word = word.encode('utf-8')
+  if not isValidPrefixAndWord(prefix, word):
+    raise web.notfound()
+  template_values = commonTemplateValues(
+      urlLocale, reqHandlerName, prefix, word)
+  wordHtml = getWordHtml(prefix, word, urlLocale)
+  if wordHtml is None:
+    raise web.notfound()
+  template_values['pageHtml'] = wordHtml
+  template = jinja_environment.get_template('index.html')
+  return template.render(template_values)
+
+class WordPage:
+  def GET(self, prefix, word):
+    return commonWordPage(prefix, word, self.__class__.__name__)
+
+class WordPage2:
+  def GET(self, urlLocale, prefix, word):
+    return commonWordPage(prefix, word, 'WordPage', urlLocale)
 
 class RedirectPage:
   def GET(self):
