@@ -176,7 +176,7 @@ def processDictionariesWords():
         with open(path, 'r') as f:
           data = json.loads(f.read())
 
-        if dicIndex[row[1]]['locale'] == 'zh':
+        if dicIndex[row[2]]['locale'] == 'zh':
           data.append([dicIndex[row[2]]['data'][1], jtof(row[6])])
         else:
           data.append([dicIndex[row[2]]['data'][1], row[6]])
@@ -185,7 +185,7 @@ def processDictionariesWords():
           f.write(json.dumps(data))
       else:
         # create new data file
-        if dicIndex[row[1]]['locale'] == 'zh':
+        if dicIndex[row[2]]['locale'] == 'zh':
           data = [ [dicIndex[row[2]]['data'][1], jtof(row[6])] ]
         else:
           data = [ [dicIndex[row[2]]['data'][1], row[6]] ]
