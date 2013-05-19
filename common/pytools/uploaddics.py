@@ -165,7 +165,8 @@ def processDictionariesWords():
       print(row[6])
       """
 
-      path = os.path.join(output_dir, '%s.json' % 
+      #path = os.path.join(output_dir, '%s.json' % 
+      path = os.path.join(output_dir, '%s' % 
           row[4].decode('utf-8').lower())
       print(path)
       #print([dicIndex[row[2]]['data'][1], row[6]])
@@ -187,23 +188,41 @@ def processDictionariesWords():
           f.write(json.dumps(data))
 
 
-def uploadBooksAndWordsToDevServer():
+def uploadBooksAndWordsToServer():
   """Upload all pali words definitions to the datastore of dev server 
      programmatically via remote api.
+
+     References:
+     find the 10 largest file or folder in the directory:
+     ls -lS path_to_folder | head -n 10
+     http://stackoverflow.com/questions/12522269/bash-how-to-find-the-largest-file-in-a-directory-and-its-subdirectories
   """
+  list_of_entities = []
+
   print('uploading %s ...' % dictBooksJsonPath)
   with open(dictBooksJsonPath, 'r') as f:
-    PaliWordJson(id='books.json', data=f.read()).put()
+    #PaliWordJson(id='books.json', data=f.read()).put()
+    list_of_entities.append(PaliWordJson(id='books.json', data=f.read()))
 
   for dirpath, dirnames, filenames in os.walk(dictWordsJsonDir):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
       print('uploading %s ...' % path)
       with open(path, 'r') as f:
-        PaliWordJson(id=filename[:-4], data=f.read()).put()
+        #PaliWordJson(id=filename[:-5], data=f.read()).put()
+        #PaliWordJson(id=filename, data=f.read()).put()
+        list_of_entities.append(PaliWordJson(id=filename, data=f.read()))
+        if len(list_of_entities) == 25:
+          ndb.put_multi(list_of_entities)
+          print('putting %d records ...' % len(list_of_entities))
+          list_of_entities = []
+
+  if len(list_of_entities) > 0:
+    ndb.put_multi(list_of_entities)
+    print('putting %d records ...' % len(list_of_entities))
 
 
 if __name__ == '__main__':
   #processDictionariesBooks()
   #processDictionariesWords()
-  uploadBooksAndWordsToDevServer()
+  uploadBooksAndWordsToServer()
