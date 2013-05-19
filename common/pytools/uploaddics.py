@@ -176,13 +176,19 @@ def processDictionariesWords():
         with open(path, 'r') as f:
           data = json.loads(f.read())
 
-        data.append([dicIndex[row[2]]['data'][1], row[6]])
+        if dicIndex[row[1]]['locale'] == 'zh':
+          data.append([dicIndex[row[2]]['data'][1], jtof(row[6])])
+        else:
+          data.append([dicIndex[row[2]]['data'][1], row[6]])
 
         with open(path, 'w') as f:
           f.write(json.dumps(data))
       else:
         # create new data file
-        data = [dicIndex[row[2]]['data'][1], row[6]]
+        if dicIndex[row[1]]['locale'] == 'zh':
+          data = [ [dicIndex[row[2]]['data'][1], jtof(row[6])] ]
+        else:
+          data = [ [dicIndex[row[2]]['data'][1], row[6]] ]
 
         with open(path, 'w') as f:
           f.write(json.dumps(data))
@@ -197,12 +203,14 @@ def uploadBooksAndWordsToServer():
      ls -lS path_to_folder | head -n 10
      http://stackoverflow.com/questions/12522269/bash-how-to-find-the-largest-file-in-a-directory-and-its-subdirectories
   """
+  count = 0
   list_of_entities = []
 
   print('uploading %s ...' % dictBooksJsonPath)
   with open(dictBooksJsonPath, 'r') as f:
     #PaliWordJson(id='books.json', data=f.read()).put()
     list_of_entities.append(PaliWordJson(id='books.json', data=f.read()))
+    count += 1
 
   for dirpath, dirnames, filenames in os.walk(dictWordsJsonDir):
     for filename in filenames:
@@ -212,14 +220,18 @@ def uploadBooksAndWordsToServer():
         #PaliWordJson(id=filename[:-5], data=f.read()).put()
         #PaliWordJson(id=filename, data=f.read()).put()
         list_of_entities.append(PaliWordJson(id=filename, data=f.read()))
-        if len(list_of_entities) == 25:
+        if len(list_of_entities) == 40:
           ndb.put_multi(list_of_entities)
           print('putting %d records ...' % len(list_of_entities))
+          count += len(list_of_entities)
+          print('total number uploaded: %d' % count)
           list_of_entities = []
 
   if len(list_of_entities) > 0:
     ndb.put_multi(list_of_entities)
     print('putting %d records ...' % len(list_of_entities))
+    count += len(list_of_entities)
+    print('total number uploaded: %d' % count)
 
 
 if __name__ == '__main__':
