@@ -79,8 +79,7 @@ def processDictionariesBooks():
       if len(row) != 4:
         raise Exception('len(row) != 4')
 
-      if row[0] == 'b_lang':
-        continue
+      if row[0] == 'b_lang': continue
 
       dicIndex[row[1]] = { 'locale': None,
                            'data': row }
@@ -148,18 +147,40 @@ def processDictionariesWords():
   import csv
   with open(dictWordsCSVPath, "r") as wordsCsvfile:
     wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
-    index = 0
     for row in wordreader:
-      if row[0] == 'db_id': continue
+
       if len(row) != 7:
         raise Exception('len(row) != 7')
-      index += 1
+
+      if row[0] == 'db_id': continue
+
+      """
       print(dicIndex[row[2]]['locale'])
       print(dicIndex[row[2]]['data'][2])
       print(dicIndex[row[2]]['data'][3])
       print(row[4])
       print(row[6])
-      if index > 1000: break
+      """
+
+      path = os.path.join(output_dir, '%s.json' % row[4])
+      print(path)
+      #print([dicIndex[row[2]]['data'][1], row[6]])
+
+      if os.path.exists(path):
+        # append new data to existing data
+        with open(path, 'r') as f:
+          data = json.loads(f.read())
+
+        data.append([dicIndex[row[2]]['data'][1], row[6]])
+
+        with open(path, 'w') as f:
+          f.write(json.dumps(data))
+      else:
+        # create new data file
+        data = [dicIndex[row[2]]['data'][1], row[6]]
+
+        with open(path, 'w') as f:
+          f.write(json.dumps(data))
 
 
 if __name__ == '__main__':
