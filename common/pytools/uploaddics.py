@@ -165,7 +165,8 @@ def processDictionariesWords():
       print(row[6])
       """
 
-      path = os.path.join(output_dir, '%s.json' % row[4])
+      path = os.path.join(output_dir, '%s.json' % 
+          row[4].decode('utf-8').lower())
       print(path)
       #print([dicIndex[row[2]]['data'][1], row[6]])
 
