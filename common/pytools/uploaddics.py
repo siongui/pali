@@ -36,6 +36,10 @@ def auth_func():
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'localhost:8080')
 
+class PaliWordJson(ndb.Model):
+  """data is in json-format"""
+  data = ndb.BlobProperty()
+
 
 """
 keyword: "python traditional chinese to simplified chinese"
@@ -68,6 +72,8 @@ dictBooksCSVPath = os.path.join(os.path.dirname(__file__),
 dictWordsCSVPath = os.path.join(os.path.dirname(__file__),
     "../../../data/pali/common/dictionary/dict-words.csv")
 
+dictBooksJsonPath = os.path.join(os.path.dirname(__file__), 'books.json')
+dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
 
 def processDictionariesBooks():
   import csv
@@ -124,20 +130,17 @@ def processDictionariesBooks():
         print(cell)
 
     import json
-    with open(os.path.join(os.path.dirname(__file__), 'books.json'), 'w') as f:
+    with open(dictBooksJsonPath, 'w') as f:
       f.write(json.dumps(dicIndex))
 
 
 def processDictionariesWords():
-  """Upload all pali words definitions to the datastore of dev server 
-     programmatically via remote api.
-  """
   import json
-  with open(os.path.join(os.path.dirname(__file__), 'books.json'), 'r') as f:
+  with open(dictBooksJsonPath, 'r') as f:
     dicIndex = json.loads(f.read())
 
   import shutil
-  output_dir = os.path.join(os.path.dirname(__file__), 'paliwords')
+  output_dir = dictWordsJsonDir
   if os.path.exists(output_dir):
     shutil.rmtree(output_dir)
     os.makedirs(output_dir)
@@ -183,6 +186,23 @@ def processDictionariesWords():
           f.write(json.dumps(data))
 
 
+def uploadBooksAndWordsToDevServer():
+  """Upload all pali words definitions to the datastore of dev server 
+     programmatically via remote api.
+  """
+  print('uploading %s ...' % dictBooksJsonPath)
+  with open(dictBooksJsonPath, 'r') as f:
+    PaliWordJson(id='books.json', data=f.read()).put()
+
+  for dirpath, dirnames, filenames in os.walk(dictWordsJsonDir):
+    for filename in filenames:
+      path = os.path.join(dirpath, filename)
+      print('uploading %s ...' % path)
+      with open(path, 'r') as f:
+        PaliWordJson(id=filename[:-4], data=f.read()).put()
+
+
 if __name__ == '__main__':
   #processDictionariesBooks()
-  processDictionariesWords()
+  #processDictionariesWords()
+  uploadBooksAndWordsToDevServer()
