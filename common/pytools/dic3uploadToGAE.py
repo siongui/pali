@@ -41,8 +41,10 @@ class PaliWordJsonBlob(ndb.Model):
   data = ndb.BlobProperty()
 
 
-def uploadBooksAndWordsToServer():
-  """Upload all pali words definitions to the datastore of dev server 
+dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
+
+def uploadToServer():
+  """Upload all pali words definitions to the datastore of server
      programmatically via remote api.
 
      References:
@@ -52,12 +54,6 @@ def uploadBooksAndWordsToServer():
   """
   count = 0
   list_of_entities = []
-
-  print('uploading %s ...' % dictBooksJsonPath)
-  with open(dictBooksJsonPath, 'r') as f:
-    #PaliWordJsonBlob(id='books.json', data=f.read()).put()
-    list_of_entities.append(PaliWordJsonBlob(id='books.json', data=f.read()))
-    count += 1
 
   for dirpath, dirnames, filenames in os.walk(dictWordsJsonDir):
     for filename in filenames:
@@ -69,18 +65,18 @@ def uploadBooksAndWordsToServer():
         list_of_entities.append(PaliWordJsonBlob(id=filename, data=f.read()))
         # Remember "1 MB API limits apply" of remote_api
         if len(list_of_entities) == 40:
-          ndb.put_multi(list_of_entities)
           print('putting %d records ...' % len(list_of_entities))
+          ndb.put_multi(list_of_entities)
           count += len(list_of_entities)
           print('total number uploaded: %d' % count)
           list_of_entities = []
 
   if len(list_of_entities) > 0:
-    ndb.put_multi(list_of_entities)
     print('putting %d records ...' % len(list_of_entities))
+    ndb.put_multi(list_of_entities)
     count += len(list_of_entities)
     print('total number uploaded: %d' % count)
 
 
 if __name__ == '__main__':
-  uploadBooksAndWordsToServer()
+  uploadToServer()
