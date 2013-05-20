@@ -41,79 +41,6 @@ class PaliWordJson(ndb.Model):
   data = ndb.BlobProperty()
 
 
-dictWordsCSV1Path = os.path.join(os.path.dirname(__file__),
-    "../../../data/pali/common/dictionary/dict_words_1.csv")
-dictWordsCSV2Path = os.path.join(os.path.dirname(__file__),
-    "../../../data/pali/common/dictionary/dict_words_2.csv")
-
-dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
-
-def processWordCSV(csvPath, dicIndex, output_dir):
-  import json
-  import csv
-  with open(csvPath, "r") as wordsCsvfile:
-    wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
-    for row in wordreader:
-
-      if len(row) != 7:
-        raise Exception('len(row) != 7')
-
-      if row[0] == 'db_id': continue
-
-      """
-      print(dicIndex[row[2]]['locale'])
-      print(dicIndex[row[2]]['data'][2])
-      print(dicIndex[row[2]]['data'][3])
-      print(row[4])
-      print(row[6])
-      """
-
-      #path = os.path.join(output_dir, '%s.json' % 
-      path = os.path.join(output_dir, '%s' % 
-          row[4].decode('utf-8').lower())
-      print(path)
-      #print([dicIndex[row[2]]['data'][1], row[6]])
-
-      if os.path.exists(path):
-        # append new data to existing data
-        with open(path, 'r') as f:
-          data = json.loads(f.read())
-
-        if dicIndex[row[2]]['locale'] == 'zh':
-          data.append([dicIndex[row[2]]['data'][1], jtof(row[6])])
-        else:
-          data.append([dicIndex[row[2]]['data'][1], row[6]])
-
-        with open(path, 'w') as f:
-          f.write(json.dumps(data))
-      else:
-        # create new data file
-        if dicIndex[row[2]]['locale'] == 'zh':
-          data = [ [dicIndex[row[2]]['data'][1], jtof(row[6])] ]
-        else:
-          data = [ [dicIndex[row[2]]['data'][1], row[6]] ]
-
-        with open(path, 'w') as f:
-          f.write(json.dumps(data))
-
-
-def processDictionariesWords():
-  import json
-  with open(dictBooksJsonPath, 'r') as f:
-    dicIndex = json.loads(f.read())
-
-  import shutil
-  output_dir = dictWordsJsonDir
-  if os.path.exists(output_dir):
-    shutil.rmtree(output_dir)
-    os.makedirs(output_dir)
-  else:
-    os.makedirs(output_dir)
-
-  processWordCSV(dictWordsCSV1Path, dicIndex, output_dir)
-  processWordCSV(dictWordsCSV2Path, dicIndex, output_dir)
-
-
 def uploadBooksAndWordsToServer():
   """Upload all pali words definitions to the datastore of dev server 
      programmatically via remote api.
@@ -155,6 +82,4 @@ def uploadBooksAndWordsToServer():
 
 
 if __name__ == '__main__':
-  #processDictionariesBooks()
-  processDictionariesWords()
-  #uploadBooksAndWordsToServer()
+  uploadBooksAndWordsToServer()
