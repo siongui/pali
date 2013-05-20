@@ -69,8 +69,10 @@ except:
 
 dictBooksCSVPath = os.path.join(os.path.dirname(__file__),
     "../../../data/pali/common/dictionary/dict-books.csv")
-dictWordsCSVPath = os.path.join(os.path.dirname(__file__),
-    "../../../data/pali/common/dictionary/dict-words.csv")
+dictWordsCSV1Path = os.path.join(os.path.dirname(__file__),
+    "../../../data/pali/common/dictionary/dict_words_1.csv")
+dictWordsCSV2Path = os.path.join(os.path.dirname(__file__),
+    "../../../data/pali/common/dictionary/dict_words_2.csv")
 
 dictBooksJsonPath = os.path.join(os.path.dirname(__file__), 'books.json')
 dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
@@ -134,21 +136,10 @@ def processDictionariesBooks():
       f.write(json.dumps(dicIndex))
 
 
-def processDictionariesWords():
+def processWordCSV(csvPath, dicIndex, output_dir):
   import json
-  with open(dictBooksJsonPath, 'r') as f:
-    dicIndex = json.loads(f.read())
-
-  import shutil
-  output_dir = dictWordsJsonDir
-  if os.path.exists(output_dir):
-    shutil.rmtree(output_dir)
-    os.makedirs(output_dir)
-  else:
-    os.makedirs(output_dir)
-
   import csv
-  with open(dictWordsCSVPath, "r") as wordsCsvfile:
+  with open(csvPath, "r") as wordsCsvfile:
     wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
     for row in wordreader:
 
@@ -194,6 +185,23 @@ def processDictionariesWords():
           f.write(json.dumps(data))
 
 
+def processDictionariesWords():
+  import json
+  with open(dictBooksJsonPath, 'r') as f:
+    dicIndex = json.loads(f.read())
+
+  import shutil
+  output_dir = dictWordsJsonDir
+  if os.path.exists(output_dir):
+    shutil.rmtree(output_dir)
+    os.makedirs(output_dir)
+  else:
+    os.makedirs(output_dir)
+
+  processWordCSV(dictWordsCSV1Path, dicIndex, output_dir)
+  processWordCSV(dictWordsCSV2Path, dicIndex, output_dir)
+
+
 def uploadBooksAndWordsToServer():
   """Upload all pali words definitions to the datastore of dev server 
      programmatically via remote api.
@@ -236,5 +244,5 @@ def uploadBooksAndWordsToServer():
 
 if __name__ == '__main__':
   #processDictionariesBooks()
-  #processDictionariesWords()
-  uploadBooksAndWordsToServer()
+  processDictionariesWords()
+  #uploadBooksAndWordsToServer()
