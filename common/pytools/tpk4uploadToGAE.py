@@ -40,43 +40,6 @@ remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'localhost:8080')
 """
 
-class Xml(ndb.Model):
-  """deprecated"""
-  # maybe can try optional keyword argument "compressed". See
-  # https://developers.google.com/appengine/docs/python/ndb/properties#compressed
-  content = ndb.BlobProperty()
-
-
-def uploadXmls():
-  """(deprecated) Upload all xml files to the datastore of production server
-     programmatically via remote api.
-  """
-  romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
-  fail_to_be_uploaded_xmls = []
-
-  for dirpath, dirnames, filenames in os.walk(romn_dir):
-    for filename in filenames:
-      path = os.path.join(dirpath, filename)
-      key = path.lstrip(romn_dir)
-      print('uploading %s ...' % key)
-      with open(path, 'rb') as f:
-        # because of "1 MB API limits apply" of remote_api, see
-        # https://developers.google.com/appengine/articles/remote_api#limitations
-        # The following code may raise exception if request over 1 MB
-        try:
-          Xml(id=key, content=f.read()).put()
-        except:
-          fail_to_be_uploaded_xmls.append(key)
-          print('fail to upload %s' % key)
-
-  with open(os.path.join(os.path.dirname(__file__), 'fail.json'), 'w') as f:
-    f.write(json.dumps(fail_to_be_uploaded_xmls))
-
-
-def deleteAllXmlModel():
-  """deprecated"""
-  ndb.delete_multi(Xml.query().fetch(999999, keys_only=True))
-
 
 from google.appengine.api import files
 
@@ -152,11 +115,10 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
       if result_array[0] == 'OK':
         print('key: %s, blob_key: %s' % (result_array[1], result_array[2]))
       else:
-        raise Exception('server return error: %s' % response.read())
+        #raise Exception('server return error: %s' % response.read())
+        raise Exception('server return error!')
 
 
 if __name__ == '__main__':
-  #deleteAllXmlModel()
-  #uploadXmls()
   #uploadXmlsToBlobstore()
   uploadXmlsViaCustomRemoteBlobstoreAPI()

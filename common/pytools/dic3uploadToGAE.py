@@ -36,8 +36,8 @@ def auth_func():
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'localhost:8080')
 
-class PaliWordJson(ndb.Model):
-  """data is in json-format"""
+class PaliWordJsonBlob(ndb.Model):
+  """blob which stores json data"""
   data = ndb.BlobProperty()
 
 
@@ -55,8 +55,8 @@ def uploadBooksAndWordsToServer():
 
   print('uploading %s ...' % dictBooksJsonPath)
   with open(dictBooksJsonPath, 'r') as f:
-    #PaliWordJson(id='books.json', data=f.read()).put()
-    list_of_entities.append(PaliWordJson(id='books.json', data=f.read()))
+    #PaliWordJsonBlob(id='books.json', data=f.read()).put()
+    list_of_entities.append(PaliWordJsonBlob(id='books.json', data=f.read()))
     count += 1
 
   for dirpath, dirnames, filenames in os.walk(dictWordsJsonDir):
@@ -64,9 +64,10 @@ def uploadBooksAndWordsToServer():
       path = os.path.join(dirpath, filename)
       print('uploading %s ...' % path)
       with open(path, 'r') as f:
-        #PaliWordJson(id=filename[:-5], data=f.read()).put()
-        #PaliWordJson(id=filename, data=f.read()).put()
-        list_of_entities.append(PaliWordJson(id=filename, data=f.read()))
+        #PaliWordJsonBlob(id=filename[:-5], data=f.read()).put()
+        #PaliWordJsonBlob(id=filename, data=f.read()).put()
+        list_of_entities.append(PaliWordJsonBlob(id=filename, data=f.read()))
+        # Remember "1 MB API limits apply" of remote_api
         if len(list_of_entities) == 40:
           ndb.put_multi(list_of_entities)
           print('putting %d records ...' % len(list_of_entities))
