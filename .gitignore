@@ -1,23 +1,15 @@
 *.pyc
 *.mo
 
-common/romn/
-common/translation/
-
 common/locale/messages.pot
 common/locale/en_US/LC_MESSAGES/messages.po
 common/locale/zh_CN/LC_MESSAGES/messages.po
 
-common/gae/libs/jianfan/__init__.py
-common/gae/libs/jianfan/charsets.py
+common/gae/libs/jianfan
 common/gae/libs/json/dicPrefixGroup.json
 common/gae/libs/json/dicPrefixWordLists.json
 
 common/app/js/services-dicPrefix.js
 common/app/js/services-i18nStrings.js
-common/app/js/ext/tongwen_core.js
-common/app/js/ext/tongwen_table_s2t.js
-common/app/js/ext/tongwen_table_t2s.js
-common/app/js/ext/tongwen_table_ps2t.js
-common/app/js/ext/tongwen_table_pt2s.js
+common/app/js/ext
 common/app/lib/

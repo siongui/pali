@@ -76,8 +76,7 @@ skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
-- ^(.*/)?common/romn/.*\.toc\.xml
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?gaelibs/setTranslationData\.py
-- ^(.*/)?gaelibs/romn/.*
+- ^(.*/)?gaelibs/translation/.*README.md

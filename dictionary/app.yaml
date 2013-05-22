@@ -53,7 +53,5 @@ skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
-- ^(.*/)?common/romn/.*
-- ^(.*/)?common/translation/.*
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*

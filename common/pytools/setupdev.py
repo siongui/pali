@@ -6,7 +6,7 @@ import os, urllib2, tarfile, shutil, zipfile
 """
 $PALI_DIR is the dir of git clone https://github.com/siongui/pali.git
 Manual setup (for reference):
-1. setup TongWen:
+1. setup TongWen (deprecated):
 ```bash
   cd $PALI_DIR
   mkdir -p common/app/js/ext
@@ -18,22 +18,30 @@ Manual setup (for reference):
   wget http://tongwen.openfoundry.org/src/web/tongwen_table_pt2s.js
 ```
 
-2. setup jianfan:
+2. setup jianfan (deprecated):
 ```bash
-  wget https://python-jianfan.googlecode.com/files/jianfan-0.0.1.tar.gz
-  tar xvzf jianfan-0.0.1.tar.gz
-  mv jianfan-0.0.1/jianfan $PALI_DIR/common/gae/libs/
-  rm -rf jianfan-0.0.1
+  wget https://python-jianfan.googlecode.com/files/jianfan-0.0.2.zip
+  unzip jianfan-0.0.2.zip
+  mv jianfan-0.0.2/jianfan $PALI_DIR/common/gae/libs/
+  rm -rf jianfan-0.0.2
 ```
 
 3. create symbolic links:
 ```bash
-  cd $PALI_DIR/dictionary
-  ln -s ../common/ common
-  ln -s ../common/locale/ locale
   cd $PALI_DIR/tipitaka
   ln -s ../common/ common
-  ln -s ../common/locale/ locale
+
+  cd $PALI_DIR/tipitaka/gaelibs
+  ln -s ../../../data/pali/common/translation/ translation
+
+  cd $PALI_DIR/dictionary
+  ln -s ../common/ common
+
+  cd $PALI_DIR/common/gae/libs
+  ln -s ../../../../data/pali/common/gae/libs/jianfan/ jianfan
+
+  cd $PALI_DIR/common/app/js
+  ln -s ../../../../data/pali/common/app/js/ext/ ext
 ```
 """
 
@@ -49,8 +57,7 @@ def setupSymlinks():
   os.chdir(os.path.join(os.path.dirname(__file__), '../../tipitaka'))
   ln('../common/', 'common')
   os.chdir('gaelibs')
-  ln('../../common/translation/', 'translation')
-  ln('../../common/romn/', 'romn')
+  ln('../../../data/pali/common/translation/', 'translation')
   # enter dictionary dir
   os.chdir('../../dictionary')
   ln('../common/', 'common')

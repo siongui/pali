@@ -4,42 +4,41 @@ My development environment is Ubuntu 13.04 with Python 2.7. If you are using Win
 
 The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repo.
 
-## Set Up Development Environment
+## Set Up Development Environment (deprecated: TO BE UPDATED)
 
-<i>REPO_DIR</i> below means the directory where you git clone this repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
+<i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
 
-* git clone the <em>pali</em> repo and <em>data</em> repo in the same directory.
+1. git clone the <em>pali</em> repository and <em>data</em> repository (put in the same dir).
 ```bash
-    # create a dir to contain pali and data repo.
+    # create a directory to contain both pali and data repository.
     mkdir dev
     cd dev
-    # git clone repos
+    # git clone repositories
     git clone https://github.com/siongui/pali.git
     git clone https://github.com/siongui/data.git
 ```
 
-
-1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repo and <em>data</em> repo must be put under the same directory. Otherwise symlinks will not point to correct dirs.)
+2. Run <b>PALI_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
 ```bash
-    python REPO_DIR/common/pytools/setupdev.py
+    python PALI_DIR/common/pytools/setupdev.py
 ```
 
-2. Create i18n files (pot, po, mo files under <strong>REPO_DIR/common/locale/</strong> directory) for production use on server side:
+2. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for production use on server side:
 ```bash
-    cd REPO_DIR/common/pytools/
+    cd PALI_DIR/common/pytools/
     # create i18n files
     python i18nUtils.py pot
     python i18nUtils.py po
     python i18nUtils.py cn
     python i18nUtils.py mo
 
-    # create JavaScript file ( <strong>REPO_DIR/common/app/js/services-i18nStrings.js</strong> ) of translated strings for client side
+    # create JavaScript file ( <strong>PALI_DIR/common/app/js/services-i18nStrings.js</strong> ) of translated strings for client side
     python i18nUtils.py js
 ```
 
-3. Create data files (<strong>REPO_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
+3. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
 ```bash
-    cd REPO_DIR/common/pytools/
+    cd PALI_DIR/common/pytools/
     python tpk1getTocs.py
     python tpk2tocsToJson.py
     python tpk3addSubpathInJson.py
@@ -47,49 +46,49 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
 
 4. Create Tipiṭaka-related translations for server and client.
 ```bash
-    cd REPO_DIR/tipitaka/gaelibs/
+    cd PALI_DIR/tipitaka/gaelibs/
     python translationData.py
 ```
 
 5. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
-  Put pali-dict-linux-web1.zip under <i>REPO_DIR/common/pytools/</i> and unzip it.
+  Put pali-dict-linux-web1.zip under <i>PALI_DIR/common/pytools/</i> and unzip it.
 ```bash
-    mv pali-dict-linux-web1.zip REPO_DIR/common/pytools/
-    cd REPO_DIR/common/pytools/
+    mv pali-dict-linux-web1.zip PALI_DIR/common/pytools/
+    cd PALI_DIR/common/pytools/
     unzip pali-dict-linux-web1.zip
 ```
 
 6. Generate index files and compiled JavaScript files:
 ```bash
-    # create json files (<strong>REPO_DIR/common/gae/libs/json/dicPrefixWordLists.json</strong> and <strong>REPO_DIR/common/gae/libs/json/dicPrefixGroup.json</strong>) for server side
-    cd REPO_DIR/common/pytools/
+    # create json files (<strong>PALI_DIR/common/gae/libs/json/dicPrefixWordLists.json</strong> and <strong>REPO_DIR/common/gae/libs/json/dicPrefixGroup.json</strong>) for server side
+    cd PALI_DIR/common/pytools/
     python dic1xmlToJsonIndex.py
     python dic2jsonIndexToGroup.py
     python dic3buildJsonDeployDir.py
 
-    # create JavaScript file ( <strong>REPO_DIR/common/app/js/services-dicPrefix.js</strong> ) of indexes of pali words for client side
+    # create JavaScript file ( <strong>PALI_DIR/common/app/js/services-dicPrefix.js</strong> ) of indexes of pali words for client side
     python dic4dicPrefixTojs.py
-    # create compiled JavaScript files ( <strong>REPO_DIR/dictionary/app/all_compiled.js</strong> and <strong>REPO_DIR/tipitaka/app/all_compiled.js</strong> ) by Google Closure Compiler Service API
+    # create compiled JavaScript files ( <strong>PALI_DIR/dictionary/app/all_compiled.js</strong> and <strong>REPO_DIR/tipitaka/app/all_compiled.js</strong> ) by Google Closure Compiler Service API
     python compile.py
 ```
 
-7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>REPO_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
+7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
 ```bash
     # deploy json files of dictionary
     cd GAE_PYSDK_DIR/
-    ./appcfg.py update REPO_DIR/common/pytools/app-engine-json/jsons0/
-    ./appcfg.py update REPO_DIR/common/pytools/app-engine-json/jsons1/
-    ./appcfg.py update REPO_DIR/common/pytools/app-engine-json/jsons2/
-    ./appcfg.py update REPO_DIR/common/pytools/app-engine-json/jsons3/
-    rm -rf REPO_DIR/common/pytools/app-engine-json/jsons0/
-    rm -rf REPO_DIR/common/pytools/app-engine-json/jsons1/
-    rm -rf REPO_DIR/common/pytools/app-engine-json/jsons2/
-    rm -rf REPO_DIR/common/pytools/app-engine-json/jsons3/
+    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons0/
+    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons1/
+    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons2/
+    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons3/
+    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons0/
+    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons1/
+    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons2/
+    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons3/
 
     # deploy dictionary
-    ./appcfg.py update REPO_DIR/dictionary
+    ./appcfg.py update PALI_DIR/dictionary
     # deploy tipitaka
-    ./appcfg.py update REPO_DIR/tipitaka
+    ./appcfg.py update PALI_DIR/tipitaka
 ```
 
 ## Writing JavaScript Code ...
@@ -97,16 +96,16 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
 Remember to re-compile all JavaScript files before deployment or before testing the compiled file:
 
 ```bash
-cd REPO_DIR/common/pytools/
+cd PALI_DIR/common/pytools/
 python compile.py
 ```
 
 ## Development of i18n
 
-Everytime strings in html files are marked to be translated, remember to re-generate i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>REPO_DIR/common/pytools/</b>) to automate the i18n jobs.
+Everytime strings in html files are marked to be translated, remember to re-generate i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>PALI_DIR/common/pytools/</b>) to automate the i18n jobs.
 
 ```bash
-cd REPO_DIR/common/pytools/
+cd PALI_DIR/common/pytools/
 # create POT from html files
 python i18nUtils.py pot
 # initialize PO files if not exist, or update POs files if exist.
@@ -179,7 +178,7 @@ Related links to generate translation files (POT, PO, and MO files):
 * [Internationalize A Python Application](http://wiki.maemo.org/Internationalize_a_Python_application)
 * [Python localization made easy](http://www.supernifty.org/blog/2011/09/16/python-localization-made-easy/)
 
-The default locale directory of webapp2_extras i18n is <b>REPO_DIR/locale/</b> and default domain is <b><i>messages</i></b> (see [webapp2_extras.i18n.default_config](http://webapp-improved.appspot.com/api/webapp2_extras/i18n.html#webapp2_extras.i18n.default_config) for details). In our repository, the html files to be localized are located under <b>REPO_DIR/app/</b>, texts to be translated are wrapped in <b><i> _("TEXT_TO_BE_TRANSLATED") </i></b>. Note that cannot use <b><i> _(' ') </i></b> to wrap texts, must use <b><i> _(" ") </i></b>. Otherwise <i>[xgettext](http://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html)</i> utility cannot recognize the texts and will not put them in POT file. After finishing wraping texts to be translated, we can use the following Python code to generate POT file:
+The default locale directory of webapp2_extras i18n is <b>PALI_DIR/locale/</b> and default domain is <b><i>messages</i></b> (see [webapp2_extras.i18n.default_config](http://webapp-improved.appspot.com/api/webapp2_extras/i18n.html#webapp2_extras.i18n.default_config) for details). In our repository, the html files to be localized are located under <b>REPO_DIR/app/</b>, texts to be translated are wrapped in <b><i> _("TEXT_TO_BE_TRANSLATED") </i></b>. Note that cannot use <b><i> _(' ') </i></b> to wrap texts, must use <b><i> _(" ") </i></b>. Otherwise <i>[xgettext](http://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html)</i> utility cannot recognize the texts and will not put them in POT file. After finishing wraping texts to be translated, we can use the following Python code to generate POT file:
 ```python
 locale_dir = os.path.join(os.path.dirname(__file__), '../locale')
 html_dir = os.path.join(os.path.dirname(__file__), '../app')
@@ -197,7 +196,7 @@ os.system(cmd_sed)
 
 ### Initialize PO from POT
 
-The next step is to initialize the PO files for each locale. <b><i>[msginit](http://www.gnu.org/software/gettext/manual/html_node/msginit-Invocation.html)</i></b> is responsible for creating a new PO file for a given locale. The PO file of a given <i>locale</i> in our application will be located under <b>REPO_DIR/locale/{{locale}}/LC_MESSAGES/messages.po</b>, where {{locale}} is the name of the locale. The following Python code can be used to call <i>msginit</i> to create a PO file for a given locale.
+The next step is to initialize the PO files for each locale. <b><i>[msginit](http://www.gnu.org/software/gettext/manual/html_node/msginit-Invocation.html)</i></b> is responsible for creating a new PO file for a given locale. The PO file of a given <i>locale</i> in our application will be located under <b>PALI_DIR/locale/{{locale}}/LC_MESSAGES/messages.po</b>, where {{locale}} is the name of the locale. The following Python code can be used to call <i>msginit</i> to create a PO file for a given locale.
 ```python
 def initLocalePO(locale):
   locale_dir = os.path.join(os.path.dirname(__file__), '../locale')
@@ -213,7 +212,7 @@ Currently three locales are supported (en_US, zh_TW, zh_CN). After PO files are 
 
 ### Create MO from PO
 
-Final step is to create MO files to be used in production. One PO file has a corresponding MO file. The following Python code shows how to use <b><i>[msgfmt](http://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html)</i></b> to create MO file from a give po file. The MO file in our application will be located in the same directory as the source PO file ( in <b>REPO_DIR/locale/{{locale}}/LC_MESSAGES/messages.po</b> ).
+Final step is to create MO files to be used in production. One PO file has a corresponding MO file. The following Python code shows how to use <b><i>[msgfmt](http://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html)</i></b> to create MO file from a give po file. The MO file in our application will be located in the same directory as the source PO file ( in <b>PALI_DIR/locale/{{locale}}/LC_MESSAGES/messages.po</b> ).
 ```python
 def formatMO(locale):
   locale_dir = os.path.join(os.path.dirname(__file__), '../locale')
