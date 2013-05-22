@@ -8,7 +8,8 @@ import json
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-with open(os.path.join(os.path.dirname(__file__), 'books.json'), 'r') as f:
+with open(os.path.join(os.path.dirname(__file__),
+     '../common/gae/libs/json/books.json'), 'r') as f:
   dicIndex = json.loads(f.read())
 
 def getWordHtml(prefix, word, urlLocale):

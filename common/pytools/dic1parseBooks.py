@@ -32,7 +32,8 @@ except:
 
 dictBooksCSVPath = os.path.join(os.path.dirname(__file__),
     "../../../data/pali/common/dictionary/dict-books.csv")
-dictBooksJsonPath = os.path.join(os.path.dirname(__file__), 'books.json')
+dictBooksJsonPath = os.path.join(os.path.dirname(__file__),
+    '../gae/libs/json/books.json')
 
 def processDictionariesBooks():
   with open(dictBooksCSVPath, "r") as booksCsvfile:

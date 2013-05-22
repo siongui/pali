@@ -28,8 +28,6 @@ def auth_func():
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                    'palidictionary.appspot.com')
 """
-# For credentials of remote api on dev server of app engine,
-# http://stackoverflow.com/questions/1260835/which-credentials-should-i-put-in-for-google-app-engine-bulkloader-at-developmen
 def auth_func():
   return ("test@example.com", "")
 
