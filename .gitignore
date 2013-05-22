@@ -8,8 +8,6 @@ common/locale/messages.pot
 common/locale/en_US/LC_MESSAGES/messages.po
 common/locale/zh_CN/LC_MESSAGES/messages.po
 
-common/gae/libs/babel.zip
-common/gae/libs/pytz.zip
 common/gae/libs/jianfan/__init__.py
 common/gae/libs/jianfan/charsets.py
 common/gae/libs/json/dicPrefixGroup.json

@@ -8,12 +8,7 @@ from google.appengine.api import memcache
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
-try:
-  from jianfan import jtof, ftoj
-except:
-  import logging
-  logging.getLogger().setLevel(logging.DEBUG)
-  logging.error('import jianfan library failed!')
+from jianfan import jtof, ftoj
 
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))

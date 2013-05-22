@@ -2,13 +2,24 @@
 
 My development environment is Ubuntu 13.04 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
-The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository.
+The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repo.
 
 ## Set Up Development Environment
 
 <i>REPO_DIR</i> below means the directory where you git clone this repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
 
-1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to set up [New Tong Wen Tang](http://tongwen.openfoundry.org/) library (translation between Traditional and Simplified Chinese on client side), [Jianfan](https://code.google.com/p/python-jianfan/) library (translation between Traditional and Simplified Chinese on server side), [Babel](http://babel.edgewall.org/) library (A collection of tools for internationalizing Python applications), [gaepytz](https://pypi.python.org/pypi/gaepytz) ([source code at Google Code](http://code.google.com/p/gae-pytz/)) library (pytz tuned for google app engine), xml files for [Pāḷi Tipiṭaka](http://www.tipitaka.org/) and [translations](https://github.com/siongui/data/tree/master/pali/common/translation), and create symbolic links.
+* git clone the <em>pali</em> repo and <em>data</em> repo in the same directory.
+```bash
+    # create a dir to contain pali and data repo.
+    mkdir dev
+    cd dev
+    # git clone repos
+    git clone https://github.com/siongui/pali.git
+    git clone https://github.com/siongui/data.git
+```
+
+
+1. Run <b>REPO_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repo and <em>data</em> repo must be put under the same directory. Otherwise symlinks will not point to correct dirs.)
 ```bash
     python REPO_DIR/common/pytools/setupdev.py
 ```
