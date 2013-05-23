@@ -43,7 +43,15 @@ def deletePaliWordModel(num):
   """
   ndb.delete_multi(PaliWord.query().fetch(num, keys_only=True))
 
+def deletePaliWordJsonModel(num):
+  """num cannot be too large (will run out of free quota immediately),
+     num=100 is a good fit.
+  """
+  ndb.delete_multi(PaliWordJson.query().fetch(num, keys_only=True))
+
 
 if __name__ == '__main__':
   #deleteXmlModel(100)
-  deletePaliWordModel(100)
+  for i in range(0, 10):
+    deletePaliWordModel(100)
+  #deletePaliWordJsonModel(100)
