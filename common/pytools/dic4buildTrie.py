@@ -4,6 +4,7 @@
 # http://ejohn.org/blog/javascript-trie-performance-analysis/
 # http://stevehanov.ca/blog/index.php?id=120
 # http://stevehanov.ca/blog/index.php?id=115
+# http://ejohn.org/blog/revised-javascript-dictionary-search/
 
 import os
 import json
