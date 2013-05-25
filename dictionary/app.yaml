@@ -30,7 +30,7 @@ handlers:
 - url: /robots\.txt
   script: serviceweb.app
 
-- url: /json/.+
+- url: /(json|wordJson)/.+
   script: serviceweb.app
 
 - url: /.*
