@@ -16,21 +16,17 @@ words.sort();
 var trie = new bitsjs.Trie();
 
 for (var i=0; i < words.length; i++) {
-  console.log('i: ' + i + ', word: ' + words[i]);
+  console.log('( ' + i +  ' ) inserting ' + words[i] + ' to trie ...');
   trie.insert(words[i]);
 }
 
-console.log('end of insertion');
+console.log('Trie insertion completed. Start to encode trie ...');
+console.log('Encoding may take a long time. Please wait patiently ...');
 
 // encode the trie
 var trieData = trie.encode();
 
-console.log('end of encode');
-
-require('fs').writeFileSync(
-    require('path').resolve(__dirname, 'trieData'),
-    trieData
-);
+console.log('Trie encoding completed!');
 
 // Encode the rank directory
 var directory = bitsjs.CreateRankDirectory( trieData, trie.getNodeCount() * 2 + 1);

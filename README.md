@@ -4,7 +4,7 @@ My development environment is Ubuntu 13.04 with Python 2.7. If you are using Win
 
 The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repo.
 
-## Set Up Development Environment (deprecated: TO BE UPDATED)
+## Set Up Development Environment (TO BE UPDATED)
 
 <i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
 
@@ -23,7 +23,39 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
     python PALI_DIR/common/pytools/setupdev.py
 ```
 
-2. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for production use on server side:
+3. Create index of words in dictionary books.
+```bash
+    cd PALI_DIR/common/pytools/
+    python dic1parseBooks.py
+    python dic2parseWords.py
+    # Please modify app_name before running the uploading script
+    python dic3uploadToGAE.py
+
+    # install node.js first
+    sudo apt-get install nodejs
+    # build succinct trie of words
+    cd PALI_DIR/common/pytools/nodejs
+    nodejs buildSuccinctTrie.js
+```
+
+4. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
+```bash
+    cd PALI_DIR/common/pytools/
+    python tpk1getTocs.py
+    python tpk2tocsToJson.py
+    python tpk3addSubpathInJson.py
+
+    # Please modify app_name before running the uploading script
+    python tpk4uploadToGAE.py
+```
+
+5. Create Tipiṭaka-related translations for server and client.
+```bash
+    cd PALI_DIR/tipitaka/gaelibs/
+    python translationData.py
+```
+
+6. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for production use on server side:
 ```bash
     cd PALI_DIR/common/pytools/
     # create i18n files
@@ -36,55 +68,15 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
     python i18nUtils.py js
 ```
 
-3. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
+7. Create compiled JavaScript files:
 ```bash
-    cd PALI_DIR/common/pytools/
-    python tpk1getTocs.py
-    python tpk2tocsToJson.py
-    python tpk3addSubpathInJson.py
-```
-
-4. Create Tipiṭaka-related translations for server and client.
-```bash
-    cd PALI_DIR/tipitaka/gaelibs/
-    python translationData.py
-```
-
-5. Download pictionary definition (download point [#1](http://online-dhamma.net/anicca/downloads/pali-dict-linux-web1.zip), or [#2](http://dhamma.zxff.net/downloads/pali-dict-linux-web1.zip), or [#3](https://github.com/siongui/data/raw/master/pali-dict-linux-web1.zip). Choose one of them to download) from [PCED](http://online-dhamma.net/anicca/pali-course/Pali-Chinese-English%20Dictionary.html).
-  Put pali-dict-linux-web1.zip under <i>PALI_DIR/common/pytools/</i> and unzip it.
-```bash
-    mv pali-dict-linux-web1.zip PALI_DIR/common/pytools/
-    cd PALI_DIR/common/pytools/
-    unzip pali-dict-linux-web1.zip
-```
-
-6. Generate index files and compiled JavaScript files:
-```bash
-    # create json files (<strong>PALI_DIR/common/gae/libs/json/dicPrefixWordLists.json</strong> and <strong>REPO_DIR/common/gae/libs/json/dicPrefixGroup.json</strong>) for server side
-    cd PALI_DIR/common/pytools/
-    python dic1xmlToJsonIndex.py
-    python dic2jsonIndexToGroup.py
-    python dic3buildJsonDeployDir.py
-
-    # create JavaScript file ( <strong>PALI_DIR/common/app/js/services-dicPrefix.js</strong> ) of indexes of pali words for client side
-    python dic4dicPrefixTojs.py
     # create compiled JavaScript files ( <strong>PALI_DIR/dictionary/app/all_compiled.js</strong> and <strong>REPO_DIR/tipitaka/app/all_compiled.js</strong> ) by Google Closure Compiler Service API
     python compile.py
 ```
 
-7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i>, <i><b>REPO_DIR/dictionary/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons0/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons1/app.yaml</b></i>, <i><b>REPO_DIR/common/pytools/app-engine-json/jsons2/app.yaml</b></i>, and <i><b>REPO_DIR/common/pytools/app-engine-json/jsons3/app.yaml</b></i>. 
+8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
-    # deploy json files of dictionary
     cd GAE_PYSDK_DIR/
-    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons0/
-    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons1/
-    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons2/
-    ./appcfg.py update PALI_DIR/common/pytools/app-engine-json/jsons3/
-    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons0/
-    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons1/
-    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons2/
-    rm -rf PALI_DIR/common/pytools/app-engine-json/jsons3/
-
     # deploy dictionary
     ./appcfg.py update PALI_DIR/dictionary
     # deploy tipitaka

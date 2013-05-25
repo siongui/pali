@@ -7,6 +7,7 @@ common/locale/zh_CN/LC_MESSAGES/messages.po
 
 common/gae/libs/jianfan
 common/gae/libs/json/books.json
+common/gae/libs/json/succinct_trie.json
 common/gae/libs/json/dicPrefixGroup.json
 common/gae/libs/json/dicPrefixWordLists.json
 
