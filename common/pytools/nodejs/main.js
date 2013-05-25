@@ -3,6 +3,9 @@
  * @see http://stevehanov.ca/blog/index.php?id=120
  * @see http://www.hanovsolutions.com/trie/Bits.js
  * @see also https://github.com/jeresig/trie-js
+ * @see also http://stevehanov.ca/blog/index.php?id=115
+ * @see also http://ejohn.org/blog/javascript-trie-performance-analysis/
+ * @see also http://ejohn.org/blog/revised-javascript-dictionary-search/
  */
 var bitsjs = require(require('path').resolve(__dirname, 'Bits.js'));
 
