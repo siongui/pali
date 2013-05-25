@@ -439,7 +439,15 @@ Trie.prototype = {
       Inserts a word into the trie. This function is fastest if the words are
       inserted in alphabetical order.
      */
-    insert: function( word ) {      
+    insert: function( word ) {
+
+        /**
+         * modified by Siong-Ui Te to support non-[a-z] characters
+         *
+         * check if the word consists of allowed characters.
+         */
+        if ( !word.match( VALID_WORD_REGEX ) )
+          throw ('invalid word: ' + word);
 
         var commonPrefix = 0;
         for( var i = 0; i < Math.min( word.length, this.previousWord.length );
@@ -756,10 +764,12 @@ function lookup()
 /**
  * The following code added by Siong-Ui Te to support non-[a-z] characters
  */
+var ALLOWED_CHARACTERS = "abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -";
+var VALID_WORD_REGEX = new RegExp('^[' + ALLOWED_CHARACTERS + ']+$');
 var CHARACTERS_CACHE = {};
 var CHARACTERS = (function() {
   var obj = {};
-  var chars = 'abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ'.split("");
+  var chars = ALLOWED_CHARACTERS.split("");
 
   for (var i=0; i<chars.length; i++) {
     obj[ chars[i] ] = i;
