@@ -9,21 +9,28 @@
  */
 var bitsjs = require(require('path').resolve(__dirname, 'Bits.js'));
 
-//var parsedJson = require(require('path').resolve(__dirname, '../trie.json'));
-
-var words = require("fs").readdirSync('../testwords/');
+var words = require("fs").readdirSync('../paliwords/');
 words.sort();
 
 // create a trie
 var trie = new bitsjs.Trie();
 
 for (var i=0; i < words.length; i++) {
-  console.log(words[i]);
+  console.log('i: ' + i + ', word: ' + words[i]);
   trie.insert(words[i]);
 }
 
+console.log('end of insertion');
+
 // encode the trie
 var trieData = trie.encode();
+
+console.log('end of encode');
+
+require('fs').writeFileSync(
+    require('path').resolve(__dirname, 'trieData'),
+    trieData
+);
 
 // Encode the rank directory
 var directory = bitsjs.CreateRankDirectory( trieData, trie.getNodeCount() * 2 + 1);
@@ -36,25 +43,10 @@ var output;
 
 console.log(output);
 
-/**
- * Decode the data in the output variable, and use it to check if a word exists
- * in the dictionary.
- */
-var json = eval( '(' + output + ")" );
-var ftrie = new bitsjs.FrozenTrie( json.trie, json.directory, json.nodeCount);
+var jsonData = eval( '(' + output + ")" );
 
-// @see http://nodejs.org/api/readline.html#readline_example_tiny_cli
-var readline = require('readline'),
-    rl = readline.createInterface(process.stdin, process.stdout);
-
-rl.setPrompt('word> ');
-rl.prompt();
-
-rl.on('line', function(line) {
-  console.log('looking up ' + line.trim() + ' ...' );
-  console.log(ftrie.lookup(line.trim()));
-  rl.prompt();
-}).on('close', function() {
-  console.log('\nEnd of lookup');
-  process.exit(0);
-});
+require('fs').writeFileSync(
+    require('path').resolve(__dirname, 
+        '../../gae/libs/json/succinct_trie.json'),
+    JSON.stringify(jsonData)
+);
