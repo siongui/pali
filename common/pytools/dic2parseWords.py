@@ -16,20 +16,7 @@ except:
   from jianfan import jtof
 
 
-dictBooksJsonPath = os.path.join(os.path.dirname(__file__), 'books.json')
-with open(dictBooksJsonPath, 'r') as f:
-  dicIndex = json.loads(f.read())
-
-
-dictWordsCSV1Path = os.path.join(os.path.dirname(__file__),
-    "../../../data/pali/common/dictionary/dict_words_1.csv")
-dictWordsCSV2Path = os.path.join(os.path.dirname(__file__),
-    "../../../data/pali/common/dictionary/dict_words_2.csv")
-
-dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
-
-
-def processWordCSV(csvPath):
+def processWordCSV(csvPath, dicIndex, dictWordsJsonDir):
   with open(csvPath, "r") as wordsCsvfile:
     wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
     for row in wordreader:
@@ -77,11 +64,23 @@ def processWordCSV(csvPath):
 
 
 if __name__ == '__main__':
+  # read index of dictionary books
+  dictBooksJsonPath = os.path.join(os.path.dirname(__file__),
+      '../gae/libs/json/books.json')
+  with open(dictBooksJsonPath, 'r') as f:
+    dicIndex = json.loads(f.read())
+
+  dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
   if os.path.exists(dictWordsJsonDir):
     shutil.rmtree(dictWordsJsonDir)
     os.makedirs(dictWordsJsonDir)
   else:
     os.makedirs(dictWordsJsonDir)
 
-  processWordCSV(dictWordsCSV1Path)
-  processWordCSV(dictWordsCSV2Path)
+  dictWordsCSV1Path = os.path.join(os.path.dirname(__file__),
+      "../../../data/pali/common/dictionary/dict_words_1.csv")
+  dictWordsCSV2Path = os.path.join(os.path.dirname(__file__),
+      "../../../data/pali/common/dictionary/dict_words_2.csv")
+
+  processWordCSV(dictWordsCSV1Path, dicIndex, dictWordsJsonDir)
+  processWordCSV(dictWordsCSV2Path, dicIndex, dictWordsJsonDir)
