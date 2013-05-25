@@ -16,14 +16,31 @@ var trie = new bitsjs.Trie();
 
 for (var i=0; i < words.length; i++) {
   console.log(words[i]);
-  // the following is not a correct insert usage
-  // because Bits.js only accept a-z.
   trie.insert(words[i]);
 }
-
-console.log(trie);
 
 // encode the trie
 var trieData = trie.encode();
 
-console.log(trieData);
+// Encode the rank directory
+var directory = bitsjs.CreateRankDirectory( trieData, trie.getNodeCount() * 2 + 1);
+
+var output;
+    output = '{\n    "nodeCount": ' + trie.getNodeCount() + ",\n";
+    output += '    "directory": "' + directory.getData() + '",\n';
+    output += '    "trie": "' + trieData + '"\n';
+    output += "}\n";
+
+console.log(output);
+
+/**
+ * Decode the data in the output variable, and use it to check if a word exists
+ * in the dictionary.
+ */
+var json = eval( '(' + output + ")" );
+var ftrie = new bitsjs.FrozenTrie( json.trie, json.directory, json.nodeCount);
+
+console.log('looking up ḍīyate ...');
+console.log(ftrie.lookup('ḍīyate'));
+console.log('looking up ḍīyata ...');
+console.log(ftrie.lookup('ḍīyata'));

@@ -496,17 +496,20 @@ Trie.prototype = {
             bits.write( 0, 1 );
         });
 
-        // Write the data for each node, using 6 bits for node. 1 bit stores
-        // the "final" indicator. The other 5 bits store one of the 26 letters
-        // of the alphabet.
-        var a = ("a").charCodeAt(0);
+        /**
+         * modified by Siong-Ui Te to support non-[a-z] characters
+         *
+         * Write the data for each node, using DATA_BITS bits for node. 1 bit
+         * stores the "final" indicator. The other (DATA_BITS - 1) bits store
+         * one of the characters of the alphabet.
+         */
         this.apply( function( node ) {
-            var value = node.letter.charCodeAt(0) - a;
+            var value = CharacterToValue( node.letter );
             if ( node.final ) {
-                value |= 0x20;
+                value |= ( 1 << ( DATA_BITS - 1 ) );
             }
 
-            bits.write( value, 6 );
+            bits.write( value, DATA_BITS );
         });
 
         return bits.getData();
@@ -580,11 +583,14 @@ FrozenTrie.prototype = {
       */
     getNodeByIndex: function( index )
     {
-        // retrieve the 6-bit letter.
-        var final = this.data.get( this.letterStart + index * 6, 1 ) === 1;
-        var letter = String.fromCharCode(
-                this.data.get( this.letterStart + index * 6 + 1, 5 ) + 
-                'a'.charCodeAt(0));
+        /**
+         * modified by Siong-Ui Te to support non-[a-z] characters
+         */
+        // retrieve the DATA_BITS-bit character.
+        var final = this.data.get( this.letterStart + index * DATA_BITS, 1 ) === 1;
+        var letter = ValueToCharacter(
+            this.data.get( this.letterStart + index * DATA_BITS + 1, (DATA_BITS - 1) )
+          );
         var firstChild = this.directory.select( 0, index+1 ) - index;
 
         // Since the nodes are in level order, this nodes children must go up
@@ -748,9 +754,43 @@ function lookup()
 
 
 /**
+ * The following code added by Siong-Ui Te to support non-[a-z] characters
+ */
+var CHARACTERS_CACHE = {};
+var CHARACTERS = (function() {
+  var obj = {};
+  var chars = 'abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ'.split("");
+
+  for (var i=0; i<chars.length; i++) {
+    obj[ chars[i] ] = i;
+    CHARACTERS_CACHE[i] = chars[i];
+  }
+
+  return obj;
+})();
+
+function CharacterToValue(char)  { return CHARACTERS[char]; }
+function ValueToCharacter(value) { return CHARACTERS_CACHE[value]; }
+
+/**
+ * Write the data for each node, using 7 bits for node. 1 bit stores
+ * the "final" indicator. The other 6 bits store one of the characters
+ * of the alphabet.
+ */
+var DATA_BITS = 7;
+
+/**
+ * for node.js exporting RankDirectory.Create
+ */
+function CreateRankDirectory( data, numBits ) {
+  return RankDirectory.Create( data, numBits, L1, L2 );
+}
+
+/**
  * Add by Siong-Ui Te for being included as node.js module
  */
 if ( typeof exports !== "undefined" ) {
   exports.FrozenTrie = FrozenTrie;
   exports.Trie = Trie;
+  exports.CreateRankDirectory = CreateRankDirectory;
 }
