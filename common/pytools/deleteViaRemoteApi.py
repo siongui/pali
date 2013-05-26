@@ -15,7 +15,7 @@ def auth_func():
   return (raw_input('Username:'), getpass.getpass('Password:'))
 
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
-                                   'palidictionary.appspot.com')
+                                   '%s.appspot.com' % raw_input('app_name:'))
 
 class PaliWordJson(ndb.Model):
   """data is in json-format (deprecated)"""

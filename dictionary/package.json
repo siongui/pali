@@ -1,0 +1,36 @@
+{
+  "name": "pali-dictionary",
+  "version": "0.1.0",
+  "description": "Pāḷi Dictionary Webapp",
+  "homepage": "https://github.com/siongui/pali",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/siongui/pali.git"
+  },
+  "bugs": {
+    "url": "https://github.com/siongui/pali/issues"
+  },
+  "keywords": [
+    "pāḷi",
+    "pali",
+    "dictionary"
+  ],
+  "author": "Siong-Ui Te",
+  "licenses": [
+    {
+      "type": "public domain",
+      "url": "http://unlicense.org/"
+    }
+  ],
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  }
+}
