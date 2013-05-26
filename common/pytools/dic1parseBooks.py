@@ -5,22 +5,6 @@ import os
 import csv
 import json
 
-"""
-keyword: "python traditional chinese to simplified chinese"
-https://code.google.com/p/python-jianfan/
-https://pypi.python.org/pypi/pyopencc
-https://bitbucket.org/victorlin/opencc_python
-
-install pyopencc:
-sudo apt-get install libopencc-dev python-dev
-git clone https://github.com/cute/pyopencc.git
-cd pyopencc
-python setup.py build_ext -I /usr/include/opencc/
-sudo python setup.py install
-
-pyopencc usage:
-import pyopencc
-"""
 try:
   import pyopencc
   cc = pyopencc.OpenCC('zhs2zht.ini')

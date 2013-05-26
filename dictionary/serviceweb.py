@@ -17,6 +17,7 @@ urls = (
 )
 
 class jsonService:
+  """obsoleted"""
   def GET(self):
     url = 'http://%s.palidictionary.appspot.com/%s' % \
           (web.input().v, web.ctx.path)

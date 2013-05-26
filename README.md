@@ -28,7 +28,6 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
     cd PALI_DIR/common/pytools/
     python dic1parseBooks.py
     python dic2parseWords.py
-    # Please modify app_name before running the uploading script
     python dic3uploadToGAE.py
 
     # install node.js first
@@ -44,8 +43,6 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
     python tpk1getTocs.py
     python tpk2tocsToJson.py
     python tpk3addSubpathInJson.py
-
-    # Please modify app_name before running the uploading script
     python tpk4uploadToGAE.py
 ```
 

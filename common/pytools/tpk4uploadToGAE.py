@@ -28,7 +28,7 @@ def auth_func():
   return (raw_input('Username:'), getpass.getpass('Password:'))
 """
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
-                                   'epalitipitaka.appspot.com')
+                                   '%s.appspot.com' % raw_input('app_name:'))
 """
 """
 def auth_func():
