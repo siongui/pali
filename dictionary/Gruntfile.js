@@ -39,6 +39,12 @@ module.exports = function(grunt) {
           'build/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
         }
       }
+    },
+    watch: {
+      scripts: {
+        files: ['<%= concat.dist.src %>'],
+        tasks: ['concat', 'uglify']
+      }
     }
   });
 
@@ -58,8 +64,9 @@ module.exports = function(grunt) {
   // Load the plugins.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
 
 };
