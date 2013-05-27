@@ -5,7 +5,7 @@
   <title>{$ htmlTitle $}Pāḷi Tipiṭaka ({$_("Pali Tipitaka")$})</title>
   <!-- _("Translation") -->
   <style>{% include 'app.css' %}</style>
-  <link rel="stylesheet" href="/romn/cscd/tipitaka-latn.css">
+  <style>{% include 'tipitaka-latn.css' %}</style>
   <script type="text/ng-template" id="/partials/info.html">{% include 'info.html' %}</script>
   <script type="text/ng-template" id="/partials/about.html">{% include 'about.html' %}</script>
   <script type="text/ng-template" id="/partials/canon.html">{% include 'canon.html' %}</script>
@@ -54,9 +54,10 @@
 <div id="locale" style="display:none">{$ userLocale $}</div>
 <div id="langQs" style="display:none">{$ langQs $}</div>
 
-{% if isCompiledJS %}
+
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
 <script src="/js/tipitaka.js"></script>
+{% if isCompiledJS %}
 <script>
 (function() {
   var cx = '000759460633137666077:ohvoelt1nog';
@@ -66,31 +67,8 @@
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
 })();
 </script>
-{% else %}
-<script src="/common/lib/angular/angular.js"></script>
-<script src="/common/js/services-i18nStrings.js"></script>
-<script src="/common/js/services-dicPrefix.js"></script>
-<script src="/common/js/directives.js"></script>
-<script src="/common/js/directive-dropdown.js"></script>
-<script src="/common/js/services.js"></script>
-<script src="/common/js/services-dic.js"></script>
-<script src="/common/js/services-jqlext.js"></script>
-<script src="/common/js/filters.js"></script>
-<script src="/js/treeviewAllJson-service.js"></script>
-<script src="/js/data-i18nTpk-service.js"></script>
-<script src="/js/i18nTpk-services.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/controllers.js"></script>
-<script src="/js/directives.js"></script>
-<script src="/js/services.js"></script>
-<script src="/js/services-tooltip.js"></script>
-<script src="/common/js/i18n.js"></script>
-<script src="/common/js/ext/tongwen_core.js"></script>
-<script src="/common/js/ext/tongwen_table_s2t.js"></script>
-<script src="/common/js/ext/tongwen_table_t2s.js"></script>
-<script src="/common/js/ext/tongwen_table_ps2t.js"></script>
-<script src="/common/js/ext/tongwen_table_pt2s.js"></script>
 {% endif %}
+
 {% if isTrack %}{% include 'analytics.html' %}{% endif %}
 </body>
 </html>

@@ -14,4 +14,3 @@ common/gae/libs/json/dicPrefixWordLists.json
 common/app/js/services-dicPrefix.js
 common/app/js/services-i18nStrings.js
 common/app/js/ext
-common/app/lib/

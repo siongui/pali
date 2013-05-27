@@ -1,7 +1,6 @@
 app/BingSiteAuth.xml
 app/google147e4ebe06d05f82.html
 app/all_compiled.js
-app/all_uncompiled.js
 
 app/js/treeviewAllJson-service.js
 gaelibs/json/treeviewAll.json
@@ -13,3 +12,5 @@ gaelibs/json/canonTextTranslation.json
 common
 gaelibs/translation
 GAEDevDatastore
+node_modules
+build

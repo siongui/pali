@@ -21,25 +21,6 @@ handlers:
   static_files: app/all_compiled.js
   upload: app/all_compiled\.js
 
-- url: /js
-  static_dir: app/js
-
-- url: /common/js
-  static_dir: common/app/js
-
-- url: /common/lib
-  static_dir: common/app/lib
-
-- url: /romn
-  static_dir: common/romn
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
-- url: /translation
-  static_dir: common/translation
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
 - url: /robots\.txt
   script: serviceweb.app
 
@@ -76,7 +57,10 @@ skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
+- ^(.*/)?common/app/js/.*
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?gaelibs/setTranslationData\.py
 - ^(.*/)?gaelibs/translation/.*README.md
+- ^(.*/)?node_modules/.*
+- ^(.*/)?build/.*

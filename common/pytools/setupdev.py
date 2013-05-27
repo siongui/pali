@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, urllib2, tarfile, shutil, zipfile
+import os 
+import shutil
 
 """
 $PALI_DIR is the dir of git clone https://github.com/siongui/pali.git
@@ -69,4 +70,10 @@ def setupSymlinks():
 
 
 if __name__ == '__main__':
+  tipitakaLatnCssPath = os.path.join(os.path.dirname(__file__),
+      '../../../data/pali/common/romn/cscd/tipitaka-latn.css')
+  dstPath = os.path.join(os.path.dirname(__file__),
+      '../../tipitaka/app/css/tipitaka-latn.css')
+  shutil.copyfile(tipitakaLatnCssPath, dstPath)
+
   setupSymlinks()

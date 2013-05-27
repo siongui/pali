@@ -39,8 +39,9 @@ def host_func():
   else:
     return '%s.appspot.com' % raw_input('app_name:')
 
-remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
-                                   host_func())
+if isUploadeToDevServer:
+  remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
+                                     host_func())
 
 
 from google.appengine.api import files
@@ -49,19 +50,20 @@ class XmlBlobKey(ndb.Model):
   blob_key = ndb.BlobKeyProperty()
 
 def uploadXmlsToBlobstore():
-  """Writing Files to the Blobstore (Experimental) via remote api not working!
+  """Writing Files to the Blobstore (Experimental) via remote api to 
+     production server not working!
 
   https://developers.google.com/appengine/docs/python/blobstore/overview#Writing_Files_to_the_Blobstore
   http://stackoverflow.com/questions/8201283/google-app-engine-how-to-write-large-files-to-google-cloud-storage
   http://stackoverflow.com/questions/3530990/upload-data-to-blobstore-using-remote-api
   http://stackoverflow.com/questions/6545247/erratic-problem-with-app-engine-when-writing-files-directly-to-the-blobstore
   """
-  romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
+  romn_dir = os.path.join(os.path.dirname(__file__), '../../../data/pali/common/romn/')
 
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
-      key = path.lstrip(romn_dir)
+      key = path[len(romn_dir):]
       print('uploading %s ...' % key)
       with open(path, 'rb') as f:
         # Create the file
@@ -82,8 +84,9 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
   http://stackoverflow.com/questions/101742/how-do-you-access-an-authenticated-google-app-engine-service-from-a-non-web-py
   http://stackoverflow.com/questions/10118585/how-to-make-an-authenticated-request-from-a-script-to-appengine?lq=1
   """
-  app_name = raw_input('app_name:')
   from google.appengine.tools import appengine_rpc
+
+  app_name = raw_input('app_name:')
   rpcServer = appengine_rpc.HttpRpcServer(
       "%s.appspot.com" % app_name,
       auth_func,
@@ -97,8 +100,7 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
-      # FIXME: key is not correct
-      key = path.lstrip(romn_dir)
+      key = path[len(romn_dir):]
       print('uploading %s ...' % key)
 
       """Python HTTP POST json-format data (payload is encoded with base64).
@@ -110,19 +112,17 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
       with open(path, 'rb') as f:
         jdata = json.dumps({'key': key,
                             'payload': base64.b64encode(f.read()) })
-      #response = urllib2.urlopen("http://localhost:8080/customRemoteBlobstoreAPI", jdata)
-      #response = urllib2.urlopen(
-      #    "http://epalitipitaka.appspot.com/customRemoteBlobstoreAPI",
-      #    jdata)
-      #result_array = response.read().split('<br />')
-      result_array = rpcServer.Send('/customRemoteBlobstoreAPI', jdata).split('<br />')
+
+      responseData = rpcServer.Send('/customRemoteBlobstoreAPI', jdata)
+      result_array = responseData.split('<br />')
       if result_array[0] == 'OK':
         print('key: %s, blob_key: %s' % (result_array[1], result_array[2]))
       else:
-        #raise Exception('server return error: %s' % response.read())
-        raise Exception('server return error!')
+        raise Exception('server return error: %s' % responseData)
 
 
 if __name__ == '__main__':
-  #uploadXmlsToBlobstore()
-  uploadXmlsViaCustomRemoteBlobstoreAPI()
+  if isUploadeToDevServer:
+    uploadXmlsToBlobstore()
+  else:
+    uploadXmlsViaCustomRemoteBlobstoreAPI()
