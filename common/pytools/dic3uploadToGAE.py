@@ -15,18 +15,30 @@ from google.appengine.ext import ndb
 
 import getpass
 
-"""
+def AskIfUploadToDevServer():
+  answer = raw_input('upload to dev server? (y/n): ')
+  if answer == 'y':
+    return True
+  else:
+    return False
+
+isUploadeToDevServer = AskIfUploadToDevServer()
+
 def auth_func():
-  return (raw_input('Username:'), getpass.getpass('Password:'))
+  if isUploadeToDevServer:
+    return ("test@example.com", "")
+  else:
+    return (raw_input('Username:'), getpass.getpass('Password:'))
+
+def host_func():
+  if isUploadeToDevServer:
+    return 'localhost:8080'
+  else:
+    return '%s.appspot.com' % raw_input('app_name:')
 
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
-                                   '%s.appspot.com' % raw_input('app_name:'))
-"""
-def auth_func():
-  return ("test@example.com", "")
+                                   host_func())
 
-remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
-                                   'localhost:8080')
 
 class PaliWordJsonBlob(ndb.Model):
   """blob which stores json data"""

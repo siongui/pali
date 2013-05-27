@@ -54,4 +54,4 @@ if __name__ == '__main__':
   #deleteXmlModel(100)
   for i in range(0, 10):
     deletePaliWordModel(100)
-  #deletePaliWordJsonModel(100)
+    #deletePaliWordJsonModel(100)
