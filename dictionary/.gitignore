@@ -1,6 +1,7 @@
 app/all_compiled.js
 app/BingSiteAuth.xml
 app/google147e4ebe06d05f82.html
+app/css/app.min.css
 
 common
 GAEDevDatastore

@@ -59,6 +59,8 @@ skip_files:
 - ^(.*/)?\..*
 - ^(.*/)?common/app/js/.*
 - ^(.*/)?app/js/.*
+- ^(.*/)?app/css/app\.css
+- ^(.*/)?app/css/tipitaka-latn\.css
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?gaelibs/setTranslationData\.py

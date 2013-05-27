@@ -47,10 +47,21 @@ module.exports = function(grunt) {
         }
       }
     },
+    cssmin: {
+      combine: {
+        files: {
+          'app/css/app.min.css': ['app/css/app.css', 'app/css/tipitaka-latn.css']
+        }
+      }
+    },
     watch: {
       scripts: {
         files: ['<%= concat.dist.src %>'],
         tasks: ['concat', 'uglify']
+      },
+      styles: {
+        files: ['app/css/app.css', 'app/css/tipitaka-latn.css'],
+        tasks: ['cssmin']
       }
     }
   });
@@ -71,9 +82,10 @@ module.exports = function(grunt) {
   // Load the plugins.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
+  grunt.registerTask('default', ['concat', 'uglify', 'cssmin', 'watch']);
 
 };

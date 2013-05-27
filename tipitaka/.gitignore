@@ -10,6 +10,7 @@ gaelibs/json/translationInfo.json
 gaelibs/json/canonTextTranslation.json
 
 app/css/tipitaka-latn.css
+app/css/app.min.css
 
 common
 gaelibs/translation
