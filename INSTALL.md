@@ -2,7 +2,7 @@
 
 1. See this [Stack Overflow question](http://stackoverflow.com/questions/7214474/how-to-keep-up-with-the-latest-versions-of-nodejs-in-ubuntu-ppa-compiling) to install the latest version of [node.js](http://nodejs.org/).
 
-2. Install [Yeoman](http://yeoman.io/).
+2. See [Getting Started](http://gruntjs.com/getting-started) to install [Grunt](http://gruntjs.com/).
 
 3. (optional) Install [Open Chinese Convert](https://code.google.com/p/opencc/) and [pyOpenCC](https://pypi.python.org/pypi/pyopencc) to convert between Traditional Chinese and Simplified Chinese.
 ```bash

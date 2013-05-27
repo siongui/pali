@@ -9,6 +9,8 @@ app/js/data-i18nTpk-service.js
 gaelibs/json/translationInfo.json
 gaelibs/json/canonTextTranslation.json
 
+app/css/tipitaka-latn.css
+
 common
 gaelibs/translation
 GAEDevDatastore

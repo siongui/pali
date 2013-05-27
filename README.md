@@ -4,6 +4,8 @@ My development environment is Ubuntu 13.04 with Python 2.7. If you are using Win
 
 The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repo.
 
+Please [install necessary tools for development](https://github.com/siongui/pali/blob/master/INSTALL.md) before setting up development environment.
+
 ## Set Up Development Environment (TO BE UPDATED)
 
 <i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
@@ -34,8 +36,6 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
     python dic2parseWords.py
     python dic3uploadToGAE.py
 
-    # install node.js first
-    sudo apt-get install nodejs
     # build succinct trie of words
     cd PALI_DIR/common/pytools/nodejs
     nodejs buildSuccinctTrie.js

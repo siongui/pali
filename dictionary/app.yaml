@@ -48,6 +48,7 @@ skip_files:
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
 - ^(.*/)?common/app/js/.*
+- ^(.*/)?app/js/.*
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?node_modules/.*
