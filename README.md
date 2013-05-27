@@ -8,7 +8,7 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
 
 <i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
 
-1. git clone the <em>pali</em> repository and <em>data</em> repository (put in the same dir).
+1. git clone the <em>pali</em> repository and <em>data</em> repository (put in the same dir). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same dir.
 ```bash
     # create a directory to contain both pali and data repository.
     mkdir dev
@@ -16,6 +16,10 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
     # git clone repositories
     git clone https://github.com/siongui/pali.git
     git clone https://github.com/siongui/data.git
+
+    # dowload App Engine SDK (remember to put in the same dir as git repositories)
+    wget {{SDK_URL}}
+    unzip {{APP_ENGINE_SDK_ZIP_FILE}}
 ```
 
 2. Run <b>PALI_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)

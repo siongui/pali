@@ -6,16 +6,10 @@
 import os
 import sys
 
-SDK_PATH = os.path.expanduser("~/google_appengine/")
-"""
-cannot use:
-    sys.path.append(SDK_PATH)
-must use:
-    sys.path.insert(0, SDK_PATH)
-"""
-sys.path.insert(0, SDK_PATH)
-sys.path.append(os.path.join(SDK_PATH, 'lib/yaml/lib'))
-sys.path.append(os.path.join(SDK_PATH, 'lib/fancy_urllib'))
+from variables import getSDKPath
+sys.path.insert(0, getSDKPath())
+sys.path.append(os.path.join(getSDKPath(), 'lib/yaml/lib'))
+sys.path.append(os.path.join(getSDKPath(), 'lib/fancy_urllib'))
 from google.appengine.ext.remote_api import remote_api_stub
 from google.appengine.ext import ndb
 

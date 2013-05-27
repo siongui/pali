@@ -9,16 +9,10 @@ import json
 import urllib2
 import base64
 
-SDK_PATH = os.path.expanduser("~/google_appengine/")
-"""
-cannot use:
-    sys.path.append(SDK_PATH)
-must use:
-    sys.path.insert(0, SDK_PATH)
-"""
-sys.path.insert(0, SDK_PATH)
-sys.path.append(os.path.join(SDK_PATH, 'lib/yaml/lib'))
-sys.path.append(os.path.join(SDK_PATH, 'lib/fancy_urllib'))
+from variables import getSDKPath
+sys.path.insert(0, getSDKPath())
+sys.path.append(os.path.join(getSDKPath(), 'lib/yaml/lib'))
+sys.path.append(os.path.join(getSDKPath(), 'lib/fancy_urllib'))
 from google.appengine.ext.remote_api import remote_api_stub
 from google.appengine.ext import ndb
 
@@ -78,20 +72,22 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
   http://stackoverflow.com/questions/101742/how-do-you-access-an-authenticated-google-app-engine-service-from-a-non-web-py
   http://stackoverflow.com/questions/10118585/how-to-make-an-authenticated-request-from-a-script-to-appengine?lq=1
   """
+  app_name = raw_input('app_name:')
   from google.appengine.tools import appengine_rpc
   rpcServer = appengine_rpc.HttpRpcServer(
-      "epalitipitaka.appspot.com",
+      "%s.appspot.com" % app_name,
       auth_func,
       None,
-      "epalitipitaka",
+      app_name,
       save_cookies=True,
       secure=True)
 
-  romn_dir = os.path.join(os.path.dirname(__file__), '../romn/')
+  romn_dir = os.path.join(os.path.dirname(__file__), '../../../data/pali/common/romn/')
 
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
+      # FIXME: key is not correct
       key = path.lstrip(romn_dir)
       print('uploading %s ...' % key)
 
