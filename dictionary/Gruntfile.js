@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -24,7 +26,18 @@ module.exports = function(grunt) {
               'common/app/js/ext/tongwen_table_t2s.js',
               'common/app/js/ext/tongwen_table_ps2t.js',
               'common/app/js/ext/tongwen_table_pt2s.js'],
-        dest: 'app/<%= pkg.name %>-all.js'
+        dest: 'build/<%= pkg.name %>.js'
+      }
+    },
+    uglify: {
+      options: {
+        // the banner is inserted at the top of the output
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+        files: {
+          'build/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+        }
       }
     }
   });
@@ -42,10 +55,11 @@ module.exports = function(grunt) {
     });
   });
 
-  // Load the plugin that provides the "concat" task.
+  // Load the plugins.
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['concat', 'uglify']);
 
 };
