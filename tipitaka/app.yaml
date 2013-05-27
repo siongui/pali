@@ -62,6 +62,9 @@ skip_files:
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?gaelibs/setTranslationData\.py
-- ^(.*/)?gaelibs/translation/.*README.md
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*
+- ^(.*/)?.*\.md
+- ^(.*/)?Gruntfile\.js
+- ^(.*/)?package\.json
+- ^(.*/)?GAEDevDatastore

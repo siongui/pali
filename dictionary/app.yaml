@@ -53,3 +53,7 @@ skip_files:
 - ^(.*/)?common/web\.py/.*
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*
+- ^(.*/)?.*\.md
+- ^(.*/)?Gruntfile\.js
+- ^(.*/)?package\.json
+- ^(.*/)?GAEDevDatastore
