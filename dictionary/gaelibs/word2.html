@@ -1,8 +1,8 @@
 <table>
   {% for bookExp in bookExps %}
     <tr>
-      <td>{{ booksIndex[bookExp[0]]['data'][3] }}</td>
-      <td>{{ booksIndex[bookExp[0]]['locale'] }}</td>
+      <td>{{ booksIndex[bookExp[0]][3] }}</td>
+      <td>{{ booksIndex[bookExp[0]][0] }}</td>
       <td>{{ bookExp[1] }}</td>
     </tr>
   {% endfor %}

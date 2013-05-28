@@ -14,7 +14,7 @@ import web
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import isValidPrefixAndWord
 from url import getPrefixHtml
-from url import getWordHtml
+from url2 import getWordHtml
 from url import getHtmlTitle
 
 import jinja2

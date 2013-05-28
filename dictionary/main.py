@@ -6,7 +6,8 @@
 import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import isValidPrefixAndWord, getPrefixHtml, getWordHtml, getHtmlTitle
+from url import isValidPrefixAndWord, getPrefixHtml, getHtmlTitle
+from url2 import getWordHtml
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage

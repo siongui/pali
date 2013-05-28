@@ -6,6 +6,8 @@ import csv
 import json
 import shutil
 
+from variables import getDictBooksJsonPath
+
 try:
   import pyopencc
   cc = pyopencc.OpenCC('zhs2zht.ini')
@@ -16,7 +18,7 @@ except:
   from jianfan import jtof
 
 
-def processWordCSV(csvPath, dicIndex, dictWordsJsonDir):
+def processWordCSV(csvPath, dicIndex, dstDir):
   with open(csvPath, "r") as wordsCsvfile:
     wordreader = csv.reader(wordsCsvfile, delimiter=',', quotechar='"')
     for row in wordreader:
@@ -26,38 +28,29 @@ def processWordCSV(csvPath, dicIndex, dictWordsJsonDir):
 
       if row[0] == 'db_id': continue
 
-      """
-      print(dicIndex[row[2]]['locale'])
-      print(dicIndex[row[2]]['data'][2])
-      print(dicIndex[row[2]]['data'][3])
-      print(row[4])
-      print(row[6])
-      """
-
-      #path = os.path.join(output_dir, '%s.json' % 
-      path = os.path.join(dictWordsJsonDir, '%s' % 
-          row[4].decode('utf-8').lower())
+      path = os.path.join(dstDir, '%s' % row[4].decode('utf-8').lower())
       print(path)
-      #print([dicIndex[row[2]]['data'][1], row[6]])
 
       if os.path.exists(path):
         # append new data to existing data
         with open(path, 'r') as f:
           data = json.loads(f.read())
 
-        if dicIndex[row[2]]['locale'] == 'zh':
-          data.append([dicIndex[row[2]]['data'][1], jtof(row[6])])
+        if dicIndex[row[2]][0] == 'zh':
+          # convert simplified chinese to traditional chinese
+          data.append([row[2], jtof(row[6])])
         else:
-          data.append([dicIndex[row[2]]['data'][1], row[6]])
+          data.append([row[2], row[6]])
 
         with open(path, 'w') as f:
           f.write(json.dumps(data))
       else:
         # create new data file
-        if dicIndex[row[2]]['locale'] == 'zh':
-          data = [ [dicIndex[row[2]]['data'][1], jtof(row[6])] ]
+        if dicIndex[row[2]][0] == 'zh':
+          # convert simplified chinese to traditional chinese
+          data = [ [row[2], jtof(row[6])] ]
         else:
-          data = [ [dicIndex[row[2]]['data'][1], row[6]] ]
+          data = [ [row[2], row[6]] ]
 
         with open(path, 'w') as f:
           f.write(json.dumps(data))
@@ -65,9 +58,7 @@ def processWordCSV(csvPath, dicIndex, dictWordsJsonDir):
 
 if __name__ == '__main__':
   # read index of dictionary books
-  dictBooksJsonPath = os.path.join(os.path.dirname(__file__),
-      '../gae/libs/json/books.json')
-  with open(dictBooksJsonPath, 'r') as f:
+  with open(getDictBooksJsonPath(), 'r') as f:
     dicIndex = json.loads(f.read())
 
   dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
