@@ -5,6 +5,9 @@ import os
 import csv
 import json
 
+from variables import getDictBooksCSVPath
+from variables import getDictBooksJsonPath
+
 try:
   import pyopencc
   cc = pyopencc.OpenCC('zhs2zht.ini')
@@ -14,13 +17,26 @@ except:
   sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
   from jianfan import jtof
 
-dictBooksCSVPath = os.path.join(os.path.dirname(__file__),
-    "../../../data/pali/common/dictionary/dict-books.csv")
-dictBooksJsonPath = os.path.join(os.path.dirname(__file__),
-    '../gae/libs/json/books.json')
+"""
+In this script, we will build "dicIndex".
+The format of dicIndex:
+
+dicIndex = object of key-value pairs, where
+  key = id of the dictionary
+  value = [cell1, cell2, cell3, cell4], where
+    cell1 = language of the dictionary.
+            zh: Chinese
+            ja: Japanese
+            en: English
+            vi: Vietnamese
+            my: Burmese(Myanmar)
+    cell2 = short name of the dictionary
+    cell3 = name and author of the dictionary
+    cell4 = separator, used to get short explanation of the word.
+"""
 
 def processDictionariesBooks():
-  with open(dictBooksCSVPath, "r") as booksCsvfile:
+  with open(getDictBooksCSVPath(), "r") as booksCsvfile:
     bookreader = csv.reader(booksCsvfile, delimiter=',', quotechar='"')
     dicIndex = {}
     for row in bookreader:
@@ -30,26 +46,26 @@ def processDictionariesBooks():
 
       if row[0] == 'b_lang': continue
 
-      dicIndex[row[1]] = { 'locale': None,
-                           'data': row }
+      # row[1] is the id of the dictionary
+      dicIndex[row[1]] = []
 
       if row[0] == 'C':
         # Chinese and Japanese dictionaries
         if row[1] == 'A':
           # Japanese dictionary
-          dicIndex[row[1]]['locale'] = 'ja'
-          row[2] = '《パーリ語辞典》'
-          row[3] = '増補改訂パーリ語辞典  水野弘元著'
+          dicIndex[row[1]].append('ja')
+          dicIndex[row[1]].append('《パーリ語辞典》')
+          dicIndex[row[1]].append('増補改訂パーリ語辞典  水野弘元著')
         elif row[1] == 'S':
           # Japanese dictionary
-          dicIndex[row[1]]['locale'] = 'ja'
-          row[2] = '《パーリ語辞典》'
-          row[3] = 'パーリ語辞典  水野弘元著'
+          dicIndex[row[1]].append('ja')
+          dicIndex[row[1]].append('《パーリ語辞典》')
+          dicIndex[row[1]].append('パーリ語辞典  水野弘元著')
         else:
           # Chinese dictionary
-          dicIndex[row[1]]['locale'] = 'zh'
-          row[2] = jtof(row[2])
-          row[3] = jtof(row[3])
+          dicIndex[row[1]].append('zh')
+          dicIndex[row[1]].append(jtof(row[2]))
+          dicIndex[row[1]].append(jtof(row[3]))
 
       else:
         # English, Vietnam, Myanmar dictionaries
@@ -57,23 +73,31 @@ def processDictionariesBooks():
            row[1] == 'Q' or \
            row[1] == 'E':
           # Vietnamese dictionary
-          dicIndex[row[1]]['locale'] = 'vi'
+          dicIndex[row[1]].append('vi')
         elif row[1] == 'B' or \
              row[1] == 'K' or \
              row[1] == 'O' or \
              row[1] == 'R':
           # Burmese(Myanmar) dictionary
-          dicIndex[row[1]]['locale'] = 'my'
+          dicIndex[row[1]].append('my')
         else:
           # English dictionary
-          dicIndex[row[1]]['locale'] = 'en'
+          dicIndex[row[1]].append('en')
 
-      print(dicIndex[row[1]]['locale'])
-      for cell in dicIndex[row[1]]['data']:
-        print(cell)
-      print('---')
+        dicIndex[row[1]].append(row[2])
+        dicIndex[row[1]].append(row[3])
 
-    with open(dictBooksJsonPath, 'w') as f:
+    import sys
+    index = 0
+    for key in dicIndex:
+      sys.stdout.write(str(index) + ': ')
+      sys.stdout.write(key)
+      for cell in dicIndex[key]:
+        sys.stdout.write(', ' + cell)
+      sys.stdout.write('\n')
+      index += 1
+
+    with open(getDictBooksJsonPath(), 'w') as f:
       f.write(json.dumps(dicIndex))
 
 
