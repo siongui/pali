@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'paliDictionary.directives', 'pali.filters', 'pali.services', 'pali.i18n', 'pali.dropdown']).
+angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks', 'paliDictionary.directives', 'pali.filters', 'pali.services', 'pali.i18n', 'pali.dropdown']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
@@ -21,7 +21,8 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'paliDictionary.
     $routeProvider.when('/zh_CN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', '$cookieStore', function($rootScope, $cookieStore) {
+  run(['$rootScope', '$cookieStore', 'dicBooks',
+  function($rootScope, $cookieStore, dicBooks) {
     // initialization (similar to main)
     $rootScope.message = '';
 
@@ -55,4 +56,6 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'paliDictionary.
 
     // get width of document
     $rootScope.docWidth = document.getElementById('allContainer').offsetWidth;
+
+    $rootScope.booksIndex = dicBooks.dicIndex;
   }]);
