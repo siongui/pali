@@ -4,7 +4,7 @@
 
 
 angular.module('paliDictionary.directives', ['paliDictionary.directives-event']).
-  directive('paliInput', function() {
+  directive('paliInput', ['dicBooks', function(dicBooks) {
     return {
       restrict: 'A',
       templateUrl: '/partials/input.html',
@@ -17,10 +17,12 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
         scope.suffix = function(word, paliWord) {
           return word.content.slice(paliWord.length);
         };
+        scope.booksIndex = dicBooks.dicIndex;
       }
     };
-  }).
-  directive('autoSuggest', ['paliIndexes', '$location', 'paliJson', 'palidic', '$rootScope', function(paliIndexes, $location, paliJson, palidic, $rootScope) {
+  }]).
+  directive('autoSuggest', ['$location', '$rootScope', 'paliIndexes', 'paliWordJson',
+  function($location, $rootScope, paliIndexes, paliWordJson) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -189,17 +191,15 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
 
         scope.$watch('currentSelectedWord()', function(newValue, oldValue) {
           if (scope.setting.isShowWordPreview && angular.isDefined(newValue)) {
-            var promise = paliJson.get(newValue);
-            promise.then(function(jsonData) {
-              scope.dicWordExps = jsonData;
-            }, function(reason) {
-              // fail to get json, pass
-            });
+            paliWordJson.get(newValue).
+              success(function(data, status, headers, config) {
+                scope.bookExps = data;
+              }).
+              error(function(data, status, headers, config) {
+                // fail to get json, pass
+              });
           }
         });
-
-        scope.shortDicName = palidic.shortName;
-        scope.shortDicExp = palidic.shortExp;
 
         scope.isShowPreview = function() {
           return scope.setting.isShowWordPreview

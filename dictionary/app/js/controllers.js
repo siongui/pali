@@ -53,7 +53,7 @@ function wordCtrl($scope, $route, paliWordJson, i18nserv) {
   paliWordJson.get($scope.word).
     success(function(data, status, headers, config) {
       $scope.$parent.message = '';
-      $scope.data = data;
+      $scope.bookExps = data;
     }).
     error(function(data, status, headers, config) {
       $scope.$parent.message = 'netError';
