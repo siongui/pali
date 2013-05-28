@@ -12,10 +12,12 @@ module.exports = function(grunt) {
       dist: {
         src: ['common/app/js/services-dicPrefix.js',
               'common/app/js/services-i18nStrings.js',
+              'common/app/scripts/services/data/dicBooks.js',
               'app/js/app.js',
               'app/js/controllers.js',
               'app/js/directives-event.js',
               'app/js/directives.js',
+              'common/app/scripts/services/paliWordJson.js',
               'common/app/js/filters.js',
               'common/app/js/services-dic.js',
               'common/app/js/services.js',

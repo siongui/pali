@@ -12,7 +12,8 @@ import urllib2
 
 urls = (
   "/json/.+", "jsonService",
-  "/wordJson/([abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -]+)", "wordJsonService",
+#  "/wordJson/([abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -]+)", "wordJsonService",
+  "/wordJson/(.+)", "wordJsonService",
   "/robots.txt", "robots",
 )
 
