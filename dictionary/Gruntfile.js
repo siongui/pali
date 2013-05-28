@@ -18,16 +18,10 @@ module.exports = function(grunt) {
               'app/js/directives-event.js',
               'app/js/directives.js',
               'common/app/scripts/services/paliWordJson.js',
-              'common/app/js/filters.js',
               'common/app/js/services-dic.js',
               'common/app/js/services.js',
               'common/app/js/i18n.js',
-              'common/app/js/directive-dropdown.js',
-              'common/app/js/ext/tongwen_core.js',
-              'common/app/js/ext/tongwen_table_s2t.js',
-              'common/app/js/ext/tongwen_table_t2s.js',
-              'common/app/js/ext/tongwen_table_ps2t.js',
-              'common/app/js/ext/tongwen_table_pt2s.js'],
+              'common/app/js/directive-dropdown.js'],
         dest: 'build/<%= pkg.name %>.js'
       }
     },
