@@ -13,3 +13,7 @@ def getDictBooksCSVPath():
 def getDictBooksJsonPath():
   return os.path.join(os.path.dirname(__file__),
       "../gae/libs/json/books.json")
+
+def getDictBooksJsPath():
+  return os.path.join(os.path.dirname(__file__),
+      "../app/scripts/services/data/dicBooks.js")

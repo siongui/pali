@@ -39,6 +39,8 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # build succinct trie of words
     cd PALI_DIR/common/pytools/nodejs
     nodejs buildSuccinctTrie.js
+
+    python dic4jsonToJS.py
 ```
 
 4. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
