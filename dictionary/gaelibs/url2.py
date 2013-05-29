@@ -7,7 +7,8 @@ import json
 from wordJson import getWordJson
 
 jj2env = jinja2.Environment(
-  loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
+  loader = jinja2.FileSystemLoader(
+    os.path.join(os.path.dirname(__file__), 'partials')))
 
 # load index of dictionary books
 with open(os.path.join(os.path.dirname(__file__),

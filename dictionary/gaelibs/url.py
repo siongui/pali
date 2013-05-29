@@ -11,7 +11,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
 from jianfan import jtof, ftoj
 
 jj2env = jinja2.Environment(
-  loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
+  loader = jinja2.FileSystemLoader(
+    os.path.join(os.path.dirname(__file__), 'partials')))
 
 appname = app_identity.get_application_id()
 
