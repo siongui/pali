@@ -21,6 +21,61 @@ angular.module('pali.expOrder', []).
     }
   }]).
 
+  filter('dicOrder', ['$rootScope', '$filter', function($rootScope, $filter) {
+    return function(bookExps, setting) {
+      var booksIndex = $rootScope.booksIndex;
+      var i18nLangQs = $rootScope.i18nLangQs;
+
+      var mapping = {};
+      if (setting.dicLangOrder === 'hdr') {
+        var count = 0;
+        angular.forEach(i18nLangQs, function(langQ) {
+          // en_US <-- langQ[0]
+          // en    <-- langQ[0].slice(0,2).toLowerCase()
+          var shortLang = langQ[0].slice(0,2).toLowerCase();
+          if (!mapping.hasOwnProperty(shortLang)) {
+            mapping[shortLang] = count;
+            count ++;
+          }
+        });
+        if (!mapping.hasOwnProperty('en')) {
+          mapping['en'] = count;
+          count ++;
+        }
+        if (!mapping.hasOwnProperty('ja')) {
+          mapping['ja'] = count;
+          count ++;
+        }
+        if (!mapping.hasOwnProperty('zh')) {
+          mapping['zh'] = count;
+          count ++;
+        }
+        if (!mapping.hasOwnProperty('vi')) {
+          mapping['vi'] = count;
+          count ++;
+        }
+        if (!mapping.hasOwnProperty('my')) {
+          mapping['my'] = count;
+          count ++;
+        }
+      } else {
+        mapping['en'] = 1;
+        mapping['ja'] = 2;
+        mapping['zh'] = 3;
+        mapping['vi'] = 4;
+        mapping['my'] = 5;
+        mapping[setting.dicLangOrder] = 0;
+      }
+
+      // function for orderBy
+      function dicOrder(bookExp) {
+        return mapping[booksIndex[bookExp[0]][0]];
+      }
+
+      return $filter('orderBy')(bookExps, dicOrder);
+    }
+  }]).
+
   filter('moveToTop', [function() {
     return function(bookExps, opt_bookExp) {
       if (angular.isUndefined(opt_bookExp)) {
