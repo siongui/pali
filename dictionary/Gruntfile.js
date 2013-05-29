@@ -21,9 +21,9 @@ module.exports = function(grunt) {
               'common/app/scripts/services/shortExp.js',
               'common/app/scripts/directives/dropdown.js',
               'common/app/scripts/filters/expOrder.js',
+              'common/app/scripts/i18n.js',
               'common/app/js/services-dic.js',
-              'common/app/js/services.js',
-              'common/app/js/i18n.js'],
+              'common/app/js/services.js'],
         dest: 'build/<%= pkg.name %>.js'
       }
     },
