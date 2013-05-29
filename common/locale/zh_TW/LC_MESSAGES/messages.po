@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 08:17+0800\n"
+"POT-Creation-Date: 2013-05-29 20:44+0800\n"
 "PO-Revision-Date: 2013-03-10 05:19+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,200 +16,155 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../dictionary/app/index.html:8
 msgid "Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary"
 msgstr "巴利字典 | 巴利-英文,中文,日文 字典"
 
-#: ../../dictionary/app/index.html:9
 msgid "Definition and Meaning"
 msgstr "定義與意義"
 
-#: ../../dictionary/app/index.html:9
 msgid "Words Start with"
 msgstr "單字,開頭為"
 
-#: ../../dictionary/app/index.html:23 ../../dictionary/app/index.html:24
-#: ../../dictionary/app/index.html:25
 msgid "Pāḷi Dictionary"
 msgstr "巴利字典"
 
-#: ../../dictionary/app/index.html:28
-#: ../../tipitaka/app/partials/mainbar.html:2
 msgid "Home"
 msgstr "首頁"
 
-#: ../../dictionary/app/index.html:29
 msgid "Canon"
 msgstr "經典"
 
-#: ../../dictionary/app/index.html:30
 msgid "About"
 msgstr "關於"
 
-#: ../../dictionary/app/index.html:31
-#: ../../tipitaka/app/partials/mainbar.html:4
 msgid "Setting"
 msgstr "設定"
 
-#: ../../dictionary/app/index.html:46
-#: ../../tipitaka/app/partials/tooltipContent.html:18
 msgid "No Such Word"
 msgstr "無此字"
 
-#: ../../dictionary/app/index.html:47
 msgid "Looking Up ..."
 msgstr "正在查詢中 ..."
 
-#: ../../dictionary/app/index.html:48
 msgid "Loading Words ..."
 msgstr "正在載入單字中 ..."
 
-#: ../../dictionary/app/index.html:49
-#: ../../tipitaka/app/partials/tooltipContent.html:20
 msgid "Internet Connection Error"
 msgstr "網路連線錯誤"
 
-#: ../../dictionary/app/index.html:62
 msgid "Browse Dictionary"
 msgstr "瀏覽字典"
 
-#: ../../dictionary/app/partials/setting.html:2
-msgid "Input Word Explanation Preview"
-msgstr "預覽輸入單字解釋"
-
-#: ../../dictionary/app/partials/setting.html:4
-#: ../../tipitaka/app/partials/setting.html:4
-msgid "Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries"
-msgstr "將巴利-中文字典從簡體中文轉換成傳統中文"
-
-#: ../../dictionary/app/partials/setting.html:7
-#: ../../tipitaka/app/partials/setting.html:7
-msgid "What Languages of Dictionaries to Show?"
-msgstr "顯示哪種語言的字典?"
-
-#: ../../dictionary/app/partials/setting.html:8
-#: ../../tipitaka/app/partials/setting.html:8
-msgid "Pāli-English"
-msgstr "巴利-英文"
-
-#: ../../dictionary/app/partials/setting.html:9
-#: ../../tipitaka/app/partials/setting.html:9
-msgid "Pāli-Japanese"
-msgstr "巴利-日文"
-
-#: ../../dictionary/app/partials/setting.html:10
-#: ../../tipitaka/app/partials/setting.html:10
-msgid "Pāli-Chinese"
-msgstr "巴利-中文"
-
-#: ../../dictionary/app/partials/setting.html:13
-#: ../../tipitaka/app/partials/setting.html:13
-msgid "The Order of Languages of Dictionaries to Show?"
-msgstr "顯示字典語言順序?"
-
-#: ../../dictionary/app/partials/setting.html:15
-#: ../../tipitaka/app/partials/setting.html:15
-msgid "According to Language Settings in Browser"
-msgstr "根據瀏覽器語言設定"
-
-#: ../../dictionary/app/partials/setting.html:16
-#: ../../tipitaka/app/partials/setting.html:16
-msgid "English - Japanese - Chinese"
-msgstr "英文-日文-中文"
-
-#: ../../dictionary/app/partials/setting.html:17
-#: ../../tipitaka/app/partials/setting.html:17
-msgid "English - Chinese - Japanese"
-msgstr "英文-中文-日文"
-
-#: ../../dictionary/app/partials/setting.html:18
-#: ../../tipitaka/app/partials/setting.html:18
-msgid "Japanese - English - Chinese"
-msgstr "日文-英文-中文"
-
-#: ../../dictionary/app/partials/setting.html:19
-#: ../../tipitaka/app/partials/setting.html:19
-msgid "Japanese - Chinese - English"
-msgstr "日文-中文-英文"
-
-#: ../../dictionary/app/partials/setting.html:20
-#: ../../tipitaka/app/partials/setting.html:20
-msgid "Chinese - English - Japanese"
-msgstr "中文-英文-日文"
-
-#: ../../dictionary/app/partials/setting.html:21
-#: ../../tipitaka/app/partials/setting.html:21
-msgid "Chinese - Japanese - English"
-msgstr "中文-日文-英文"
-
-#: ../../dictionary/app/partials/input.html:13
 msgid "Keyboard"
 msgstr "鍵盤"
 
-#: ../../tipitaka/app/index.html:5
+msgid "Input Word Explanation Preview"
+msgstr "預覽輸入單字解釋"
+
+msgid "What Languages of Dictionaries to Show?"
+msgstr "顯示哪種語言的字典?"
+
+msgid "Pāli-English"
+msgstr "巴利-英文"
+
+msgid "Pāli-Japanese"
+msgstr "巴利-日文"
+
+msgid "Pāli-Chinese"
+msgstr "巴利-中文"
+
+msgid "Pāli-Vietnamese"
+msgstr "巴利-越南文"
+
+msgid "Pāli-Burmese"
+msgstr "巴利-緬甸文"
+
+msgid "The Order of Languages of Dictionaries to Show?"
+msgstr "顯示字典語言順序?"
+
+msgid "According to Language Settings in Browser"
+msgstr "根據瀏覽器語言設定"
+
+msgid "English First"
+msgstr "英文優先"
+
+msgid "Japanese First"
+msgstr "日文優先"
+
+msgid "Chinese First"
+msgstr "中文優先"
+
+msgid "Vietnamese First"
+msgstr "越南文優先"
+
+msgid "Burmese First"
+msgstr "緬甸文優先"
+
 msgid "Pali Tipitaka"
 msgstr "巴利三藏"
 
-#: ../../tipitaka/app/index.html:6 ../../tipitaka/app/partials/info.html:13
-#: ../../tipitaka/app/partials/canon.html:22
 msgid "Translation"
 msgstr "翻譯"
 
-#: ../../tipitaka/app/partials/info.html:4
-msgid "All Translations"
-msgstr "所有翻譯"
-
-#: ../../tipitaka/app/partials/info.html:12
-#: ../../tipitaka/app/partials/canon.html:21
-msgid "Excerpt"
-msgstr "片段"
-
-#: ../../tipitaka/app/partials/info.html:14
-#: ../../tipitaka/app/partials/canon.html:23
-msgid "Contrast Reading"
-msgstr "比照對讀"
-
-#: ../../tipitaka/app/partials/mainbar.html:3
 msgid "Dictionary"
 msgstr "字典"
 
-#: ../../tipitaka/app/partials/mainbar.html:6
-#: ../../tipitaka/app/partials/mainbar.html:8
 msgid "Browse"
 msgstr "瀏覽"
 
-#: ../../tipitaka/app/partials/canon.html:2
 msgid "Loading"
 msgstr "載入中"
 
-#: ../../tipitaka/app/partials/canon.html:15
-msgid "Translation of This Pāḷi Text"
-msgstr "此巴利文件翻譯"
-
-#: ../../tipitaka/app/partials/canon.html:31
-msgid "Original Pāḷi Text"
-msgstr "原巴利文件"
-
-#: ../../tipitaka/app/partials/canon.html:33
-msgid "URL of the Translation"
-msgstr "此翻譯的網頁"
-
-#: ../../tipitaka/app/partials/canon.html:36
-msgid "Copyright URL of the Translation"
-msgstr "此翻譯的版權網頁"
-
-#: ../../tipitaka/app/partials/canon.html:38
-msgid "Only Partial Translation Available"
-msgstr "只有部份翻譯可得"
-
-#: ../../tipitaka/app/partials/setting.html:2
 msgid "Show Tooltip When Hovering over Canon Texts"
 msgstr "當游標移到單字上時顯示翻譯提示"
 
-#: ../../tipitaka/app/partials/setting.html:3
 msgid "Translate Pāḷi Texts on Left-side Treeview"
 msgstr "翻譯左側樹狀顯示裡的巴利文字"
 
-#: ../../tipitaka/app/partials/tooltipContent.html:13
+msgid "Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries"
+msgstr "將巴利-中文字典從簡體中文轉換成傳統中文"
+
+msgid "English - Japanese - Chinese"
+msgstr "英文-日文-中文"
+
+msgid "English - Chinese - Japanese"
+msgstr "英文-中文-日文"
+
+msgid "Japanese - English - Chinese"
+msgstr "日文-英文-中文"
+
+msgid "Japanese - Chinese - English"
+msgstr "日文-中文-英文"
+
+msgid "Chinese - English - Japanese"
+msgstr "中文-英文-日文"
+
+msgid "Chinese - Japanese - English"
+msgstr "中文-日文-英文"
+
 msgid "Looking up"
 msgstr "正在查詢中"
+
+msgid "All Translations"
+msgstr "所有翻譯"
+
+msgid "Excerpt"
+msgstr "片段"
+
+msgid "Contrast Reading"
+msgstr "比照對讀"
+
+msgid "Translation of This Pāḷi Text"
+msgstr "此巴利文件翻譯"
+
+msgid "Original Pāḷi Text"
+msgstr "原巴利文件"
+
+msgid "URL of the Translation"
+msgstr "此翻譯的網頁"
+
+msgid "Copyright URL of the Translation"
+msgstr "此翻譯的版權網頁"
+
+msgid "Only Partial Translation Available"
+msgstr "只有部份翻譯可得"

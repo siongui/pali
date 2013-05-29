@@ -9,18 +9,25 @@
 # http://www.supernifty.org/blog/2011/09/16/python-localization-made-easy/
 
 import os, sys, re, json, shutil
-sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
-from jianfan import ftoj
+try:
+  import pyopencc
+  cc = pyopencc.OpenCC('zht2zhs.ini')
+  ftoj = cc.convert
+except:
+  print('cannot import opencc, import jianfan')
+  sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
+  from jianfan import ftoj
 
-# global variable
-locale_dir = os.path.join(os.path.dirname(__file__), '../locale')
-dictionary_html_dir = os.path.join(os.path.dirname(__file__), '../../dictionary/app')
-tipitaka_html_dir = os.path.join(os.path.dirname(__file__), '../../tipitaka/app')
-potpath = os.path.join(locale_dir, 'messages.pot')
-twPoPath = os.path.join(locale_dir, 'zh_TW/LC_MESSAGES/messages.po')
-cnPoPath = os.path.join(locale_dir, 'zh_CN/LC_MESSAGES/messages.po')
-#dstLocalesJson = os.path.join(os.path.dirname(__file__), '../gae/libs/json/locales.json') 
-dstLocalesJs = os.path.join(os.path.dirname(__file__), '../app/js/services-i18nStrings.js') 
+from variables import getDstLocalesJsPath
+from variables import getLocaleDir
+from variables import getPotPath
+from variables import getTWPoPath
+from variables import getCNPoPath
+from variables import getDicHtmlDir
+from variables import getTpkHtmlDir
+from variables import getDicHtmlDir2
+from variables import getTpkHtmlDir2
+
 locales = ['en_US', 'zh_TW', 'zh_CN']
 
 
@@ -38,14 +45,15 @@ def getAllMatchesInFile(filepath):
 
 
 def createPOT():
-  if not os.path.exists(locale_dir):
-    os.makedirs(locale_dir)
+  if not os.path.exists(getLocaleDir()):
+    os.makedirs(getLocaleDir())
 
   # The default locale dir of webapp2 i18n is $PROJECT_DIR/locale
   # The default domain of webapp2 i18n is 'messages'
   # see http://webapp-improved.appspot.com/api/webapp2_extras/i18n.html#webapp2_extras.i18n.default_config
-  cmd_xgettext = 'xgettext --no-wrap --from-code=UTF-8 --keyword=_ --output=%s/messages.pot `find %s -name *.html` `find %s -name *.html`' % (locale_dir, dictionary_html_dir, tipitaka_html_dir)
-  cmd_sed = 'sed -i "s/charset=CHARSET/charset=utf-8/g" %s/messages.pot' % locale_dir
+  cmd_xgettext = 'xgettext --no-wrap --from-code=UTF-8 --keyword=_ --output=%s/messages.pot `find %s -name *.html` `find %s -name *.html` `find %s -name *.html` `find %s -name *.html`' \
+      % (getLocaleDir(), getDicHtmlDir(), getTpkHtmlDir(), getDicHtmlDir2(), getTpkHtmlDir2())
+  cmd_sed = 'sed -i "s/charset=CHARSET/charset=utf-8/g" %s/messages.pot' % getLocaleDir()
 
   print(cmd_xgettext)
   os.system(cmd_xgettext)
@@ -54,11 +62,11 @@ def createPOT():
 
 
 def initLocalePO(locale):
-  popath = os.path.join(locale_dir, '%s/LC_MESSAGES/messages.po' % locale)
+  popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
 
   if not os.path.exists(os.path.dirname(popath)):
     os.makedirs(os.path.dirname(popath))
-  cmd_msginit = 'msginit --no-wrap --no-translator --input=%s --locale=%s -o %s' % (potpath, locale, popath)
+  cmd_msginit = 'msginit --no-wrap --no-translator --input=%s --locale=%s -o %s' % (getPotPath(), locale, popath)
   print(cmd_msginit)
   os.system(cmd_msginit)
 
@@ -69,11 +77,11 @@ def initPOs():
 
 
 def updateLocalePO(locale):
-  popath = os.path.join(locale_dir, '%s/LC_MESSAGES/messages.po' % locale)
+  popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
 
   if not os.path.exists(os.path.dirname(popath)):
     os.makedirs(os.path.dirname(popath))
-  cmd_msginit = 'msgmerge --no-wrap --backup=none --update %s %s' % (popath, potpath)
+  cmd_msginit = 'msgmerge --no-wrap --backup=none --update %s %s' % (popath, getPotPath())
   print(cmd_msginit)
   os.system(cmd_msginit)
 
@@ -85,7 +93,7 @@ def updatePOs():
 
 def initOrUpdatePOs():
   for locale in locales:
-    popath = os.path.join(locale_dir, '%s/LC_MESSAGES/messages.po' % locale)
+    popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
     if os.path.exists(popath):
       updateLocalePO(locale)
     else:
@@ -93,7 +101,7 @@ def initOrUpdatePOs():
 
 
 def formatMO(locale):
-  popath = os.path.join(locale_dir, '%s/LC_MESSAGES/messages.po' % locale)
+  popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
   mopath = popath[:-2] + 'mo'
 
   cmd_msgfmt = 'msgfmt %s -o %s' % (popath, mopath)
@@ -107,45 +115,29 @@ def POtoMO():
 
 
 def TWtoCN():
-  with open(twPoPath, 'r') as f:
-    with open(cnPoPath, 'w') as fd:
+  with open(getTWPoPath(), 'r') as f:
+    with open(getCNPoPath(), 'w') as fd:
       for line in f.readlines():
         if 'zh_TW' in line:
           fd.write(line.replace('zh_TW', 'zh_CN'))
         elif line.startswith('msgstr'):
-          fd.write(re.sub('msgstr "(.+)"', lambda m: 'msgstr "%s"' % ftoj(m.group(1)), line).encode('utf-8'))
+          fd.write(re.sub('msgstr "(.+)"', lambda m: 'msgstr "%s"' % ftoj(m.group(1)), line))
         else:
           fd.write(line)
 
 
-def writeJson():
-  # create PO-like object for i18n
-  if not os.path.exists(os.path.dirname(dstLocalesJson)):
-    os.makedirs(os.path.dirname(dstLocalesJson))
-
-  with open(twPoPath, 'r') as f:
-    tuples = re.findall(r'msgid "(.+)"\nmsgstr "(.+)"', f.read())
-
-  obj = {'zh_TW': {}}
-  for tuple in tuples:
-    obj['zh_TW'][tuple[0].decode('utf-8')] = tuple[1].decode('utf-8')
-
-  with open(dstLocalesJson, 'w') as f:
-    f.write(json.dumps(obj))
-
-  print(json.dumps(obj))
-
-
 def writeJs():
   # create PO-like js file for i18n
-  with open(twPoPath, 'r') as f:
+  with open(getTWPoPath(), 'r') as f:
     tuples = re.findall(r'msgid "(.+)"\nmsgstr "(.+)"', f.read())
 
-  obj = {'zh_TW': {}}
+  obj = {'zh_TW': {},
+         'zh_CN': {}}
   for tuple in tuples:
     obj['zh_TW'][tuple[0].decode('utf-8')] = tuple[1].decode('utf-8')
+    obj['zh_CN'][tuple[0].decode('utf-8')] = ftoj(tuple[1])
 
-  with open(dstLocalesJs, 'w') as f:
+  with open(getDstLocalesJsPath(), 'w') as f:
     f.write("angular.module('pali.i18nStrings', []).\n")
     f.write("  factory('i18nStrings', [function() {\n")
     f.write("    var str = ")
@@ -185,12 +177,6 @@ if __name__ == '__main__':
   if sys.argv[1] == "cn":
     TWtoCN()
     sys.exit(0)
-
-  """
-  if sys.argv[1] == "json":
-    writeJson()
-    sys.exit(0)
-  """
 
   if sys.argv[1] == "js":
     writeJs()

@@ -17,3 +17,32 @@ def getDictBooksJsonPath():
 def getDictBooksJsPath():
   return os.path.join(os.path.dirname(__file__),
       "../app/scripts/services/data/dicBooks.js")
+
+def getLocaleDir():
+  return os.path.join(os.path.dirname(__file__), '../locale')
+
+def getDicHtmlDir():
+  return os.path.join(os.path.dirname(__file__), '../../dictionary/app')
+
+def getTpkHtmlDir():
+  return os.path.join(os.path.dirname(__file__), '../../tipitaka/app')
+
+def getDicHtmlDir2():
+  return os.path.join(os.path.dirname(__file__), '../../dictionary/gaelibs/partials')
+
+def getTpkHtmlDir2():
+  return os.path.join(os.path.dirname(__file__), '../../tipitaka/gaelibs/partials')
+
+def getPotPath():
+  return os.path.join(getLocaleDir(), 'messages.pot')
+
+def getTWPoPath():
+  return os.path.join(getLocaleDir(), 'zh_TW/LC_MESSAGES/messages.po')
+
+def getCNPoPath():
+  return os.path.join(getLocaleDir(), 'zh_CN/LC_MESSAGES/messages.po')
+
+def getDstLocalesJsPath():
+  return os.path.join(os.path.dirname(__file__),
+      '../app/scripts/services/data/i18nStrings.js')
+
