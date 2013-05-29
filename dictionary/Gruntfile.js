@@ -18,6 +18,7 @@ module.exports = function(grunt) {
               'app/js/directives-event.js',
               'app/js/directives.js',
               'common/app/scripts/services/paliWordJson.js',
+              'common/app/scripts/services/shortExp.js',
               'common/app/scripts/directives/dropdown.js',
               'common/app/js/services-dic.js',
               'common/app/js/services.js',

@@ -9,7 +9,7 @@
       <span class="previewWordName">{{ currentSelectedWord() }}</span>
       <div class="shortDicExp" ng-repeat="bookExp in bookExps">
         <span>{{ booksIndex[bookExp[0]][2] }}</span>
-        <span ng-bind-html-unsafe="bookExp[1]"></span>
+        <span ng-bind-html-unsafe="getShortExp(bookExp, booksIndex)"></span>
       </div>
     </div>
   </div>

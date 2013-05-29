@@ -3,8 +3,9 @@
 /* Directives */
 
 
-angular.module('paliDictionary.directives', ['paliDictionary.directives-event']).
-  directive('paliInput', ['dicBooks', function(dicBooks) {
+angular.module('paliDictionary.directives',
+    ['paliDictionary.directives-event', 'pali.shortExp']).
+  directive('paliInput', ['dicBooks', 'shortExp', function(dicBooks, shortExp) {
     return {
       restrict: 'A',
       templateUrl: '/partials/input.html',
@@ -18,6 +19,7 @@ angular.module('paliDictionary.directives', ['paliDictionary.directives-event'])
           return word.content.slice(paliWord.length);
         };
         scope.booksIndex = dicBooks.dicIndex;
+        scope.getShortExp = shortExp.get;
       }
     };
   }]).
