@@ -7,7 +7,9 @@
     </div>
     <div class="suggest suggestedWordPreview" ng-show="isShowPreview()" ng-style="suggestPreviewStyle()">
       <span class="previewWordName">{{ currentSelectedWord() }}</span>
-      <div class="shortDicExp" ng-repeat="bookExp in bookExps">
+      <div class="shortDicExp"
+           ng-repeat="bookExp in bookExps"
+           ng-mousedown="lookupWord(bookExp)">
         <span>{{ booksIndex[bookExp[0]][2] }}</span>
         <span ng-bind-html-unsafe="getShortExp(bookExp, booksIndex)"></span>
       </div>

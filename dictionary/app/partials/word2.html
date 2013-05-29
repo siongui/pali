@@ -3,7 +3,7 @@
     table.dicWordExp {background-color: #f7f7f9;}
     table.dicWordExp span {padding-left: 1em;}
   </style>
-  <div ng-repeat="bookExp in bookExps" class="text-right">
+  <div ng-repeat="bookExp in bookExps | moveToTop: opt_bookExp" class="text-right">
     <table class="table table-bordered dicWordExp">
       <thead><tr><th><strong class="lead text-warning"><em>{{ word }}</em></strong><span class="text-info">{{ booksIndex[bookExp[0]][3] }}</span></th></tr></thead>
       <tbody><tr><td ng-bind-html-unsafe="bookExp[1]"></td></tr></tbody>

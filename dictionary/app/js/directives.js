@@ -34,8 +34,8 @@ angular.module('paliDictionary.directives',
         var paths = $location.path().split('/');
         if (paths.length === 4) scope[attrs.ngModel] = paths[3];
 
-        scope.lookupWord = function(opt_dicWordExp) {
-          $rootScope.opt_dicWordExp = opt_dicWordExp;
+        scope.lookupWord = function(opt_bookExp) {
+          $rootScope.opt_bookExp = opt_bookExp;
           // Remove whitespace in the beginning and end of user input string
           var word = ngModelCtrl.$viewValue.replace(/(^\s+)|(\s+$)/g, "");
           if (paliIndexes.isValidPaliWord(word)) {
