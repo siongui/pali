@@ -35,24 +35,23 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks',
     } else {
       $rootScope.setting = {
         'isShowWordPreview': false,
-        'toTraditionalCht': true,
         'p2en': true,
         'p2ja': true,
         'p2zh': true,
+        'p2vi': true,
+        'p2my': true,
         'dicLangOrder': 'hdr' 
       };
     }
 
     $rootScope.$watch('setting.isShowWordPreview', storeSettingInCookie);
-    $rootScope.$watch('setting.toTraditionalCht', storeSettingInCookie);
     $rootScope.$watch('setting.p2en', storeSettingInCookie);
     $rootScope.$watch('setting.p2ja', storeSettingInCookie);
     $rootScope.$watch('setting.p2zh', storeSettingInCookie);
+    $rootScope.$watch('setting.p2vi', storeSettingInCookie);
+    $rootScope.$watch('setting.p2my', storeSettingInCookie);
     $rootScope.$watch('setting.dicLangOrder', storeSettingInCookie);
     function storeSettingInCookie() { $cookieStore.put('setting', $rootScope.setting); }
-
-    if ($rootScope.i18nLocale === 'zh_CN')
-      $rootScope.setting.toTraditionalCht = false;
 
     // get width of document
     $rootScope.docWidth = document.getElementById('allContainer').offsetWidth;
