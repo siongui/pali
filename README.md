@@ -20,8 +20,8 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     git clone https://github.com/siongui/data.git
 
     # dowload App Engine SDK (remember to put in the same dir as git repositories)
-    wget {{SDK_URL}}
-    unzip {{APP_ENGINE_SDK_ZIP_FILE}}
+    wget http://googleappengine.googlecode.com/files/google_appengine_{{ version }}.zip
+    unzip google_appengine_{{ version }}.zip
 ```
 
 2. Run <b>PALI_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
@@ -51,17 +51,17 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # build succinct trie of words
     cd PALI_DIR/common/pytools/nodejs
     nodejs buildSuccinctTrie.js
-    python dic4jsonToJS.py
+    python dic3jsonToJS.py
 
     cd PALI_DIR/dictionary
     npm install
     grunt
-    # keep above terminal running, and then open another terminal
+    # ctrl-C to abort watching, and then
     grunt run
 
-    # uploading words files to local GAE datastore first.
+    # uploading words files to local GAE datastore of dev server first.
     cd PALI_DIR/common/pytools/
-    python dic3uploadToGAE.py
+    python dic4uploadToGAE.py
 
     # after uploading finished, open browser to test local dev server:
     # http://localhost:8080/
@@ -70,7 +70,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 5. Create Tipiṭaka-related translations for server and client.
 ```bash
     cd PALI_DIR/tipitaka/gaelibs/
-    python translationData.py
+    python setTranslationData.py
 ```
 
 6. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
@@ -83,10 +83,10 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     cd PALI_DIR/tipitaka
     npm install
     grunt
-    # keep above terminal running, and then open another terminal
+    # ctrl-C to abort watching, and then
     grunt run
 
-    # uploading data files to local GAE datastore first.
+    # uploading data files to local GAE datastore of dev server first.
     cd PALI_DIR/common/pytools/
     python tpk4uploadToGAE.py
 
@@ -96,22 +96,24 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 
 7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
-    # deploy dictionary
+    # deploy dictionary website
     cd PALI_DIR/dictionary
     grunt
     # ctrl-C to abort watching, then
     grunt update
-    cd PALI_DIR/common/pytools/
-    # uploading words files to online GAE datastore.
-    python dic3uploadToGAE.py
 
-    # deploy tipitaka
+    # uploading words files to online GAE datastore.
+    cd PALI_DIR/common/pytools/
+    python dic4uploadToGAE.py
+
+    # deploy tipitaka website
     cd PALI_DIR/tipitaka
     grunt
     # ctrl-C to abort watching, then
     grunt update
-    cd PALI_DIR/common/pytools/
+
     # uploading data files to online GAE datastore.
+    cd PALI_DIR/common/pytools/
     python tpk4uploadToGAE.py
 ```
 

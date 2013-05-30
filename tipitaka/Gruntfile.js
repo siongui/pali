@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['common/app/js/services-dicPrefix.js',
-              'common/app/js/services-i18nStrings.js',
+              'common/app/scripts/services/data/i18nStrings.js',
               'app/js/treeviewAllJson-service.js',
               'app/js/data-i18nTpk-service.js',
               'app/js/i18nTpk-services.js',
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
               'common/app/js/services-dic.js',
               'common/app/js/services.js',
               'common/app/js/i18n.js',
-              'common/app/js/directive-dropdown.js',
+              'common/app/scripts/directives/dropdown.js',
               'common/app/js/ext/tongwen_core.js',
               'common/app/js/ext/tongwen_table_s2t.js',
               'common/app/js/ext/tongwen_table_t2s.js',
