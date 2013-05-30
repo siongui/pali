@@ -413,9 +413,5 @@ var DATA_BITS = 7;
                                 succinctTrie.data.directory,
                                 succinctTrie.data.nodeCount);
 
-    function isValidPaliWord(paliWord) {
-      return ftrie.lookup(paliWord);
-    }
-
-    return { isValidPaliWord: isValidPaliWord };
+    return { trie: ftrie };
   }]);

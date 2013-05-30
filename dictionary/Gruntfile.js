@@ -21,6 +21,7 @@ module.exports = function(grunt) {
               'common/app/scripts/services/paliWordJson.js',
               'common/app/scripts/services/shortExp.js',
               'common/app/scripts/services/ngBits.js',
+              'common/app/scripts/services/wordSearch.js',
               'common/app/scripts/directives/dropdown.js',
               'common/app/scripts/filters/expOrder.js',
               'common/app/scripts/i18n.js',

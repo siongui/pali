@@ -23,8 +23,8 @@ angular.module('paliDictionary.directives',
       }
     };
   }]).
-  directive('autoSuggest', ['$location', '$rootScope', 'paliIndexes', 'paliWordJson',
-  function($location, $rootScope, paliIndexes, paliWordJson) {
+  directive('autoSuggest', ['$location', '$rootScope', 'paliIndexes', 'paliWordJson', 'wordSearch',
+  function($location, $rootScope, paliIndexes, paliWordJson, wordSearch) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -38,7 +38,7 @@ angular.module('paliDictionary.directives',
           $rootScope.opt_bookExp = opt_bookExp;
           // Remove whitespace in the beginning and end of user input string
           var word = ngModelCtrl.$viewValue.replace(/(^\s+)|(\s+$)/g, "");
-          if (paliIndexes.isValidPaliWord(word)) {
+          if (wordSearch.isValidPaliWord(word)) {
             $location.path($rootScope.urlLocaleInPath + '/browse/' + word[0] + '/' + word);
           } else {
             $location.path('/browse/noSuchWord');
