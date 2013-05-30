@@ -2,7 +2,7 @@
 
 My development environment is Ubuntu 13.04 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
-The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repo.
+The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repository.
 
 Please [install necessary tools for development](https://github.com/siongui/pali/blob/master/INSTALL.md) before setting up development environment.
 
@@ -10,7 +10,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 
 <i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository.
 
-1. git clone the <em>pali</em> repository and <em>data</em> repository (put in the same dir). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same dir.
+1. git clone the [pali](https://github.com/siongui/pali) repository and [data](https://github.com/siongui/data) repository (put in the same directory). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same directory.
 ```bash
     # create a directory to contain both pali and data repository.
     mkdir dev
@@ -19,7 +19,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     git clone https://github.com/siongui/pali.git
     git clone https://github.com/siongui/data.git
 
-    # dowload App Engine SDK (remember to put in the same dir as git repositories)
+    # dowload App Engine SDK (remember to put in the same directory as git repositories)
     wget http://googleappengine.googlecode.com/files/google_appengine_{{ version }}.zip
     unzip google_appengine_{{ version }}.zip
 ```

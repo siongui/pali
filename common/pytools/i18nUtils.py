@@ -121,7 +121,10 @@ def TWtoCN():
         if 'zh_TW' in line:
           fd.write(line.replace('zh_TW', 'zh_CN'))
         elif line.startswith('msgstr'):
-          fd.write(re.sub('msgstr "(.+)"', lambda m: 'msgstr "%s"' % ftoj(m.group(1)), line))
+          try:
+            fd.write(re.sub('msgstr "(.+)"', lambda m: 'msgstr "%s"' % ftoj(m.group(1)), line))
+          except UnicodeEncodeError:
+            fd.write(re.sub('msgstr "(.+)"', lambda m: 'msgstr "%s"' % ftoj(m.group(1)), line).encode('utf-8'))
         else:
           fd.write(line)
 
