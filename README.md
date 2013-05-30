@@ -29,7 +29,20 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     python PALI_DIR/common/pytools/setupdev.py
 ```
 
-3. Create index of words in dictionary books.
+3. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for production use on server side:
+```bash
+    cd PALI_DIR/common/pytools/
+    # create i18n files
+    python i18nUtils.py pot
+    python i18nUtils.py po
+    python i18nUtils.py cn
+    python i18nUtils.py mo
+
+    # create JavaScript file of translated strings for client side
+    python i18nUtils.py js
+```
+
+4. Create index of words in dictionary books.
 ```bash
     cd PALI_DIR/common/pytools/
     python dic1parseBooks.py
@@ -49,9 +62,18 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # uploading words files to local GAE datastore first.
     cd PALI_DIR/common/pytools/
     python dic3uploadToGAE.py
+
+    # after uploading finished, open browser to test local dev server:
+    # http://localhost:8080/
 ```
 
-4. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
+5. Create Tipiṭaka-related translations for server and client.
+```bash
+    cd PALI_DIR/tipitaka/gaelibs/
+    python translationData.py
+```
+
+6. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
 ```bash
     cd PALI_DIR/common/pytools/
     python tpk1getTocs.py
@@ -67,25 +89,9 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # uploading data files to local GAE datastore first.
     cd PALI_DIR/common/pytools/
     python tpk4uploadToGAE.py
-```
 
-5. Create Tipiṭaka-related translations for server and client.
-```bash
-    cd PALI_DIR/tipitaka/gaelibs/
-    python translationData.py
-```
-
-6. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for production use on server side:
-```bash
-    cd PALI_DIR/common/pytools/
-    # create i18n files
-    python i18nUtils.py pot
-    python i18nUtils.py po
-    python i18nUtils.py cn
-    python i18nUtils.py mo
-
-    # create JavaScript file of translated strings for client side
-    python i18nUtils.py js
+    # after uploading finished, open browser to test local dev server:
+    # http://localhost:8080/
 ```
 
 7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
