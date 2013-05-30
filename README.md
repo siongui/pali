@@ -6,9 +6,9 @@ The data files, including Pāḷi texts, translations, and dictionaries, are loc
 
 Please [install necessary tools for development](https://github.com/siongui/pali/blob/master/INSTALL.md) before setting up development environment.
 
-## Set Up Development Environment (TO BE UPDATED)
+## Set Up Development Environment
 
-<i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository. <i>GAE_PYSDK_DIR</i> means the directory of [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python).
+<i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository.
 
 1. git clone the <em>pali</em> repository and <em>data</em> repository (put in the same dir). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same dir.
 ```bash
