@@ -135,7 +135,10 @@ python i18nUtils.py mo
 python i18nUtils.py js
 
 # run grunt to update files
-cd PALI_DIR/dictionary or PALI_DIR/tipitaka
+cd PALI_DIR/dictionary
+grunt
+# ctrl-C to abort grunt watch
+cd PALI_DIR/tipitaka
 grunt
 ```
 
