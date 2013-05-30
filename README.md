@@ -59,6 +59,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # ctrl-C to abort watching, and then
     grunt run
 
+    # keep above "grunt run" terminal running, and open another terminal
     # uploading words files to local GAE datastore of dev server first.
     cd PALI_DIR/common/pytools/
     python dic4uploadToGAE.py
@@ -86,6 +87,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # ctrl-C to abort watching, and then
     grunt run
 
+    # keep above "grunt run" terminal running, and open another terminal
     # uploading data files to local GAE datastore of dev server first.
     cd PALI_DIR/common/pytools/
     python tpk4uploadToGAE.py
@@ -102,7 +104,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # ctrl-C to abort watching, then
     grunt update
 
-    # uploading words files to online GAE datastore.
+    # uploading words files to online GAE datastore of production server.
     cd PALI_DIR/common/pytools/
     python dic4uploadToGAE.py
 
@@ -112,7 +114,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # ctrl-C to abort watching, then
     grunt update
 
-    # uploading data files to online GAE datastore.
+    # uploading data files to online GAE datastore of production server.
     cd PALI_DIR/common/pytools/
     python tpk4uploadToGAE.py
 ```
