@@ -34,13 +34,18 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     cd PALI_DIR/common/pytools/
     python dic1parseBooks.py
     python dic2parseWords.py
-    python dic3uploadToGAE.py
 
     # build succinct trie of words
     cd PALI_DIR/common/pytools/nodejs
     nodejs buildSuccinctTrie.js
-
     python dic4jsonToJS.py
+
+    cd PALI_DIR/dictionary
+    grunt
+    # keep above terminal running, and then open another terminal
+    grunt run
+    # uploading words files to local GAE datastore first.
+    python dic3uploadToGAE.py
 ```
 
 4. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
@@ -49,6 +54,12 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     python tpk1getTocs.py
     python tpk2tocsToJson.py
     python tpk3addSubpathInJson.py
+
+    cd PALI_DIR/tipitaka
+    grunt
+    # keep above terminal running, and then open another terminal
+    grunt run
+    # uploading data files to local GAE datastore first.
     python tpk4uploadToGAE.py
 ```
 
@@ -67,32 +78,29 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     python i18nUtils.py cn
     python i18nUtils.py mo
 
-    # create JavaScript file ( <strong>PALI_DIR/common/app/js/services-i18nStrings.js</strong> ) of translated strings for client side
+    # create JavaScript file of translated strings for client side
     python i18nUtils.py js
-```
-
-7. Create compiled JavaScript files:
-```bash
-    # create compiled JavaScript files ( <strong>PALI_DIR/dictionary/app/all_compiled.js</strong> and <strong>REPO_DIR/tipitaka/app/all_compiled.js</strong> ) by Google Closure Compiler Service API
-    python compile.py
 ```
 
 8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
-    cd GAE_PYSDK_DIR/
     # deploy dictionary
-    ./appcfg.py update PALI_DIR/dictionary
+    cd PALI_DIR/dictionary
+    grunt
+    # ctrl-C to abort watching, then
+    grunt update
+    cd PALI_DIR/common/pytools/
+    # uploading words files to online GAE datastore.
+    python dic3uploadToGAE.py
+
     # deploy tipitaka
-    ./appcfg.py update PALI_DIR/tipitaka
-```
-
-## Writing JavaScript Code ...
-
-Remember to re-compile all JavaScript files before deployment or before testing the compiled file:
-
-```bash
-cd PALI_DIR/common/pytools/
-python compile.py
+    cd PALI_DIR/tipitaka
+    grunt
+    # ctrl-C to abort watching, then
+    grunt update
+    cd PALI_DIR/common/pytools/
+    # uploading data files to online GAE datastore.
+    python tpk4uploadToGAE.py
 ```
 
 ## Development of i18n
@@ -113,8 +121,6 @@ python i18nUtils.py cn
 python i18nUtils.py mo
 # create files for client-side i18n
 python i18nUtils.py js
-# re-compile all JavaScript files
-python compile.py
 ```
 
 # References
