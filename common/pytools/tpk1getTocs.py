@@ -4,9 +4,9 @@
 import os, sys, shutil, urllib2
 import xml.dom.minidom
 
+from variables import getRomnDir
 
 urlPrefix = 'http://www.tipitaka.org/romn/'
-romnDir = os.path.join(os.path.dirname(__file__), '../romn/')
 rootTocXmlSrc = 'tipitaka_toc.xml'
 overwriteIfExist = False
 """
@@ -21,7 +21,7 @@ infoFilePath = os.path.join(os.path.dirname(__file__), 'tocsInfo.txt')
 
 def getPaliXml(action, space):
   url = os.path.join(urlPrefix, action)
-  path = os.path.join(romnDir, action)
+  path = os.path.join(getRomnDir(), action)
 
   if not os.path.exists(os.path.dirname(path)):
     os.makedirs(os.path.dirname(path))
@@ -85,7 +85,7 @@ def parseTocElement(element, space):
 
 def getTocXml(src, space=0):
   url = os.path.join(urlPrefix, src)
-  path = os.path.join(romnDir, src)
+  path = os.path.join(getRomnDir(), src)
 
   if not os.path.exists(os.path.dirname(path)):
     os.makedirs(os.path.dirname(path))

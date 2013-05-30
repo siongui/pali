@@ -9,6 +9,7 @@ import json
 import urllib2
 import base64
 
+from variables import getRomnDir
 from variables import getSDKPath
 sys.path.insert(0, getSDKPath())
 sys.path.append(os.path.join(getSDKPath(), 'lib/yaml/lib'))
@@ -58,7 +59,7 @@ def uploadXmlsToBlobstore():
   http://stackoverflow.com/questions/3530990/upload-data-to-blobstore-using-remote-api
   http://stackoverflow.com/questions/6545247/erratic-problem-with-app-engine-when-writing-files-directly-to-the-blobstore
   """
-  romn_dir = os.path.join(os.path.dirname(__file__), '../../../data/pali/common/romn/')
+  romn_dir = getRomnDir()
 
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:
@@ -95,7 +96,7 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
       save_cookies=True,
       secure=True)
 
-  romn_dir = os.path.join(os.path.dirname(__file__), '../../../data/pali/common/romn/')
+  romn_dir = getRomnDir()
 
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:

@@ -6,6 +6,10 @@ import os
 def getSDKPath():
   return os.path.join(os.path.dirname(__file__), "../../../google_appengine/")
 
+def getRomnDir():
+  return os.path.join(os.path.dirname(__file__),
+      '../../../data/pali/common/romn/')
+
 def getDictBooksCSVPath():
   return os.path.join(os.path.dirname(__file__),
       "../../../data/pali/common/dictionary/dict-books.csv")
