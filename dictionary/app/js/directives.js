@@ -23,8 +23,8 @@ angular.module('paliDictionary.directives',
       }
     };
   }]).
-  directive('autoSuggest', ['$location', '$rootScope', 'paliIndexes', 'paliWordJson', 'wordSearch',
-  function($location, $rootScope, paliIndexes, paliWordJson, wordSearch) {
+  directive('autoSuggest', ['$location', '$rootScope', 'paliWordJson', 'wordSearch',
+  function($location, $rootScope, paliWordJson, wordSearch) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -168,7 +168,7 @@ angular.module('paliDictionary.directives',
           // convert array of strings to array of objects
           scope.matchedWords = [];
           var index = 0;
-          angular.forEach(paliIndexes.prefixMatch(viewValue), function(word) {
+          angular.forEach(wordSearch.autoSuggestedWords(viewValue), function(word) {
             this.push({content: word, selected: false, index: index});
             index++;
           }, scope.matchedWords);
