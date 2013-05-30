@@ -44,7 +44,9 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     grunt
     # keep above terminal running, and then open another terminal
     grunt run
+
     # uploading words files to local GAE datastore first.
+    cd PALI_DIR/common/pytools/
     python dic3uploadToGAE.py
 ```
 
@@ -59,7 +61,9 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     grunt
     # keep above terminal running, and then open another terminal
     grunt run
+
     # uploading data files to local GAE datastore first.
+    cd PALI_DIR/common/pytools/
     python tpk4uploadToGAE.py
 ```
 
@@ -82,7 +86,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     python i18nUtils.py js
 ```
 
-8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
+7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
     # deploy dictionary
     cd PALI_DIR/dictionary
@@ -121,6 +125,10 @@ python i18nUtils.py cn
 python i18nUtils.py mo
 # create files for client-side i18n
 python i18nUtils.py js
+
+# run grunt to update files
+cd PALI_DIR/dictionary or PALI_DIR/tipitaka
+grunt
 ```
 
 # References
