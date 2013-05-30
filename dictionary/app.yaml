@@ -1,5 +1,5 @@
 application: palidictionary
-version: 1
+version: dev
 runtime: python27
 api_version: 1
 threadsafe: true

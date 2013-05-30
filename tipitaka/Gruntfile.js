@@ -79,6 +79,17 @@ module.exports = function(grunt) {
     });
   });
 
+  grunt.registerTask('update', 'Upload to App Engine.', function() {
+    var spawn = require('child_process').spawn;
+    var PIPE = { stdio: 'inherit' };
+    var done = this.async();
+    var command = '../../google_appengine/appcfg.py';
+    var args = ['update', '.']
+    spawn(command, args, PIPE).on('exit', function(status) {
+      done(status === 0);
+    });
+  });
+
   // Load the plugins.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');

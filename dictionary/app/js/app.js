@@ -29,7 +29,7 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks',
     // initialize setting
     $rootScope.isShowSetting = false;
 
-    var setting = $cookieStore.get('setting');
+    var setting = $cookieStore.get('setting2');
     if (setting) {
       $rootScope.setting = setting;
     } else {
@@ -51,7 +51,7 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks',
     $rootScope.$watch('setting.p2vi', storeSettingInCookie);
     $rootScope.$watch('setting.p2my', storeSettingInCookie);
     $rootScope.$watch('setting.dicLangOrder', storeSettingInCookie);
-    function storeSettingInCookie() { $cookieStore.put('setting', $rootScope.setting); }
+    function storeSettingInCookie() { $cookieStore.put('setting2', $rootScope.setting); }
 
     // get width of document
     $rootScope.docWidth = document.getElementById('allContainer').offsetWidth;
