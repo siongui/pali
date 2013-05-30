@@ -30,15 +30,15 @@ handlers:
 - url: /html/.+
   script: serviceweb.app
 
-#- url: /customRemoteBlobstoreAPI
-#  script: customRemoteBlobstoreAPI.app
-#  login: admin
+- url: /customRemoteBlobstoreAPI
+  script: customRemoteBlobstoreAPI.app
+  login: admin
 
 - url: /.*
   script: mainweb.app
 
-#builtins:
-#- remote_api: on
+builtins:
+- remote_api: on
 
 libraries:
 - name: jinja2

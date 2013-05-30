@@ -41,6 +41,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     python dic4jsonToJS.py
 
     cd PALI_DIR/dictionary
+    npm install
     grunt
     # keep above terminal running, and then open another terminal
     grunt run
@@ -58,6 +59,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     python tpk3addSubpathInJson.py
 
     cd PALI_DIR/tipitaka
+    npm install
     grunt
     # keep above terminal running, and then open another terminal
     grunt run
