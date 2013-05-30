@@ -18,6 +18,14 @@ def getDictBooksJsPath():
   return os.path.join(os.path.dirname(__file__),
       "../app/scripts/services/data/dicBooks.js")
 
+def getSuccinctTrieJsonPath():
+  return os.path.join(os.path.dirname(__file__),
+      "../gae/libs/json/succinct_trie.json")
+
+def getSuccinctTrieJsPath():
+  return os.path.join(os.path.dirname(__file__),
+      "../app/scripts/services/data/succinctTrie.js")
+
 def getLocaleDir():
   return os.path.join(os.path.dirname(__file__), '../locale')
 
