@@ -13,56 +13,56 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 1. git clone the [pali](https://github.com/siongui/pali) repository and [data](https://github.com/siongui/data) repository (put in the same directory). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same directory.
 ```bash
     # create a directory to contain both pali and data repository.
-    mkdir dev
-    cd dev
+    $ mkdir dev
+    $ cd dev
     # git clone repositories
-    git clone https://github.com/siongui/pali.git
-    git clone https://github.com/siongui/data.git
+    $ git clone https://github.com/siongui/pali.git
+    $ git clone https://github.com/siongui/data.git
 
     # dowload App Engine SDK (remember to put in the same directory as git repositories)
-    wget http://googleappengine.googlecode.com/files/google_appengine_{{ version }}.zip
-    unzip google_appengine_{{ version }}.zip
+    $ wget http://googleappengine.googlecode.com/files/google_appengine_{{ version }}.zip
+    $ unzip google_appengine_{{ version }}.zip
 ```
 
 2. Run <b>PALI_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
 ```bash
-    python PALI_DIR/common/pytools/setupdev.py
+    $ python PALI_DIR/common/pytools/setupdev.py
 ```
 
 3. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for production use on server side:
 ```bash
-    cd PALI_DIR/common/pytools/
+    $ cd PALI_DIR/common/pytools/
     # create i18n files
-    python i18nUtils.py pot
-    python i18nUtils.py po
-    python i18nUtils.py cn
-    python i18nUtils.py mo
+    $ python i18nUtils.py pot
+    $ python i18nUtils.py po
+    $ python i18nUtils.py cn
+    $ python i18nUtils.py mo
 
     # create JavaScript file of translated strings for client side
-    python i18nUtils.py js
+    $ python i18nUtils.py js
 ```
 
 4. Create index of words in dictionary books.
 ```bash
-    cd PALI_DIR/common/pytools/
-    python dic1parseBooks.py
-    python dic2parseWords.py
+    $ cd PALI_DIR/common/pytools/
+    $ python dic1parseBooks.py
+    $ python dic2parseWords.py
 
     # build succinct trie of words
-    cd PALI_DIR/common/pytools/nodejs
-    nodejs buildSuccinctTrie.js
-    python dic3jsonToJS.py
+    $ cd PALI_DIR/common/pytools/nodejs
+    $ nodejs buildSuccinctTrie.js
+    $ python dic3jsonToJS.py
 
-    cd PALI_DIR/dictionary
-    npm install
-    grunt
+    $ cd PALI_DIR/dictionary
+    $ npm install
+    $ grunt
     # ctrl-C to abort watching, and then
-    grunt run
+    $ grunt run
 
     # keep above "grunt run" terminal running, and open another terminal
     # uploading words files to local GAE datastore of dev server first.
-    cd PALI_DIR/common/pytools/
-    python dic4uploadToGAE.py
+    $ cd PALI_DIR/common/pytools/
+    $ python dic4uploadToGAE.py
 
     # after uploading finished, open browser to test local dev server:
     # http://localhost:8080/
@@ -70,27 +70,27 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 
 5. Create Tipiṭaka-related translations for server and client.
 ```bash
-    cd PALI_DIR/tipitaka/gaelibs/
-    python setTranslationData.py
+    $ cd PALI_DIR/tipitaka/gaelibs/
+    $ python setTranslationData.py
 ```
 
 6. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
 ```bash
-    cd PALI_DIR/common/pytools/
-    python tpk1getTocs.py
-    python tpk2tocsToJson.py
-    python tpk3addSubpathInJson.py
+    $ cd PALI_DIR/common/pytools/
+    $ python tpk1getTocs.py
+    $ python tpk2tocsToJson.py
+    $ python tpk3addSubpathInJson.py
 
-    cd PALI_DIR/tipitaka
-    npm install
-    grunt
+    $ cd PALI_DIR/tipitaka
+    $ npm install
+    $ grunt
     # ctrl-C to abort watching, and then
-    grunt run
+    $ grunt run
 
     # keep above "grunt run" terminal running, and open another terminal
     # uploading data files to local GAE datastore of dev server first.
-    cd PALI_DIR/common/pytools/
-    python tpk4uploadToGAE.py
+    $ cd PALI_DIR/common/pytools/
+    $ python tpk4uploadToGAE.py
 
     # after uploading finished, open browser to test local dev server:
     # http://localhost:8080/
@@ -99,24 +99,44 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
     # deploy dictionary website
-    cd PALI_DIR/dictionary
-    grunt
+    $ cd PALI_DIR/dictionary
+    $ grunt
     # ctrl-C to abort watching, then
-    grunt update
+    $ grunt update
 
     # uploading words files to online GAE datastore of production server.
-    cd PALI_DIR/common/pytools/
-    python dic4uploadToGAE.py
+    $ cd PALI_DIR/common/pytools/
+    $ python dic4uploadToGAE.py
 
     # deploy tipitaka website
-    cd PALI_DIR/tipitaka
-    grunt
+    $ cd PALI_DIR/tipitaka
+    $ grunt
     # ctrl-C to abort watching, then
-    grunt update
+    $ grunt update
 
     # uploading data files to online GAE datastore of production server.
-    cd PALI_DIR/common/pytools/
-    python tpk4uploadToGAE.py
+    $ cd PALI_DIR/common/pytools/
+    $ python tpk4uploadToGAE.py
+```
+
+## Development of Python/JavaScript/HTML/CSS code for the websites
+
+Open two terminal, one for running Google App Engine dev server, the other for running grunt watch. The changes you make can be viewed from <em>http://localhost:8080/</em> in your browser window.
+
+```bash
+    # open one termimal
+    $ cd PALI_DIR/dictionary    # if you are developing dictionary website
+    $ cd PALI_DIR/tipitaka      # if you are developing tipitaka website
+    $ grunt
+
+    # open another terminal
+    $ cd PALI_DIR/dictionary    # if you are developing dictionary website
+    $ cd PALI_DIR/tipitaka      # if you are developing tipitaka website
+    # run Google App Engine dev server
+    $ grunt run
+
+    # open browser window at the following URL
+    # http://localhost:8080/
 ```
 
 ## Development of i18n
@@ -124,26 +144,26 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 Everytime strings in html files are marked to be translated, remember to re-generate i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>PALI_DIR/common/pytools/</b>) to automate the i18n jobs.
 
 ```bash
-cd PALI_DIR/common/pytools/
-# create POT from html files
-python i18nUtils.py pot
-# initialize PO files if not exist, or update POs files if exist.
-python i18nUtils.py po
-# after initialization, edit PO files and translate strings in PO files. Then
-python i18nUtils.py cn
-# the above command update zh_CN PO file from zh_TW PO file,
-# so you do not have to manual translate (optional if you want to manually translate zh_CN PO file).
-# then create MO files for server-side i18n
-python i18nUtils.py mo
-# create files for client-side i18n
-python i18nUtils.py js
+    $ cd PALI_DIR/common/pytools/
+    # create POT from html files
+    $ python i18nUtils.py pot
+    # initialize PO files if not exist, or update POs files if exist.
+    $ python i18nUtils.py po
+    # after initialization, edit PO files and translate strings in PO files. Then
+    $ python i18nUtils.py cn
+    # the above command update zh_CN PO file from zh_TW PO file,
+    # so you do not have to manual translate (optional if you want to manually translate zh_CN PO file).
+    # then create MO files for server-side i18n
+    $ python i18nUtils.py mo
+    # create files for client-side i18n
+    $ python i18nUtils.py js
 
-# run grunt to update files
-cd PALI_DIR/dictionary
-grunt
-# ctrl-C to abort grunt watch
-cd PALI_DIR/tipitaka
-grunt
+    # run grunt to update files
+    $ cd PALI_DIR/dictionary
+    $ grunt
+    # ctrl-C to abort grunt watch
+    $ cd PALI_DIR/tipitaka
+    $ grunt
 ```
 
 # References
