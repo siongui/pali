@@ -7,6 +7,7 @@ import json
 import shutil
 
 from variables import getDictBooksJsonPath
+from variables import getDictWordsJsonDir
 
 try:
   import pyopencc
@@ -61,17 +62,16 @@ if __name__ == '__main__':
   with open(getDictBooksJsonPath(), 'r') as f:
     dicIndex = json.loads(f.read())
 
-  dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
-  if os.path.exists(dictWordsJsonDir):
-    shutil.rmtree(dictWordsJsonDir)
-    os.makedirs(dictWordsJsonDir)
+  if os.path.exists(getDictWordsJsonDir()):
+    shutil.rmtree(getDictWordsJsonDir())
+    os.makedirs(getDictWordsJsonDir())
   else:
-    os.makedirs(dictWordsJsonDir)
+    os.makedirs(getDictWordsJsonDir())
 
   dictWordsCSV1Path = os.path.join(os.path.dirname(__file__),
       "../../../data/pali/common/dictionary/dict_words_1.csv")
   dictWordsCSV2Path = os.path.join(os.path.dirname(__file__),
       "../../../data/pali/common/dictionary/dict_words_2.csv")
 
-  processWordCSV(dictWordsCSV1Path, dicIndex, dictWordsJsonDir)
-  processWordCSV(dictWordsCSV2Path, dicIndex, dictWordsJsonDir)
+  processWordCSV(dictWordsCSV1Path, dicIndex, getDictWordsJsonDir())
+  processWordCSV(dictWordsCSV2Path, dicIndex, getDictWordsJsonDir())

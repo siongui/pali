@@ -6,6 +6,7 @@
 import os
 import sys
 
+from variables import getDictWordsJsonDir
 from variables import getSDKPath
 sys.path.insert(0, getSDKPath())
 sys.path.append(os.path.join(getSDKPath(), 'lib/yaml/lib'))
@@ -45,8 +46,6 @@ class PaliWordJsonBlob(ndb.Model):
   data = ndb.BlobProperty()
 
 
-dictWordsJsonDir = os.path.join(os.path.dirname(__file__), 'paliwords')
-
 def uploadToServer():
   """Upload all pali words definitions to the datastore of server
      programmatically via remote api.
@@ -59,7 +58,7 @@ def uploadToServer():
   count = 0
   list_of_entities = []
 
-  for dirpath, dirnames, filenames in os.walk(dictWordsJsonDir):
+  for dirpath, dirnames, filenames in os.walk(getDictWordsJsonDir()):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
       print('uploading %s ...' % path)
