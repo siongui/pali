@@ -26,6 +26,10 @@ class jsonService:
 
 class wordJsonService:
   def GET(self, word):
+    # web.py server which allow cross-site xmlhttprequest
+    # https://gist.github.com/1271118/52eca29d23a1f307597e04d434b0421011843e2f
+    web.header('Access-Control-Allow-Origin', '*')
+    web.header('Access-Control-Allow-Credentials', 'true')
     return getWordJson(word.encode('utf-8'))
 
 class robots:
