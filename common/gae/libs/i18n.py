@@ -22,6 +22,7 @@ threadLocalData.locale = 'en_US'
 
 AllTranslations = {
 'en_US': gettext.translation(domain, localedir, ['en_US']),
+'fr_FR': gettext.translation(domain, localedir, ['fr_FR']),
 'zh_TW': gettext.translation(domain, localedir, ['zh_TW']),
 'zh_CN': gettext.translation(domain, localedir, ['zh_CN'])
 }
@@ -39,6 +40,6 @@ def ungettext(singular, plural, n):
   return AllTranslations[ threadLocalData.locale ].ungettext(singular, plural, n)
 
 def setLocale(locale):
-  if locale in ['en_US', 'zh_TW', 'zh_CN']:
+  if locale in ['en_US', 'zh_TW', 'zh_CN', 'fr_FR']:
     threadLocalData.locale = locale
 

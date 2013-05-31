@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 
-locales = ['en_US', 'zh_TW', 'zh_CN']
+locales = ['en_US', 'zh_TW', 'zh_CN', 'fr_FR']
 
 def getLocale(urlLocale, acptLang):
   if urlLocale in locales:
@@ -47,6 +47,8 @@ def determineLocale(value):
         return 'zh_CN'
       if lang.startswith('en'):
         return 'en_US'
+      if lang.startswith('fr'):
+        return 'fr_FR'
 
   except:
     return 'en_US'

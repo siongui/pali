@@ -48,12 +48,6 @@ def getTpkHtmlDir2():
 def getPotPath():
   return os.path.join(getLocaleDir(), 'messages.pot')
 
-def getTWPoPath():
-  return os.path.join(getLocaleDir(), 'zh_TW/LC_MESSAGES/messages.po')
-
-def getCNPoPath():
-  return os.path.join(getLocaleDir(), 'zh_CN/LC_MESSAGES/messages.po')
-
 def getDstLocalesJsPath():
   return os.path.join(os.path.dirname(__file__),
       '../app/scripts/services/data/i18nStrings.js')

@@ -21,14 +21,13 @@ except:
 from variables import getDstLocalesJsPath
 from variables import getLocaleDir
 from variables import getPotPath
-from variables import getTWPoPath
-from variables import getCNPoPath
 from variables import getDicHtmlDir
 from variables import getTpkHtmlDir
 from variables import getDicHtmlDir2
 from variables import getTpkHtmlDir2
 
-locales = ['en_US', 'zh_TW', 'zh_CN']
+# http://www.roseindia.net/tutorials/I18N/locales-list.shtml
+locales = ['en_US', 'zh_TW', 'zh_CN', 'fr_FR']
 
 
 def searchI18n(string):
@@ -61,8 +60,12 @@ def createPOT():
   os.system(cmd_sed)
 
 
+def getPoPathFromLocale(locale):
+  return os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
+
+
 def initLocalePO(locale):
-  popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
+  popath = getPoPathFromLocale(locale)
 
   if not os.path.exists(os.path.dirname(popath)):
     os.makedirs(os.path.dirname(popath))
@@ -77,7 +80,7 @@ def initPOs():
 
 
 def updateLocalePO(locale):
-  popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
+  popath = getPoPathFromLocale(locale)
 
   if not os.path.exists(os.path.dirname(popath)):
     os.makedirs(os.path.dirname(popath))
@@ -93,7 +96,7 @@ def updatePOs():
 
 def initOrUpdatePOs():
   for locale in locales:
-    popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
+    popath = getPoPathFromLocale(locale)
     if os.path.exists(popath):
       updateLocalePO(locale)
     else:
@@ -101,7 +104,7 @@ def initOrUpdatePOs():
 
 
 def formatMO(locale):
-  popath = os.path.join(getLocaleDir(), '%s/LC_MESSAGES/messages.po' % locale)
+  popath = getPoPathFromLocale(locale)
   mopath = popath[:-2] + 'mo'
 
   cmd_msgfmt = 'msgfmt %s -o %s' % (popath, mopath)
@@ -115,8 +118,8 @@ def POtoMO():
 
 
 def TWtoCN():
-  with open(getTWPoPath(), 'r') as f:
-    with open(getCNPoPath(), 'w') as fd:
+  with open(getPoPathFromLocale('zh_TW'), 'r') as f:
+    with open(getPoPathFromLocale('zh_CN'), 'w') as fd:
       for line in f.readlines():
         if 'zh_TW' in line:
           fd.write(line.replace('zh_TW', 'zh_CN'))
@@ -129,16 +132,21 @@ def TWtoCN():
           fd.write(line)
 
 
+def extractFromPOFile(poPath):
+  with open(poPath, 'r') as f:
+    tuples = re.findall(r'msgid "(.+)"\nmsgstr "(.+)"', f.read())
+  return tuples
+
+
 def writeJs():
   # create PO-like js file for i18n
-  with open(getTWPoPath(), 'r') as f:
-    tuples = re.findall(r'msgid "(.+)"\nmsgstr "(.+)"', f.read())
-
-  obj = {'zh_TW': {},
-         'zh_CN': {}}
-  for tuple in tuples:
-    obj['zh_TW'][tuple[0].decode('utf-8')] = tuple[1].decode('utf-8')
-    obj['zh_CN'][tuple[0].decode('utf-8')] = ftoj(tuple[1])
+  obj = {}
+  for locale in locales:
+    if locale == 'en_US': continue
+    obj[locale] = {}
+    tuples = extractFromPOFile(getPoPathFromLocale(locale))
+    for tuple in tuples:
+      obj[locale][tuple[0].decode('utf-8')] = tuple[1].decode('utf-8')
 
   with open(getDstLocalesJsPath(), 'w') as f:
     f.write("angular.module('pali.i18nStrings', []).\n")

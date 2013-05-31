@@ -1,0 +1,171 @@
+# French translations for PACKAGE package.
+# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-31 21:13+0800\n"
+"PO-Revision-Date: 2013-05-31 21:13+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary"
+msgstr "Dictionnaire Pāḷi | Dicionnaire Pāḷi - Anglais, Chinois, Japonais"
+
+msgid "Definition and Meaning"
+msgstr "Définition et signification"
+
+msgid "Words Start with"
+msgstr "Le mot commence par"
+
+msgid "Pāḷi Dictionary"
+msgstr "Dictionnaire Pāḷi"
+
+msgid "Home"
+msgstr "Index"
+
+msgid "Canon"
+msgstr "Canon"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "Setting"
+msgstr "Réglages"
+
+msgid "No Such Word"
+msgstr "Ce mot n'est pas dans le dictionnaire"
+
+msgid "Looking Up ..."
+msgstr "Recherche en cours ..."
+
+msgid "Loading Words ..."
+msgstr "Chargement des mots ..."
+
+msgid "Internet Connection Error"
+msgstr "Erreur de connexion"
+
+msgid "Browse Dictionary"
+msgstr "Parcourir le Dictionnaire"
+
+msgid "Keyboard"
+msgstr "Clavier"
+
+msgid "Input Word Explanation Preview"
+msgstr "Aperçu de la définition du mot demandé"
+
+msgid "What Languages of Dictionaries to Show?"
+msgstr "Quels langages du dictionnaire voulez-vous faire afficher?"
+
+msgid "Pāli-English"
+msgstr "Pāḷi-Anglais"
+
+msgid "Pāli-Japanese"
+msgstr "Pāḷi-Japonais"
+
+msgid "Pāli-Chinese"
+msgstr "Pāḷi-Chinois"
+
+msgid "Pāli-Vietnamese"
+msgstr "Pāḷi-Vietnamien"
+
+msgid "Pāli-Burmese"
+msgstr "Pāḷi-Birman"
+
+msgid "The Order of Languages of Dictionaries to Show?"
+msgstr "Dans quel ordre voulez-vous faire afficher les langages du Dictionnaire?"
+
+msgid "According to Language Settings in Browser"
+msgstr "Utiliser le langage du navigateur"
+
+msgid "English First"
+msgstr "Anglais en premier"
+
+msgid "Japanese First"
+msgstr "Japonais en premier"
+
+msgid "Chinese First"
+msgstr "Chinois en premier"
+
+msgid "Vietnamese First"
+msgstr "Vietnamien en premier"
+
+msgid "Burmese First"
+msgstr "Birman en premier"
+
+msgid "Pali Tipitaka"
+msgstr "Pāḷi Tipitaka"
+
+msgid "Translation"
+msgstr "Traduction"
+
+msgid "Dictionary"
+msgstr "Dictionnaire"
+
+msgid "Browse"
+msgstr "Parcourir"
+
+msgid "Loading"
+msgstr "Chargement"
+
+msgid "Show Tooltip When Hovering over Canon Texts"
+msgstr "Faire afficher les bulles au passage de la souris sur le texte"
+
+msgid "Translate Pāḷi Texts on Left-side Treeview"
+msgstr "Traduire les textes Pāḷi de l'arboresence à gauche"
+
+msgid "Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries"
+msgstr ""
+
+msgid "English - Japanese - Chinese"
+msgstr "Anglais-Japonais-Chinois"
+
+msgid "English - Chinese - Japanese"
+msgstr "Anglais-Chinois-Japonais"
+
+msgid "Japanese - English - Chinese"
+msgstr "Japonais-Anglais-Chinois"
+
+msgid "Japanese - Chinese - English"
+msgstr "Japonais-Chinois-Anglais"
+
+msgid "Chinese - English - Japanese"
+msgstr "Chinois-Anglais-Japonais"
+
+msgid "Chinese - Japanese - English"
+msgstr "Chinois-Japonais-Anglais"
+
+msgid "Looking up"
+msgstr "Recherche"
+
+msgid "All Translations"
+msgstr "Toutes les traductions"
+
+msgid "Excerpt"
+msgstr "Extrait"
+
+msgid "Contrast Reading"
+msgstr "Original et traduction en parallèle"
+
+msgid "Translation of This Pāḷi Text"
+msgstr "Traduction de ce texte Pāḷi"
+
+msgid "Original Pāḷi Text"
+msgstr "Texte Pāḷi originel"
+
+msgid "URL of the Translation"
+msgstr "URL de la traduction"
+
+msgid "Copyright URL of the Translation"
+msgstr "L'URL de droit de copie de la traduction"
+
+msgid "Only Partial Translation Available"
+msgstr "Seule une traduction partielle est disponible"

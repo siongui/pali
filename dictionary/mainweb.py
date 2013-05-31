@@ -35,10 +35,10 @@ urls = (
   r"/browse/noSuchWord", "RedirectPage",
   r"/", "MainPage",
   r"/about", "MainPage",
-  r"/(en_US|zh_TW|zh_CN)/", "MainPage",
-  r"/(en_US|zh_TW|zh_CN)/browse/([^/]+)/([^/]+)", "WordPage2",
+  r"/(en_US|zh_TW|zh_CN|fr_FR)/", "MainPage",
+  r"/(en_US|zh_TW|zh_CN|fr_FR)/browse/([^/]+)/([^/]+)", "WordPage2",
   r"/browse/([^/]+)/([^/]+)", "WordPage",
-  r"/(en_US|zh_TW|zh_CN)/browse/([^/]+)", "PrefixPage2",
+  r"/(en_US|zh_TW|zh_CN|fr_FR)/browse/([^/]+)", "PrefixPage2",
   r"/browse/([^/]+)", "PrefixPage",
 )
 

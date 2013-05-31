@@ -25,7 +25,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     if (angular.isUndefined($rootScope.i18nLocale))
       $rootScope.i18nLocale = 'en_US';
 
-    var allowedLocales =  ['en_US', 'zh_TW', 'zh_CN'];
+    var allowedLocales =  ['en_US', 'zh_TW', 'zh_CN', 'fr_FR'];
 
     // set urlLocale
     $rootScope.$on('$routeChangeSuccess', function() {
@@ -71,6 +71,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
   // filter
     return function(text) {
       if (text === 'en_US') return 'English';
+      if (text === 'fr_FR') return 'Française';
       if (text === 'zh_TW') return '中文 (繁體)';
       if (text === 'zh_CN') return '中文 (简体)';
       return text;
@@ -109,13 +110,15 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
       link: function(scope, elm, attrs) {
         // if "locale" attribute exists, use it
         attrs.$observe('locale', function() {
-          elm.html(i18nserv.gettext(attrs.str, attrs.locale));
+          var trText = i18nserv.gettext(attrs.str, $rootScope.i18nLocale);
+          if (trText !== attrs.str) elm.html(trText);
         });
 
         // if there is no "locale" attribute, use $rootScope.i18nLocale
         if (angular.isUndefined(attrs.locale)) {
           $rootScope.$watch('i18nLocale', function() {
-            elm.html(i18nserv.gettext(attrs.str, $rootScope.i18nLocale));
+            var trText = i18nserv.gettext(attrs.str, $rootScope.i18nLocale);
+            if (trText !== attrs.str) elm.html(trText);
           });
         }
       }
