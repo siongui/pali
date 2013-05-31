@@ -18,14 +18,14 @@ function noSuchWordCtrl($scope) {
 noSuchWordCtrl.$inject = ['$scope'];
 
 
-function prefixCtrl($scope, $route, paliIndexes, i18nserv) {
+function prefixCtrl($scope, $route, wordSearch, i18nserv) {
   $scope.prefix = $route.current.params.firstLetter;
   // set title of html document
   // FIXME: don't access document directly?
   document.title = i18nserv.gettext('Words Start with', $scope.i18nLocale) + ' ' + $scope.prefix + ' - '
     + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary', $scope.i18nLocale);
 
-  var words = paliIndexes.getWordsStartsWithLetter($route.current.params.firstLetter);
+  var words = wordSearch.getWordsStartsWithLetter($route.current.params.firstLetter);
   if (angular.isUndefined(words))
     return;
   else
@@ -38,7 +38,7 @@ function prefixCtrl($scope, $route, paliIndexes, i18nserv) {
   }
   $scope.wordGroups = wordGroups;
 }
-prefixCtrl.$inject = ['$scope', '$route', 'paliIndexes', 'i18nserv'];
+prefixCtrl.$inject = ['$scope', '$route', 'wordSearch', 'i18nserv'];
 
 
 function wordCtrl($scope, $route, paliWordJson, i18nserv) {

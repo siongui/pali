@@ -10,8 +10,7 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       dist: {
-        src: ['common/app/js/services-dicPrefix.js',
-              'common/app/scripts/services/data/dicBooks.js',
+        src: ['common/app/scripts/services/data/dicBooks.js',
               'common/app/scripts/services/data/succinctTrie.js',
               'common/app/scripts/services/data/i18nStrings.js',
               'app/js/app.js',
@@ -24,9 +23,7 @@ module.exports = function(grunt) {
               'common/app/scripts/services/wordSearch.js',
               'common/app/scripts/directives/dropdown.js',
               'common/app/scripts/filters/expOrder.js',
-              'common/app/scripts/i18n.js',
-              'common/app/js/services-dic.js',
-              'common/app/js/services.js'],
+              'common/app/scripts/i18n.js'],
         dest: 'build/<%= pkg.name %>.js'
       }
     },

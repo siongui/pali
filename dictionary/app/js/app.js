@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks', 'pali.dropdown', 'pali.expOrder', 'pali.wordSearch', 'paliDictionary.directives', 'pali.services', 'pali.i18n']).
+angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks', 'pali.dropdown', 'pali.expOrder', 'pali.wordSearch', 'paliDictionary.directives', 'pali.i18n']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).

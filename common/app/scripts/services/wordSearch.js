@@ -59,10 +59,49 @@ angular.module('pali.wordSearch', ['pali.ngBits']).
       return exactMatchedArray;
     }
 
+    function getWordsStartsWithLetter(firstLetter) {
+      // find node corresponding to firstLetter.
+      var root = ngBits.trie.getRoot();
+
+      var node;
+      var i = 0;
+      for ( ; i < root.getChildCount(); i++ ) {
+        node = root.getChild( i );
+        if ( node.letter === firstLetter ) break;
+      }
+
+      // not found, return empty array.
+      if ( i === root.getChildCount() ) return [];
+
+      // The node corresponding to the firstLetter is found.
+      // Use this node as root. traversing the trie in level order.
+      var words = [];
+      var level = [node];
+      var prefixLevel = [firstLetter];
+      while( level.length > 0 ) {
+        var node2 = level.shift();
+        var prefix = prefixLevel.shift();
+
+        // if the 'prefix' variable is a legal pali word.
+        if ( node2.final ) {
+          words.push(prefix);
+        }
+
+        for( var i = 0; i < node2.getChildCount(); i++ ) {
+          var child = node2.getChild( i );
+          level.push( child );
+          prefixLevel.push(prefix + child.letter);
+        }
+      }
+
+      return words;
+    }
+
     function isValidPaliWord(paliWord) {
       return ngBits.trie.lookup(paliWord);
     }
 
     return { isValidPaliWord: isValidPaliWord,
-             autoSuggestedWords: autoSuggestedWords };
+             autoSuggestedWords: autoSuggestedWords,
+             getWordsStartsWithLetter: getWordsStartsWithLetter };
   }]);
