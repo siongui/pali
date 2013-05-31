@@ -63,6 +63,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 
     # keep above "grunt run" terminal running, and open another terminal
     # uploading words files to local GAE datastore of dev server.
+    # Please answer 'y' when asked if upload to dev server
     $ cd PALI_DIR/common/pytools/
     $ python dic4uploadToGAE.py
 
@@ -93,6 +94,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
 
     # keep above "grunt run" terminal running, and open another terminal
     # uploading data files to local GAE datastore of dev server.
+    # Please answer 'y' when asked if upload to dev server
     $ cd PALI_DIR/common/pytools/
     $ python tpk4uploadToGAE.py
 
@@ -110,6 +112,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     $ grunt update
 
     # uploading words files to online GAE datastore of production server.
+    # Please answer 'n' when asked if upload to dev server
     $ cd PALI_DIR/common/pytools/
     $ python dic4uploadToGAE.py
 
@@ -120,6 +123,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     $ grunt update
 
     # uploading data files to online GAE datastore of production server.
+    # Please answer 'n' when asked if upload to dev server
     $ cd PALI_DIR/common/pytools/
     $ python tpk4uploadToGAE.py
 ```
