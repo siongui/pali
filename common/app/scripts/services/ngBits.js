@@ -7,9 +7,11 @@ angular.module('pali.ngBits', ['pali.succinctTrie']).
   factory('ngBits', ['succinctTrie', function(succinctTrie) {
 
 /*
- Modified from http://www.hanovsolutions.com/trie/Bits.js
+ Ref: Succinct Data Structures: Cramming 80,000 words into a Javascript file.
+ @see http://stevehanov.ca/blog/index.php?id=120
+ Code modified from http://www.hanovsolutions.com/trie/Bits.js
  By Steve Hanov
- Original Code Released to the public domain.
+ Original code released to the public domain.
 */
 
 // Configure the bit writing and reading functions to work natively in BASE-64 
