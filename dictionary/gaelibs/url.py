@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+"""obsoleted"""
+
 import os, json, urllib, jinja2
 from google.appengine.api import app_identity
 from google.appengine.api import urlfetch

@@ -12,10 +12,10 @@ import i18n
 import web
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
-from url import isValidPrefixAndWord
+from url2 import isValidPrefixAndWord
 from url import getPrefixHtml
 from url2 import getWordHtml
-from url import getHtmlTitle
+from url2 import getHtmlTitle
 
 import jinja2
 import json
