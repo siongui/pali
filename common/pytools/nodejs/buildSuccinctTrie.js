@@ -43,6 +43,6 @@ var jsonData = eval( '(' + output + ")" );
 
 require('fs').writeFileSync(
     require('path').resolve(__dirname, 
-        '../../gae/libs/json/succinct_trie.json'),
+        '../../../dictionary/gaelibs/json/succinct_trie.json'),
     JSON.stringify(jsonData)
 );

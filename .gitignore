@@ -6,10 +6,6 @@ common/locale/en_US/LC_MESSAGES/messages.po
 common/locale/zh_CN/LC_MESSAGES/messages.po
 
 common/gae/libs/jianfan
-common/gae/libs/json/books.json
-common/gae/libs/json/succinct_trie.json
-common/gae/libs/json/dicPrefixGroup.json
-common/gae/libs/json/dicPrefixWordLists.json
 
 common/app/js/services-dicPrefix.js
 common/app/js/services-i18nStrings.js

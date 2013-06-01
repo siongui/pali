@@ -4,6 +4,7 @@
 import os
 import csv
 import json
+import shutil
 
 from variables import getDictBooksCSVPath
 from variables import getDictBooksJsonPath
@@ -132,6 +133,9 @@ if __name__ == '__main__':
       sys.stdout.write(', ' + cell)
     sys.stdout.write('\n')
     index += 1
+
+  if not os.path.exists(os.path.dirname(getDictBooksJsonPath())):
+    os.makedirs(os.path.dirname(getDictBooksJsonPath()))
 
   with open(getDictBooksJsonPath(), 'w') as f:
     f.write(json.dumps(dicIndex))

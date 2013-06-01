@@ -17,9 +17,13 @@ def getDictBooksCSVPath():
 def getDictWordsJsonDir():
   return os.path.join(os.path.dirname(__file__), 'paliwords')
 
+def getPrefixWordsHtmlDir():
+  return os.path.join(os.path.dirname(__file__),
+      '../../dictionary/gaelibs/prefixWordsHtml')
+
 def getDictBooksJsonPath():
   return os.path.join(os.path.dirname(__file__),
-      "../gae/libs/json/books.json")
+      "../../dictionary/gaelibs/json/books.json")
 
 def getDictBooksJsPath():
   return os.path.join(os.path.dirname(__file__),

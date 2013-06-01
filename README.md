@@ -47,11 +47,13 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     $ cd PALI_DIR/common/pytools/
     $ python dic1parseBooks.py
     $ python dic2parseWords.py
+    $ python dic3prefixWordsHtml.py
 
     # build succinct trie of words
     $ cd PALI_DIR/common/pytools/nodejs
     $ nodejs buildSuccinctTrie.js
-    $ python dic3jsonToJS.py
+    $ cd PALI_DIR/common/pytools/
+    $ python dic4jsonToJS.py
 
     $ cd PALI_DIR/dictionary
     # Install grunt plugins
@@ -65,7 +67,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # uploading words files to local GAE datastore of dev server.
     # Please answer 'y' when asked if upload to dev server
     $ cd PALI_DIR/common/pytools/
-    $ python dic4uploadToGAE.py
+    $ python dic5uploadToGAE.py
 
     # after uploading finished, open browser to test local dev server:
     # http://localhost:8080/

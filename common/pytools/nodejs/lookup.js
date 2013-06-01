@@ -3,7 +3,7 @@
  * dictionary.
  */
 var json = require(require('path').resolve(__dirname,
-     '../../gae/libs/json/succinct_trie.json'));
+     '../../../dictionary/gaelibs/json/succinct_trie.json'));
 var bitsjs = require(require('path').resolve(__dirname, 'Bits.js'));
 var ftrie = new bitsjs.FrozenTrie( json.trie, json.directory, json.nodeCount);
 

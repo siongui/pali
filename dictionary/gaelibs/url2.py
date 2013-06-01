@@ -13,7 +13,7 @@ jj2env = jinja2.Environment(
 # load index of dictionary books
 # TODO: move the location of books.json to ./json/
 with open(os.path.join(os.path.dirname(__file__),
-     '../common/gae/libs/json/books.json'), 'r') as f:
+     'json/books.json'), 'r') as f:
   dicIndex = json.loads(f.read())
 
 
