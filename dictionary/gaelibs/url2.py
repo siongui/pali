@@ -4,6 +4,7 @@
 import os
 import jinja2
 import json
+import urllib
 from wordJson import getWordJson
 
 jj2env = jinja2.Environment(
@@ -11,7 +12,6 @@ jj2env = jinja2.Environment(
     os.path.join(os.path.dirname(__file__), 'partials')))
 
 # load index of dictionary books
-# TODO: move the location of books.json to ./json/
 with open(os.path.join(os.path.dirname(__file__),
      'json/books.json'), 'r') as f:
   dicIndex = json.loads(f.read())
@@ -46,8 +46,10 @@ def isValidPrefixAndWord(prefix, word):
 
 
 def getPrefixHtml(prefix):
-  path = os.path.join(os.path.dirname(__file__),
-      'prefixWordsHtml/%s.html' % prefix)
+  legalNameOnGAE = urllib.quote(
+                     ('prefixWordsHtml/%s.html' % prefix)
+                   ).replace('%', 'Z')
+  path = os.path.join(os.path.dirname(__file__), legalNameOnGAE)
   with open(path.decode('utf-8'), 'r') as f:
     return f.read().decode('utf-8')
 

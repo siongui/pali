@@ -3,6 +3,7 @@
 
 import os
 import shutil
+import urllib
 from variables import getDictWordsJsonDir
 from variables import getPrefixWordsHtmlDir
 
@@ -26,7 +27,10 @@ if __name__ == '__main__':
     os.makedirs(getPrefixWordsHtmlDir())
 
   for firstLetter in prefixWords:
-    path = os.path.join(getPrefixWordsHtmlDir(), '%s.html' % firstLetter)
+    legalNameOnGAE = urllib.quote(
+                       ('%s.html' % firstLetter).encode('utf-8')
+                     ).replace('%', 'Z')
+    path = os.path.join(getPrefixWordsHtmlDir(), legalNameOnGAE)
     print(path)
     print('%s: %d' % (firstLetter, len(prefixWords[firstLetter])))
     with open(path, 'w') as f:
