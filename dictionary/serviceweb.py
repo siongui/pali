@@ -11,18 +11,10 @@ from wordJson import getWordJson
 import urllib2
 
 urls = (
-  "/json/.+", "jsonService",
 #  "/wordJson/([abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -]+)", "wordJsonService",
   "/wordJson/(.+)", "wordJsonService",
   "/robots.txt", "robots",
 )
-
-class jsonService:
-  """obsoleted"""
-  def GET(self):
-    url = 'http://%s.palidictionary.appspot.com/%s' % \
-          (web.input().v, web.ctx.path)
-    return urllib2.urlopen(url).read()
 
 class wordJsonService:
   def GET(self, word):

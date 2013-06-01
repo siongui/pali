@@ -19,9 +19,6 @@ if __name__ == '__main__':
       else:
         prefixWords[word[0]] = [word]
 
-  #for firstLetter in prefixWords:
-  #  print('%s: %d' % (firstLetter, len(prefixWords[firstLetter])))
-
   if os.path.exists(getPrefixWordsHtmlDir()):
     shutil.rmtree(getPrefixWordsHtmlDir())
     os.makedirs(getPrefixWordsHtmlDir())
