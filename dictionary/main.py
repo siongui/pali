@@ -6,8 +6,8 @@
 import webapp2, jinja2, os, sys, json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
+from url2 import isValidPrefixAndWord
 from url2 import getPrefixHtml
-from url import getPrefixHtml
 from url2 import getWordHtml
 from url2 import getHtmlTitle
 
@@ -54,7 +54,7 @@ class WordPage(webapp2.RequestHandler):
     if not isValidPrefixAndWord(prefix, word):
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale, prefix, word)
-    wordHtml = getWordHtml(prefix, word, urlLocale)
+    wordHtml = getWordHtml(prefix, word)
     if wordHtml is None:
       self.abort(404)
     template_values['pageHtml'] = wordHtml
@@ -67,7 +67,7 @@ class PrefixPage(webapp2.RequestHandler):
     if not isValidPrefixAndWord(prefix, None):
       self.abort(404)
     template_values = getCommonTemplateValues(self, urlLocale, prefix)
-    prefixHtml = getPrefixHtml(prefix, urlLocale)
+    prefixHtml = getPrefixHtml(prefix)
     if prefixHtml is None:
       self.abort(404)
     template_values['pageHtml'] = prefixHtml

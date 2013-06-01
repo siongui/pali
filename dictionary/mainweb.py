@@ -13,7 +13,7 @@ import web
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url2 import isValidPrefixAndWord
-from url import getPrefixHtml
+from url2 import getPrefixHtml
 from url2 import getWordHtml
 from url2 import getHtmlTitle
 
@@ -71,9 +71,9 @@ def commonPage(prefix, word, reqHandlerName, urlLocale=None):
       urlLocale, reqHandlerName, prefix, word)
 
   if reqHandlerName == 'WordPage':
-    pageHtml = getWordHtml(prefix, word, urlLocale)
+    pageHtml = getWordHtml(prefix, word)
   elif reqHandlerName == 'PrefixPage':
-    pageHtml = getPrefixHtml(prefix, urlLocale)
+    pageHtml = getPrefixHtml(prefix)
   else:
     raise Exception('invalid reqHandlerName: %s' % reqHandlerName)
 

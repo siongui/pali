@@ -1,9 +1,10 @@
 <table>
   {% for bookExp in bookExps %}
-    <tr>
-      <td>{{ booksIndex[bookExp[0]][3] }}</td>
-      <td>{{ booksIndex[bookExp[0]][0] }}</td>
+    <thead><tr><th>
+      <strong><em>{{ booksIndex[bookExp[0]][3] }}</em></strong>
+    </th></tr></thead>
+    <tbody><tr>
       <td>{{ bookExp[1] }}</td>
-    </tr>
+    </tr></tbody>
   {% endfor %}
 </table>

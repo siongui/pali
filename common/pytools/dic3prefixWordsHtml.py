@@ -34,5 +34,5 @@ if __name__ == '__main__':
     print('%s: %d' % (firstLetter, len(prefixWords[firstLetter])))
     with open(path, 'w') as f:
       for word in prefixWords[firstLetter]:
-        string = u'<a href="./%s">%s</a>' % (word, word)
+        string = u'<a href="%s/%s">%s</a>' % (firstLetter, word, word)
         f.write(string.encode('utf-8'))

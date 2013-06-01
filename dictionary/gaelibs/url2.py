@@ -45,12 +45,18 @@ def isValidPrefixAndWord(prefix, word):
   raise Exception("Impossible case: End of isValidPrefixOrWord!")
 
 
-def getWordHtml(prefix, word, urlLocale):
+def getPrefixHtml(prefix):
+  path = os.path.join(os.path.dirname(__file__),
+      'prefixWordsHtml/%s.html' % prefix)
+  with open(path.decode('utf-8'), 'r') as f:
+    return f.read().decode('utf-8')
+
+
+def getWordHtml(prefix, word):
   template = jj2env.get_template('word2.html')
   return template.render({'bookExps': json.loads(getWordJson(word)),
                           'booksIndex': dicIndex,
-                          'word': word,
-                          'urlLocale': urlLocale})
+                          'word': word})
 
 
 def getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word):
