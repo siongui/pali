@@ -67,3 +67,17 @@ def getDstLocalesJsPath():
   return os.path.join(os.path.dirname(__file__),
       '../app/scripts/services/data/i18nStrings.js')
 
+def getInfoFilePath():
+  return os.path.join(os.path.dirname(__file__), 'tocsInfo.txt')
+
+def getTreeviewJsonPath():
+  return os.path.join(os.path.dirname(__file__), 'treeview.json')
+
+def getTreeviewAllJsonPath():
+  return os.path.join(os.path.dirname(__file__),
+      '../../tipitaka/gaelibs/json/treeviewAll.json')
+
+def getTreeviewAllJsPath():
+  return os.path.join(os.path.dirname(__file__),
+      '../../tipitaka/app/scripts/services/data/treeviewAll.js')
+

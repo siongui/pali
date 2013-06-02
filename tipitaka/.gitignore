@@ -2,10 +2,10 @@ app/BingSiteAuth.xml
 app/google147e4ebe06d05f82.html
 app/all_compiled.js
 
-app/js/treeviewAllJson-service.js
+app/scripts/services/data/treeviewAll.js
 gaelibs/json/treeviewAll.json
 
-app/js/data-i18nTpk-service.js
+app/scripts/services/data/i18nTpk.js
 gaelibs/json/translationInfo.json
 gaelibs/json/canonTextTranslation.json
 

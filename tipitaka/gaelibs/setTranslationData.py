@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json, collections, re
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+import os
+import json
+import collections
+import re
+
 try:
-  from jianfan import jtof, ftoj
+  import pyopencc
+  cc = pyopencc.OpenCC('zht2zhs.ini')
+  ftoj = cc.convert
 except:
-  import logging
-  logging.getLogger().setLevel(logging.DEBUG)
-  logging.error('import jianfan library failed!')
+  print('cannot import opencc, import jianfan')
+  import sys
+  sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+  from jianfan import ftoj
 
 
 jstr = """{
@@ -810,8 +815,10 @@ if __name__ == '__main__':
   with open(dstCanonTextTranslationPath, 'w') as f:
     f.write(json.dumps(canonTextTranslation))
 
-  dstTrServicePath = os.path.join(os.path.dirname(__file__), '../app/js/data-i18nTpk-service.js')
+  dstTrServicePath = os.path.join(os.path.dirname(__file__), '../app/scripts/services/data/i18nTpk.js')
 
+  if not os.path.exists(os.path.dirname(dstTrServicePath)):
+    os.makedirs(os.path.dirname(dstTrServicePath))
   with open(dstTrServicePath, 'w') as f:
     f.write("angular.module('pali.data.i18nTpk', []).\n")
     f.write("  factory('i18nTpk', [function() {\n")

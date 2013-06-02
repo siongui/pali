@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json
+import os
+import json
+from variables import getInfoFilePath
+from variables import getTreeviewJsonPath
 
 """
 tipitaka_toc.xml contains tipitaka, commentaries, and sun-commentaries
@@ -85,11 +88,9 @@ def infoFile2TreeviewData(path):
 
 
 if __name__ == '__main__':
-  infoFilePath = os.path.join(os.path.dirname(__file__), 'tocsInfo.txt')
-  treeviewData = infoFile2TreeviewData(infoFilePath)
+  treeviewData = infoFile2TreeviewData(getInfoFilePath())
 
-  jsonPath = os.path.join(os.path.dirname(__file__), 'treeview.json')
-  with open(jsonPath, 'w') as f:
+  with open(getTreeviewJsonPath(), 'w') as f:
     f.write(json.dumps(treeviewData))
 
   prettyPrint(treeviewData)

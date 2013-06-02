@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json, re
+import os
+import json
+import re
+from variables import getTreeviewJsonPath
+from variables import getTreeviewAllJsonPath
+from variables import getTreeviewAllJsPath
 
 
 def text2subpath(text):
@@ -93,12 +98,7 @@ def traverseTreeAndSetSubpathProperty(node, space=0):
 
 
 if __name__ == '__main__':
-  jsonPath = os.path.join(os.path.dirname(__file__), 'treeview.json')
-
-  dstServerJsonPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/gaelibs/json/treeviewAll.json')
-  dstClientJsPath = os.path.join(os.path.dirname(__file__), '../../tipitaka/app/js/treeviewAllJson-service.js')
-
-  with open(jsonPath, 'r') as f:
+  with open(getTreeviewJsonPath(), 'r') as f:
     treeviewJson = json.loads(f.read())
 
   # set subpath of Tipiṭaka, commentries, and sub-commentaries
@@ -110,12 +110,14 @@ if __name__ == '__main__':
 
   print(treeviewJson)
 
-  if not os.path.exists(os.path.dirname(dstServerJsonPath)):
-    os.makedirs(os.path.dirname(dstServerJsonPath))
-  with open(dstServerJsonPath, 'w') as f:
+  if not os.path.exists(os.path.dirname(getTreeviewAllJsonPath())):
+    os.makedirs(os.path.dirname(getTreeviewAllJsonPath()))
+  with open(getTreeviewAllJsonPath(), 'w') as f:
     f.write(json.dumps(treeviewJson))
 
-  with open(dstClientJsPath, 'w') as f:
+  if not os.path.exists(os.path.dirname(getTreeviewAllJsPath())):
+    os.makedirs(os.path.dirname(getTreeviewAllJsPath()))
+  with open(getTreeviewAllJsPath(), 'w') as f:
     f.write("angular.module('pali.treeviewAllJson', []).\n")
     f.write("  factory('treeviewAllJson', [function() {\n")
     f.write("    var treeviewData = ")

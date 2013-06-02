@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, sys, shutil, urllib2
+import os
+import sys
+import shutil
+import urllib2
 import xml.dom.minidom
 
 from variables import getRomnDir
+from variables import getInfoFilePath
 
 urlPrefix = 'http://www.tipitaka.org/romn/'
 rootTocXmlSrc = 'tipitaka_toc.xml'
@@ -16,7 +20,6 @@ observation:
 """
 separator = u'#@%'
 infoFileContent = ''
-infoFilePath = os.path.join(os.path.dirname(__file__), 'tocsInfo.txt')
 
 
 def getPaliXml(action, space):
@@ -102,7 +105,7 @@ if __name__ == '__main__':
   # add this fake node to force stack update in next script
   infoFileContent += (u'2' + separator + u'fake')
 
-  with open(infoFilePath, 'w') as f:
+  with open(getInfoFilePath(), 'w') as f:
     f.write(infoFileContent.encode('utf-8'))
 
   getPaliXml('cscd/tipitaka-latn.xsl', 0)

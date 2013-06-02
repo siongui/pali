@@ -12,8 +12,8 @@ module.exports = function(grunt) {
       dist: {
         src: ['common/app/js/services-dicPrefix.js',
               'common/app/scripts/services/data/i18nStrings.js',
-              'app/js/treeviewAllJson-service.js',
-              'app/js/data-i18nTpk-service.js',
+              'app/scripts/services/data/i18nTpk.js',
+              'app/scripts/services/data/treeviewAll.js',
               'app/js/services.js',
               'app/scripts/app.js',
               'app/scripts/controllers.js',
