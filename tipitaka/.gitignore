@@ -12,8 +12,9 @@ gaelibs/json/canonTextTranslation.json
 app/css/tipitaka-latn.css
 app/css/app.min.css
 
-common
+gaelibs/romn
 gaelibs/translation
+common
 GAEDevDatastore
 node_modules
 build

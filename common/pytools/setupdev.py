@@ -34,6 +34,7 @@ Manual setup (for reference):
 
   cd $PALI_DIR/tipitaka/gaelibs
   ln -s ../../../data/pali/common/translation/ translation
+  ln -s ../../../data/pali/common/romn/ romn
 
   cd $PALI_DIR/dictionary
   ln -s ../common/ common
@@ -59,6 +60,7 @@ def setupSymlinks():
   ln('../common/', 'common')
   os.chdir('gaelibs')
   ln('../../../data/pali/common/translation/', 'translation')
+  ln('../../../data/pali/common/romn/', 'romn')
   # enter dictionary dir
   os.chdir('../../dictionary')
   ln('../common/', 'common')

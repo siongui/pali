@@ -5,22 +5,16 @@ import os
 from lxml import etree
 from translationInfo import getTranslatorSource
 
-from google.appengine.ext import ndb
-from google.appengine.ext import blobstore
-
-class XmlBlobKey(ndb.Model):
-  blob_key = ndb.BlobKeyProperty()
-
-#paliXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'romn')
+paliXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'romn')
 trXmlUrlPrefix = os.path.join(os.path.dirname(__file__), 'translation')
-
-xslt_root = etree.parse(blobstore.BlobReader(
-    XmlBlobKey.get_by_id('cscd/tipitaka-latn.xsl').blob_key))
-transform = etree.XSLT(xslt_root)
 
 
 def getCanonXmlUrl(action):
-  """deprecated"""
+  """Determine the path of pali xml file.
+
+  Returns:
+      Path string
+  """
   return os.path.join(paliXmlUrlPrefix, action)
 
 
@@ -36,6 +30,33 @@ def getTranslationXmlUrl(action, translationLocale, translator):
                                        translationLocale, code, xmlFilename))
 
 
+isGAEProductionServer = False
+try:
+  # app engine
+  from google.appengine.ext import ndb
+  from google.appengine.ext import blobstore
+
+  class XmlBlobKey(ndb.Model):
+    blob_key = ndb.BlobKeyProperty()
+
+  if os.environ['SERVER_SOFTWARE'].startswith("Development"):
+    # GAE development server
+    with open(getCanonXmlUrl('cscd/tipitaka-latn.xsl'), 'r') as f:
+      xslt_root = etree.parse(f)
+  else:
+    # GAE production server
+    isGAEProductionServer = True
+    xslt_root = etree.parse(blobstore.BlobReader(
+        XmlBlobKey.get_by_id('cscd/tipitaka-latn.xsl').blob_key))
+
+except ImportError:
+  # not app engine
+  raise Exception('only app engine is supported now')
+
+
+transform = etree.XSLT(xslt_root)
+
+
 def xslt(fileLikeObject):
   root = etree.parse(fileLikeObject)
   # transform xml with xslt
@@ -43,7 +64,11 @@ def xslt(fileLikeObject):
 
 
 def paliXslt(action):
-  return xslt(blobstore.BlobReader(XmlBlobKey.get_by_id(action).blob_key))
+  if isGAEProductionServer:
+    return xslt(blobstore.BlobReader(XmlBlobKey.get_by_id(action).blob_key))
+  else:
+    with open(getCanonXmlUrl(action), 'r') as f:
+      return xslt(f)
 
 
 def translationXslt(action, translationLocale, translator):
