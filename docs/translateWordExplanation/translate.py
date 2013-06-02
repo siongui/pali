@@ -56,12 +56,21 @@ if __name__ == '__main__':
   """
   dicId = 'C'
 
-  index = 0
-  for word, explanation in extractOneDicExps(dicIndex, dicId):
-    index += 1
-    if index < 22560: continue
-    print(explanation)
-    print(gs.translate(explanation, 'fr', 'en'))
-    sleep(0.9)
+  with open(os.path.join(os.path.dirname(__file__), 'output.csv'), 'wb') as f:
+    frWriter = csv.writer(f, delimiter=',', quotechar='"')
+
+    index = 0
+    for word, explanation in extractOneDicExps(dicIndex, dicId):
+      index += 1
+      if index < 22560: continue
+
+      translatedExplanation = gs.translate(explanation, 'fr', 'en')
+      frWriter.writerow([word.encode('utf-8'),
+                         translatedExplanation.encode('utf-8')])
+
+      print(explanation)
+      print(translatedExplanation)
+
+      sleep(0.9)
 
   print('number of words in %s: %d' % (dicIndex[dicId][3], index + 1))

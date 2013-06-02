@@ -12,7 +12,13 @@
     $ git clone https://github.com/siongui/data.git
 ```
 
-2. Install [goslate](https://pypi.python.org/pypi/goslate)
+2. Create information of dictionaries.
+```bash
+    $ cd PALI_DIR/common/pytools/
+    $ python dic1parseBooks.py
+```
+
+3. Install [goslate](https://pypi.python.org/pypi/goslate)
 ```bash
     $ sudo pip install goslate
 ```
