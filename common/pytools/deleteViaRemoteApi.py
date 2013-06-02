@@ -51,7 +51,9 @@ def deletePaliWordJsonModel(num):
 
 
 if __name__ == '__main__':
-  #deleteXmlModel(100)
-  for i in range(0, 10):
-    deletePaliWordModel(100)
-    #deletePaliWordJsonModel(100)
+  #for i in range(0, 10):
+  #  deletePaliWordModel(100)
+  #  deletePaliWordJsonModel(100)
+  #  deleteXmlModel(100)
+
+  PaliWordJson.get_by_id('books.json').key.delete()
