@@ -26,9 +26,9 @@ class wordJsonService:
 
 class robots:
   def GET(self):
-    if web.ctx.host == 'localhost:8080':
-      return 'User-agent: *\nDisallow: /'
-    return 'User-agent: *\nDisallow:\n'
+    if web.ctx.host == 'palidictionary.appspot.com':
+      return 'User-agent: *\nDisallow:\n'
+    return 'User-agent: *\nDisallow: /'
 
 
 app = web.application(urls, globals())

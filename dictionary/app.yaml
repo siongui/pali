@@ -24,7 +24,7 @@ handlers:
 - url: /robots\.txt
   script: serviceweb.app
 
-- url: /(json|wordJson)/.+
+- url: /wordJson/.+
   script: serviceweb.app
 
 - url: /.*

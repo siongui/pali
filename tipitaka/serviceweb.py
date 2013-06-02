@@ -32,9 +32,9 @@ class jsonService:
 
 class robots:
   def GET(self):
-    if web.ctx.host == 'localhost:8080':
-      return 'User-agent: *\nDisallow: /'
-    return 'User-agent: *\nDisallow:\n'
+    if web.ctx.host == 'epalitipitaka.appspot.com':
+      return 'User-agent: *\nDisallow:\n'
+    return 'User-agent: *\nDisallow: /'
 
 def checkData(urlLocale, userLocale):
   if userLocale not in ['en_US', 'zh_TW', 'zh_CN']:
