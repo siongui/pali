@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directives', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch']).
+angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directives', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch', 'pali.resizableViews']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
@@ -19,7 +19,8 @@ angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directive
     $routeProvider.when('/*prefixPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', '$location', '$document', 'resizableViews', 'i18nTpkConvert', function($rootScope, $location, $document, resizableViews, i18nTpkConvert) {
+  run(['$rootScope', '$location', '$document', 'resizableViews', 'i18nTpkConvert',
+  function($rootScope, $location, $document, resizableViews, i18nTpkConvert) {
     // initialize resizable views
     resizableViews.initViews('allContainer', 'treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
 

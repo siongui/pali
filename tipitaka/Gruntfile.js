@@ -22,6 +22,7 @@ module.exports = function(grunt) {
               'app/scripts/directives/treeview.js',
               'app/scripts/services/tooltip.js',
               'app/scripts/services/i18nTpk.js',
+              'app/scripts/services/resizableViews.js',
               'common/app/js/filters.js',
               'common/app/js/services-dic.js',
               'common/app/js/services.js',
