@@ -129,8 +129,8 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
     return serviceInstance;
   }]).
 
-  factory('paliString', ['$rootScope', 'jqlext', 'tooltipHandler', 'paliIndexes',
-                function($rootScope, jqlext, tooltipHandler, paliIndexes) {
+  factory('paliString', ['$rootScope', 'jqlext', 'tooltipHandler', 'wordSearch',
+                function($rootScope, jqlext, tooltipHandler, wordSearch) {
     // when user's mouse hovers over words, delay a period of time before look up.
     var DELAY_INTERVAL = 1000; // ms
 
@@ -172,7 +172,7 @@ angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'pali.
 
     function onWordDbclick(e) {
       var word = this.innerHTML.toLowerCase();
-      if (!paliIndexes.isValidPaliWord(word)) return;
+      if (!wordSearch.isValidPaliWord(word)) return;
       var url = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
       if ($rootScope.isDevServer) url += '?track=no';
       window.open(url);

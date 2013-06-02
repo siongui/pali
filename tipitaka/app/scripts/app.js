@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directives', 'pali.i18n', 'pali.tooltip', 'pali.dropdown']).
+angular.module('paliTipitaka', ['paliTipitaka.services', 'paliTipitaka.directives', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
