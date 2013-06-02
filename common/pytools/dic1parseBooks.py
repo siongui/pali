@@ -119,9 +119,7 @@ def processDictionariesBooks():
   return dicIndex
 
 
-if __name__ == '__main__':
-  dicIndex = processDictionariesBooks()
-
+def printInfo(dicIndex):
   import sys
   index = 0
   for key in dicIndex:
@@ -134,8 +132,16 @@ if __name__ == '__main__':
     sys.stdout.write('\n')
     index += 1
 
+
+def writeJsonFile(dicIndex):
   if not os.path.exists(os.path.dirname(getDictBooksJsonPath())):
     os.makedirs(os.path.dirname(getDictBooksJsonPath()))
 
   with open(getDictBooksJsonPath(), 'w') as f:
     f.write(json.dumps(dicIndex))
+
+
+if __name__ == '__main__':
+  dicIndex = processDictionariesBooks()
+  printInfo(dicIndex)
+  writeJsonFile(dicIndex)

@@ -6,6 +6,8 @@ import csv
 import json
 import shutil
 
+from variables import getDictWordsCSV1Path
+from variables import getDictWordsCSV2Path
 from variables import getDictBooksJsonPath
 from variables import getDictWordsJsonDir
 
@@ -68,10 +70,5 @@ if __name__ == '__main__':
   else:
     os.makedirs(getDictWordsJsonDir())
 
-  dictWordsCSV1Path = os.path.join(os.path.dirname(__file__),
-      "../../../data/pali/common/dictionary/dict_words_1.csv")
-  dictWordsCSV2Path = os.path.join(os.path.dirname(__file__),
-      "../../../data/pali/common/dictionary/dict_words_2.csv")
-
-  processWordCSV(dictWordsCSV1Path, dicIndex, getDictWordsJsonDir())
-  processWordCSV(dictWordsCSV2Path, dicIndex, getDictWordsJsonDir())
+  processWordCSV(getDictWordsCSV1Path(), dicIndex, getDictWordsJsonDir())
+  processWordCSV(getDictWordsCSV2Path(), dicIndex, getDictWordsJsonDir())

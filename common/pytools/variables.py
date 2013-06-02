@@ -14,6 +14,14 @@ def getDictBooksCSVPath():
   return os.path.join(os.path.dirname(__file__),
       "../../../data/pali/common/dictionary/dict-books.csv")
 
+def getDictWordsCSV1Path():
+  return os.path.join(os.path.dirname(__file__),
+      "../../../data/pali/common/dictionary/dict_words_1.csv")
+
+def getDictWordsCSV2Path():
+  return os.path.join(os.path.dirname(__file__),
+      "../../../data/pali/common/dictionary/dict_words_2.csv")
+
 def getDictWordsJsonDir():
   return os.path.join(os.path.dirname(__file__), 'paliwords')
 
