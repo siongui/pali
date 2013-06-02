@@ -33,7 +33,7 @@ class jsonService:
 class robots:
   def GET(self):
     if web.ctx.host == 'epalitipitaka.appspot.com':
-      return 'User-agent: *\nDisallow:\n'
+      return 'User-agent: *\nDisallow: /html/\n'
     return 'User-agent: *\nDisallow: /'
 
 def checkData(urlLocale, userLocale):
