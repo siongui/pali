@@ -42,7 +42,23 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     $ python i18nUtils.py js
 ```
 
-4. Create index of words in dictionary books.
+4. Uncomment (remove leading #) the following line in PALI_DIR/dictionary/app.yaml
+```bash
+    #builtins:
+    #- remote_api: on
+```
+
+5. Uncomment (remove leading #) the following line in PALI_DIR/tipitaka/app.yaml
+```bash
+    #- url: /customRemoteBlobstoreAPI
+    #  script: customRemoteBlobstoreAPI.app
+    #  login: admin
+ 
+    #builtins:
+    #- remote_api: on
+```
+
+6. Create index of words in dictionary books.
 ```bash
     $ cd PALI_DIR/common/pytools/
     $ python dic1parseBooks.py
@@ -73,13 +89,13 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # http://localhost:8080/
 ```
 
-5. Create Tipiṭaka-related translations for server and client.
+7. Create Tipiṭaka-related translations for server and client.
 ```bash
     $ cd PALI_DIR/tipitaka/gaelibs/
     $ python setTranslationData.py
 ```
 
-6. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
+8. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
 ```bash
     $ cd PALI_DIR/common/pytools/
     $ python tpk1getTocs.py
@@ -104,7 +120,7 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     # http://localhost:8080/
 ```
 
-7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
+9. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
     # deploy dictionary website
     $ cd PALI_DIR/dictionary
@@ -122,6 +138,11 @@ Please [install necessary tools for development](https://github.com/siongui/pali
     $ cd PALI_DIR/tipitaka
     $ grunt
     # ctrl-C to abort watching, then upload tipitaka website app to Google App Engine production server.
+    # Please un-comment (remove leading #) the following line in PALI_DIR/tipitaka/app.yaml
+    #
+    #     #- ^(.*/)?gaelibs/romn/.*
+    #
+    # Please comment (add leading #) the above line after the following command finish.
     $ grunt update
 
     # uploading data files to online GAE datastore of production server.
