@@ -104,6 +104,7 @@ angular.module('pali.tooltip', ['pali.mouseEnterLeave', 'pali.wordJson', 'pali.s
     });
     scope.$watch('currentPossibleWord', function(newValue) {
       if (angular.isUndefined(newValue)) return;
+      scope.isNetErr = false;
       paliWordJson.get(newValue).
         success( function(data, status, headers, config) {
           // get jsonData successfully

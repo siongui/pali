@@ -12,6 +12,7 @@ from url import serveTranslationPageHtml
 from url import serveContrastReadingPageHtml
 
 import urllib2
+import urllib
 import json
 
 urls = (
@@ -37,7 +38,8 @@ class wordJsonService:
       if data is not None:
         return data
       else:
-        url = 'http://palidictionary.appspot.com/wordJson/%s' % word
+        url = 'http://palidictionary.appspot.com/wordJson/%s' % \
+            urllib.quote(word.encode('utf-8')) 
         jdata = urllib2.urlopen(url).read()
         memcache.set(word, jdata)
         return jdata
