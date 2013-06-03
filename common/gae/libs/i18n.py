@@ -20,12 +20,15 @@ domain = 'messages'
 threadLocalData = threading.local()
 threadLocalData.locale = 'en_US'
 
-AllTranslations = {
-'en_US': gettext.translation(domain, localedir, ['en_US']),
-'fr_FR': gettext.translation(domain, localedir, ['fr_FR']),
-'zh_TW': gettext.translation(domain, localedir, ['zh_TW']),
-'zh_CN': gettext.translation(domain, localedir, ['zh_CN'])
-}
+locales = []
+for dirpath, dirnames, filenames in os.walk(localedir):
+  for dirname in dirnames:
+    locales.append(dirname)
+  break
+
+AllTranslations = {}
+for locale in locales:
+  AllTranslations[locale] = gettext.translation(domain, localedir, [locale])
 
 def gettext(message):
   return AllTranslations[ threadLocalData.locale ].gettext(message)
@@ -40,6 +43,13 @@ def ungettext(singular, plural, n):
   return AllTranslations[ threadLocalData.locale ].ungettext(singular, plural, n)
 
 def setLocale(locale):
-  if locale in ['en_US', 'zh_TW', 'zh_CN', 'fr_FR']:
+  if locale in locales:
     threadLocalData.locale = locale
 
+
+if __name__ == '__main__':
+  # for test purpose
+  for dirpath, dirnames, filenames in os.walk(localedir):
+    for dirname in dirnames:
+      print(dirname)
+    break
