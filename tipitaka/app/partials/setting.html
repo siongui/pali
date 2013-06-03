@@ -1,23 +1,23 @@
 <div style="padding: 1em; background-color: #F0F8FF; font-family: Tahoma, Arial, serif; border-radius: 10px;" ng-init="isShowSetting = false" ng-show="isShowSetting" ng-cloak>
 <input type="checkbox" ng-model="setting.showTooltip"/> <span i18n str='Show Tooltip When Hovering over Canon Texts'>{$_("Show Tooltip When Hovering over Canon Texts")$}</span><br />
 <input type="checkbox" ng-model="setting.translateTreeview"/> <span i18n str='Translate Pāḷi Texts on Left-side Treeview'>{$_("Translate Pāḷi Texts on Left-side Treeview")$}</span><br />
-<input type="checkbox" ng-model="setting.toTraditionalCht"/> <span i18n str='Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries'>{$_("Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries")$}</span><br />
 <br />
 <div style="border: 1px solid aqua; padding: 5px;">
 <span i18n str='What Languages of Dictionaries to Show?'>{$_("What Languages of Dictionaries to Show?")$}</span><br />
 <input type="checkbox" checked="checked" ng-model="setting.p2en"/> <span i18n str='Pāli-English'>{$_("Pāli-English")$}</span><br />
 <input type="checkbox" checked="checked" ng-model="setting.p2ja"/> <span i18n str='Pāli-Japanese'>{$_("Pāli-Japanese")$}</span><br />
 <input type="checkbox" checked="checked" ng-model="setting.p2zh"/> <span i18n str='Pāli-Chinese'>{$_("Pāli-Chinese")$}</span><br />
+<input type="checkbox" checked="checked" ng-model="setting.p2vi"/> <span i18n str='Pāli-Vietnamese'>{$_("Pāli-Vietnamese")$}</span><br />
+<input type="checkbox" checked="checked" ng-model="setting.p2my"/> <span i18n str='Pāli-Burmese'>{$_("Pāli-Burmese")$}</span><br />
 </div>
 <br />
 <span i18n str='The Order of Languages of Dictionaries to Show?'>{$_("The Order of Languages of Dictionaries to Show?")$}</span><br />
 <select ng-model="setting.dicLangOrder">
   <option value="hdr" selected="selected" i18n str='According to Language Settings in Browser'>{$_("According to Language Settings in Browser")$}</option>
-  <option value="en2ja2zh" i18n str='English - Japanese - Chinese'>{$_("English - Japanese - Chinese")$}</option>
-  <option value="en2zh2ja" i18n str='English - Chinese - Japanese'>{$_("English - Chinese - Japanese")$}</option>
-  <option value="ja2en2zh" i18n str='Japanese - English - Chinese'>{$_("Japanese - English - Chinese")$}</option>
-  <option value="ja2zh2en" i18n str='Japanese - Chinese - English'>{$_("Japanese - Chinese - English")$}</option>
-  <option value="zh2en2ja" i18n str='Chinese - English - Japanese'>{$_("Chinese - English - Japanese")$}</option>
-  <option value="zh2ja2en" i18n str='Chinese - Japanese - English'>{$_("Chinese - Japanese - English")$}</option>
+  <option value="en" i18n str='English First'>{$_("English First")$}</option>
+  <option value="ja" i18n str='Japanese First'>{$_("Japanese First")$}</option>
+  <option value="zh" i18n str='Chinese First'>{$_("Chinese First")$}</option>
+  <option value="vi" i18n str='Vietnamese First'>{$_("Vietnamese First")$}</option>
+  <option value="my" i18n str='Burmese First'>{$_("Burmese First")$}</option>
 </select>
 </div>

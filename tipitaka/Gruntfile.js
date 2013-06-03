@@ -31,6 +31,7 @@ module.exports = function(grunt) {
               'common/app/scripts/directives/dropdown.js',
               'common/app/scripts/directives/mouseEnterLeave.js',
               'common/app/scripts/services/jqlExtension.js',
+              'common/app/scripts/filters/expOrder.js',
               'common/app/scripts/i18n.js'],
         dest: 'build/<%= pkg.name %>.js'
       }

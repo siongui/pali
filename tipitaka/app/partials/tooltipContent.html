@@ -3,7 +3,7 @@
     <a class="wordShortDicExp" href="{{wordUrl(currentSelectedWord)}}" target="_blank">
       {{currentSelectedWord}}
     </a>
-    <div ng-repeat="bookExp in dicWordExps">
+    <div ng-repeat="bookExp in dicWordExps | dicLangSelect: [setting, booksIndex] | dicOrder: [setting, booksIndex]">
       <span style="color: red;">{{ booksIndex[bookExp[0]][2] }}</span>
       <span ng-bind-html-unsafe="getShortExp(bookExp, booksIndex)"></span>
     </div>
@@ -36,7 +36,7 @@
       <a class="wordShortDicExp" href="{{wordUrl(currentPossibleWord)}}" target="_blank">
         {{currentPossibleWord}}
       </a>
-      <div ng-repeat="bookExp in rightDicWordExps">
+      <div ng-repeat="bookExp in rightDicWordExps | dicLangSelect: [setting, booksIndex] | dicOrder: [setting, booksIndex]">
         <span style="color: red;">{{ booksIndex[bookExp[0]][2] }}</span>
         <span ng-bind-html-unsafe="getShortExp(bookExp, booksIndex)"></span>
       </div>

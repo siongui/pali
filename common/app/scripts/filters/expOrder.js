@@ -22,8 +22,9 @@ angular.module('pali.expOrder', []).
   }]).
 
   filter('dicOrder', ['$rootScope', '$filter', function($rootScope, $filter) {
-    return function(bookExps, setting) {
-      var booksIndex = $rootScope.booksIndex;
+    return function(bookExps, settingBooksIndexArray) {
+      var setting = settingBooksIndexArray[0];
+      var booksIndex = settingBooksIndexArray[1];
       var i18nLangQs = $rootScope.i18nLangQs;
 
       var mapping = {};

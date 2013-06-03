@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch', 'pali.resizableViews', 'pali.mainview', 'pali.pathInfo', 'pali.treeviewInfo', 'pali.i18nTpk']).
+angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch', 'pali.resizableViews', 'pali.mainview', 'pali.pathInfo', 'pali.treeviewInfo', 'pali.i18nTpk', 'pali.expOrder']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
@@ -28,14 +28,13 @@ angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'p
     $rootScope.setting = {
       'showTooltip': true,
       'translateTreeview': true,
-      'toTraditionalCht': true,
       'p2en': true,
       'p2ja': true,
       'p2zh': true,
+      'p2vi': true,
+      'p2my': true,
       'dicLangOrder': 'hdr' 
     };
-    if ($rootScope.i18nLocale === 'zh_CN')
-      $rootScope.setting.toTraditionalCht = false;
 
     // initialize ng-include
     if ($location.host() === 'localhost') {
