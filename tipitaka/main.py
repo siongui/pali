@@ -94,7 +94,7 @@ class ContrastReadingPage(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-  PathPrefixRoute(r'/<urlLocale:en_US|zh_TW|zh_CN>', [
+  PathPrefixRoute(r'/<urlLocale:en_US|zh_TW|zh_CN|fr_FR>', [
     webapp2.Route(r'/', handler=MainPage),
     webapp2.Route(r'<paliTextPath:/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>/ContrastReading', handler=ContrastReadingPage),
     webapp2.Route(r'<paliTextPath:/.+>/<translationLocale:en_US|zh_TW|zh_CN>/<translator>', handler=TranslationPage),

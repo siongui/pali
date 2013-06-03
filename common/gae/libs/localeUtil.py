@@ -1,18 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os
-
-localedir = os.path.join(os.path.dirname(__file__), '../../locale')
-locales = []
-for dirpath, dirnames, filenames in os.walk(localedir):
-  for dirname in dirnames:
-    locales.append(dirname)
-  break
-
+from i18n import getSupportedLocales
 
 def getLocale(urlLocale, acptLang):
-  if urlLocale in locales:
+  if urlLocale in getSupportedLocales():
     return urlLocale
   else:
     return determineLocale(acptLang)

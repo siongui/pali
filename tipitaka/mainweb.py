@@ -30,10 +30,10 @@ jinja_environment = jinja2.Environment(
 jinja_environment.install_gettext_translations(i18n)
 
 urls = (
-  r"/(zh_TW|en_US|zh_CN)/", "MainPage2",
-  r"/(zh_TW|en_US|zh_CN)(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage2",
-  r"/(zh_TW|en_US|zh_CN)(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage2",
-  r"/(zh_TW|en_US|zh_CN)(.+)", "CanonPage2",
+  r"/(zh_TW|en_US|zh_CN|fr_FR)/", "MainPage2",
+  r"/(zh_TW|en_US|zh_CN|fr_FR)(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage2",
+  r"/(zh_TW|en_US|zh_CN|fr_FR)(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage2",
+  r"/(zh_TW|en_US|zh_CN|fr_FR)(.+)", "CanonPage2",
   r"/", "MainPage",
   r"(.+)/(en_US|zh_TW|zh_CN)/([^/]+)/ContrastReading", "ContrastReadingPage",
   r"(.+)/(en_US|zh_TW|zh_CN)/([^/]+)", "TranslationPage",

@@ -5,6 +5,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 import web
+from i18n import getSupportedLocales
 sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
 from url import getAllLocalesTranslationsHtml
 from url import serveCanonPageHtml
@@ -54,9 +55,9 @@ class robots:
     return 'User-agent: *\nDisallow: /'
 
 def checkData(urlLocale, userLocale):
-  if userLocale not in ['en_US', 'zh_TW', 'zh_CN']:
+  if userLocale not in getSupportedLocales():
     raise web.notfound()
-  if urlLocale not in ['en_US', 'zh_TW', 'zh_CN', None]:
+  if urlLocale not in getSupportedLocales() and None:
     raise web.notfound()
 
 class htmlMainPage:
