@@ -3,7 +3,7 @@
 /* Directives */
 
 
-angular.module('pali.directives', []).
+angular.module('pali.mouseEnterLeave', []).
   directive('mouseenter', [function() {
     return {
       restrict: 'A',

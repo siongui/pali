@@ -11,11 +11,35 @@ angular.module('pali.wordSearch', ['pali.ngBits']).
      */
 
     var MAX_NUMBER_OF_MATCHED_WORDS = 30;
+    var MAX_NUMBER_OF_POSSIBLE_WORDS = 15;
+
+    function traverseSubTrie(node, prefix, limit) {
+      var words = []
+      var level = [node];
+      var prefixLevel = [prefix];
+      while( level.length > 0 ) {
+        var node2 = level.shift();
+        var prefix2 = prefixLevel.shift();
+
+        // if the 'prefix' variable is a legal pali word.
+        if ( node2.final ) {
+          words.push(prefix2);
+          if ( words.length > limit ) return words;
+        }
+
+        for( var i = 0; i < node2.getChildCount(); i++ ) {
+          var child = node2.getChild( i );
+          level.push( child );
+          prefixLevel.push(prefix2 + child.letter);
+        }
+      }
+
+      return words;
+    }
 
     function autoSuggestedWords(paliWord) {
       if ( paliWord.length === 0 ) return [];
 
-      var exactMatchedArray = [];
       var node = ngBits.trie.getRoot();
 
       // find the node corresponding to the last letter of paliWord
@@ -28,35 +52,40 @@ angular.module('pali.wordSearch', ['pali.ngBits']).
         }
 
         // not found, return empty array.
-        if ( j === node.getChildCount() ) return exactMatchedArray;
+        if ( j === node.getChildCount() ) return [];
 
         node = child;
       }
 
       // The node corresponding to the last letter of paliWord is found.
       // Use this node as root. traversing the trie in level order.
-      var level = [node];
-      var prefixLevel = [paliWord];
-      while( level.length > 0 ) {
-        var node2 = level.shift();
-        var prefix = prefixLevel.shift();
+      return traverseSubTrie(node, paliWord, MAX_NUMBER_OF_MATCHED_WORDS);
+    }
 
-        // if the 'prefix' variable is a legal pali word.
-        if ( node2.final ) {
-          exactMatchedArray.push(prefix);
-          if ( exactMatchedArray.length > MAX_NUMBER_OF_MATCHED_WORDS ) {
-            return exactMatchedArray;
-          }
+    function possibleWords(paliWord) {
+      var node = ngBits.trie.getRoot();
+      var matchedPrefix = '';
+
+      // find the node corresponding to the last letter of prefix-matched string
+      for (var i=0; i < paliWord.length; i++ ) {
+        var child;
+        var j = 0;
+        for ( ; j < node.getChildCount(); j++ ) {
+          child = node.getChild( j );
+          if ( child.letter === paliWord[i] ) break;
         }
 
-        for( var i = 0; i < node2.getChildCount(); i++ ) {
-          var child = node2.getChild( i );
-          level.push( child );
-          prefixLevel.push(prefix + child.letter);
-        }
+        // not found, this is the node we want
+        if ( j === node.getChildCount() ) break;
+
+        node = child;
+        matchedPrefix += child.letter;
       }
 
-      return exactMatchedArray;
+      // The node corresponding to the last letter of prefix-matched string
+      // Use this node as root. traversing the trie in level order.
+      return [ matchedPrefix,
+        traverseSubTrie(node, matchedPrefix, MAX_NUMBER_OF_POSSIBLE_WORDS)];
     }
 
     function getWordsStartsWithLetter(firstLetter) {
@@ -75,26 +104,7 @@ angular.module('pali.wordSearch', ['pali.ngBits']).
 
       // The node corresponding to the firstLetter is found.
       // Use this node as root. traversing the trie in level order.
-      var words = [];
-      var level = [node];
-      var prefixLevel = [firstLetter];
-      while( level.length > 0 ) {
-        var node2 = level.shift();
-        var prefix = prefixLevel.shift();
-
-        // if the 'prefix' variable is a legal pali word.
-        if ( node2.final ) {
-          words.push(prefix);
-        }
-
-        for( var i = 0; i < node2.getChildCount(); i++ ) {
-          var child = node2.getChild( i );
-          level.push( child );
-          prefixLevel.push(prefix + child.letter);
-        }
-      }
-
-      return words;
+      return traverseSubTrie(node, firstLetter, 1000000);
     }
 
     function isValidPaliWord(paliWord) {
@@ -103,5 +113,6 @@ angular.module('pali.wordSearch', ['pali.ngBits']).
 
     return { isValidPaliWord: isValidPaliWord,
              autoSuggestedWords: autoSuggestedWords,
+             possibleWords: possibleWords,
              getWordsStartsWithLetter: getWordsStartsWithLetter };
   }]);

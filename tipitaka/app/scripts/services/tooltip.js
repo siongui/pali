@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('pali.tooltip', ['pali.directives']).
+angular.module('pali.tooltip', ['pali.mouseEnterLeave', 'pali.wordJson', 'pali.shortExp', 'pali.dicBooks']).
   factory('tooltip', ['$rootScope', '$compile', function($rootScope, $compile) {
     // init tooltip
     var scope = $rootScope.$new(true);
@@ -77,12 +77,14 @@ angular.module('pali.tooltip', ['pali.directives']).
     return serviceInstance;
   }]).
 
-  factory('tooltipHandler', ['$rootScope', '$compile', '$templateCache', 'tooltip', 'paliJson', 'paliIndexes', 'palidic',
-                      function($rootScope, $compile, $templateCache, tooltip, paliJson, paliIndexes, palidic) {
+  factory('tooltipHandler', ['$rootScope', '$compile', '$templateCache', 'tooltip', 'paliWordJson', 'dicBooks', 'shortExp', 'wordSearch',
+      function($rootScope, $compile, $templateCache, tooltip, paliWordJson, dicBooks, shortExp, wordSearch) {
     // require 'pali.filters' module
     var scope = $rootScope.$new(true);
-    scope.shortDicName = palidic.shortName;
-    scope.shortDicExp = palidic.shortExp;
+
+    scope.booksIndex = dicBooks.dicIndex;
+    scope.getShortExp = shortExp.get;
+
     scope.wordUrl = function(word) {
       if (!angular.isString(word)) return;
       var url = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
@@ -102,16 +104,20 @@ angular.module('pali.tooltip', ['pali.directives']).
     });
     scope.$watch('currentPossibleWord', function(newValue) {
       if (angular.isUndefined(newValue)) return;
-      paliJson.get(newValue).then( function(jsonData) {
-         // get jsonData successfully via xhr CORS
-        scope.rightDicWordExps = jsonData;
-        if (tooltip.getRightSpace() !== 0)
-          scope.currentPossibleWordPreviewStyle = {width: tooltip.getRightSpace() + 'px'};
-        scope.isShowRight = true;
-      }, function(reason) {
-        // fail to get word via xhr CORS
-        scope.isNetErr = true;
-      });
+      paliWordJson.get(newValue).
+        success( function(data, status, headers, config) {
+          // get jsonData successfully
+          scope.rightDicWordExps = data;
+          if (tooltip.getRightSpace() !== 0)
+            scope.currentPossibleWordPreviewStyle = {
+              width: tooltip.getRightSpace() + 'px'
+            };
+          scope.isShowRight = true;
+        }).
+        error( function(data, status, headers, config) {
+          // fail to get word jsonData
+          scope.isNetErr = true;
+        });
     });
 
     scope.setting = $rootScope.setting;
@@ -132,21 +138,23 @@ angular.module('pali.tooltip', ['pali.directives']).
       scope.isPossibleWords = false;
       scope.isLookingUp = true;
 
-      if (paliIndexes.isValidPaliWord(word)) {
-        paliJson.get(word).then( function(jsonData) {
-          // get jsonData successfully via xhr CORS
-          scope.isLookingUp = false;
-          scope.isShortExp = true;
-          scope.dicWordExps = jsonData;
-          setTimeout(function(){tooltip.show();}, 10);
-        }, function(reason) {
-          // fail to get word via xhr CORS
-          scope.isLookingUp = false;
-          scope.isNetErr = true;
-          setTimeout(function(){tooltip.show();}, 10);
-        });
+      if (wordSearch.isValidPaliWord(word)) {
+        paliWordJson.get(word).
+          success( function(data, status, headers, config) {
+            // get jsonData successfully
+            scope.isLookingUp = false;
+            scope.isShortExp = true;
+            scope.dicWordExps = data;
+            setTimeout(function(){tooltip.show();}, 10);
+          }).
+          error( function(data, status, headers, config) {
+            // fail to get word jsonData
+            scope.isLookingUp = false;
+            scope.isNetErr = true;
+            setTimeout(function(){tooltip.show();}, 10);
+          });
       } else {
-        var result = paliIndexes.possibleWords(word);
+        var result = wordSearch.possibleWords(word);
         if (result) {
           scope.isLookingUp = false;
           scope.isPossibleWords = true;
@@ -171,7 +179,7 @@ angular.module('pali.tooltip', ['pali.directives']).
     return serviceInstance;
   }]).
 
-  directive('possibleWords', ['paliIndexes', function(paliIndexes) {
+  directive('possibleWords', ['wordSearch', function(wordSearch) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -181,7 +189,7 @@ angular.module('pali.tooltip', ['pali.directives']).
         ngModelCtrl.$parsers.push(updatePossibleWords);
 
         function updatePossibleWords(viewValue) {
-          scope.possibleWords = paliIndexes.exactPrefixMatchPossibleWords(viewValue);
+          scope.possibleWords = wordSearch.autoSuggestedWords(viewValue);
         }
       }
     };

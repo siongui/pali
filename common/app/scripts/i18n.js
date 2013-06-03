@@ -71,7 +71,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
   // filter
     return function(text) {
       if (text === 'en_US') return 'English';
-      if (text === 'fr_FR') return 'Française';
+      if (text === 'fr_FR') return 'Français';
       if (text === 'zh_TW') return '中文 (繁體)';
       if (text === 'zh_CN') return '中文 (简体)';
       return text;
