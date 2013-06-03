@@ -15,7 +15,7 @@ import urllib2
 import json
 
 urls = (
-  "/json/.+", "jsonService",
+  "/wordJson/(.+)", "wordJsonService",
   "/robots.txt", "robots",
   "/html/MainPage", "htmlMainPage",
   "/html/CanonPage", "htmlCanonPage",
@@ -23,12 +23,27 @@ urls = (
   "/html/ContrastReadingPage", "htmlContrastReadingPage",
 )
 
-class jsonService:
-  def GET(self):
-    url = 'http://%s.palidictionary.appspot.com/%s' % \
-          (web.input().v, web.ctx.path)
-    result = urllib2.urlopen(url)
-    return result.read()
+try:
+  from google.appengine.api import memcache
+  isGAE = True
+except ImportError:
+  isGAE = False
+  raise Exception('only Google App Engine is supported now')
+
+class wordJsonService:
+  def GET(self, word):
+    if isGAE:
+      data = memcache.get(word)
+      if data is not None:
+        return data
+      else:
+        url = 'http://palidictionary.appspot.com/wordJson/%s' % word
+        jdata = urllib2.urlopen(url).read()
+        memcache.set(word, jdata)
+        return jdata
+    else:
+      raise Exception('only Google App Engine is supported now')
+
 
 class robots:
   def GET(self):

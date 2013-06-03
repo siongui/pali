@@ -24,7 +24,7 @@ handlers:
 - url: /robots\.txt
   script: serviceweb.app
 
-- url: /json/.+
+- url: /wordJson/.+
   script: serviceweb.app
 
 - url: /html/.+
@@ -57,13 +57,12 @@ skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
-- ^(.*/)?common/app/js/.*
 - ^(.*/)?common/app/scripts/.*
-- ^(.*/)?app/js/.*
-- ^(.*/)?app/css/app\.css
-- ^(.*/)?app/css/tipitaka-latn\.css
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
+- ^(.*/)?app/scripts/.*
+- ^(.*/)?app/css/app\.css
+- ^(.*/)?app/css/tipitaka-latn\.css
 - ^(.*/)?gaelibs/setTranslationData\.py
 #- ^(.*/)?gaelibs/romn/.*
 - ^(.*/)?node_modules/.*

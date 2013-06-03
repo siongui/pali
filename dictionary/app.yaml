@@ -47,12 +47,11 @@ skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
-- ^(.*/)?common/app/js/.*
 - ^(.*/)?common/app/scripts/.*
-- ^(.*/)?app/js/.*
-- ^(.*/)?app/css/app\.css
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?common/web\.py/.*
+- ^(.*/)?app/scripts/.*
+- ^(.*/)?app/css/app\.css
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*
 - ^(.*/)?.*\.md
