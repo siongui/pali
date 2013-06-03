@@ -3,7 +3,7 @@
 /* Directives */
 
 
-angular.module('paliTipitaka.directives', []).
+angular.module('pali.treeview', []).
   directive('treeview', ['$compile', 'tvServ', 'i18nTpkConvert', function($compile, tvServ, i18nTpkConvert) {
     return {
       restrict: 'A',

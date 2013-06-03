@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.i18nTpk', ['pali.data.i18nTpk']).
+angular.module('pali.i18nTpk', ['pali.data.i18nTpk']).
   factory('i18nTpkConvert', ['$location', 'i18nTpk', function($location, i18nTpk) {
     function endswith(str, suffix) {
       return str.indexOf(suffix, str.length - suffix.length) != -1;

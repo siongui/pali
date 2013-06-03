@@ -3,7 +3,7 @@
 /* Services */
 
 
-angular.module('paliTipitaka.services', ['pali.services', 'pali.filters', 'paliTipitaka.i18nTpk', 'pali.treeviewAllJson']).
+angular.module('pali.treeviewInfo', ['pali.treeviewAllJson']).
   factory('tvServ', ['treeviewAllJson', function(treeviewAllJson) {
 
     function getInfo(path) {

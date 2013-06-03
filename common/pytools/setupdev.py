@@ -41,9 +41,6 @@ Manual setup (for reference):
 
   cd $PALI_DIR/common/gae/libs
   ln -s ../../../../data/pali/common/gae/libs/jianfan/ jianfan
-
-  cd $PALI_DIR/common/app/js
-  ln -s ../../../../data/pali/common/app/js/ext/ ext
 ```
 """
 
@@ -67,8 +64,6 @@ def setupSymlinks():
   # enter common dir
   os.chdir('../common/gae/libs')
   ln('../../../../data/pali/common/gae/libs/jianfan/', 'jianfan')
-  os.chdir('../../app/js')
-  ln('../../../../data/pali/common/app/js/ext/', 'ext')
 
 
 if __name__ == '__main__':
