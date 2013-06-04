@@ -23,6 +23,7 @@ def isGoogleAppEngine():
 
 
 def isProductionServer():
+  if not isGoogleAppEngine(): return True
   if os.environ['SERVER_SOFTWARE'].startswith("Development"):
     return False
   else:

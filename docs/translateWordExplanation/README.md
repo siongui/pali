@@ -15,6 +15,7 @@
 2. Create information of dictionaries.
 ```bash
     $ cd PALI_DIR/common/pytools/
+    $ python setupdev.py
     $ python dic1parseBooks.py
 ```
 

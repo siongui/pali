@@ -32,4 +32,8 @@ class robots:
 
 
 app = web.application(urls, globals())
-app = app.gaerun()
+try:
+  from google.appengine.ext import ndb
+  app = app.gaerun()
+except ImportError:
+  application = app.wsgifunc()

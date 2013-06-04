@@ -40,7 +40,7 @@ def getDictBooksJsPath():
 
 def getSuccinctTrieJsonPath():
   return os.path.join(os.path.dirname(__file__),
-      "../gae/libs/json/succinct_trie.json")
+      '../../dictionary/gaelibs/json/succinct_trie.json')
 
 def getSuccinctTrieJsPath():
   return os.path.join(os.path.dirname(__file__),
