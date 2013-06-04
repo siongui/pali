@@ -7,7 +7,7 @@ function noopCtrl($scope, i18nserv) {
   $scope.$parent.message = '';
   // set title of html document
   // FIXME: don't access document directly?
-  document.title = i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary', $scope.i18nLocale);
+  document.title = i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary', $scope.i18nLocale);
 }
 noopCtrl.$inject = ['$scope', 'i18nserv'];
 
@@ -23,7 +23,7 @@ function prefixCtrl($scope, $route, wordSearch, i18nserv) {
   // set title of html document
   // FIXME: don't access document directly?
   document.title = i18nserv.gettext('Words Start with', $scope.i18nLocale) + ' ' + $scope.prefix + ' - '
-    + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary', $scope.i18nLocale);
+    + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary', $scope.i18nLocale);
 
   var words = wordSearch.getWordsStartsWithLetter($route.current.params.firstLetter);
   if (angular.isUndefined(words))
@@ -48,7 +48,7 @@ function wordCtrl($scope, $route, paliWordJson, i18nserv) {
   // set title of html document
   // FIXME: don't access document directly?
   document.title = $scope.word + ' - ' + i18nserv.gettext('Definition and Meaning', $scope.i18nLocale) + ' - '
-    + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary', $scope.i18nLocale);
+    + i18nserv.gettext('Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary', $scope.i18nLocale);
 
   paliWordJson.get($scope.word).
     success(function(data, status, headers, config) {

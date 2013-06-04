@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-29 20:44+0800\n"
+"POT-Creation-Date: 2013-06-04 10:20+0800\n"
 "PO-Revision-Date: 2013-03-10 05:19+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary"
-msgstr "巴利字典 | 巴利-英文,中文,日文 字典"
+msgid "Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"
+msgstr "巴利字典 | 巴利-英文,中文,日文,越南文,緬甸文 字典"
 
 msgid "Definition and Meaning"
 msgstr "定義與意義"
@@ -120,27 +120,6 @@ msgstr "當游標移到單字上時顯示翻譯提示"
 
 msgid "Translate Pāḷi Texts on Left-side Treeview"
 msgstr "翻譯左側樹狀顯示裡的巴利文字"
-
-msgid "Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries"
-msgstr "將巴利-中文字典從簡體中文轉換成傳統中文"
-
-msgid "English - Japanese - Chinese"
-msgstr "英文-日文-中文"
-
-msgid "English - Chinese - Japanese"
-msgstr "英文-中文-日文"
-
-msgid "Japanese - English - Chinese"
-msgstr "日文-英文-中文"
-
-msgid "Japanese - Chinese - English"
-msgstr "日文-中文-英文"
-
-msgid "Chinese - English - Japanese"
-msgstr "中文-英文-日文"
-
-msgid "Chinese - Japanese - English"
-msgstr "中文-日文-英文"
 
 msgid "Looking up"
 msgstr "正在查詢中"

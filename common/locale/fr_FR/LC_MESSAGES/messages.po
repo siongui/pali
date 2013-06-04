@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-31 21:13+0800\n"
+"POT-Creation-Date: 2013-06-04 10:20+0800\n"
 "PO-Revision-Date: 2013-05-31 21:13+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Pali Dictionary | Pāli to English, Chinese, Japanese Dictionary"
-msgstr "Dictionnaire Pāḷi | Dicionnaire Pāḷi - Anglais, Chinois, Japonais"
+msgid "Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"
+msgstr "Dictionnaire Pāḷi | Dicionnaire Pāḷi - Anglais, Chinois, Japonais, Vietnamien, Birman"
 
 msgid "Definition and Meaning"
 msgstr "Définition et signification"
@@ -121,27 +121,6 @@ msgstr "Faire afficher les bulles au passage de la souris sur le texte"
 
 msgid "Translate Pāḷi Texts on Left-side Treeview"
 msgstr "Traduire les textes Pāḷi de l'arboresence à gauche"
-
-msgid "Translate Simplified Chinese into Traditional Chinese in Pāli-Chinese Dictionaries"
-msgstr ""
-
-msgid "English - Japanese - Chinese"
-msgstr "Anglais-Japonais-Chinois"
-
-msgid "English - Chinese - Japanese"
-msgstr "Anglais-Chinois-Japonais"
-
-msgid "Japanese - English - Chinese"
-msgstr "Japonais-Anglais-Chinois"
-
-msgid "Japanese - Chinese - English"
-msgstr "Japonais-Chinois-Anglais"
-
-msgid "Chinese - English - Japanese"
-msgstr "Chinois-Anglais-Japonais"
-
-msgid "Chinese - Japanese - English"
-msgstr "Chinois-Japonais-Anglais"
 
 msgid "Looking up"
 msgstr "Recherche"
