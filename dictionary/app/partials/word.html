@@ -1,12 +1,12 @@
-<div ng-show="data" ng-cloak>
+<div ng-show="bookExps" ng-cloak>
   <style>
     table.dicWordExp {background-color: #f7f7f9;}
     table.dicWordExp span {padding-left: 1em;}
   </style>
-  <div ng-repeat="dicWordExp in data | removeFuzzyMatch: word | zhConvert: setting | dicLangSelect: setting | dicOrder: setting | moveToTop: opt_dicWordExp" class="text-right">
+  <div ng-repeat="bookExp in bookExps | dicLangSelect: [setting, booksIndex] | dicOrder: [setting, booksIndex] | moveToTop: opt_bookExp" class="text-right">
     <table class="table table-bordered dicWordExp">
-      <thead><tr><th><strong class="lead text-warning"><em>{{dicWordExp[1] | lowercase}}</em></strong><span class="text-info">{{dicWordExp[0]}}</span></th></tr></thead>
-      <tbody><tr><td ng-bind-html-unsafe="dicWordExp[2]"></td></tr></tbody>
+      <thead><tr><th><strong class="lead text-warning"><em>{{ word }}</em></strong><span class="text-info">{{ booksIndex[bookExp[0]][3] }}</span></th></tr></thead>
+      <tbody><tr><td ng-bind-html-unsafe="bookExp[1]"></td></tr></tbody>
     </table>
     <button class="btn btn-mini btn-link badge" type="button" onclick="window.scrollTo(0,0)">Back to Top</button>
   </div>

@@ -7,7 +7,12 @@
     </div>
     <div class="suggest suggestedWordPreview" ng-show="isShowPreview()" ng-style="suggestPreviewStyle()">
       <span class="previewWordName">{{ currentSelectedWord() }}</span>
-      <div class="shortDicExp" ng-repeat="dicWordExp in dicWordExps | removeFuzzyMatch: currentSelectedWord() | zhConvert: setting | dicLangSelect: setting | dicOrder: setting" ng-mousedown="lookupWord(dicWordExp)"><span>{{shortDicName(dicWordExp)}}</span><span ng-bind-html-unsafe="shortDicExp(dicWordExp)"></span></div>
+      <div class="shortDicExp"
+           ng-repeat="bookExp in bookExps | dicLangSelect: [setting, booksIndex] | dicOrder: [setting, booksIndex]"
+           ng-mousedown="lookupWord(bookExp)">
+        <span>{{ booksIndex[bookExp[0]][2] }}</span>
+        <span ng-bind-html-unsafe="getShortExp(bookExp, booksIndex)"></span>
+      </div>
     </div>
   </div>
   <button id="btn-keypad" class="btn btn-link btn-mini" type="button" ng-click="isShowKeypad = !isShowKeypad" i18n str='Keyboard'>{$_("Keyboard")$}</button>
