@@ -2,9 +2,8 @@
  * Decode json data from file, and use it to check if a word exists in the
  * dictionary.
  */
-var json = require(require('path').resolve(__dirname,
-     '../../../dictionary/gaelibs/json/succinct_trie.json'));
-var bitsjs = require(require('path').resolve(__dirname, 'Bits.js'));
+var json = require(require('./variables.js').succinctTrieJsonPath);
+var bitsjs = require(require('./variables.js').BitsjsPath);
 var ftrie = new bitsjs.FrozenTrie( json.trie, json.directory, json.nodeCount);
 
 // @see http://nodejs.org/api/readline.html#readline_example_tiny_cli

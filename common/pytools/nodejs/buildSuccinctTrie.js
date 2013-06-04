@@ -7,9 +7,9 @@
  * @see also http://ejohn.org/blog/javascript-trie-performance-analysis/
  * @see also http://ejohn.org/blog/revised-javascript-dictionary-search/
  */
-var bitsjs = require(require('path').resolve(__dirname, 'Bits.js'));
+var bitsjs = require(require('./variables.js').BitsjsPath);
 
-var words = require("fs").readdirSync('../paliwords/');
+var words = require("fs").readdirSync(require('./variables.js').dictWordsJsonDir);
 words.sort();
 
 // create a trie
@@ -42,7 +42,6 @@ console.log(output);
 var jsonData = eval( '(' + output + ")" );
 
 require('fs').writeFileSync(
-    require('path').resolve(__dirname, 
-        '../../../dictionary/gaelibs/json/succinct_trie.json'),
+    require('./variables.js').succinctTrieJsonPath,
     JSON.stringify(jsonData)
 );

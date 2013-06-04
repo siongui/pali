@@ -5,6 +5,7 @@ app/css/app.min.css
 
 gaelibs/json/books.json
 gaelibs/json/succinct_trie.json
+gaelibs/paliwords/
 gaelibs/prefixWordsHtml/
 
 common

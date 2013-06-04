@@ -23,7 +23,8 @@ def getDictWordsCSV2Path():
       "../../../data/pali/common/dictionary/dict_words_2.csv")
 
 def getDictWordsJsonDir():
-  return os.path.join(os.path.dirname(__file__), 'paliwords')
+  return os.path.join(os.path.dirname(__file__),
+      '../../dictionary/gaelibs/paliwords')
 
 def getPrefixWordsHtmlDir():
   return os.path.join(os.path.dirname(__file__),

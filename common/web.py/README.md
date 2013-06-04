@@ -11,6 +11,13 @@ sudo apt-get install libapache2-mod-wsgi
 sudo apt-get install python-setuptools
 sudo apt-get install python-pip
 sudo pip install web.py
+sudo pip install jinja2
+sudo apt-get install git-all
+sudo apt-get install gettext
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+sudo npm install -g grunt-cli
 ```
 
 References:
