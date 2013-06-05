@@ -59,7 +59,6 @@ class MainPage:
   def GET(self, urlLocale=None):
     template_values = commonTemplateValues(urlLocale, self.__class__.__name__)
     template = jinja_environment.get_template('index.html')
-    web.header('Content-Type', 'text/html')
     return template.render(template_values)
 
 def commonPage(prefix, word, reqHandlerName, urlLocale=None):
@@ -81,7 +80,6 @@ def commonPage(prefix, word, reqHandlerName, urlLocale=None):
   if pageHtml is None: raise web.notfound()
   template_values['pageHtml'] = pageHtml
   template = jinja_environment.get_template('index.html')
-  web.header('Content-Type', 'text/html')
   return template.render(template_values)
 
 class WordPage:

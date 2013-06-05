@@ -17,6 +17,11 @@ try:
       raise Exception('word not found: %s' % word)
 
 except ImportError:
+  """obsoleted. Never used.
+
+  In apache config, the files in 'paliwords' diretory are served as static
+  files. No need to serve them through web framework.
+  """
   import os
 
   wordsDir = os.path.join(os.path.dirname(__file__), 'paliwords')
