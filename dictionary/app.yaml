@@ -49,7 +49,6 @@ skip_files:
 - ^(.*/)?\..*
 - ^(.*/)?common/app/scripts/.*
 - ^(.*/)?common/pytools/.*
-- ^(.*/)?common/web\.py/.*
 - ^(.*/)?app/scripts/.*
 - ^(.*/)?app/css/app\.css
 - ^(.*/)?gaelibs/paliwords/.*
