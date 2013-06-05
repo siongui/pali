@@ -1,84 +1,77 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os
+from os.path import join
+from os.path import dirname
+
+DICTIONARY_DIR = join(dirname(__file__), '../../dictionary')
+TIPITAKA_DIR = join(dirname(__file__), '../../tipitaka')
+COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
+APP_COMMON_DATA_DIR = join(dirname(__file__), "../app/scripts/services/data")
 
 def getSDKPath():
-  return os.path.join(os.path.dirname(__file__), "../../../google_appengine/")
+  return join(dirname(__file__), "../../../google_appengine/")
 
 def getRomnDir():
-  return os.path.join(os.path.dirname(__file__),
-      '../../../data/pali/common/romn/')
+  return join(COMMOM_DATA_DIR, 'romn')
 
 def getDictBooksCSVPath():
-  return os.path.join(os.path.dirname(__file__),
-      "../../../data/pali/common/dictionary/dict-books.csv")
+  return join(COMMOM_DATA_DIR, 'dictionary/dict-books.csv')
 
 def getDictWordsCSV1Path():
-  return os.path.join(os.path.dirname(__file__),
-      "../../../data/pali/common/dictionary/dict_words_1.csv")
+  return join(COMMOM_DATA_DIR, 'dictionary/dict_words_1.csv')
 
 def getDictWordsCSV2Path():
-  return os.path.join(os.path.dirname(__file__),
-      "../../../data/pali/common/dictionary/dict_words_2.csv")
+  return join(COMMOM_DATA_DIR, 'dictionary/dict_words_2.csv')
 
 def getDictWordsJsonDir():
-  return os.path.join(os.path.dirname(__file__),
-      '../../dictionary/gaelibs/paliwords')
+  return join(DICTIONARY_DIR, 'gaelibs/paliwords')
 
 def getPrefixWordsHtmlDir():
-  return os.path.join(os.path.dirname(__file__),
-      '../../dictionary/gaelibs/prefixWordsHtml')
+  return join(DICTIONARY_DIR, 'gaelibs/prefixWordsHtml')
 
 def getDictBooksJsonPath():
-  return os.path.join(os.path.dirname(__file__),
-      "../../dictionary/gaelibs/json/books.json")
+  return join(DICTIONARY_DIR, 'gaelibs/json/books.json')
 
 def getDictBooksJsPath():
-  return os.path.join(os.path.dirname(__file__),
-      "../app/scripts/services/data/dicBooks.js")
+  return join(APP_COMMON_DATA_DIR, "dicBooks.js")
 
 def getSuccinctTrieJsonPath():
-  return os.path.join(os.path.dirname(__file__),
-      '../../dictionary/gaelibs/json/succinct_trie.json')
+  return join(DICTIONARY_DIR, 'gaelibs/json/succinct_trie.json')
 
 def getSuccinctTrieJsPath():
-  return os.path.join(os.path.dirname(__file__),
-      "../app/scripts/services/data/succinctTrie.js")
+  return join(APP_COMMON_DATA_DIR, "succinctTrie.js")
 
 def getLocaleDir():
-  return os.path.join(os.path.dirname(__file__), '../locale')
+  return join(dirname(__file__), '../locale')
 
 def getDicHtmlDir():
-  return os.path.join(os.path.dirname(__file__), '../../dictionary/app')
+  return join(DICTIONARY_DIR, 'app')
 
 def getTpkHtmlDir():
-  return os.path.join(os.path.dirname(__file__), '../../tipitaka/app')
+  return join(TIPITAKA_DIR, 'app')
 
 def getDicHtmlDir2():
-  return os.path.join(os.path.dirname(__file__), '../../dictionary/gaelibs/partials')
+  return join(DICTIONARY_DIR, 'gaelibs/partials')
 
 def getTpkHtmlDir2():
-  return os.path.join(os.path.dirname(__file__), '../../tipitaka/gaelibs/partials')
+  return join(TIPITAKA_DIR, 'gaelibs/partials')
 
 def getPotPath():
-  return os.path.join(getLocaleDir(), 'messages.pot')
+  return join(getLocaleDir(), 'messages.pot')
 
 def getDstLocalesJsPath():
-  return os.path.join(os.path.dirname(__file__),
-      '../app/scripts/services/data/i18nStrings.js')
+  return join(APP_COMMON_DATA_DIR, "i18nStrings.js")
 
 def getInfoFilePath():
-  return os.path.join(os.path.dirname(__file__), 'tocsInfo.txt')
+  return join(dirname(__file__), 'tocsInfo.txt')
 
 def getTreeviewJsonPath():
-  return os.path.join(os.path.dirname(__file__), 'treeview.json')
+  return join(dirname(__file__), 'treeview.json')
 
 def getTreeviewAllJsonPath():
-  return os.path.join(os.path.dirname(__file__),
-      '../../tipitaka/gaelibs/json/treeviewAll.json')
+  return join(TIPITAKA_DIR, 'gaelibs/json/treeviewAll.json')
 
 def getTreeviewAllJsPath():
-  return os.path.join(os.path.dirname(__file__),
-      '../../tipitaka/app/scripts/services/data/treeviewAll.js')
+  return join(TIPITAKA_DIR, 'app/scripts/services/data/treeviewAll.js')
 
