@@ -113,6 +113,8 @@ angular.module('pali.i18nTpk', ['pali.data.i18nTpk']).
         $location.path('/en_US' + path);
       } else if ($location.path().indexOf('/fr_FR/') === 0) {
         $location.path('/fr_FR' + path);
+      } else if ($location.path().indexOf('/vi_VN/') === 0) {
+        $location.path('/vi_VN' + path);
       } else if ($location.path().indexOf('/zh_TW/') === 0) {
         $location.path('/zh_TW' + path);
       } else if ($location.path().indexOf('/zh_CN/') === 0) {

@@ -11,14 +11,17 @@ angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'p
     $routeProvider.when('/zh_TW/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.when('/zh_CN/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.when('/fr_FR/', {templateUrl: '/partials/info.html', controller: infoCtrl});
+    $routeProvider.when('/vi_VN/', {templateUrl: '/partials/info.html', controller: infoCtrl});
     $routeProvider.when('/*prefixPath/en_US/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
     $routeProvider.when('/*prefixPath/zh_TW/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
     $routeProvider.when('/*prefixPath/zh_CN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
     $routeProvider.when('/*prefixPath/fr_FR/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
+    $routeProvider.when('/*prefixPath/vi_VN/:translator/ContrastReading', {templateUrl: '/partials/canon.html', controller: contrastReadingCtrl});
     $routeProvider.when('/*prefixPath/en_US/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/*prefixPath/zh_TW/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/*prefixPath/zh_CN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/*prefixPath/fr_FR/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
+    $routeProvider.when('/*prefixPath/vi_VN/:translator', {templateUrl: '/partials/canon.html', controller: translationCtrl});
     $routeProvider.when('/*prefixPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).

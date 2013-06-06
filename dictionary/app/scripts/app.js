@@ -10,6 +10,7 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks',
     $routeProvider.when('/zh_TW/', {template: '<br />', controller: noopCtrl});
     $routeProvider.when('/zh_CN/', {template: '<br />', controller: noopCtrl});
     $routeProvider.when('/fr_FR/', {template: '<br />', controller: noopCtrl});
+    $routeProvider.when('/vi_VN/', {template: '<br />', controller: noopCtrl});
     $routeProvider.when('/about', {templateUrl: '/partials/about.html', controller: noopCtrl});
     $routeProvider.when('/browse/noSuchWord', {template: '<br />', controller: noSuchWordCtrl});
     $routeProvider.when('/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
@@ -17,11 +18,13 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks',
     $routeProvider.when('/zh_TW/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
     $routeProvider.when('/zh_CN/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
     $routeProvider.when('/fr_FR/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
+    $routeProvider.when('/vi_VN/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
     $routeProvider.when('/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.when('/en_US/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.when('/zh_TW/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.when('/zh_CN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.when('/fr_FR/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
+    $routeProvider.when('/vi_VN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
   run(['$rootScope', '$cookieStore', 'dicBooks',

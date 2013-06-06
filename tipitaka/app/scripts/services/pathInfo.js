@@ -30,6 +30,7 @@ angular.module('pali.pathInfo', []).
       // get urlLocale if any
       if (subpathes[0] === 'en_US' ||
           subpathes[0] === 'fr_FR' ||
+          subpathes[0] === 'vi_VN' ||
           subpathes[0] === 'zh_TW' ||
           subpathes[0] === 'zh_CN') {
         pathInfo.urlLocale = subpathes.shift();

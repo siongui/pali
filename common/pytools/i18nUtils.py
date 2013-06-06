@@ -27,7 +27,7 @@ from variables import getDicHtmlDir2
 from variables import getTpkHtmlDir2
 
 # http://www.roseindia.net/tutorials/I18N/locales-list.shtml
-locales = ['en_US', 'zh_TW', 'zh_CN', 'fr_FR']
+locales = ['en_US', 'zh_TW', 'zh_CN', 'fr_FR', 'vi_VN']
 
 
 def searchI18n(string):

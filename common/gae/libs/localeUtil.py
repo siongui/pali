@@ -48,6 +48,8 @@ def determineLocale(value):
         return 'en_US'
       if lang.startswith('fr'):
         return 'fr_FR'
+      if lang.startswith('vi'):
+        return 'vi_VN'
 
   except:
     return 'en_US'

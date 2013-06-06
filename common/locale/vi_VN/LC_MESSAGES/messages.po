@@ -1,0 +1,150 @@
+# Vietnamese translations for PACKAGE package.
+# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-06 23:05+0800\n"
+"PO-Revision-Date: 2013-06-06 22:50+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"
+msgstr "Từ điển Pāḷi | Từ Pāḷi sang Tiếng Anh, Tiếng Hoa, Tiếng Nhật, Tiếng Việt, Tiếng Miến"
+
+msgid "Definition and Meaning"
+msgstr "Giải nghĩa"
+
+msgid "Words Start with"
+msgstr "Chữ đầu tiên của từ"
+
+msgid "Pāḷi Dictionary"
+msgstr "Từ điển Pāḷi"
+
+msgid "Home"
+msgstr "Trang chính"
+
+msgid "Canon"
+msgstr "Kinh điển"
+
+msgid "About"
+msgstr "Giới thiệu"
+
+msgid "Setting"
+msgstr "Thiết lập"
+
+msgid "No Such Word"
+msgstr "Không tìm thấy từ"
+
+msgid "Looking Up ..."
+msgstr "Đang tìm ..."
+
+msgid "Loading Words ..."
+msgstr "Đang lấy từ ..."
+
+msgid "Internet Connection Error"
+msgstr "Lỗi kết nối mạng"
+
+msgid "Browse Dictionary"
+msgstr "Duyệt thư mục"
+
+msgid "Input Word Explanation Preview"
+msgstr "Hiện bảng giải nghĩa ngắn gọn"
+
+msgid "What Languages of Dictionaries to Show?"
+msgstr "Những ngôn ngữ cần hiển thị"
+
+msgid "Pāli-English"
+msgstr "Pāḷi - Anh"
+
+msgid "Pāli-Japanese"
+msgstr "Pāḷi - Nhật"
+
+msgid "Pāli-Chinese"
+msgstr "Pāḷi - Hoa"
+
+msgid "Pāli-Vietnamese"
+msgstr "Pāḷi - Việt"
+
+msgid "Pāli-Burmese"
+msgstr "Pāḷi - Miến"
+
+msgid "The Order of Languages of Dictionaries to Show?"
+msgstr "Chọn lại ngôn ngữ ưu tiên"
+
+msgid "According to Language Settings in Browser"
+msgstr "Ưu tiên ngôn ngữ theo cài đặt của trình duyệt"
+
+msgid "English First"
+msgstr "Tiếng Anh trước"
+
+msgid "Japanese First"
+msgstr "Tiếng Nhật trước"
+
+msgid "Chinese First"
+msgstr "Tiếng Hoa trước"
+
+msgid "Vietnamese First"
+msgstr "Tiếng Việt trước"
+
+msgid "Burmese First"
+msgstr "Tiếng Miến trước"
+
+msgid "Keyboard"
+msgstr "Bàn phím"
+
+msgid "Pali Tipitaka"
+msgstr "Tam tạng Pāḷi"
+
+msgid "Translation"
+msgstr "Dịch"
+
+msgid "Dictionary"
+msgstr "Từ điển"
+
+msgid "Browse"
+msgstr "Rà duyệt"
+
+msgid "Loading"
+msgstr "Đang lấy dữ liệu"
+
+msgid "Show Tooltip When Hovering over Canon Texts"
+msgstr "Hiện bảng tra từ ngay khi rê chuột đến từ"
+
+msgid "Translate Pāḷi Texts on Left-side Treeview"
+msgstr "Dịch các từ Pāḷi bên cột trái "
+
+msgid "Looking up"
+msgstr "Đang tìm"
+
+msgid "All Translations"
+msgstr "Tất cả bản dịch"
+
+msgid "Excerpt"
+msgstr "Trích dẫn"
+
+msgid "Contrast Reading"
+msgstr "So sánh"
+
+msgid "Translation of This Pāḷi Text"
+msgstr "Bản dịch của văn bản Pāḷi này"
+
+msgid "Original Pāḷi Text"
+msgstr "Văn bản Pāḷi gốc"
+
+msgid "URL of the Translation"
+msgstr "Đường dẫn tới bản dịch"
+
+msgid "Copyright URL of the Translation"
+msgstr "Đường dẫn có bản quyền"
+
+msgid "Only Partial Translation Available"
+msgstr "Chỉ dịch được một phần"
