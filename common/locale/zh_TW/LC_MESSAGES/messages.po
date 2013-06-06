@@ -47,7 +47,7 @@ msgid "Looking Up ..."
 msgstr "Đang tìm ..."
 
 msgid "Loading Words ..."
-msgstr "Đang tra từ ..."
+msgstr "Đang lấy từ ..."
 
 msgid "Internet Connection Error"
 msgstr "Lỗi kết nối mạng"
@@ -59,10 +59,10 @@ msgid "Keyboard"
 msgstr "Bàn phím"
 
 msgid "Input Word Explanation Preview"
-msgstr "Xem trước nghĩa của từ"
+msgstr "Hiện bảng giải nghĩa ngắn gọn"
 
 msgid "What Languages of Dictionaries to Show?"
-msgstr "Dịch sang ngôn ngữ nào?"
+msgstr "Những ngôn ngữ nào cần được dịch hiển thị?"
 
 msgid "Pāli-English"
 msgstr "Pāḷi - Anh"
@@ -80,10 +80,10 @@ msgid "Pāli-Burmese"
 msgstr "Pāḷi - Miến"
 
 msgid "The Order of Languages of Dictionaries to Show?"
-msgstr "Sắp xếp thứ tự ngôn ngữ"
+msgstr "Xếp lại ngôn ngữ ưu tiên"
 
 msgid "According to Language Settings in Browser"
-msgstr "Chọn theo cài đặt ngôn ngữ của trình duyệt"
+msgstr "Ưu tiên ngôn ngữ theo cài đặt của trình duyệt"
 
 msgid "English First"
 msgstr "Tiếng Anh trước"
@@ -143,7 +143,7 @@ msgid "URL of the Translation"
 msgstr "Đường dẫn tới bản dịch"
 
 msgid "Copyright URL of the Translation"
-msgstr ""
+msgstr "Đường dẫn có bản quyền"
 
 msgid "Only Partial Translation Available"
 msgstr "Chỉ dịch được một phần"
