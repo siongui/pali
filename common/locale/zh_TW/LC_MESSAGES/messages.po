@@ -17,133 +17,133 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"
-msgstr "巴利字典 | 巴利-英文,中文,日文,越南文,緬甸文 字典"
+msgstr "Từ điển Pāḷi | Từ Pāḷi sang Tiếng Anh, Tiếng Hoa, Tiếng Nhật, Tiếng Việt, Tiếng Miến
 
 msgid "Definition and Meaning"
-msgstr "定義與意義"
+msgstr "Giải nghĩa"
 
 msgid "Words Start with"
-msgstr "單字,開頭為"
+msgstr "Chữ đầu tiên của từ"
 
 msgid "Pāḷi Dictionary"
-msgstr "巴利字典"
+msgstr "Từ điển Pāḷi"
 
 msgid "Home"
-msgstr "首頁"
+msgstr "Trang chính"
 
 msgid "Canon"
-msgstr "經典"
+msgstr "Kinh điển"
 
 msgid "About"
-msgstr "關於"
+msgstr "Giới thiệu"
 
 msgid "Setting"
-msgstr "設定"
+msgstr "Cài đặt"
 
 msgid "No Such Word"
-msgstr "無此字"
+msgstr "Không tìm thấy từ"
 
 msgid "Looking Up ..."
-msgstr "正在查詢中 ..."
+msgstr "Đang tìm ..."
 
 msgid "Loading Words ..."
-msgstr "正在載入單字中 ..."
+msgstr "Đang lấy từ ..."
 
 msgid "Internet Connection Error"
-msgstr "網路連線錯誤"
+msgstr "Lỗi kết nối mạng"
 
 msgid "Browse Dictionary"
-msgstr "瀏覽字典"
+msgstr "Duyệt thư mục"
 
 msgid "Keyboard"
-msgstr "鍵盤"
+msgstr "Bàn phím"
 
 msgid "Input Word Explanation Preview"
-msgstr "預覽輸入單字解釋"
+msgstr "Hiện bảng giải nghĩa ngắn gọn"
 
 msgid "What Languages of Dictionaries to Show?"
-msgstr "顯示哪種語言的字典?"
+msgstr "Những ngôn ngữ nào cần được dịch hiển thị?"
 
 msgid "Pāli-English"
-msgstr "巴利-英文"
+msgstr "Pāḷi - Anh"
 
 msgid "Pāli-Japanese"
-msgstr "巴利-日文"
+msgstr "Pāḷi - Nhật"
 
 msgid "Pāli-Chinese"
-msgstr "巴利-中文"
+msgstr "Pāḷi - Hoa"
 
 msgid "Pāli-Vietnamese"
-msgstr "巴利-越南文"
+msgstr "Pāḷi - Việt"
 
 msgid "Pāli-Burmese"
-msgstr "巴利-緬甸文"
+msgstr "Pāḷi - Miến"
 
 msgid "The Order of Languages of Dictionaries to Show?"
-msgstr "顯示字典語言順序?"
+msgstr "Xếp lại ngôn ngữ ưu tiên"
 
 msgid "According to Language Settings in Browser"
-msgstr "根據瀏覽器語言設定"
+msgstr "Ưu tiên ngôn ngữ theo cài đặt của trình duyệt"
 
 msgid "English First"
-msgstr "英文優先"
+msgstr "Tiếng Anh trước"
 
 msgid "Japanese First"
-msgstr "日文優先"
+msgstr "Tiếng Nhật trước"
 
 msgid "Chinese First"
-msgstr "中文優先"
+msgstr "Tiếng Hoa trước"
 
 msgid "Vietnamese First"
-msgstr "越南文優先"
+msgstr "Tiếng Việt trước"
 
 msgid "Burmese First"
-msgstr "緬甸文優先"
+msgstr "Tiếng Miến trước"
 
 msgid "Pali Tipitaka"
-msgstr "巴利三藏"
+msgstr "Tam tạng Pāḷi"
 
 msgid "Translation"
-msgstr "翻譯"
+msgstr "Dịch"
 
 msgid "Dictionary"
-msgstr "字典"
+msgstr "Từ điển"
 
 msgid "Browse"
-msgstr "瀏覽"
+msgstr "Rà duyệt"
 
 msgid "Loading"
-msgstr "載入中"
+msgstr "Đang lấy dữ liệu"
 
 msgid "Show Tooltip When Hovering over Canon Texts"
-msgstr "當游標移到單字上時顯示翻譯提示"
+msgstr "Hiện bảng tra từ ngay khi rê chuột đến từ"
 
 msgid "Translate Pāḷi Texts on Left-side Treeview"
-msgstr "翻譯左側樹狀顯示裡的巴利文字"
+msgstr "Dịch các từ Pāḷi bên cột trái "
 
 msgid "Looking up"
-msgstr "正在查詢中"
+msgstr "Đang tìm"
 
 msgid "All Translations"
-msgstr "所有翻譯"
+msgstr "Tất cả bản dịch"
 
 msgid "Excerpt"
-msgstr "片段"
+msgstr "Trích dẫn"
 
 msgid "Contrast Reading"
-msgstr "比照對讀"
+msgstr "So sánh"
 
 msgid "Translation of This Pāḷi Text"
-msgstr "此巴利文件翻譯"
+msgstr "Bản dịch của văn bản Pāḷi này"
 
 msgid "Original Pāḷi Text"
-msgstr "原巴利文件"
+msgstr "Văn bản Pāḷi gốc"
 
 msgid "URL of the Translation"
-msgstr "此翻譯的網頁"
+msgstr "Đường dẫn tới bản dịch"
 
 msgid "Copyright URL of the Translation"
-msgstr "此翻譯的版權網頁"
+msgstr "Đường dẫn có bản quyền"
 
 msgid "Only Partial Translation Available"
-msgstr "只有部份翻譯可得"
+msgstr "Chỉ dịch được một phần"
