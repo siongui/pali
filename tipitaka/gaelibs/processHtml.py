@@ -56,8 +56,12 @@ def contrastReadingTemplateValue(oriBody, trBody):
        trBody[i].tag != 'p':
       continue
 
-    contrastReadings.append([etree.tostring(oriBody[i]),
-                             etree.tostring(trBody[i]) ])
+    oriHtmlI = etree.tostring(oriBody[i])
+    trHtmlI = etree.tostring(trBody[i])
+    if oriHtmlI == trHtmlI:
+      contrastReadings.append( [ oriHtmlI, '' ] )
+    else:
+      contrastReadings.append( [ oriHtmlI, trHtmlI ] )
 
   return contrastReadings
 
