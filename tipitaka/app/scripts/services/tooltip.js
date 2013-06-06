@@ -109,6 +109,7 @@ angular.module('pali.tooltip', ['pali.mouseEnterLeave', 'pali.wordJson', 'pali.s
         success( function(data, status, headers, config) {
           // get jsonData successfully
           scope.rightDicWordExps = data;
+          scope.currentPossibleWordString = newValue;
           if (tooltip.getRightSpace() !== 0)
             scope.currentPossibleWordPreviewStyle = {
               width: tooltip.getRightSpace() + 'px'

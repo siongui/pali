@@ -196,6 +196,7 @@ angular.module('paliDictionary.directives',
             paliWordJson.get(newValue).
               success(function(data, status, headers, config) {
                 scope.bookExps = data;
+                scope.previewWord = newValue;
               }).
               error(function(data, status, headers, config) {
                 // fail to get json, pass
