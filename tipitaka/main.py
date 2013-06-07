@@ -13,7 +13,7 @@ from url import checkPath
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale
 from localeUtil import parseAcceptLanguage
-from misc import isCompiledJS
+from misc import isDevServer
 from misc import isTrack
 import i18n
 
@@ -36,8 +36,8 @@ def getCommonTemplateValues(self, urlLocale, userLocale):
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(self.request.headers.get('accept_language'))),
     'urlLocale': urlLocale,
-    'isCompiledJS': isCompiledJS(self.request.GET.get('js')),
     'isTrack': isTrack(self.request.GET.get('track')),
+    'isDevServer': isDevServer(),
   }
 
   return template_values

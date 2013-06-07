@@ -13,7 +13,8 @@ from url2 import getHtmlTitle
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale, parseAcceptLanguage
-from misc import isCompiledJS, isTrack
+from misc import isTrack
+from misc import isDevServer
 import i18n
 
 jinja_environment = jinja2.Environment(
@@ -35,8 +36,8 @@ def getCommonTemplateValues(self, urlLocale, prefix=None, word=None):
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(self.request.headers.get('accept_language'))),
     'urlLocale': urlLocale,
-    'isCompiledJS': isCompiledJS(self.request.GET.get('js')),
     'isTrack': isTrack(self.request.GET.get('track')),
+    'isDevServer': isDevServer(),
   }
 
   return template_values

@@ -20,15 +20,15 @@
 <div  id="allContainer">
   {% include 'mainbar.html' %}
   {% include 'setting.html' %}
-  {% if isCompiledJS %}<gcse:searchbox-only></gcse:searchbox-only>{% endif %}
+  {% if not isDevServer %}<gcse:searchbox-only></gcse:searchbox-only>{% endif %}
 
   <div style="width: 100%; overflow: hidden;">
     <div id="treeview">
       <div treeview></div>
-      {% if isCompiledJS %}
-        {% include 'buttons.html' %}
-      {% else %}
+      {% if isDevServer %}
         {% include 'devlinks.html' %}
+      {% else %}
+        {% include 'buttons.html' %}
       {% endif %}
     </div>
     <div id="viewwrapper">
@@ -58,7 +58,7 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
 <script src="/js/tipitaka.js"></script>
-{% if isCompiledJS %}
+{% if not isDevServer %}
 <script>
 (function() {
   var cx = '000759460633137666077:ohvoelt1nog';

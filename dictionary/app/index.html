@@ -18,10 +18,10 @@
   <div class="container-fluid">
     <div class="row-fluid" id="allContainer">
       <div class="span2 visible-desktop">
-        {% if isCompiledJS %}
-          {% include 'buttons.html' %}
-        {% else %}
+        {% if isDevServer %}
           {% include 'devlinks.html' %}
+        {% else %}
+          {% include 'buttons.html' %}
         {% endif %}
       </div>
       <div class="span8 main-content">

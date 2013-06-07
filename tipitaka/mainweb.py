@@ -6,7 +6,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 from localeUtil import getLocale
 from localeUtil import parseAcceptLanguage
-from misc import isCompiledJS
+from misc import isDevServer
 from misc import isTrack
 import i18n
 import web
@@ -48,8 +48,8 @@ def commonTemplateValues(urlLocale, userLocale):
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
     'urlLocale': urlLocale,
-    'isCompiledJS': isCompiledJS(web.input(js=None).js),
     'isTrack': isTrack(web.input(track=None).track),
+    'isDevServer': isDevServer(),
   }
   return template_values
 

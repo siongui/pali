@@ -5,35 +5,29 @@ import os
 
 
 def isTrack(trackQry):
-  if isProductionServer():
+  # FIXME: isDevServer is not correctly implemented
+  if isDevServer():
+    return False
+  else:
     if trackQry == 'no':
       return False
     else:
       return True
-  else:
-    return False
 
 
-def isGoogleAppEngine():
+def isDevServer():
   try:
     from google.appengine.api import app_identity
-    return True
-  except:
+    # website runs on Google App Engine
+    if os.environ['SERVER_SOFTWARE'].startswith("Development"):
+      # runs on App Engine Dev Server
+      return True
+    else:
+      # runs on App Engine Production Server
+      return False
+
+  except ImportError:
+    # website runs not on Google App Engine.
+    # FIXME: should figure out some way to check if runs on dev server!
     return False
 
-
-def isProductionServer():
-  if not isGoogleAppEngine(): return True
-  if os.environ['SERVER_SOFTWARE'].startswith("Development"):
-    return False
-  else:
-    return True
-
-
-def isCompiledJS(jsQry):
-  if jsQry == 'yes':
-    return True
-  elif jsQry == 'no':
-    return False
-  else:
-    return isProductionServer()
