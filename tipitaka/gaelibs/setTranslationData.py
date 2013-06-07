@@ -90,6 +90,7 @@ jstr = """{
   },
   'en_US': {
     'canon': {
+      's0401m.mul2.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright', 'URL': 'http://www.accesstoinsight.org/tipitaka/an/an01/an01.021-040.than.html' } ],
       's0501m.mul0.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright', 'URL': 'http://www.accesstoinsight.org/tipitaka/kn/khp/khp.1-9.than.html#khp-1' } ],
       's0502m.mul0.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright', 'URL': 'http://www.accesstoinsight.org/tipitaka/kn/dhp/dhp.01.than.html' } ],
       's0502m.mul1.xml': [ { 'source': '1', 'copyrightURL': 'http://www.accesstoinsight.org/faq.html#copyright', 'URL': 'http://www.accesstoinsight.org/tipitaka/kn/dhp/dhp.02.than.html' } ],
