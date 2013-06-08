@@ -20,7 +20,7 @@ The following is something you should know when translating:
 
 4. It is often the case that translators do not translate all of the pali texts in the xml file. Please leave the un-translated part <em>UNCHANGED</em>.
 
-5. If & is used by translators in their translations, please escape it with <strong><em>&amp;</em></strong>
+5. If & is used by translators in their translations, please escape it with <strong><em>\&amp;</em></strong>
 
 6. After you finish edit the xml file, please check the char encoding of your translated file by the following command in Ubuntu Linux:
 ```bash
