@@ -54,7 +54,7 @@ msgid "Internet Connection Error"
 msgstr "Lỗi kết nối mạng"
 
 msgid "Browse Dictionary"
-msgstr "Duyệt thư mục"
+msgstr "Tra từ bằng kí tự Pāḷi Roman"
 
 msgid "Input Word Explanation Preview"
 msgstr "Hiện bảng giải nghĩa ngắn gọn"
@@ -99,7 +99,7 @@ msgid "Burmese First"
 msgstr "Tiếng Miến trước"
 
 msgid "Keyboard"
-msgstr "Bàn phím"
+msgstr "Bàn phím ảo"
 
 msgid "Pali Tipitaka"
 msgstr "Tam tạng Pāḷi"
@@ -111,7 +111,7 @@ msgid "Dictionary"
 msgstr "Từ điển"
 
 msgid "Browse"
-msgstr "Rà duyệt"
+msgstr "Xem các thư mục"
 
 msgid "Loading"
 msgstr "Đang lấy dữ liệu"
@@ -132,7 +132,7 @@ msgid "Excerpt"
 msgstr "Trích dẫn"
 
 msgid "Contrast Reading"
-msgstr "So sánh"
+msgstr "Đối chiếu song ngữ"
 
 msgid "Translation of This Pāḷi Text"
 msgstr "Bản dịch của văn bản Pāḷi này"
