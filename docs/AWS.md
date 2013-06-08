@@ -45,6 +45,8 @@ References:
 2. [Install guide (web.py)](http://webpy.org/install)
 3. [Apache 2 Web Server on Ubuntu 12.04 LTS (Precise Pangolin)](http://library.linode.com/web-servers/apache/installation/ubuntu-12.04-precise-pangolin)
 
+## Follow README to Setup Websites (to be updated)
+
 ## Config Apache2 & Domains & Sub-Domains
 
 Associate naked domains and sundomains to one EC2 instance. See references for domain and sub-domains setup.
