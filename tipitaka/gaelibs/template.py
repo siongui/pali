@@ -12,7 +12,7 @@ jj2env = jinja2.Environment(
 def translateLocale(value):
   if value == u'en_US': return u'English'
   if value == u'fr_FR': return u'Français'
-  if value == u'vi_VN': return u'Việt'
+  if value == u'vi_VN': return u'Tiếng Việt'
   if value == u'zh_TW': return u'中文 (繁體)'
   if value == u'zh_CN': return u'中文 (简体)'
   if value == u'ja_JP': return u'日本語'
