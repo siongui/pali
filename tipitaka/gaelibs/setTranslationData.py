@@ -146,24 +146,23 @@ translationInfo = d.decode(jstr)
 
 
 canonTextTranslation = {}
-# http://www.accesstoinsight.org/tipitaka/index.html
-# http://www.xin-yuan.com/cityzen/jiangtan/AHAN/ahan.htm
-# http://www.dhammarain.org.tw/canon/pali-tipitaka-f1/index-pali.htm
+# http://www.paliviet.info/VHoc/VHoc_Web.htm
+
 canonTextTranslation['en_US'] = {
-'Tipiṭaka (Mūla)': 'Pāḷi Canon',
-'Vinayapiṭaka': 'The Basket of the Discipline',
-'Suttapiṭaka': 'The Basket of Discourses',
-  'Dīghanikāya': 'Long Discourses',
-  'Dīgha nikāya': 'Long Discourses',
-    'Sīlakkhandhavaggapāḷi':'The Division Concerning Morality',
-      'Brahmajālasuttaṃ': 'The All-embracing Net of Views',
-      'Sāmaññaphalasuttaṃ': 'The Fruits of the Contemplative Life',
-#     'Ambaṭṭhasuttaṃ': '',
-#     'Soṇadaṇḍasuttaṃ': '',
-#     'Kūṭadantasuttaṃ': '',
-#     'Mahālisuttaṃ': '',
-#     'Jāliyasuttaṃ': '',
-#     'Mahāsīhanādasuttaṃ': '',
+'Tipiṭaka (Mūla)': 'Tam Tạng',
+'Vinayapiṭaka': 'Tạng Luật',
+'Suttapiṭaka': 'Tạng Kinh',
+  'Dīghanikāya': 'Trường Bộ',
+  'Dīgha nikāya': 'Trường Bộ',
+    'Sīlakkhandhavaggapāḷi':'Chương Giới Uẩn',
+      'Brahmajālasuttaṃ': 'Kinh Phạm Võng',
+      'Sāmaññaphalasuttaṃ': 'Kinh Sa-môn Quả',
+#     'Ambaṭṭhasuttaṃ': 'Kinh Ambaṭṭha',
+#     'Soṇadaṇḍasuttaṃ': 'Kinh Chủng Đức',
+#     'Kūṭadantasuttaṃ': 'Kinh Kūṭadanta',
+#     'Mahālisuttaṃ': 'Kinh Mahāli',
+#     'Jāliyasuttaṃ': 'Kinh Jāliya',
+#     'Mahāsīhanādasuttaṃ': 'Kinh Đại Sư Tử Hống',
       'Poṭṭhapādasuttaṃ': 'About Poṭṭhapāda',
 #     'Subhasuttaṃ': '',
       'Kevaṭṭasuttaṃ': 'To Kevaṭṭa',
