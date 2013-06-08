@@ -1,4 +1,15 @@
-<div style="background-color: #FFF4C8; line-height: 2em; word-spacing: 1em; padding-left: 1em; border-radius: 10px;" ng-cloak>
+<style>
+div.mainbarStyle {
+  background-color: #FFF4C8;
+  line-height: 2em;
+  padding-left: 1em;
+  border-radius: 10px;
+}
+div.mainbarStyle > a {
+  padding-right: 1em;
+}
+</style>
+<div class="mainbarStyle" ng-cloak>
   <a href="/" i18n str='Home'>{$_("Home")$}</a>
   <a href="http://palidictionary.appspot.com/" target="_blank" i18n str='Dictionary'>{$_("Dictionary")$}</a>
   <a href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting" style="text-decoration: none;"><span style="font-family: Tahoma,Arial,serif;" ng-show="isShowSetting">&#9660;</span><span style="font-family: Tahoma,Arial,serif;" ng-hide="isShowSetting">&#9658;</span><span style="text-decoration: underline;" i18n str='Setting'>{$_("Setting")$}</span></a>
