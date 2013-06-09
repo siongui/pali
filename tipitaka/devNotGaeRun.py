@@ -43,7 +43,9 @@ class customApp(web.application):
     return app.handle_with_processors()
 
 
+app = customApp(mapping)
+application = app.wsgifunc()
+
 if __name__ == '__main__':
-  app = customApp(mapping)
   app.run()
 

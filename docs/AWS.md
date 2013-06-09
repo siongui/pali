@@ -23,6 +23,7 @@ sudo apt-get install python-pip
 # install python server-side library to run website.
 sudo pip install web.py
 sudo pip install jinja2
+sudo apt-get install python-lxml
 
 # install git
 sudo apt-get install git-all
