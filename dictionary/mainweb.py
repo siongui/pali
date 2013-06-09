@@ -106,6 +106,7 @@ class RedirectPage:
 app = web.application(urls, globals())
 try:
   from google.appengine.ext import ndb
+  # runs on Google App Engine
   app = app.gaerun()
 except ImportError:
   application = app.wsgifunc()

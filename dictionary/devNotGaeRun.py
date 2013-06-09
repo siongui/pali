@@ -10,12 +10,12 @@ import serviceweb
 
 urls = (
   "/favicon.ico", "static",
-  "/js/tipitaka.js", "static"
+  "/js/palidic.js", "static"
 )
 
 class static:
   def GET(self):
-    if web.ctx.path == '/js/tipitaka.js':
+    if web.ctx.path == '/js/palidic.js':
       with open('app/all_compiled.js', 'r') as f:
         return f.read()
 
@@ -31,10 +31,9 @@ staticApp = web.application(urls, globals())
 
 mapping = (
     "/favicon.ico", staticApp,
-    "/js/tipitaka.js", staticApp, 
+    "/js/palidic.js", staticApp, 
     "/robots.txt", serviceweb.app, 
     "/wordJson/", serviceweb.app, 
-    "/html/", serviceweb.app, 
     "/", mainweb.app) 
 
 
