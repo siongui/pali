@@ -112,4 +112,9 @@ class ContrastReadingPage2:
 
 
 app = web.application(urls, globals())
-app = app.gaerun()
+try:
+  from google.appengine.api import app_identity
+  # runs on Google App Engine
+  app = app.gaerun()
+except ImportError:
+  pass

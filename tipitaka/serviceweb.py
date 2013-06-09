@@ -30,7 +30,6 @@ try:
   isGAE = True
 except ImportError:
   isGAE = False
-  raise Exception('only Google App Engine is supported now')
 
 class wordJsonService:
   def GET(self, word):
@@ -45,7 +44,10 @@ class wordJsonService:
         memcache.set(word, jdata)
         return jdata
     else:
-      raise Exception('only Google App Engine is supported now')
+      path = os.path.join(os.path.dirname(__file__),
+          '../dictionary/gaelibs/paliwords/%s' % word.encode('utf-8'))
+      with open(path, 'r') as f:
+        return f.read()
 
 
 class robots:
@@ -106,5 +108,11 @@ class htmlContrastReadingPage:
     if result: return json.dumps(result)
     else: raise web.notfound()
 
+
 app = web.application(urls, globals())
-app = app.gaerun()
+try:
+  from google.appengine.api import app_identity
+  # runs on Google App Engine
+  app = app.gaerun()
+except ImportError:
+  pass

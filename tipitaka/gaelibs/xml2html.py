@@ -51,7 +51,8 @@ try:
 
 except ImportError:
   # not app engine
-  raise Exception('only app engine is supported now')
+  with open(getCanonXmlUrl('cscd/tipitaka-latn.xsl'), 'r') as f:
+    xslt_root = etree.parse(f)
 
 
 transform = etree.XSLT(xslt_root)
