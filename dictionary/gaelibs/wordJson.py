@@ -27,7 +27,7 @@ except ImportError:
   wordsDir = os.path.join(os.path.dirname(__file__), 'paliwords')
 
   def readWordJson(word):
-    path = os.path.join(wordsDir, word.decode('utf-8'))
+    path = os.path.join(wordsDir, word)
     with open(path, 'r') as f:
       return f.read()
 

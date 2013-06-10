@@ -10,6 +10,7 @@ from variables import getDictWordsCSV1Path
 from variables import getDictWordsCSV2Path
 from variables import getDictBooksJsonPath
 from variables import getDictWordsJsonDir
+from variables import isZhTW
 
 try:
   import pyopencc
@@ -20,6 +21,9 @@ except:
   import sys
   sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
   from jianfan import jtof
+
+if not isZhTW():
+  jtof = lambda x: x
 
 
 def processWordCSV(csvPath, dicIndex, dstDir):

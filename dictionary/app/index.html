@@ -18,11 +18,13 @@
   <div class="container-fluid">
     <div class="row-fluid" id="allContainer">
       <div class="span2 visible-desktop">
+      {% if serverEnv == 'appspot' %}
         {% if isDevServer %}
           {% include 'devlinks.html' %}
         {% else %}
           {% include 'buttons.html' %}
         {% endif %}
+      {% endif %}
       </div>
       <div class="span8 main-content">
         <div class="alert alert-block text-center" style="margin: 0;">
@@ -32,7 +34,7 @@
         </div>
         <ul class="nav nav-tabs" ng-cloak>
           <li class="hidden-phone"><a i18n str="Home" href="/">{$_("Home")$}</a></li>
-          <li><a i18n str="Canon" target="_blank" href="http://epalitipitaka.appspot.com/">{$_("Canon")$}</a></li>
+          <li><a i18n str="Canon" target="_blank" href="{$ tpkWebAppUrl $}">{$_("Canon")$}</a></li>
           <li><a i18n str="About" href="/about">{$_("About")$}</a></li>
           <li><a href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting"><span ng-show="isShowSetting">&#9660;</span><span ng-hide="isShowSetting">&#9658;</span><span i18n str="Setting">{$_("Setting")$}</span></a></li>
           <li>
@@ -85,7 +87,9 @@
             <a href="http://angularjs.org/" target="_blank">AngularJS</a>, 
             <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>, 
             <a href="http://glyphicons.com/" target="_blank">Glyphicons Halflings</a>, 
+      {% if serverEnv == 'appspot' %}
             <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a>
+      {% endif %}
           </small></p>
         </div>
         </div>
@@ -109,6 +113,10 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
   })();
 </script>
-{% if isTrack %}{% include 'analytics.html' %}{% endif %}
+
+{% if serverEnv == 'appspot' %}
+  {% if isTrack %}{% include 'analytics.html' %}{% endif %}
+{% endif %}
+
 </body>
 </html>

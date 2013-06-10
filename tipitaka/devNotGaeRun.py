@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 
 # Simulate app.yaml of Google App Engine
-# Reference:
 
 import web
 import mainweb

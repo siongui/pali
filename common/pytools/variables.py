@@ -9,6 +9,9 @@ TIPITAKA_DIR = join(dirname(__file__), '../../tipitaka')
 COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
 APP_COMMON_DATA_DIR = join(dirname(__file__), "../app/scripts/services/data")
 
+def isZhTW():
+  return True
+
 def getSDKPath():
   return join(dirname(__file__), "../../../google_appengine/")
 

@@ -11,7 +11,7 @@ div.mainbarStyle > a {
 </style>
 <div class="mainbarStyle" ng-cloak>
   <a href="/" i18n str='Home'>{$_("Home")$}</a>
-  <a href="http://palidictionary.appspot.com/" target="_blank" i18n str='Dictionary'>{$_("Dictionary")$}</a>
+  <a href="{$ dicWebAppUrl $}" target="_blank" i18n str='Dictionary'>{$_("Dictionary")$}</a>
   <a href="javascript:void(0);" ng-click="isShowSetting = !isShowSetting" style="text-decoration: none;"><span style="font-family: Tahoma,Arial,serif;" ng-show="isShowSetting">&#9660;</span><span style="font-family: Tahoma,Arial,serif;" ng-hide="isShowSetting">&#9658;</span><span style="text-decoration: underline;" i18n str='Setting'>{$_("Setting")$}</span></a>
   {% if urlLocale %}
     <a href="/{$ urlLocale  $}/canon" i18n str='Browse'>{$_("Browse")$}</a>

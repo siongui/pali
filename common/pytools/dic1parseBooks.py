@@ -8,6 +8,7 @@ import shutil
 
 from variables import getDictBooksCSVPath
 from variables import getDictBooksJsonPath
+from variables import isZhTW
 
 try:
   import pyopencc
@@ -18,6 +19,10 @@ except:
   import sys
   sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
   from jianfan import jtof
+
+if not isZhTW():
+  jtof = lambda x: x
+
 
 """
 In this script, we will build "dicIndex".

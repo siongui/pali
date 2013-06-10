@@ -46,6 +46,10 @@ def commonTemplateValues(urlLocale, reqHandlerName, prefix=None, word=None):
   userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
   i18n.setLocale(userLocale)
   template_values = {
+#    'serverEnv': 'ec2',
+#    'tpkWebAppUrl': 'http://tipitaka.sutta.org/',
+    'serverEnv': 'appspot',
+    'tpkWebAppUrl': 'http://epalitipitaka.appspot.com/',
     'htmlTitle': getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word),
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
@@ -62,8 +66,13 @@ class MainPage:
     return template.render(template_values)
 
 def commonPage(prefix, word, reqHandlerName, urlLocale=None):
-  prefix = prefix.encode('utf-8')
-  if word: word = word.encode('utf-8')
+  if type(prefix) is not unicode:
+    prefix = prefix.decode('utf-8')
+
+  if word:
+    if type(word) is not unicode:
+      word = word.decode('utf-8')
+
   if not isValidPrefixAndWord(prefix, word):
     raise web.notfound()
 

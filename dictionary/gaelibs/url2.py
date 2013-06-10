@@ -26,7 +26,7 @@ def isValidPrefixAndWord(prefix, word):
     return True
 
   # prefix != None, check prefix sanity
-  if prefix in ['a', 'ā', 'b', 'c', 'd', 'ḍ', 'e', 'g', 'h', 'i', 'ī', 'j', 'k', 'l', 'ḷ', 'm', 'ŋ', 'n', 'ñ', 'ṅ', 'ṇ', 'o', 'p', 'r', 's', 't', 'ṭ', 'u', 'ū', 'v', 'y', '-', '°']:
+  if prefix in [u'a', u'ā', u'b', u'c', u'd', u'ḍ', u'e', u'g', u'h', u'i', u'ī', u'j', u'k', u'l', u'ḷ', u'm', u'ŋ', u'n', u'ñ', u'ṅ', u'ṇ', u'o', u'p', u'r', u's', u't', u'ṭ', u'u', u'ū', u'v', u'y', u'-', u'°']:
     # prefix != None AND prefix is valid
     if (word == None):
       # prefix != None AND prefix is valid AND word == None
@@ -47,10 +47,10 @@ def isValidPrefixAndWord(prefix, word):
 
 def getPrefixHtml(prefix):
   legalNameOnGAE = urllib.quote(
-                     ('prefixWordsHtml/%s.html' % prefix)
+                     (u'prefixWordsHtml/%s.html' % prefix).encode('utf-8')
                    ).replace('%', 'Z')
   path = os.path.join(os.path.dirname(__file__), legalNameOnGAE)
-  with open(path.decode('utf-8'), 'r') as f:
+  with open(path, 'r') as f:
     return f.read().decode('utf-8')
 
 
@@ -63,8 +63,8 @@ def getWordHtml(prefix, word):
 
 def getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word):
   if reqHandlerName == 'WordPage':
-    return word.decode('utf-8') + u' - ' + i18n.ugettext(u'Definition and Meaning') + u' - '
+    return word + u' - ' + i18n.ugettext(u'Definition and Meaning') + u' - '
   elif reqHandlerName == 'PrefixPage':
-    return i18n.ugettext(u'Words Start with') + u' ' + prefix.decode('utf-8') + u' - '
+    return i18n.ugettext(u'Words Start with') + u' ' + prefix + u' - '
   else:
     return ''

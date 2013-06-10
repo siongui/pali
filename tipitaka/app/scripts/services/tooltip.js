@@ -87,7 +87,14 @@ angular.module('pali.tooltip', ['pali.mouseEnterLeave', 'pali.wordJson', 'pali.s
 
     scope.wordUrl = function(word) {
       if (!angular.isString(word)) return;
-      var url = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
+
+      var baseUrl;
+      if (location.hostname == 'epalitipitaka.appspot.com')
+        baseUrl = 'http://palidictionary.appspot.com/browse/';
+      else
+        baseUrl = 'http://dictionary.sutta.org/browse/';
+
+      var url = baseUrl + word[0] + '/' + word;
       if ($rootScope.isDevServer) url += '?track=no';
       return url;
     }

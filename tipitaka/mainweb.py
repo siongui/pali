@@ -44,6 +44,10 @@ urls = (
 def commonTemplateValues(urlLocale, userLocale):
   i18n.setLocale(userLocale)
   template_values = {
+#    'serverEnv': 'ec2',
+#    'dicWebAppUrl': 'http://dictionary.sutta.org/',
+    'serverEnv': 'appspot',
+    'dicWebAppUrl': 'http://palidictionary.appspot.com/',
     'htmlTitle': u'',
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),

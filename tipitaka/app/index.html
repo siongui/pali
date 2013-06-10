@@ -25,11 +25,13 @@
   <div style="width: 100%; overflow: hidden;">
     <div id="treeview">
       <div treeview></div>
+    {% if serverEnv == 'appspot' %}
       {% if isDevServer %}
         {% include 'devlinks.html' %}
       {% else %}
         {% include 'buttons.html' %}
       {% endif %}
+    {% endif %}
     </div>
     <div id="viewwrapper">
       <div id="viewarrow"></div>
@@ -49,7 +51,9 @@
   Powered by <a href="http://webpy.org/" target="_blank">web.py</a>, 
   <a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a>, 
   <a href="http://angularjs.org/" target="_blank">AngularJS</a>, 
+    {% if serverEnv == 'appspot' %}
   <a href="https://developers.google.com/appengine/" target="_blank">Google App Engine</a>.
+    {% endif %}
 </small></p>
 
 <div id="locale" style="display:none">{$ userLocale $}</div>
@@ -70,6 +74,9 @@
 </script>
 {% endif %}
 
-{% if isTrack %}{% include 'analytics.html' %}{% endif %}
+{% if serverEnv == 'appspot' %}
+  {% if isTrack %}{% include 'analytics.html' %}{% endif %}
+{% endif %}
+
 </body>
 </html>
