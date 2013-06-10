@@ -6,12 +6,8 @@
 
 3. Install Linux tools on local machine.
 ```bash
-    sudo apt-get update
     sudo apt-get install git-all
     sudo apt-get install gettext
-    sudo apt-get install python-webpy
-    sudo apt-get install python-jinja2
-    sudo apt-get install python-lxml
 ```
 
 4. (optional) Install [Open Chinese Convert](https://code.google.com/p/opencc/) and [pyOpenCC](https://pypi.python.org/pypi/pyopencc) to convert between Traditional Chinese and Simplified Chinese.

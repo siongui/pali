@@ -21,8 +21,10 @@ sudo apt-get install python-setuptools
 sudo apt-get install python-pip
 
 # install python server-side library to run website.
-sudo pip install web.py
-sudo pip install jinja2
+sudo apt-get install python-webpy
+#sudo pip install web.py
+sudo apt-get install python-jinja2
+#sudo pip install jinja2
 sudo apt-get install python-lxml
 
 # install git
@@ -46,27 +48,49 @@ References:
 2. [Install guide (web.py)](http://webpy.org/install)
 3. [Apache 2 Web Server on Ubuntu 12.04 LTS (Precise Pangolin)](http://library.linode.com/web-servers/apache/installation/ubuntu-12.04-precise-pangolin)
 
-## Follow README to Setup Websites (to be updated)
+## Follow [README](../README.md) to Setup Websites
 
 ## Config Apache2 & Domains & Sub-Domains
 
 Associate naked domains and sundomains to one EC2 instance. See references for domain and sub-domains setup.
 
-Then edit <em><strong>/etc/apache2/sites-available/default</strong></em>, the following is the sample config for dictionary website:
+Edit <em><strong>/etc/apache2/sites-available/default</strong></em>,
+
+the following is the sample config for dictionary website:
 ```xml
 <VirtualHost *:80>
-        ServerName      dictionary.online-dhamma.net
+        ServerName      dictionary.{{ domain_name }}
         ServerAdmin     {{ email }}
-        DocumentRoot    {{ SOME_DIR }}/htdocs
         ErrorLog        {{ SOME_DIR }}/logs/error_log
         CustomLog       {{ SOME_DIR }}/logs/access_log combined
 
-        Alias           /js/palidic.js {{ PALI_REPO_DIR }}/app/all_compiled.js
+        Alias           /js/palidic.js {{ PALI_REPO_DIR }}/dictionary/app/all_compiled.js
         Alias           /favicon.ico {{ PALI_REPO_DIR }}/common/app/img/favicon.ico
         Alias           /robots.txt {{ PALI_REPO_DIR }}/common/gae/robots.txt
-        Alias           /wordJson/ {{ PALI_REPO_DIR }}/gaelibs/paliwords/
+        Alias           /wordJson/ {{ PALI_REPO_DIR }}/dictionary/gaelibs/paliwords/
 
-        WSGIScriptAlias / {{ PALI_REPO_DIR }}/mainweb.py
+        WSGIScriptAlias / {{ PALI_REPO_DIR }}/dictionary/mainweb.py
+
+        AddType         text/html .py
+</VirtualHost>
+```
+
+the following is the sample config for tipitaka website:
+```xml
+WSGIPythonPath  {{ PALI_REPO_DIR }}/tipitaka
+
+<VirtualHost *:80>
+        ServerName      tipitaka.{{ domain_name }}
+        ServerAdmin     {{ email }}
+        ErrorLog        {{ SOME_DIR }}/logs/error_log
+        CustomLog       {{ SOME_DIR }}/logs/access_log combined
+
+        Alias           /js/tipitaka.js {{ PALI_REPO_DIR }}/tipitaka/app/all_compiled.js
+        Alias           /favicon.ico {{ PALI_REPO_DIR }}/common/app/img/favicon.ico
+        Alias           /robots.txt {{ PALI_REPO_DIR }}/common/gae/robots.txt
+        Alias           /wordJson/ {{ PALI_REPO_DIR }}/dictionary/gaelibs/paliwords/
+
+        WSGIScriptAlias / {{ PALI_REPO_DIR }}/tipitaka/devNotGaeRun.py
 
         AddType         text/html .py
 </VirtualHost>
