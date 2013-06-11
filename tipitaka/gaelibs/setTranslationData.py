@@ -272,7 +272,7 @@ canonTextTranslation['vi_VN'] = {
 #     'Etadaggavaggo': 'Phẩm Người Tối Thắng',
 #     'Aṭṭhānapāḷi': 'Phẩm Không Thể Có Ðược',
 #     'Ekadhammapāḷi': 'Phẩm Một Pháp',
-#     'Pasādakaradhammavaggo': 'Phẩm Chủng Tử',
+#     'Pasādakaradhammavaggo': '',
 #     'Aparaaccharāsaṅghātavaggo': '末伽梨品',
 #     'Kāyagatāsativaggo': '不放逸品',
 #     'Amatavaggo': '靜慮品',
