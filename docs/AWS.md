@@ -8,38 +8,38 @@ For AMI image, choose 'Ubuntu Server 12.04.1 LTS'. Attche one Elastic IP address
 
 ```bash
 # login to the instance by SSH
-ssh -i {{ key pair name }}.pem ubuntu@{{ Elastic IP Address }}
+$ ssh -i {{ key pair name }}.pem ubuntu@{{ Elastic IP Address }}
 
 # upgrade system
-sudo apt-get update
+$ sudo apt-get update
 
 # install apache2 and mod_wsgi
-sudo apt-get install libapache2-mod-wsgi
-
-# install tool for installing and managing Python packages.
-sudo apt-get install python-setuptools
-sudo apt-get install python-pip
+$ sudo apt-get install libapache2-mod-wsgi
 
 # install python server-side library to run website.
-sudo apt-get install python-webpy
-#sudo pip install web.py
-sudo apt-get install python-jinja2
-#sudo pip install jinja2
-sudo apt-get install python-lxml
+$ sudo apt-get install python-webpy
+$ sudo apt-get install python-jinja2
+$ sudo apt-get install python-lxml
+
+# (optional) You can also install web.py and jinja2 by pip
+#$ sudo apt-get install python-setuptools
+#$ sudo apt-get install python-pip
+#$ sudo pip install web.py
+#$ sudo pip install jinja2
 
 # install git
-sudo apt-get install git-all
+$ sudo apt-get install git-all
 
 # install tools for i18n
-sudo apt-get install gettext
+$ sudo apt-get install gettext
 
 # install latest version of nodejs
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install nodejs
+$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs
 
 # install grunt
-sudo npm install -g grunt-cli
+$ sudo npm install -g grunt-cli
 ```
 
 References:

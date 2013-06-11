@@ -59,6 +59,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
 ```
 
 6. Create index of words in dictionary books.
+   After data files created, upload them to Google App Engine dev server:
 ```bash
     $ cd PALI_DIR/common/pytools/
     $ python dic1parseBooks.py
@@ -95,7 +96,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     $ python setTranslationData.py
 ```
 
-8. Create data files (<strong>PALI_DIR/tipitaka/app/js/treeviewAllJson-service.js</strong> and <strong>REPO_DIR/tipitaka/gaelibs/json/treeviewAll.json</strong>) used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website. After data files created, upload them to Google App Engine:
+8. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website.
+   After data files created, upload them to Google App Engine dev server:
 ```bash
     $ cd PALI_DIR/common/pytools/
     $ python tpk1getTocs.py
@@ -120,7 +122,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # http://localhost:8080/
 ```
 
-9. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
+9. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
     # deploy dictionary website
     $ cd PALI_DIR/dictionary

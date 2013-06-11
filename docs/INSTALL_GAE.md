@@ -6,22 +6,22 @@
 
 3. Install Linux tools on local machine.
 ```bash
-    sudo apt-get install git-all
-    sudo apt-get install gettext
+    $ sudo apt-get install git-all
+    $ sudo apt-get install gettext
 ```
 
 4. (optional) Install [Open Chinese Convert](https://code.google.com/p/opencc/) and [pyOpenCC](https://pypi.python.org/pypi/pyopencc) to convert between Traditional Chinese and Simplified Chinese.
 ```bash
     # install pyopencc (on Ubuntu 13.04)
-    sudo apt-get install libopencc-dev python-dev
-    git clone https://github.com/cute/pyopencc.git
-    cd pyopencc
-    python setup.py build_ext -I /usr/include/opencc/
-    sudo python setup.py install
+    $ sudo apt-get install libopencc-dev python-dev
+    $ git clone https://github.com/cute/pyopencc.git
+    $ cd pyopencc
+    $ python setup.py build_ext -I /usr/include/opencc/
+    $ sudo python setup.py install
 ```
 
    Usage Example:
-```bash
+```python
     import pyopencc
     cc = pyopencc.OpenCC('zhs2zht.ini')
     Traditional_Chinese_string = cc.convert(Simplified_Chinese_string)
