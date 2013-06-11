@@ -1085,7 +1085,7 @@ canonTextTranslation['vi_VN'] = {
 
      'Ekadhammapāḷi': 'Phẩm Một Pháp',
 
-     'Pasādakaradhammavaggo': '',
+#     'Pasādakaradhammavaggo': '',
 
 #     'Aparaaccharāsaṅghātavaggo': '',
 
@@ -1199,97 +1199,97 @@ canonTextTranslation['vi_VN'] = {
 
 #  'Khuddakanikāya': 'Division of Short Books',
 
-   'Khuddakapāṭhapāḷi': 'The Short Passages',
+#   'Khuddakapāṭhapāḷi': 'The Short Passages',
 
-     'Saraṇattayaṃ': 'Saranagamana — Going for Refuge',
+#     'Saraṇattayaṃ': 'Saranagamana — Going for Refuge',
 
-     'Dasasikkhāpadaṃ': 'The Ten Training Rules',
+#     'Dasasikkhāpadaṃ': 'The Ten Training Rules',
 
-     'Dvattiṃsākāro': 'The 32 Parts',
+#     'Dvattiṃsākāro': 'The 32 Parts',
 
-     'Kumārapañhā': "Samanera Pañha — The Novice's Questions",
+#     'Kumārapañhā': "Samanera Pañha — The Novice's Questions",
 
-     'Maṅgalasuttaṃ': 'Protection',
+#     'Maṅgalasuttaṃ': 'Protection',
 
-     'Ratanasuttaṃ': 'Treasures',
+#     'Ratanasuttaṃ': 'Treasures',
 
-     'Tirokuṭṭasuttaṃ': 'Tirokudda Kanda — Hungry Shades Outside the Walls',
+#     'Tirokuṭṭasuttaṃ': 'Tirokudda Kanda — Hungry Shades Outside the Walls',
 
-     'Nidhikaṇḍasuttaṃ': 'The Reserve Fund',
+#     'Nidhikaṇḍasuttaṃ': 'The Reserve Fund',
 
-     'Mettasuttaṃ': 'Karaniya Metta Sutta — Good Will',
+#     'Mettasuttaṃ': 'Karaniya Metta Sutta — Good Will',
 
    'Dhammapadapāḷi': 'Pháp Cú',
 
-     'Yamakavaggo': 'Pairs',
+#     'Yamakavaggo': 'Pairs',
 
-     'Appamādavaggo': 'Heedfulness',
+#     'Appamādavaggo': 'Heedfulness',
 
-     'Cittavaggo': 'The Mind',
+#     'Cittavaggo': 'The Mind',
 
-     'Pupphavaggo': 'Blossoms',
+#     'Pupphavaggo': 'Blossoms',
 
-     'Bālavaggo': 'Fools',
+#     'Bālavaggo': 'Fools',
 
-     'Paṇḍitavaggo': 'The Wise',
+#     'Paṇḍitavaggo': 'The Wise',
 
-     'Arahantavaggo': 'Arahants',
+#     'Arahantavaggo': 'Arahants',
 
-     'Sahassavaggo': 'Thousands',
+#     'Sahassavaggo': 'Thousands',
 
-     'Pāpavaggo': 'Evil',
+#     'Pāpavaggo': 'Evil',
 
-     'Daṇḍavaggo': 'The Rod',
+#     'Daṇḍavaggo': 'The Rod',
 
-     'Jarāvaggo': 'Aging',
+#     'Jarāvaggo': 'Aging',
 
-     'Attavaggo': 'Self',
+#     'Attavaggo': 'Self',
 
-     'Lokavaggo': 'Worlds',
+#     'Lokavaggo': 'Worlds',
 
-     'Buddhavaggo': 'Awakened',
+#     'Buddhavaggo': 'Awakened',
 
-     'Sukhavaggo': 'Happy',
+#     'Sukhavaggo': 'Happy',
 
-     'Piyavaggo': 'Dear Ones',
+#     'Piyavaggo': 'Dear Ones',
 
-     'Kodhavaggo': 'Anger',
+#     'Kodhavaggo': 'Anger',
 
-     'Malavaggo': 'Impurities',
+#     'Malavaggo': 'Impurities',
 
-     'Dhammaṭṭhavaggo': 'The Judge',
+#     'Dhammaṭṭhavaggo': 'The Judge',
 
-     'Maggavaggo': 'The Path',
+#     'Maggavaggo': 'The Path',
 
-     'Pakiṇṇakavaggo': 'Miscellany',
+#     'Pakiṇṇakavaggo': 'Miscellany',
 
-     'Nirayavaggo': 'Hell',
+#     'Nirayavaggo': 'Hell',
 
-     'Nāgavaggo': 'Elephants',
+#     'Nāgavaggo': 'Elephants',
 
-     'Taṇhāvaggo': 'Craving',
+#     'Taṇhāvaggo': 'Craving',
 
-     'Bhikkhuvaggo': 'Monks',
+#     'Bhikkhuvaggo': 'Monks',
 
-     'Brāhmaṇavaggo': 'Brahmans',
+#     'Brāhmaṇavaggo': 'Brahmans',
 
-   'Udānapāḷi': 'Exclamations',
+#   'Udānapāḷi': 'Exclamations',
 
-   'Itivuttakapāḷi': 'The Thus-saids',
+#   'Itivuttakapāḷi': 'The Thus-saids',
 
-   'Suttanipātapāḷi': 'The Discourses Collection',
+#   'Suttanipātapāḷi': 'The Discourses Collection',
 
-     'Uragavaggo': 'The Snake Chapter',
+#     'Uragavaggo': 'The Snake Chapter',
 
-     'Cūḷavaggo': 'The Lesser Chapter',
+#     'Cūḷavaggo': 'The Lesser Chapter',
 
-     'Mahāvaggo': 'The Great Chapter',
+#     'Mahāvaggo': 'The Great Chapter',
 
-     'Aṭṭhakavaggo': 'The Octet Chapter',
+#     'Aṭṭhakavaggo': 'The Octet Chapter',
 
-     'Pārāyanavaggo': 'The Chapter on the Way to the Far Shore',
+#     'Pārāyanavaggo': 'The Chapter on the Way to the Far Shore',
 
-   'Vimānavatthupāḷi': 'Stories of the Celestial Mansions',
+#   'Vimānavatthupāḷi': 'Stories of the Celestial Mansions',
 
    'Petavatthupāḷi': 'Truyện Ngạ Quỷ',
 
@@ -1297,19 +1297,19 @@ canonTextTranslation['vi_VN'] = {
 
    'Therīgāthāpāḷi': 'Trưởng lão ni Kệ',
 
-   'Apadānapāḷi': 'Stories',
+#   'Apadānapāḷi': 'Stories',
 
-   'Buddhavaṃsapāḷi': 'History of the Buddhas',
+#   'Buddhavaṃsapāḷi': 'History of the Buddhas',
 
-   'Cariyāpiṭakapāḷi': 'Basket of Conduct',
+#   'Cariyāpiṭakapāḷi': 'Basket of Conduct',
 
-   'Jātakapāḷi': 'Birth Stories',
+#   'Jātakapāḷi': 'Birth Stories',
 
 #   'Mahāniddesapāḷi': '大義釋',
 
 #   'Cūḷaniddesapāḷi': '小義釋',
 
-   'Paṭisambhidāmaggapāḷi': 'Path of Discrimination',
+#   'Paṭisambhidāmaggapāḷi': 'Path of Discrimination',
 
 #   'Nettippakaraṇapāḷi': '導論',
 
@@ -1319,79 +1319,75 @@ canonTextTranslation['vi_VN'] = {
 
 #'Abhidhammapiṭaka': '',
 
- 'Dhammasaṅgaṇīpāḷi': 'Enumeration of Phenomena',
-
- 'Vibhaṅgapāḷi': 'The Book of Analysis',
+# 'Dhammasaṅgaṇīpāḷi': 'Enumeration of Phenomena',
 
 # 'Vibhaṅgapāḷi': 'The Book of Treatises',
 
- 'Dhātukathāpāḷi': 'Discourse on Elements',
-
 # 'Dhātukathāpāḷi': 'Discussion with Reference to the Elements',
 
- 'Puggalapaññattipāḷi': 'A Designation of Human Types',
+# 'Puggalapaññattipāḷi': 'A Designation of Human Types',
 
 # 'Puggalapaññattipāḷi': 'Description of Individuals',
 
- 'Kathāvatthupāḷi': 'Points of Controversy',
+# 'Kathāvatthupāḷi': 'Points of Controversy',
 
- 'Yamakapāḷi': 'The Book of Pairs',
+# 'Yamakapāḷi': 'The Book of Pairs',
 
- 'Paṭṭhānapāḷi': 'The Book of Relations',
+# 'Paṭṭhānapāḷi': 'The Book of Relations',
 
 'Aṭṭhakathā': 'Chú Giải',
 
 'Tīkā': 'Sớ Giải',
 
- 'Abhidhammatthasaṅgaho': 'A Comprehensive Manual of Abhidhamma',
+# 'Abhidhammatthasaṅgaho': 'A Comprehensive Manual of Abhidhamma',
 
- 'Visuddhimagga': 'The Path of Purification',
+# 'Visuddhimagga': 'The Path of Purification',
 
-     'Sīlaniddeso': 'DESCRIPTION OF VIRTUE',
+#     'Sīlaniddeso': 'DESCRIPTION OF VIRTUE',
 
-     'Dhutaṅganiddeso': 'THE ASCETIC PRACTICES',
+#     'Dhutaṅganiddeso': 'THE ASCETIC PRACTICES',
 
-     'Kammaṭṭhānaggahaṇaniddeso': 'TAKING A MEDITATION SUBJECT',
+#     'Kammaṭṭhānaggahaṇaniddeso': 'TAKING A MEDITATION SUBJECT',
 
-     'Pathavīkasiṇaniddeso': 'THE EARTH KASIṆA',
+#     'Pathavīkasiṇaniddeso': 'THE EARTH KASIṆA',
 
-     'Sesakasiṇaniddeso': 'THE REMAINING KASIṆAS',
+#     'Sesakasiṇaniddeso': 'THE REMAINING KASIṆAS',
 
-     'Asubhakammaṭṭhānaniddeso': 'FOULNESS AS A MEDITATION SUBJECT',
+#     'Asubhakammaṭṭhānaniddeso': 'FOULNESS AS A MEDITATION SUBJECT',
 
-     'Chaanussatiniddeso': 'SIX RECOLLECTIONS',
+#     'Chaanussatiniddeso': 'SIX RECOLLECTIONS',
 
-     'Anussatikammaṭṭhānaniddeso': 'OTHER RECOLLECTIONS AS MEDITATION SUBJECTS',
+#     'Anussatikammaṭṭhānaniddeso': 'OTHER RECOLLECTIONS AS MEDITATION SUBJECTS',
 
-     'Brahmavihāraniddeso': 'THE DIVINE ABIDINGS',
+#     'Brahmavihāraniddeso': 'THE DIVINE ABIDINGS',
 
-     'Āruppaniddeso': 'THE IMMATERIAL STATES',
+#     'Āruppaniddeso': 'THE IMMATERIAL STATES',
 
-     'Samādhiniddeso': 'CONCENTRATION—CONCLUSION: NUTRIMENT AND THE ELEMENTS',
+#     'Samādhiniddeso': 'CONCENTRATION—CONCLUSION: NUTRIMENT AND THE ELEMENTS',
 
-     'Iddhividhaniddeso': 'THE SUPERNORMAL POWERS',
+#     'Iddhividhaniddeso': 'THE SUPERNORMAL POWERS',
 
-     'Abhiññāniddeso': 'OTHER DIRECT-KNOWLEDGES',
+#     'Abhiññāniddeso': 'OTHER DIRECT-KNOWLEDGES',
 
-     'Khandhaniddeso': 'THE AGGREGATES',
+#     'Khandhaniddeso': 'THE AGGREGATES',
 
-     'Āyatanadhātuniddeso': 'THE BASES AND ELEMENTS',
+#     'Āyatanadhātuniddeso': 'THE BASES AND ELEMENTS',
 
-     'Indriyasaccaniddeso': 'THE FACULTIES AND TRUTHS',
+#     'Indriyasaccaniddeso': 'THE FACULTIES AND TRUTHS',
 
-     'Paññābhūminiddeso': 'THE SOIL OF UNDERSTANDING—CONCLUSION: DEPENDENT ORIGINATION',
+#     'Paññābhūminiddeso': 'THE SOIL OF UNDERSTANDING—CONCLUSION: DEPENDENT ORIGINATION',
 
-     'Diṭṭhivisuddhiniddeso': 'PURIFICATION OF VIEW',
+#     'Diṭṭhivisuddhiniddeso': 'PURIFICATION OF VIEW',
 
-     'Kaṅkhāvitaraṇavisuddhiniddeso': 'PURIFICATION BY OVERCOMING DOUBT',
+#     'Kaṅkhāvitaraṇavisuddhiniddeso': 'PURIFICATION BY OVERCOMING DOUBT',
 
-     'Maggāmaggañāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF WHAT IS THE PATH AND WHAT IS NOT THE PATH',
+#     'Maggāmaggañāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF WHAT IS THE PATH AND WHAT IS NOT THE PATH',
 
-     'Paṭipadāñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF THE WAY',
+#     'Paṭipadāñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF THE WAY',
 
-     'Ñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION',
+#     'Ñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION',
 
-     'Paññābhāvanānisaṃsaniddeso': 'THE BENEFITS IN DEVELOPING UNDERSTANDING',
+#     'Paññābhāvanānisaṃsaniddeso': 'THE BENEFITS IN DEVELOPING UNDERSTANDING',
 
 ' ': ' '
 }
