@@ -808,6 +808,593 @@ canonTextTranslation['zh_TW'] = {
 ' ': ' '
 }
 
+# http://www.paliviet.info/VHoc/VHoc_Web.htm
+
+canonTextTranslation['vi_VN'] = {
+'Tipiṭaka (Mūla)': 'Tam Tạng',
+'Vinayapiṭaka': 'Tạng Luật',
+'Suttapiṭaka': 'Tạng Kinh',
+ 'Dīghanikāya': 'Trường Bộ',
+ 'Dīgha nikāya': 'Trường Bộ',
+   'Sīlakkhandhavaggapāḷi':'Phẩm Giới Uẩn',
+     'Brahmajālasuttaṃ': 'Kinh Phạm Võng',
+     'Sāmaññaphalasuttaṃ': 'Kinh Sa-môn Quả',
+     'Ambaṭṭhasuttaṃ': 'Kinh Ambaṭṭha',
+
+     'Soṇadaṇḍasuttaṃ': 'Kinh Chủng Đức',
+
+     'Kūṭadantasuttaṃ': 'Kinh Kūṭadanta',
+
+     'Mahālisuttaṃ': 'Kinh Mahāli',
+
+     'Jāliyasuttaṃ': 'Kinh Jāliya',
+
+     'Mahāsīhanādasuttaṃ': 'Kinh Đại Sư Tử Hống',
+
+     'Poṭṭhapādasuttaṃ': 'Kinh Poṭṭhapāda',
+
+     'Subhasuttaṃ': 'Kinh Subha',
+
+     'Kevaṭṭasuttaṃ': 'Kinh Kevaṭṭa',
+
+     'Lohiccasuttaṃ': 'Kinh Lohicca',
+
+     'Tevijjasuttaṃ': 'Kinh Tam Minh',
+
+   'Mahāvaggapāḷi':'Đại Phẩm',
+
+     'Mahāpadānasuttaṃ': 'Kinh Mahāpadāna',
+
+     'Mahānidānasuttaṃ': 'Kinh Đại Duyên',
+
+     'Mahāparinibbānasuttaṃ': 'Kinh Đại Bát-niết-bàn',
+
+     'Mahāsudassanasuttaṃ': 'Kinh Mahāsudassana',
+
+     'Janavasabhasuttaṃ': 'Kinh Janavasabha',
+
+     'Mahāgovindasuttaṃ': 'Kinh Mahāgovinda',
+
+     'Mahāsamayasuttaṃ': 'Kinh Ðại hội',
+
+     'Sakkapañhasuttaṃ': 'Kinh Ðế-thích hỏi đạo',
+
+     'Mahāsatipaṭṭhānasuttaṃ': 'Kinh Ðại niệm xứ',
+
+     'Pāyāsisuttaṃ': 'Kinh Pāyāsi',
+
+   'Pāthikavaggapāḷi':'Phẩm Pāthika',
+
+     'Pāthikasuttaṃ': 'Kinh Pāthika',
+
+     'Udumbarikasuttaṃ': 'Kinh Udumbarika',
+
+     'Cakkavattisuttaṃ': 'Kinh Chuyển luân thánh vương',
+
+     'Aggaññasuttaṃ': 'Kinh Khởi thế nhân bổn',
+
+     'Sampasādanīyasuttaṃ': 'Kinh Tự hoan hỷ',
+
+     'Pāsādikasuttaṃ': 'Kinh Thanh tịnh',
+
+     'Lakkhaṇasuttaṃ': 'Kinh Tướng',
+
+     'Siṅgālasuttaṃ': "Kinh giảng cho Siṅgāla",
+
+     'Āṭānāṭiyasuttaṃ': 'Kinh Āṭānāṭiya',
+
+     'Saṅgītisuttaṃ': 'Kinh Phúng tụng',
+
+     'Dasuttarasuttaṃ': 'Kinh Thập thượng',
+
+ 'Majjhimanikāya': 'Trung Bộ',
+
+   'Mūlapaṇṇāsapāḷi': 'Nhóm Năm mươi Căn bản',
+
+     'Mūlapariyāyavaggo': 'Phẩm Pháp môn căn bản',
+
+     'Sīhanādavaggo': 'Phẩm Tiếng rống sư tử',
+
+     'Opammavaggo': 'Phẩm So sánh',
+
+     'Mahāyamakavaggo': 'Đại phẩm Song đôi',
+
+     'Cūḷayamakavaggo': 'Tiểu phẩm Song đôi',
+
+   'Majjhimapaṇṇāsapāḷi': 'Nhóm Năm mươi Trung cấp',
+
+     'Gahapativaggo': 'Phẩm Gia Chủ',
+
+     'Bhikkhuvaggo': 'Phẩm Tỳ-khưu',
+
+     'Paribbājakavaggo': 'Phẩm Du sĩ',
+
+     'Rājavaggo': 'Phẩm Vua',
+
+     'Brāhmaṇavaggo': 'Phẩm Phạm Thiên',
+
+   'Uparipaṇṇāsapāḷi': 'Nhóm Năm mươi Cao cấp',
+
+     'Devadahavaggo': 'Phẩm Thị trấn Devadaha',
+
+     'Anupadavaggo': 'Phẩm Bất Đoạn',
+
+     'Suññatavaggo': 'Phẩm Không tánh',
+
+     'Vibhaṅgavaggo': 'Phẩm Phân biệt',
+
+     'Saḷāyatanavaggo': 'Phẩm Sáu xứ',
+
+ 'Saṃyuttanikāya': 'Tương Ưng Bộ',
+
+   'Sagāthāvaggapāḷi': 'Thiên Có Kệ',
+
+     'Devatāsaṃyuttaṃ': 'Tương Ưng Chư Thiên',
+
+     'Devaputtasaṃyuttaṃ': 'Tương Ưng Thiên Tử',
+
+     'Kosalasaṃyuttaṃ': 'Tương Ưng Kosala',
+
+     'Mārasaṃyuttaṃ': 'Tương Ưng Ác Ma',
+
+     'Bhikkhunīsaṃyuttaṃ': 'Tương Ưng Tỳ-khưu-ni',
+
+     'Brahmasaṃyuttaṃ': 'Tương Ưng Phạm Thiên',
+
+     'Brāhmaṇasaṃyuttaṃ': 'Tương Ưng Bà-la-môn',
+
+     'Vaṅgīsasaṃyuttaṃ': 'Tương Ưng Trưởng Lão Vaṅgīsa',
+
+     'Vanasaṃyuttaṃ': 'Tương Ưng Rừng',
+
+     'Yakkhasaṃyuttaṃ': 'Tương Ưng Dạ-xoa',
+
+     'Sakkasaṃyuttaṃ': 'Tương Ưng Đế-thích',
+
+   'Nidānavaggapāḷi': 'Thiên Nhân Duyên',
+
+     'Nidānasaṃyuttaṃ': 'Tương Ưng Nhân Duyên',
+
+     'Abhisamayasaṃyuttaṃ': 'Tương Ưng Minh Kiến',
+
+     'Dhātusaṃyuttaṃ': 'Tương Ưng Giới',
+
+     'Anamataggasaṃyuttaṃ': 'Tương Ưng Vô Thỉ',
+
+     'Kassapasaṃyuttaṃ': 'Tương Ưng Kassapa',
+
+     'Lābhasakkārasaṃyuttaṃ': 'Tương Ưng Lợi Ích Ðắc Cung Kính',
+
+     'Rāhulasaṃyuttaṃ': 'Tương Ưng Rahula',
+
+     'Lakkhaṇasaṃyuttaṃ': 'Tương Ưng Lakkhana',
+
+     'Opammasaṃyuttaṃ': 'Tương Ưng Thí Dụ',
+
+     'Bhikkhusaṃyuttaṃ': 'Tương Ưng Tỳ-khưu',
+
+   'Khandhavaggapāḷi': 'Thiên Uẩn',
+
+     'Khandhasaṃyuttaṃ': 'Tương Ưng Uẩn',
+
+     'Rādhasaṃyuttaṃ': 'Tương Ưng Rādha',
+
+     'Diṭṭhisaṃyuttaṃ': 'Tương Ưng Kiến',
+
+     'Okkantasaṃyuttaṃ': 'Tương Ưng Nhập',
+
+     'Uppādasaṃyuttaṃ': 'Tương Ưng Sanh',
+
+     'Kilesasaṃyuttaṃ': 'Tương Ưng Phiền Não',
+
+     'Sāriputtasaṃyuttaṃ': 'Tương Ưng Sāriputta',
+
+     'Nāgasaṃyuttaṃ': 'Tương Ưng Loài Rồng',
+
+     'Supaṇṇasaṃyuttaṃ': 'Tương Ưng Kim Xí Ðiểu',
+
+     'Gandhabbakāyasaṃyuttaṃ': 'Tương Ưng Càn-thát-bà',
+
+     'Valāhakasaṃyuttaṃ': 'Tương Ưng Thần Mây',
+
+     'Vacchagottasaṃyuttaṃ': 'Tương Ưng Vacchagotta',
+
+     'Jhānasaṃyuttaṃ': 'Tương Ưng Thiền',
+
+   'Saḷāyatanavaggapāḷi': 'Thiên Sáu Xứ',
+
+     'Saḷāyatanasaṃyuttaṃ': 'Tương Ưng Sáu Xứ',
+
+     'Vedanāsaṃyuttaṃ': 'Tương Ưng Thọ',
+
+     'Mātugāmasaṃyuttaṃ': 'Tương Ưng Nữ Nhân',
+
+     'Jambukhādakasaṃyuttaṃ': 'Tương Ưng Jambukhādaka',
+
+     'Sāmaṇḍakasaṃyuttaṃ': 'Tương Ưng Sāmaṇḍaka',
+
+     'Moggallānasaṃyuttaṃ': 'Tương Ưng Moggallāna',
+
+     'Cittasaṃyuttaṃ': 'Tương Ưng Tâm',
+
+     'Gāmaṇisaṃyuttaṃ': 'Tương Ưng Thôn Trưởng',
+
+     'Asaṅkhatasaṃyuttaṃ': 'Tương Ưng Vô Vi',
+
+     'Abyākatasaṃyuttaṃ': 'Tương Ưng Không Thuyết',
+
+   'Mahāvaggapāḷi': 'Thiên Ðại Phẩm',
+
+     'Maggasaṃyuttaṃ': 'Tương Ưng Ðạo',
+
+     'Bojjhaṅgasaṃyuttaṃ': 'Tương Ưng Giác Chi',
+
+     'Satipaṭṭhānasaṃyuttaṃ': 'Tương Ưng Niệm Xứ',
+
+     'Indriyasaṃyuttaṃ': 'Tương Ưng Căn',
+
+     'Sammappadhānasaṃyuttaṃ': 'Tương Ưng Chánh Cần',
+
+     'Balasaṃyuttaṃ': 'Tương Ưng Lực',
+
+     'Iddhipādasaṃyuttaṃ': 'Tương Ưng Như Ý Túc',
+
+     'Anuruddhasaṃyuttaṃ': 'Tương Ưng Anuruddha',
+
+     'Jhānasaṃyuttaṃ': 'Tương Ưng Thiền',
+
+     'Ānāpānasaṃyuttaṃ': 'Tương Ưng Hơi Thở Vô, Hơi Thở Ra',
+
+     'Sotāpattisaṃyuttaṃ': 'Tương Ưng Dự Lưu',
+
+     'Saccasaṃyuttaṃ': 'Tương Ưng Sự Thật',
+
+ 'Aṅguttaranikāya': 'Tăng Chi Bộ',
+
+   'Ekakanipātapāḷi': 'Chương Một Pháp',
+
+     'Rūpādivaggo': 'Phẩm Sắc',
+
+     'Nīvaraṇappahānavaggo': 'Phẩm Ðoạn Triền Cái',
+
+     'Akammaniyavaggo': 'Phẩm Khó Sử Dụng',
+
+     'Adantavaggo': 'Phẩm Không Ðiều Phục',
+
+     'Paṇihitaacchavaggo': 'Phẩm Ðặt Hướng Và Trong Sáng',
+
+     'Accharāsaṅghātavaggo': 'Phẩm Búng Ngón Tay',
+
+     'Vīriyārambhādivaggo': 'Phẩm Tinh Tấn',
+
+     'Kalyāṇamittādivaggo': 'Phẩm Làm Bạn Với Thiện',
+
+     'Pamādādivaggo': 'Phẩm Phóng Dật',
+
+     'Dutiyapamādādivaggo': 'Phẩm Phóng Dật thứ hai',
+
+     'Adhammavaggo': 'Phẩm Phi Pháp',
+
+     'Anāpattivaggo': 'Phẩm Vô Phạm',
+
+     'Ekapuggalavaggo': 'Phẩm Một Người',
+
+     'Etadaggavaggo': 'Phẩm Người Tối Thắng',
+
+     'Aṭṭhānapāḷi': 'Phẩm Không Thể Có Ðược',
+
+     'Ekadhammapāḷi': 'Phẩm Một Pháp',
+
+     'Pasādakaradhammavaggo': '',
+
+#     'Aparaaccharāsaṅghātavaggo': '',
+
+#     'Kāyagatāsativaggo': '',
+
+#     'Amatavaggo': '',
+
+   'Dukanipātapāḷi': 'Chương Hai Pháp',
+
+#     'Kammakaraṇavaggo': '科刑罰品',
+
+#     'Adhikaraṇavaggo': '靜論品',
+
+#     'Bālavaggo': '愚人品',
+
+#     'Samacittavaggo': '等心品',
+
+#     'Parisavaggo': '會眾品',
+
+#     'Puggalavaggo': '人品',
+
+#     'Sukhavaggo': '樂品',
+
+#     'Sanimittavaggo': '有品',
+
+#     'Dhammavaggo': '法品',
+
+#     'Bālavaggo': '愚者品',
+
+#     'Āsāduppajahavaggo': '希望品',
+
+#     'Āyācanavaggo': '希求品',
+
+#     'Dānavaggo': '施品',
+
+#     'Santhāravaggo': '覆護品',
+
+#     'Samāpattivaggo': '入定品',
+
+#     'Kodhapeyyālaṃ': '忿品',
+
+#     'Akusalapeyyālaṃ': '(律廣說)品',
+
+#     'Vinayapeyyālaṃ': '',
+
+#     'Rāgapeyyālaṃ': '',
+
+   'Tikanipātapāḷi': 'Chương Ba Pháp',
+
+#     'Bālavaggo': '愚人品',
+
+#     'Rathakāravaggo': '車匠品',
+
+#     'Puggalavaggo': '補特羅品',
+
+#     'Devadūtavaggo': '天使品',
+
+#     'Cūḷavaggo': '小品',
+
+#     'Brāhmaṇavaggo': '婆羅門品',
+
+#     'Mahāvaggo': '大品',
+
+#     'Ānandavaggo': '阿難品',
+
+#     'Samaṇavaggo': '沙門品',
+
+#     'Loṇakapallavaggo': '掬鹽品',
+
+#     'Sambodhavaggo': '等覺品',
+
+#     'Āpāyikavaggo': '惡趣品',
+
+#     'Kusināravaggo': '古西那拉品',
+
+#     'Yodhājīvavaggo': '戰士品',
+
+#     'Maṅgalavaggo': '吉祥品',
+
+#     'Acelakavaggo': '裸形品',
+
+#     'Kammapathapeyyālaṃ': '',
+
+#     'Rāgapeyyālaṃ': '',
+
+   'Catukkanipātapāḷi': 'Chương Bốn Pháp',
+
+   'Pañcakanipātapāḷi': 'Chương Năm Pháp',
+
+   'Chakkanipātapāḷi': 'Chương Sáu Pháp',
+
+   'Sattakanipātapāḷi': 'Chương Bảy Pháp',
+
+   'Aṭṭhakādinipātapāḷi': 'Chương Tám Pháp',
+
+   'Navakanipātapāḷi': 'Chương Chín Pháp',
+
+   'Dasakanipātapāḷi': 'Chương Mười Pháp',
+
+   'Ekādasakanipātapāḷi': 'Chương Mười Một Pháp',
+
+#     'Nissayavaggo': '依止品',
+
+#     'Anussativaggo': '憶念品',
+
+#     'Sāmaññavaggo': '沙門品',
+
+#     'Rāgapeyyālaṃ': '貪品',
+
+ 'Khuddakanikāya': 'Tiểu Bộ',
+
+#  'Khuddakanikāya': 'Division of Short Books',
+
+   'Khuddakapāṭhapāḷi': 'The Short Passages',
+
+     'Saraṇattayaṃ': 'Saranagamana — Going for Refuge',
+
+     'Dasasikkhāpadaṃ': 'The Ten Training Rules',
+
+     'Dvattiṃsākāro': 'The 32 Parts',
+
+     'Kumārapañhā': "Samanera Pañha — The Novice's Questions",
+
+     'Maṅgalasuttaṃ': 'Protection',
+
+     'Ratanasuttaṃ': 'Treasures',
+
+     'Tirokuṭṭasuttaṃ': 'Tirokudda Kanda — Hungry Shades Outside the Walls',
+
+     'Nidhikaṇḍasuttaṃ': 'The Reserve Fund',
+
+     'Mettasuttaṃ': 'Karaniya Metta Sutta — Good Will',
+
+   'Dhammapadapāḷi': 'Pháp Cú',
+
+     'Yamakavaggo': 'Pairs',
+
+     'Appamādavaggo': 'Heedfulness',
+
+     'Cittavaggo': 'The Mind',
+
+     'Pupphavaggo': 'Blossoms',
+
+     'Bālavaggo': 'Fools',
+
+     'Paṇḍitavaggo': 'The Wise',
+
+     'Arahantavaggo': 'Arahants',
+
+     'Sahassavaggo': 'Thousands',
+
+     'Pāpavaggo': 'Evil',
+
+     'Daṇḍavaggo': 'The Rod',
+
+     'Jarāvaggo': 'Aging',
+
+     'Attavaggo': 'Self',
+
+     'Lokavaggo': 'Worlds',
+
+     'Buddhavaggo': 'Awakened',
+
+     'Sukhavaggo': 'Happy',
+
+     'Piyavaggo': 'Dear Ones',
+
+     'Kodhavaggo': 'Anger',
+
+     'Malavaggo': 'Impurities',
+
+     'Dhammaṭṭhavaggo': 'The Judge',
+
+     'Maggavaggo': 'The Path',
+
+     'Pakiṇṇakavaggo': 'Miscellany',
+
+     'Nirayavaggo': 'Hell',
+
+     'Nāgavaggo': 'Elephants',
+
+     'Taṇhāvaggo': 'Craving',
+
+     'Bhikkhuvaggo': 'Monks',
+
+     'Brāhmaṇavaggo': 'Brahmans',
+
+   'Udānapāḷi': 'Exclamations',
+
+   'Itivuttakapāḷi': 'The Thus-saids',
+
+   'Suttanipātapāḷi': 'The Discourses Collection',
+
+     'Uragavaggo': 'The Snake Chapter',
+
+     'Cūḷavaggo': 'The Lesser Chapter',
+
+     'Mahāvaggo': 'The Great Chapter',
+
+     'Aṭṭhakavaggo': 'The Octet Chapter',
+
+     'Pārāyanavaggo': 'The Chapter on the Way to the Far Shore',
+
+   'Vimānavatthupāḷi': 'Stories of the Celestial Mansions',
+
+   'Petavatthupāḷi': 'Truyện Ngạ Quỷ',
+
+   'Theragāthāpāḷi': 'Trưởng lão Kệ',
+
+   'Therīgāthāpāḷi': 'Trưởng lão ni Kệ',
+
+   'Apadānapāḷi': 'Stories',
+
+   'Buddhavaṃsapāḷi': 'History of the Buddhas',
+
+   'Cariyāpiṭakapāḷi': 'Basket of Conduct',
+
+   'Jātakapāḷi': 'Birth Stories',
+
+#   'Mahāniddesapāḷi': '大義釋',
+
+#   'Cūḷaniddesapāḷi': '小義釋',
+
+   'Paṭisambhidāmaggapāḷi': 'Path of Discrimination',
+
+#   'Nettippakaraṇapāḷi': '導論',
+
+   'Milindapañhapāḷi': 'Milinda Vấn Đạo',
+
+#   'Peṭakopadesapāḷi': '藏釋 (三藏知津)',
+
+#'Abhidhammapiṭaka': '',
+
+ 'Dhammasaṅgaṇīpāḷi': 'Enumeration of Phenomena',
+
+ 'Vibhaṅgapāḷi': 'The Book of Analysis',
+
+# 'Vibhaṅgapāḷi': 'The Book of Treatises',
+
+ 'Dhātukathāpāḷi': 'Discourse on Elements',
+
+# 'Dhātukathāpāḷi': 'Discussion with Reference to the Elements',
+
+ 'Puggalapaññattipāḷi': 'A Designation of Human Types',
+
+# 'Puggalapaññattipāḷi': 'Description of Individuals',
+
+ 'Kathāvatthupāḷi': 'Points of Controversy',
+
+ 'Yamakapāḷi': 'The Book of Pairs',
+
+ 'Paṭṭhānapāḷi': 'The Book of Relations',
+
+'Aṭṭhakathā': 'Chú Giải',
+
+'Tīkā': 'Sớ Giải',
+
+ 'Abhidhammatthasaṅgaho': 'A Comprehensive Manual of Abhidhamma',
+
+ 'Visuddhimagga': 'The Path of Purification',
+
+     'Sīlaniddeso': 'DESCRIPTION OF VIRTUE',
+
+     'Dhutaṅganiddeso': 'THE ASCETIC PRACTICES',
+
+     'Kammaṭṭhānaggahaṇaniddeso': 'TAKING A MEDITATION SUBJECT',
+
+     'Pathavīkasiṇaniddeso': 'THE EARTH KASIṆA',
+
+     'Sesakasiṇaniddeso': 'THE REMAINING KASIṆAS',
+
+     'Asubhakammaṭṭhānaniddeso': 'FOULNESS AS A MEDITATION SUBJECT',
+
+     'Chaanussatiniddeso': 'SIX RECOLLECTIONS',
+
+     'Anussatikammaṭṭhānaniddeso': 'OTHER RECOLLECTIONS AS MEDITATION SUBJECTS',
+
+     'Brahmavihāraniddeso': 'THE DIVINE ABIDINGS',
+
+     'Āruppaniddeso': 'THE IMMATERIAL STATES',
+
+     'Samādhiniddeso': 'CONCENTRATION—CONCLUSION: NUTRIMENT AND THE ELEMENTS',
+
+     'Iddhividhaniddeso': 'THE SUPERNORMAL POWERS',
+
+     'Abhiññāniddeso': 'OTHER DIRECT-KNOWLEDGES',
+
+     'Khandhaniddeso': 'THE AGGREGATES',
+
+     'Āyatanadhātuniddeso': 'THE BASES AND ELEMENTS',
+
+     'Indriyasaccaniddeso': 'THE FACULTIES AND TRUTHS',
+
+     'Paññābhūminiddeso': 'THE SOIL OF UNDERSTANDING—CONCLUSION: DEPENDENT ORIGINATION',
+
+     'Diṭṭhivisuddhiniddeso': 'PURIFICATION OF VIEW',
+
+     'Kaṅkhāvitaraṇavisuddhiniddeso': 'PURIFICATION BY OVERCOMING DOUBT',
+
+     'Maggāmaggañāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF WHAT IS THE PATH AND WHAT IS NOT THE PATH',
+
+     'Paṭipadāñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF THE WAY',
+
+     'Ñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION',
+
+     'Paññābhāvanānisaṃsaniddeso': 'THE BENEFITS IN DEVELOPING UNDERSTANDING',
+
+' ': ' '
+}
 
 if __name__ == '__main__':
   dstTrInfoPath = os.path.join(os.path.dirname(__file__), 'json/translationInfo.json')
