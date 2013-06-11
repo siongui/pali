@@ -30,7 +30,6 @@ def getTranslationXmlUrl(action, translationLocale, translator):
                                        translationLocale, code, xmlFilename))
 
 
-isGAEProductionServer = False
 try:
   # app engine
   from google.appengine.ext import ndb
@@ -39,20 +38,20 @@ try:
   class XmlBlobKey(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
 
-  if os.environ['SERVER_SOFTWARE'].startswith("Development"):
-    # GAE development server
-    with open(getCanonXmlUrl('cscd/tipitaka-latn.xsl'), 'r') as f:
-      xslt_root = etree.parse(f)
-  else:
-    # GAE production server
-    isGAEProductionServer = True
-    xslt_root = etree.parse(blobstore.BlobReader(
-        XmlBlobKey.get_by_id('cscd/tipitaka-latn.xsl').blob_key))
+  xslt_root = etree.parse(blobstore.BlobReader(
+      XmlBlobKey.get_by_id('cscd/tipitaka-latn.xsl').blob_key))
+
+  def paliXslt(action):
+    return xslt(blobstore.BlobReader(XmlBlobKey.get_by_id(action).blob_key))
 
 except ImportError:
   # not app engine
   with open(getCanonXmlUrl('cscd/tipitaka-latn.xsl'), 'r') as f:
     xslt_root = etree.parse(f)
+
+  def paliXslt(action):
+    with open(getCanonXmlUrl(action), 'r') as f:
+      return xslt(f)
 
 
 transform = etree.XSLT(xslt_root)
@@ -62,14 +61,6 @@ def xslt(fileLikeObject):
   root = etree.parse(fileLikeObject)
   # transform xml with xslt
   return transform(root)
-
-
-def paliXslt(action):
-  if isGAEProductionServer:
-    return xslt(blobstore.BlobReader(XmlBlobKey.get_by_id(action).blob_key))
-  else:
-    with open(getCanonXmlUrl(action), 'r') as f:
-      return xslt(f)
 
 
 def translationXslt(action, translationLocale, translator):

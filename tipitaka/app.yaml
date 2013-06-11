@@ -63,10 +63,11 @@ skip_files:
 - ^(.*/)?app/css/app\.css
 - ^(.*/)?app/css/tipitaka-latn\.css
 - ^(.*/)?gaelibs/setTranslationData\.py
-#- ^(.*/)?gaelibs/romn/.*
+- ^(.*/)?gaelibs/romn/.*
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*
 - ^(.*/)?.*\.md
 - ^(.*/)?Gruntfile\.js
 - ^(.*/)?package\.json
 - ^(.*/)?GAEDevDatastore
+- ^(.*/)?GAEDevBlobstore.*

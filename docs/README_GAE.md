@@ -140,11 +140,6 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     $ cd PALI_DIR/tipitaka
     $ grunt
     # ctrl-C to abort watching, then upload tipitaka website app to Google App Engine production server.
-    # Please un-comment (remove leading #) the following line in PALI_DIR/tipitaka/app.yaml
-    #
-    #     #- ^(.*/)?gaelibs/romn/.*
-    #
-    # Please comment (add leading #) the above line after the following command finish.
     $ grunt update
 
     # uploading data files to online GAE datastore of production server.

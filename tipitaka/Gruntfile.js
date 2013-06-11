@@ -74,7 +74,7 @@ module.exports = function(grunt) {
     var PIPE = { stdio: 'inherit' };
     var done = this.async();
     var command = '../../google_appengine/dev_appserver.py';
-    var args = ['--datastore_path=GAEDevDatastore', '.']
+    var args = ['--datastore_path=GAEDevDatastore', '--blobstore_path=GAEDevBlobstore', '.']
     spawn(command, args, PIPE).on('exit', function(status) {
       done(status === 0);
     });

@@ -16,5 +16,6 @@ gaelibs/romn
 gaelibs/translation
 common
 GAEDevDatastore
+GAEDevBlobstore
 node_modules
 build
