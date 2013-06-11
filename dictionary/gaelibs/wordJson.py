@@ -16,6 +16,9 @@ try:
     else:
       raise Exception('word not found: %s' % word)
 
+  def isValidWord(word):
+    return PaliWordJsonBlob.get_by_id(word) != None
+
 except ImportError:
   """obsoleted. Never used.
 
@@ -27,9 +30,13 @@ except ImportError:
   wordsDir = os.path.join(os.path.dirname(__file__), 'paliwords')
 
   def readWordJson(word):
-    path = os.path.join(wordsDir, word)
+    path = os.path.join(wordsDir, word).encode('utf-8')
     with open(path, 'r') as f:
       return f.read()
+
+  def isValidWord(word):
+    path = os.path.join(wordsDir, word).encode('utf-8')
+    return os.path.isfile(path)
 
 
 def getWordJson(word):

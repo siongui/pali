@@ -6,6 +6,7 @@ import jinja2
 import json
 import urllib
 from wordJson import getWordJson
+from wordJson import isValidWord
 
 jj2env = jinja2.Environment(
   loader = jinja2.FileSystemLoader(
@@ -33,11 +34,7 @@ def isValidPrefixAndWord(prefix, word):
       return True
 
     # prefix != None AND prefix is valid AND word != None
-    try:
-      getWordJson(word)
-      return True
-    except:
-      return False
+    return isValidWord(word)
   else:
     # prefix != None AND prefix is invalid
     return False

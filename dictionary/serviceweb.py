@@ -22,7 +22,9 @@ class wordJsonService:
     # https://gist.github.com/1271118/52eca29d23a1f307597e04d434b0421011843e2f
     #web.header('Access-Control-Allow-Origin', '*')
     #web.header('Access-Control-Allow-Credentials', 'true')
-    return getWordJson(word.encode('utf-8'))
+    if type(word) is not unicode:
+      word = word.decode('utf-8')
+    return getWordJson(word)
 
 class robots:
   def GET(self):
