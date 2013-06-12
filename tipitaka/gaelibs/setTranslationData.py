@@ -830,7 +830,7 @@ canonTextTranslation['vi_VN'] = {
      'Kevaṭṭasuttaṃ': 'Kinh Kevaṭṭa',
      'Lohiccasuttaṃ': 'Kinh Lohicca',
      'Tevijjasuttaṃ': 'Kinh Tam Minh',
-   'Mahāvaggapāḷi (1)':'2/3. Phẩm Lớn',
+   'Mahāvaggapāḷi (1)': '2/3. Phẩm Lớn',
      'Mahāpadānasuttaṃ': 'Kinh Mahāpadāna',
      'Mahānidānasuttaṃ': 'Kinh Đại Duyên',
      'Mahāparinibbānasuttaṃ': 'Kinh Đại Bát-niết-bàn',
