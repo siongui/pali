@@ -996,223 +996,116 @@ canonTextTranslation['vi_VN'] = {
 #     'Acelakavaggo': '裸形品',
 #     'Kammapathapeyyālaṃ': '',
 #     'Rāgapeyyālaṃ': '',
-   'Catukkanipātapāḷi': 'Chương Bốn Pháp',
-
-   'Pañcakanipātapāḷi': 'Chương Năm Pháp',
-
-   'Chakkanipātapāḷi': 'Chương Sáu Pháp',
-
-   'Sattakanipātapāḷi': 'Chương Bảy Pháp',
-
-   'Aṭṭhakādinipātapāḷi': 'Chương Tám Pháp',
-
-   'Navakanipātapāḷi': 'Chương Chín Pháp',
-
-   'Dasakanipātapāḷi': 'Chương Mười Pháp',
-
-   'Ekādasakanipātapāḷi': 'Chương Mười Một Pháp',
-
+   'Catukkanipātapāḷi': '4/11. Chương Bốn Pháp',
+   'Pañcakanipātapāḷi': '5/11. Chương Năm Pháp',
+   'Chakkanipātapāḷi': '6/11. Chương Sáu Pháp',
+   'Sattakanipātapāḷi': '7/11. Chương Bảy Pháp',
+   'Aṭṭhakādinipātapāḷi': '8/11. Chương Tám Pháp',
+   'Navakanipātapāḷi': '9/11. Chương Chín Pháp',
+   'Dasakanipātapāḷi': '10/11Chương Mười Pháp',
+   'Ekādasakanipātapāḷi': '11/11. Chương Mười Một Pháp',
 #     'Nissayavaggo': '依止品',
-
 #     'Anussativaggo': '憶念品',
-
 #     'Sāmaññavaggo': '沙門品',
-
 #     'Rāgapeyyālaṃ': '貪品',
-
  'Khuddakanikāya': 'Tiểu Bộ',
-
 #  'Khuddakanikāya': 'Division of Short Books',
-
 #   'Khuddakapāṭhapāḷi': 'The Short Passages',
-
 #     'Saraṇattayaṃ': 'Saranagamana — Going for Refuge',
-
 #     'Dasasikkhāpadaṃ': 'The Ten Training Rules',
-
 #     'Dvattiṃsākāro': 'The 32 Parts',
-
 #     'Kumārapañhā': "Samanera Pañha — The Novice's Questions",
-
 #     'Maṅgalasuttaṃ': 'Protection',
-
 #     'Ratanasuttaṃ': 'Treasures',
-
 #     'Tirokuṭṭasuttaṃ': 'Tirokudda Kanda — Hungry Shades Outside the Walls',
-
 #     'Nidhikaṇḍasuttaṃ': 'The Reserve Fund',
-
 #     'Mettasuttaṃ': 'Karaniya Metta Sutta — Good Will',
-
    'Dhammapadapāḷi': 'Pháp Cú',
-
 #     'Yamakavaggo': 'Pairs',
-
 #     'Appamādavaggo': 'Heedfulness',
-
 #     'Cittavaggo': 'The Mind',
-
 #     'Pupphavaggo': 'Blossoms',
-
 #     'Bālavaggo': 'Fools',
-
 #     'Paṇḍitavaggo': 'The Wise',
-
 #     'Arahantavaggo': 'Arahants',
-
 #     'Sahassavaggo': 'Thousands',
-
 #     'Pāpavaggo': 'Evil',
-
 #     'Daṇḍavaggo': 'The Rod',
-
 #     'Jarāvaggo': 'Aging',
-
 #     'Attavaggo': 'Self',
-
 #     'Lokavaggo': 'Worlds',
-
 #     'Buddhavaggo': 'Awakened',
-
 #     'Sukhavaggo': 'Happy',
-
 #     'Piyavaggo': 'Dear Ones',
-
 #     'Kodhavaggo': 'Anger',
-
 #     'Malavaggo': 'Impurities',
-
 #     'Dhammaṭṭhavaggo': 'The Judge',
-
 #     'Maggavaggo': 'The Path',
-
 #     'Pakiṇṇakavaggo': 'Miscellany',
-
 #     'Nirayavaggo': 'Hell',
-
 #     'Nāgavaggo': 'Elephants',
-
 #     'Taṇhāvaggo': 'Craving',
-
 #     'Bhikkhuvaggo': 'Monks',
-
 #     'Brāhmaṇavaggo': 'Brahmans',
-
 #   'Udānapāḷi': 'Exclamations',
-
 #   'Itivuttakapāḷi': 'The Thus-saids',
-
 #   'Suttanipātapāḷi': 'The Discourses Collection',
-
 #     'Uragavaggo': 'The Snake Chapter',
-
 #     'Cūḷavaggo': 'The Lesser Chapter',
-
 #     'Mahāvaggo': 'The Great Chapter',
-
 #     'Aṭṭhakavaggo': 'The Octet Chapter',
-
 #     'Pārāyanavaggo': 'The Chapter on the Way to the Far Shore',
-
 #   'Vimānavatthupāḷi': 'Stories of the Celestial Mansions',
-
    'Petavatthupāḷi': 'Truyện Ngạ Quỷ',
-
    'Theragāthāpāḷi': 'Trưởng lão Kệ',
-
    'Therīgāthāpāḷi': 'Trưởng lão ni Kệ',
-
 #   'Apadānapāḷi': 'Stories',
-
 #   'Buddhavaṃsapāḷi': 'History of the Buddhas',
-
 #   'Cariyāpiṭakapāḷi': 'Basket of Conduct',
-
 #   'Jātakapāḷi': 'Birth Stories',
-
 #   'Mahāniddesapāḷi': '大義釋',
-
 #   'Cūḷaniddesapāḷi': '小義釋',
-
 #   'Paṭisambhidāmaggapāḷi': 'Path of Discrimination',
-
 #   'Nettippakaraṇapāḷi': '導論',
-
    'Milindapañhapāḷi': 'Milinda Vấn Đạo',
-
 #   'Peṭakopadesapāḷi': '藏釋 (三藏知津)',
-
 #'Abhidhammapiṭaka': '',
-
 # 'Dhammasaṅgaṇīpāḷi': 'Enumeration of Phenomena',
-
 # 'Vibhaṅgapāḷi': 'The Book of Treatises',
-
 # 'Dhātukathāpāḷi': 'Discussion with Reference to the Elements',
-
 # 'Puggalapaññattipāḷi': 'A Designation of Human Types',
-
 # 'Puggalapaññattipāḷi': 'Description of Individuals',
-
 # 'Kathāvatthupāḷi': 'Points of Controversy',
-
 # 'Yamakapāḷi': 'The Book of Pairs',
-
 # 'Paṭṭhānapāḷi': 'The Book of Relations',
-
 'Aṭṭhakathā': 'Chú Giải',
-
 'Tīkā': 'Sớ Giải',
-
 # 'Abhidhammatthasaṅgaho': 'A Comprehensive Manual of Abhidhamma',
-
 # 'Visuddhimagga': 'The Path of Purification',
-
 #     'Sīlaniddeso': 'DESCRIPTION OF VIRTUE',
-
 #     'Dhutaṅganiddeso': 'THE ASCETIC PRACTICES',
-
 #     'Kammaṭṭhānaggahaṇaniddeso': 'TAKING A MEDITATION SUBJECT',
-
 #     'Pathavīkasiṇaniddeso': 'THE EARTH KASIṆA',
-
 #     'Sesakasiṇaniddeso': 'THE REMAINING KASIṆAS',
-
 #     'Asubhakammaṭṭhānaniddeso': 'FOULNESS AS A MEDITATION SUBJECT',
-
 #     'Chaanussatiniddeso': 'SIX RECOLLECTIONS',
-
 #     'Anussatikammaṭṭhānaniddeso': 'OTHER RECOLLECTIONS AS MEDITATION SUBJECTS',
-
 #     'Brahmavihāraniddeso': 'THE DIVINE ABIDINGS',
-
 #     'Āruppaniddeso': 'THE IMMATERIAL STATES',
-
 #     'Samādhiniddeso': 'CONCENTRATION—CONCLUSION: NUTRIMENT AND THE ELEMENTS',
-
 #     'Iddhividhaniddeso': 'THE SUPERNORMAL POWERS',
-
 #     'Abhiññāniddeso': 'OTHER DIRECT-KNOWLEDGES',
-
 #     'Khandhaniddeso': 'THE AGGREGATES',
-
 #     'Āyatanadhātuniddeso': 'THE BASES AND ELEMENTS',
-
 #     'Indriyasaccaniddeso': 'THE FACULTIES AND TRUTHS',
-
 #     'Paññābhūminiddeso': 'THE SOIL OF UNDERSTANDING—CONCLUSION: DEPENDENT ORIGINATION',
-
 #     'Diṭṭhivisuddhiniddeso': 'PURIFICATION OF VIEW',
-
 #     'Kaṅkhāvitaraṇavisuddhiniddeso': 'PURIFICATION BY OVERCOMING DOUBT',
-
 #     'Maggāmaggañāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF WHAT IS THE PATH AND WHAT IS NOT THE PATH',
-
 #     'Paṭipadāñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION OF THE WAY',
-
 #     'Ñāṇadassanavisuddhiniddeso': 'PURIFICATION BY KNOWLEDGE AND VISION',
-
 #     'Paññābhāvanānisaṃsaniddeso': 'THE BENEFITS IN DEVELOPING UNDERSTANDING',
+'Anya': 'Các tài liệu khác',
 
 ' ': ' '
 }
