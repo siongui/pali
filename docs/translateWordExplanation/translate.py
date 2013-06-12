@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import csv
+import shutil
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../common/pytools'))
 from variables import getDictBooksJsonPath
@@ -56,21 +57,57 @@ if __name__ == '__main__':
   """
   dicId = 'C'
 
-  with open(os.path.join(os.path.dirname(__file__), 'output.csv'), 'wb') as f:
-    frWriter = csv.writer(f, delimiter=',', quotechar='"')
+  outputPath = os.path.join(os.path.dirname(__file__), 'output.csv')
+  tmpPath = os.path.join(os.path.dirname(__file__), 'tmp.csv')
 
-    index = 0
-    for word, explanation in extractOneDicExps(dicIndex, dicId):
-      index += 1
-      if index < 22560: continue
+  if os.path.isfile(outputPath):
+    # output csv exitsts => resume the translation
+    shutil.move(outputPath, tmpPath)
 
-      translatedExplanation = gs.translate(explanation, 'fr', 'en')
-      frWriter.writerow([word.encode('utf-8'),
-                         translatedExplanation.encode('utf-8')])
+    with open(outputPath, 'wb') as fw:
+      frWriter = csv.writer(fw, delimiter=',', quotechar='"')
 
-      print(explanation)
-      print(translatedExplanation)
+      # write translated data to outpur
+      indexDone = 0
+      with open(tmpPath, 'r') as fr:
+        bookreader = csv.reader(fr, delimiter=',', quotechar='"')
+        for row in bookreader:
+          indexDone += 1
+          frWriter.writerow(row)
+          print(row)
 
-      sleep(0.9)
+      # translate un-translated data
+      index = 0
+      for word, explanation in extractOneDicExps(dicIndex, dicId):
+        index += 1
+        if index <= indexDone:
+          continue
+
+        translatedExplanation = gs.translate(explanation, 'fr', 'en')
+        frWriter.writerow([word.encode('utf-8'),
+                           translatedExplanation.encode('utf-8')])
+
+        print(explanation)
+        print(translatedExplanation)
+
+        sleep(0.9)
+
+  else:
+    # output csv does not exitst => start the translation from scratch
+    with open(outputPath, 'wb') as f:
+      frWriter = csv.writer(f, delimiter=',', quotechar='"')
+
+      index = 0
+      for word, explanation in extractOneDicExps(dicIndex, dicId):
+        index += 1
+
+        translatedExplanation = gs.translate(explanation, 'fr', 'en')
+        frWriter.writerow([word.encode('utf-8'),
+                           translatedExplanation.encode('utf-8')])
+
+        print(explanation)
+        print(translatedExplanation)
+
+        sleep(0.9)
 
   print('number of words in %s: %d' % (dicIndex[dicId][3], index + 1))
