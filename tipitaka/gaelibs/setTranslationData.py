@@ -814,363 +814,188 @@ canonTextTranslation['vi_VN'] = {
 'Tipiṭaka (Mūla)': 'Tam Tạng',
 'Vinayapiṭaka': 'Tạng Luật',
 'Suttapiṭaka': 'Tạng Kinh',
- 'Dīghanikāya': 'Trường Bộ',
- 'Dīgha nikāya': 'Trường Bộ',
-   'Sīlakkhandhavaggapāḷi':'Phẩm Giới Uẩn',
+ 'Dīghanikāya': '1/5. Trường Bộ',
+ 'Dīgha nikāya': '1/5. Trường Bộ',
+   'Sīlakkhandhavaggapāḷi':'1/3. Phẩm Giới Uẩn',
      'Brahmajālasuttaṃ': 'Kinh Phạm Võng',
      'Sāmaññaphalasuttaṃ': 'Kinh Sa-môn Quả',
      'Ambaṭṭhasuttaṃ': 'Kinh Ambaṭṭha',
-
      'Soṇadaṇḍasuttaṃ': 'Kinh Chủng Đức',
-
      'Kūṭadantasuttaṃ': 'Kinh Kūṭadanta',
-
      'Mahālisuttaṃ': 'Kinh Mahāli',
-
      'Jāliyasuttaṃ': 'Kinh Jāliya',
-
      'Mahāsīhanādasuttaṃ': 'Kinh Đại Sư Tử Hống',
-
      'Poṭṭhapādasuttaṃ': 'Kinh Poṭṭhapāda',
-
      'Subhasuttaṃ': 'Kinh Subha',
-
      'Kevaṭṭasuttaṃ': 'Kinh Kevaṭṭa',
-
      'Lohiccasuttaṃ': 'Kinh Lohicca',
-
      'Tevijjasuttaṃ': 'Kinh Tam Minh',
-
-   'Mahāvaggapāḷi':'Đại Phẩm',
-
+   'Mahāvaggapāḷi':'2/3. Phẩm Lớn',
      'Mahāpadānasuttaṃ': 'Kinh Mahāpadāna',
-
      'Mahānidānasuttaṃ': 'Kinh Đại Duyên',
-
      'Mahāparinibbānasuttaṃ': 'Kinh Đại Bát-niết-bàn',
-
      'Mahāsudassanasuttaṃ': 'Kinh Mahāsudassana',
-
      'Janavasabhasuttaṃ': 'Kinh Janavasabha',
-
      'Mahāgovindasuttaṃ': 'Kinh Mahāgovinda',
-
      'Mahāsamayasuttaṃ': 'Kinh Ðại hội',
-
      'Sakkapañhasuttaṃ': 'Kinh Ðế-thích hỏi đạo',
-
      'Mahāsatipaṭṭhānasuttaṃ': 'Kinh Ðại niệm xứ',
-
      'Pāyāsisuttaṃ': 'Kinh Pāyāsi',
-
-   'Pāthikavaggapāḷi':'Phẩm Pāthika',
-
+   'Pāthikavaggapāḷi':'3/3. Phẩm Pāthika',
      'Pāthikasuttaṃ': 'Kinh Pāthika',
-
      'Udumbarikasuttaṃ': 'Kinh Udumbarika',
-
      'Cakkavattisuttaṃ': 'Kinh Chuyển luân thánh vương',
-
      'Aggaññasuttaṃ': 'Kinh Khởi thế nhân bổn',
-
      'Sampasādanīyasuttaṃ': 'Kinh Tự hoan hỷ',
-
      'Pāsādikasuttaṃ': 'Kinh Thanh tịnh',
-
      'Lakkhaṇasuttaṃ': 'Kinh Tướng',
-
      'Siṅgālasuttaṃ': "Kinh giảng cho Siṅgāla",
-
      'Āṭānāṭiyasuttaṃ': 'Kinh Āṭānāṭiya',
-
      'Saṅgītisuttaṃ': 'Kinh Phúng tụng',
-
      'Dasuttarasuttaṃ': 'Kinh Thập thượng',
-
- 'Majjhimanikāya': 'Trung Bộ',
-
-   'Mūlapaṇṇāsapāḷi': 'Nhóm Năm mươi Căn bản',
-
+ 'Majjhimanikāya': '2/5. Trung Bộ',
+   'Mūlapaṇṇāsapāḷi': '1/3. Nhóm Năm mươi Căn bản',
      'Mūlapariyāyavaggo': 'Phẩm Pháp môn căn bản',
-
      'Sīhanādavaggo': 'Phẩm Tiếng rống sư tử',
-
      'Opammavaggo': 'Phẩm So sánh',
-
      'Mahāyamakavaggo': 'Đại phẩm Song đôi',
-
      'Cūḷayamakavaggo': 'Tiểu phẩm Song đôi',
-
-   'Majjhimapaṇṇāsapāḷi': 'Nhóm Năm mươi Trung cấp',
-
+   'Majjhimapaṇṇāsapāḷi': '2/3. Nhóm Năm mươi Trung cấp',
      'Gahapativaggo': 'Phẩm Gia Chủ',
-
      'Bhikkhuvaggo': 'Phẩm Tỳ-khưu',
-
      'Paribbājakavaggo': 'Phẩm Du sĩ',
-
      'Rājavaggo': 'Phẩm Vua',
-
      'Brāhmaṇavaggo': 'Phẩm Phạm Thiên',
-
-   'Uparipaṇṇāsapāḷi': 'Nhóm Năm mươi Cao cấp',
-
+   'Uparipaṇṇāsapāḷi': '3/3. Nhóm Năm mươi Cao cấp',
      'Devadahavaggo': 'Phẩm Thị trấn Devadaha',
-
      'Anupadavaggo': 'Phẩm Bất Đoạn',
-
      'Suññatavaggo': 'Phẩm Không tánh',
-
      'Vibhaṅgavaggo': 'Phẩm Phân biệt',
-
      'Saḷāyatanavaggo': 'Phẩm Sáu xứ',
-
- 'Saṃyuttanikāya': 'Tương Ưng Bộ',
-
-   'Sagāthāvaggapāḷi': 'Thiên Có Kệ',
-
+ 'Saṃyuttanikāya': '3/5. Tương Ưng Bộ',
+   'Sagāthāvaggapāḷi': '1/5. Thiên Có Kệ',
      'Devatāsaṃyuttaṃ': 'Tương Ưng Chư Thiên',
-
      'Devaputtasaṃyuttaṃ': 'Tương Ưng Thiên Tử',
-
      'Kosalasaṃyuttaṃ': 'Tương Ưng Kosala',
-
      'Mārasaṃyuttaṃ': 'Tương Ưng Ác Ma',
-
      'Bhikkhunīsaṃyuttaṃ': 'Tương Ưng Tỳ-khưu-ni',
-
      'Brahmasaṃyuttaṃ': 'Tương Ưng Phạm Thiên',
-
      'Brāhmaṇasaṃyuttaṃ': 'Tương Ưng Bà-la-môn',
-
      'Vaṅgīsasaṃyuttaṃ': 'Tương Ưng Trưởng Lão Vaṅgīsa',
-
      'Vanasaṃyuttaṃ': 'Tương Ưng Rừng',
-
      'Yakkhasaṃyuttaṃ': 'Tương Ưng Dạ-xoa',
-
      'Sakkasaṃyuttaṃ': 'Tương Ưng Đế-thích',
-
-   'Nidānavaggapāḷi': 'Thiên Nhân Duyên',
-
+   'Nidānavaggapāḷi': '2/5. Thiên Nhân Duyên',
      'Nidānasaṃyuttaṃ': 'Tương Ưng Nhân Duyên',
-
      'Abhisamayasaṃyuttaṃ': 'Tương Ưng Minh Kiến',
-
      'Dhātusaṃyuttaṃ': 'Tương Ưng Giới',
-
      'Anamataggasaṃyuttaṃ': 'Tương Ưng Vô Thỉ',
-
      'Kassapasaṃyuttaṃ': 'Tương Ưng Kassapa',
-
      'Lābhasakkārasaṃyuttaṃ': 'Tương Ưng Lợi Ích Ðắc Cung Kính',
-
      'Rāhulasaṃyuttaṃ': 'Tương Ưng Rahula',
-
      'Lakkhaṇasaṃyuttaṃ': 'Tương Ưng Lakkhana',
-
      'Opammasaṃyuttaṃ': 'Tương Ưng Thí Dụ',
-
      'Bhikkhusaṃyuttaṃ': 'Tương Ưng Tỳ-khưu',
-
-   'Khandhavaggapāḷi': 'Thiên Uẩn',
-
+   'Khandhavaggapāḷi': '3/5. Thiên Uẩn',
      'Khandhasaṃyuttaṃ': 'Tương Ưng Uẩn',
-
      'Rādhasaṃyuttaṃ': 'Tương Ưng Rādha',
-
      'Diṭṭhisaṃyuttaṃ': 'Tương Ưng Kiến',
-
      'Okkantasaṃyuttaṃ': 'Tương Ưng Nhập',
-
      'Uppādasaṃyuttaṃ': 'Tương Ưng Sanh',
-
      'Kilesasaṃyuttaṃ': 'Tương Ưng Phiền Não',
-
      'Sāriputtasaṃyuttaṃ': 'Tương Ưng Sāriputta',
-
      'Nāgasaṃyuttaṃ': 'Tương Ưng Loài Rồng',
-
      'Supaṇṇasaṃyuttaṃ': 'Tương Ưng Kim Xí Ðiểu',
-
      'Gandhabbakāyasaṃyuttaṃ': 'Tương Ưng Càn-thát-bà',
-
      'Valāhakasaṃyuttaṃ': 'Tương Ưng Thần Mây',
-
      'Vacchagottasaṃyuttaṃ': 'Tương Ưng Vacchagotta',
-
      'Jhānasaṃyuttaṃ': 'Tương Ưng Thiền',
-
-   'Saḷāyatanavaggapāḷi': 'Thiên Sáu Xứ',
-
+   'Saḷāyatanavaggapāḷi': '4/5. Thiên Sáu Xứ',
      'Saḷāyatanasaṃyuttaṃ': 'Tương Ưng Sáu Xứ',
-
      'Vedanāsaṃyuttaṃ': 'Tương Ưng Thọ',
-
      'Mātugāmasaṃyuttaṃ': 'Tương Ưng Nữ Nhân',
-
      'Jambukhādakasaṃyuttaṃ': 'Tương Ưng Jambukhādaka',
-
      'Sāmaṇḍakasaṃyuttaṃ': 'Tương Ưng Sāmaṇḍaka',
-
      'Moggallānasaṃyuttaṃ': 'Tương Ưng Moggallāna',
-
      'Cittasaṃyuttaṃ': 'Tương Ưng Tâm',
-
      'Gāmaṇisaṃyuttaṃ': 'Tương Ưng Thôn Trưởng',
-
      'Asaṅkhatasaṃyuttaṃ': 'Tương Ưng Vô Vi',
-
      'Abyākatasaṃyuttaṃ': 'Tương Ưng Không Thuyết',
-
-   'Mahāvaggapāḷi': 'Thiên Ðại Phẩm',
-
+   'Mahāvaggapāḷi (2)': '5/5. Thiên Ðại Phẩm',
      'Maggasaṃyuttaṃ': 'Tương Ưng Ðạo',
-
      'Bojjhaṅgasaṃyuttaṃ': 'Tương Ưng Giác Chi',
-
      'Satipaṭṭhānasaṃyuttaṃ': 'Tương Ưng Niệm Xứ',
-
      'Indriyasaṃyuttaṃ': 'Tương Ưng Căn',
-
      'Sammappadhānasaṃyuttaṃ': 'Tương Ưng Chánh Cần',
-
      'Balasaṃyuttaṃ': 'Tương Ưng Lực',
-
      'Iddhipādasaṃyuttaṃ': 'Tương Ưng Như Ý Túc',
-
      'Anuruddhasaṃyuttaṃ': 'Tương Ưng Anuruddha',
-
      'Jhānasaṃyuttaṃ': 'Tương Ưng Thiền',
-
      'Ānāpānasaṃyuttaṃ': 'Tương Ưng Hơi Thở Vô, Hơi Thở Ra',
-
      'Sotāpattisaṃyuttaṃ': 'Tương Ưng Dự Lưu',
-
      'Saccasaṃyuttaṃ': 'Tương Ưng Sự Thật',
-
- 'Aṅguttaranikāya': 'Tăng Chi Bộ',
-
-   'Ekakanipātapāḷi': 'Chương Một Pháp',
-
+ 'Aṅguttaranikāya': '4/5. Tăng Chi Bộ',
+   'Ekakanipātapāḷi': '1/11. Chương Một Pháp',
      'Rūpādivaggo': 'Phẩm Sắc',
-
      'Nīvaraṇappahānavaggo': 'Phẩm Ðoạn Triền Cái',
-
      'Akammaniyavaggo': 'Phẩm Khó Sử Dụng',
-
      'Adantavaggo': 'Phẩm Không Ðiều Phục',
-
      'Paṇihitaacchavaggo': 'Phẩm Ðặt Hướng Và Trong Sáng',
-
      'Accharāsaṅghātavaggo': 'Phẩm Búng Ngón Tay',
-
      'Vīriyārambhādivaggo': 'Phẩm Tinh Tấn',
-
      'Kalyāṇamittādivaggo': 'Phẩm Làm Bạn Với Thiện',
-
      'Pamādādivaggo': 'Phẩm Phóng Dật',
-
      'Dutiyapamādādivaggo': 'Phẩm Phóng Dật thứ hai',
-
      'Adhammavaggo': 'Phẩm Phi Pháp',
-
      'Anāpattivaggo': 'Phẩm Vô Phạm',
-
      'Ekapuggalavaggo': 'Phẩm Một Người',
-
      'Etadaggavaggo': 'Phẩm Người Tối Thắng',
-
      'Aṭṭhānapāḷi': 'Phẩm Không Thể Có Ðược',
-
      'Ekadhammapāḷi': 'Phẩm Một Pháp',
-
 #     'Pasādakaradhammavaggo': '',
-
 #     'Aparaaccharāsaṅghātavaggo': '',
-
 #     'Kāyagatāsativaggo': '',
-
 #     'Amatavaggo': '',
 
-   'Dukanipātapāḷi': 'Chương Hai Pháp',
-
+   'Dukanipātapāḷi': '2/11. Chương Hai Pháp',
 #     'Kammakaraṇavaggo': '科刑罰品',
-
 #     'Adhikaraṇavaggo': '靜論品',
-
 #     'Bālavaggo': '愚人品',
-
 #     'Samacittavaggo': '等心品',
-
 #     'Parisavaggo': '會眾品',
-
 #     'Puggalavaggo': '人品',
-
 #     'Sukhavaggo': '樂品',
-
 #     'Sanimittavaggo': '有品',
-
 #     'Dhammavaggo': '法品',
-
 #     'Bālavaggo': '愚者品',
-
 #     'Āsāduppajahavaggo': '希望品',
-
 #     'Āyācanavaggo': '希求品',
-
 #     'Dānavaggo': '施品',
-
 #     'Santhāravaggo': '覆護品',
-
 #     'Samāpattivaggo': '入定品',
-
 #     'Kodhapeyyālaṃ': '忿品',
-
 #     'Akusalapeyyālaṃ': '(律廣說)品',
-
 #     'Vinayapeyyālaṃ': '',
-
 #     'Rāgapeyyālaṃ': '',
-
-   'Tikanipātapāḷi': 'Chương Ba Pháp',
-
+   'Tikanipātapāḷi': '3/11. Chương Ba Pháp',
 #     'Bālavaggo': '愚人品',
-
 #     'Rathakāravaggo': '車匠品',
-
 #     'Puggalavaggo': '補特羅品',
-
 #     'Devadūtavaggo': '天使品',
-
 #     'Cūḷavaggo': '小品',
-
 #     'Brāhmaṇavaggo': '婆羅門品',
-
 #     'Mahāvaggo': '大品',
-
 #     'Ānandavaggo': '阿難品',
-
 #     'Samaṇavaggo': '沙門品',
-
 #     'Loṇakapallavaggo': '掬鹽品',
-
 #     'Sambodhavaggo': '等覺品',
-
 #     'Āpāyikavaggo': '惡趣品',
-
 #     'Kusināravaggo': '古西那拉品',
-
 #     'Yodhājīvavaggo': '戰士品',
-
 #     'Maṅgalavaggo': '吉祥品',
-
 #     'Acelakavaggo': '裸形品',
-
 #     'Kammapathapeyyālaṃ': '',
-
 #     'Rāgapeyyālaṃ': '',
-
    'Catukkanipātapāḷi': 'Chương Bốn Pháp',
 
    'Pañcakanipātapāḷi': 'Chương Năm Pháp',
