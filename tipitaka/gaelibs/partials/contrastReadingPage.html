@@ -34,14 +34,7 @@
   {% endif %}
 </div>
 
-<table>
-  {% for contrastReading in contrastReadings %}
-    <tr style="text-align:left">
-      <td style="width: 50%">{{ contrastReading[0] }}</td>
-      <td style="width: 50%">{{ contrastReading[1] }}</td>
-    </tr>
-  {% endfor %}
-</table>
+{{ contrastReadings }}
 
 <style>
 .canon2 {

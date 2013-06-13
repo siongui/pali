@@ -120,3 +120,7 @@ a.dropdownMenuItem:hover {
   background: #00C;
   color: white;
 }
+
+table.ctReading td {
+  width: 50%
+}

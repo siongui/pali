@@ -8,6 +8,8 @@ from xml2html import translationXslt
 from template import getJinja2Env
 from translationInfo import getI18nLinksTemplateValues
 from translationInfo import getXmlLocaleTranslationInfo
+from footNote import processNotes
+from footNote import processTranslatedPElementsNotes
 
 
 def getCanonPageHtml(node, reqPath, userLocale):
@@ -38,32 +40,13 @@ def getTranslationPageHtml(translationLocale, translator, action,
                                             translator) }
   # xslt
   transformedHtml = translationXslt(action, translationLocale, translator)
+  processNotes(transformedHtml)
   # get innerHTML of body
   translationPageTemplateValue['body'] = etree.tostring(
                                     transformedHtml.find('body'))[6:-7]
 
   template = getJinja2Env(userLocale).get_template('translationPage.html')
   return template.render(translationPageTemplateValue);
-
-
-def contrastReadingTemplateValue(oriBody, trBody):
-  if (len(oriBody) != len(trBody)):
-    raise Exception('two XML document body childs # not match')
-
-  contrastReadings = []
-  for i in range(len(oriBody)):
-    if oriBody[i].tag != 'p' and \
-       trBody[i].tag != 'p':
-      continue
-
-    oriHtmlI = etree.tostring(oriBody[i])
-    trHtmlI = etree.tostring(trBody[i])
-    if oriHtmlI == trHtmlI:
-      contrastReadings.append( [ oriHtmlI, '' ] )
-    else:
-      contrastReadings.append( [ oriHtmlI, trHtmlI ] )
-
-  return contrastReadings
 
 
 def getContrastReadingPageHtml(translationLocale, translator, action,
@@ -73,15 +56,43 @@ def getContrastReadingPageHtml(translationLocale, translator, action,
       'trInfo': getXmlLocaleTranslationInfo(action,
                                             translationLocale,
                                             translator) }
-  # xslt
-  oriTransformedHtml = paliXslt(action)
-  trTransformedHtml = translationXslt(action, translationLocale, translator)
 
-  oriBody = oriTransformedHtml.find('body')
-  trBody = trTransformedHtml.find('body')
+  oriBody = paliXslt(action).find('body')
+  trBody = translationXslt(action, translationLocale, translator).find('body')
+  if (len(oriBody) != len(trBody)):
+    raise Exception('two XML document body childs # not match')
+
+  table = etree.fromstring('<table class="ctReading"></table>')
+  trPElms = []
+  # create contrast (parallet) reading table
+  for i in range(len(oriBody)):
+    if oriBody[0].tag != 'p' or trBody[0].tag != 'p':
+      raise Exception('not in p tag')
+
+    tr = etree.fromstring('<tr></tr>')
+    if etree.tostring(oriBody[0]) == etree.tostring(trBody[0]):
+      # not translated
+      tdOri = etree.fromstring('<td></td>')
+      tdOri.append(oriBody[0])
+      tdTr = etree.fromstring('<td></td>')
+      trBody.remove(trBody[0])
+      tr.append(tdOri)
+      tr.append(tdTr)
+    else:
+      tdOri = etree.fromstring('<td></td>')
+      tdOri.append(oriBody[0])
+      tdTr = etree.fromstring('<td></td>')
+      trPElms.append(trBody[0])
+      tdTr.append(trBody[0])
+      tr.append(tdOri)
+      tr.append(tdTr)
+
+    table.append(tr)
+
+  footNotes = processTranslatedPElementsNotes(trPElms)
 
   contrastReadingPageTemplateValue['contrastReadings'] = \
-    contrastReadingTemplateValue(oriBody, trBody)
+    etree.tostring(table) + etree.tostring(footNotes)
 
   template = getJinja2Env(userLocale).get_template('contrastReadingPage.html')
   return template.render(contrastReadingPageTemplateValue)
