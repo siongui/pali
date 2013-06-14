@@ -102,7 +102,7 @@ angular.module('pali.mainview', ['pali.jqlext']).
     function onWordDbclick(e) {
       var word = this.innerHTML.toLowerCase();
       if (!wordSearch.isValidPaliWord(word)) return;
-      var url = 'http://palidictionary.appspot.com/browse/' + word[0] + '/' + word;
+      var url = 'http://dictionary.online-dhamma.net/browse/' + word[0] + '/' + word;
       if ($rootScope.isDevServer) url += '?track=no';
       window.open(url);
     }

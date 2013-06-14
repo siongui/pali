@@ -27,6 +27,11 @@ urls = (
 
 try:
   from google.appengine.api import memcache
+  from google.appengine.ext import ndb
+  class PaliWordJsonBlob(ndb.Model):
+    """blob which stores json data"""
+    data = ndb.BlobProperty()
+
   isGAE = True
 except ImportError:
   isGAE = False
@@ -38,9 +43,19 @@ class wordJsonService:
       if data is not None:
         return data
       else:
-        url = 'http://palidictionary.appspot.com/wordJson/%s' % \
-            urllib.quote(word.encode('utf-8')) 
-        jdata = urllib2.urlopen(url).read()
+        if os.environ['SERVER_SOFTWARE'].startswith("Development"):
+          # GAE development server
+          url = 'http://palidictionary.appspot.com/wordJson/%s' % \
+              urllib.quote(word.encode('utf-8')) 
+          jdata = urllib2.urlopen(url).read()
+        else:
+          # GAE production server
+          jblob = PaliWordJsonBlob.get_by_id(word)
+          if jblob:
+            jdata = jblob.data
+          else:
+            raise Exception('word not found: %s' % word)
+
         memcache.set(word, jdata)
         return jdata
     else:
@@ -52,7 +67,7 @@ class wordJsonService:
 
 class robots:
   def GET(self):
-    if web.ctx.host == 'epalitipitaka.appspot.com':
+    if web.ctx.host == 'tipitaka.online-dhamma.net':
       return 'User-agent: *\nDisallow: /html/\n'
     return 'User-agent: *\nDisallow: /'
 

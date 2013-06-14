@@ -89,8 +89,8 @@ angular.module('pali.tooltip', ['pali.mouseEnterLeave', 'pali.wordJson', 'pali.s
       if (!angular.isString(word)) return;
 
       var baseUrl;
-      if (location.hostname == 'epalitipitaka.appspot.com')
-        baseUrl = 'http://palidictionary.appspot.com/browse/';
+      if (location.hostname == 'tipitaka.online-dhamma.net')
+        baseUrl = 'http://dictionary.online-dhamma.net/browse/';
       else
         baseUrl = 'http://dictionary.sutta.org/browse/';
 

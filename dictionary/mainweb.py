@@ -51,7 +51,7 @@ def commonTemplateValues(urlLocale, reqHandlerName, prefix=None, word=None):
 #    'tpkWebAppUrl': 'http://tipitaka.sutta.org/',
     'serverEnv': 'appspot',
 #    'tpkWebAppUrl': 'http://epalitipitaka.appspot.com/',
-    'tpkWebAppUrl': 'http://tipitaka.online-dhamma.net',
+    'tpkWebAppUrl': 'http://tipitaka.online-dhamma.net/',
     'htmlTitle': getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word),
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
