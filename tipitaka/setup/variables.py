@@ -4,6 +4,15 @@
 from os.path import join
 from os.path import dirname
 
+try:
+  import pyopencc
+  ftoj = pyopencc.OpenCC('zht2zhs.ini').convert
+except:
+  print('cannot import opencc, import jianfan')
+  import sys
+  sys.path.append(join(dirname(__file__), '../common/pylib'))
+  from jianfan import ftoj
+
 TIPITAKA_DIR = join(dirname(__file__), '..')
 COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
 

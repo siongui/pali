@@ -6,16 +6,7 @@ import json
 import collections
 import re
 
-try:
-  import pyopencc
-  cc = pyopencc.OpenCC('zht2zhs.ini')
-  ftoj = cc.convert
-except:
-  print('cannot import opencc, import jianfan')
-  import sys
-  sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
-  from jianfan import ftoj
-
+from variables import ftoj
 
 jstr = """{
   'zh_TW': {

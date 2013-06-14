@@ -30,7 +30,7 @@ jj2env.filters['translateLocale'] = translateLocale
 jj2env.filters['originalPaliLink'] = originalPaliLink
 
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../common/gae/libs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '../common/pylib'))
 import i18n
 jj2env.install_gettext_translations(i18n)
 

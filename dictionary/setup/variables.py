@@ -4,13 +4,21 @@
 from os.path import join
 from os.path import dirname
 
+try:
+  import pyopencc
+  jtof = pyopencc.OpenCC('zhs2zht.ini').convert
+except:
+  print('cannot import opencc, import jianfan')
+  import sys
+  sys.path.append(join(dirname(__file__), '../common/pylib'))
+  from jianfan import jtof
+
+#jtof = lambda x: x
+
 DICTIONARY_DIR = join(dirname(__file__), '..')
 COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
 APP_COMMON_DATA_DIR = join(dirname(__file__),
     "../../common/app/scripts/services/data/")
-
-def isZhTW():
-  return True
 
 def getSDKPath():
   return join(dirname(__file__), "../../../google_appengine/")

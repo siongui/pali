@@ -14,9 +14,10 @@
 
 2. Create information of dictionaries.
 ```bash
-    $ cd PALI_DIR/common/pytools/
+    $ cd PALI_DIR/setup/
     $ python setupdev.py
-    $ python dic1parseBooks.py
+    $ cd PALI_DIR/dictionary/setup/
+    $ python init1parseBooks.py
 ```
 
 3. Install [goslate](https://pypi.python.org/pypi/goslate)

@@ -9,14 +9,6 @@
 # http://www.supernifty.org/blog/2011/09/16/python-localization-made-easy/
 
 import os, sys, re, json, shutil
-try:
-  import pyopencc
-  cc = pyopencc.OpenCC('zht2zhs.ini')
-  ftoj = cc.convert
-except:
-  print('cannot import opencc, import jianfan')
-  sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
-  from jianfan import ftoj
 
 from variables import getDstLocalesJsPath
 from variables import getLocaleDir
@@ -25,6 +17,7 @@ from variables import getDicHtmlDir
 from variables import getTpkHtmlDir
 from variables import getDicHtmlDir2
 from variables import getTpkHtmlDir2
+from variables import ftoj
 
 # http://www.roseindia.net/tutorials/I18N/locales-list.shtml
 locales = ['en_US', 'zh_TW', 'zh_CN', 'fr_FR', 'vi_VN']

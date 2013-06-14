@@ -24,14 +24,14 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     $ unzip google_appengine_{{ version }}.zip
 ```
 
-2. Run <b>PALI_DIR/common/pytools/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
+2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
 ```bash
-    $ python PALI_DIR/common/pytools/setupdev.py
+    $ python PALI_DIR/setup/setupdev.py
 ```
 
 3. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server:
 ```bash
-    $ cd PALI_DIR/common/pytools/
+    $ cd PALI_DIR/setup/
     # create i18n files
     $ python i18nUtils.py pot
     $ python i18nUtils.py po
@@ -171,10 +171,10 @@ $ grunt run
 
 ## Development of i18n
 
-Everytime strings in html files are marked to be translated, remember to re-generate i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>PALI_DIR/common/pytools/</b>) to automate the i18n jobs.
+Everytime strings in html files are marked to be translated, remember to re-generate i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>PALI_DIR/setup/</b>) to automate the i18n jobs.
 
 ```bash
-$ cd PALI_DIR/common/pytools/
+$ cd PALI_DIR/setup/
 # create POT from html files
 $ python i18nUtils.py pot
 # initialize PO files if not exist, or update POs files if exist.

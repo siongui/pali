@@ -10,7 +10,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from url import getAllLocalesTranslationsHtml
 from url import checkPath
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'common/pylib'))
 from localeUtil import getLocale
 from localeUtil import parseAcceptLanguage
 from misc import isDevServer

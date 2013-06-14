@@ -7,7 +7,8 @@ import json
 import csv
 import shutil
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../common/pytools'))
+sys.path.append(os.path.join(os.path.dirname(__file__),
+    '../../dictionary/setup/'))
 from variables import getDictBooksJsonPath
 from variables import getDictWordsCSV1Path
 from variables import getDictWordsCSV2Path

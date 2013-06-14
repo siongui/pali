@@ -9,7 +9,7 @@ http://stackoverflow.com/questions/2817733/use-gae-remote-api-with-local-dev-ins
 
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'common/pylib'))
 import web
 
 from google.appengine.ext import ndb

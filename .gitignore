@@ -5,7 +5,7 @@ common/locale/messages.pot
 common/locale/en_US/LC_MESSAGES/messages.po
 common/locale/zh_CN/LC_MESSAGES/messages.po
 
-common/gae/libs/jianfan
+common/pylib/jianfan
 
 common/app/scripts/services/data/dicBooks.js
 common/app/scripts/services/data/succinctTrie.js

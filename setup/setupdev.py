@@ -10,8 +10,8 @@ Manual setup (for reference):
 1. setup TongWen (deprecated):
 ```bash
   cd $PALI_DIR
-  mkdir -p common/app/js/ext
-  cd common/app/js/ext/
+  mkdir -p common/app/scripts/ext
+  cd common/app/scripts/ext/
   wget http://tongwen.openfoundry.org/src/web/tongwen_core.js
   wget http://tongwen.openfoundry.org/src/web/tongwen_table_s2t.js
   wget http://tongwen.openfoundry.org/src/web/tongwen_table_t2s.js
@@ -23,7 +23,7 @@ Manual setup (for reference):
 ```bash
   wget https://python-jianfan.googlecode.com/files/jianfan-0.0.2.zip
   unzip jianfan-0.0.2.zip
-  mv jianfan-0.0.2/jianfan $PALI_DIR/common/gae/libs/
+  mv jianfan-0.0.2/jianfan $PALI_DIR/common/pylib/
   rm -rf jianfan-0.0.2
 ```
 
@@ -39,8 +39,8 @@ Manual setup (for reference):
   cd $PALI_DIR/dictionary
   ln -s ../common/ common
 
-  cd $PALI_DIR/common/gae/libs
-  ln -s ../../../../data/pali/common/gae/libs/jianfan/ jianfan
+  cd $PALI_DIR/common/pylib
+  ln -s ../../../data/pali/common/gae/libs/jianfan/ jianfan
 ```
 """
 
@@ -53,7 +53,7 @@ def ln(source, link_name):
 
 def setupSymlinks():
   # enter tipitaka dir
-  os.chdir(os.path.join(os.path.dirname(__file__), '../../tipitaka'))
+  os.chdir(os.path.join(os.path.dirname(__file__), '../tipitaka'))
   ln('../common/', 'common')
   os.chdir('pylib')
   ln('../../../data/pali/common/translation/', 'translation')
@@ -62,15 +62,15 @@ def setupSymlinks():
   os.chdir('../../dictionary')
   ln('../common/', 'common')
   # enter common dir
-  os.chdir('../common/gae/libs')
-  ln('../../../../data/pali/common/gae/libs/jianfan/', 'jianfan')
+  os.chdir('../common/pylib')
+  ln('../../../data/pali/common/gae/libs/jianfan/', 'jianfan')
 
 
 if __name__ == '__main__':
   tipitakaLatnCssPath = os.path.join(os.path.dirname(__file__),
-      '../../../data/pali/common/romn/cscd/tipitaka-latn.css')
+      '../../data/pali/common/romn/cscd/tipitaka-latn.css')
   dstPath = os.path.join(os.path.dirname(__file__),
-      '../../tipitaka/app/css/tipitaka-latn.css')
+      '../tipitaka/app/css/tipitaka-latn.css')
   shutil.copyfile(tipitakaLatnCssPath, dstPath)
 
   setupSymlinks()

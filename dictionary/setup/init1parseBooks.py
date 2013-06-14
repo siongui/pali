@@ -8,21 +8,7 @@ import shutil
 
 from variables import getDictBooksCSVPath
 from variables import getDictBooksJsonPath
-from variables import isZhTW
-
-try:
-  import pyopencc
-  cc = pyopencc.OpenCC('zhs2zht.ini')
-  jtof = cc.convert
-except:
-  print('cannot import opencc, import jianfan')
-  import sys
-  sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
-  from jianfan import jtof
-
-if not isZhTW():
-  jtof = lambda x: x
-
+from variables import jtof
 
 """
 In this script, we will build "dicIndex".

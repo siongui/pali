@@ -3,7 +3,7 @@
 
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'common/pylib'))
 import web
 sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from wordJson import getWordJson

@@ -48,7 +48,6 @@ skip_files:
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
 - ^(.*/)?common/app/scripts/.*
-- ^(.*/)?common/pytools/.*
 - ^(.*/)?app/scripts/.*
 - ^(.*/)?app/css/app\.css
 - ^(.*/)?pylib/paliwords/.*

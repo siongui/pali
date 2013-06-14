@@ -10,20 +10,7 @@ from variables import getDictWordsCSV1Path
 from variables import getDictWordsCSV2Path
 from variables import getDictBooksJsonPath
 from variables import getDictWordsJsonDir
-from variables import isZhTW
-
-try:
-  import pyopencc
-  cc = pyopencc.OpenCC('zhs2zht.ini')
-  jtof = cc.convert
-except:
-  print('cannot import opencc, import jianfan')
-  import sys
-  sys.path.append(os.path.join(os.path.dirname(__file__), '../gae/libs'))
-  from jianfan import jtof
-
-if not isZhTW():
-  jtof = lambda x: x
+from variables import jtof
 
 
 def processWordCSV(csvPath, dicIndex, dstDir):

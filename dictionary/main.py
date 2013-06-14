@@ -11,7 +11,7 @@ from url2 import getPrefixHtml
 from url2 import getWordHtml
 from url2 import getHtmlTitle
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'common/pylib'))
 from localeUtil import getLocale, parseAcceptLanguage
 from misc import isTrack
 from misc import isDevServer
