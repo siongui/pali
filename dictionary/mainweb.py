@@ -11,7 +11,7 @@ from misc import isTrack
 import i18n
 import web
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from url2 import isValidPrefixAndWord
 from url2 import getPrefixHtml
 from url2 import getWordHtml

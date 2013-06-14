@@ -61,16 +61,16 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
 6. Create index of words in dictionary books.
    After data files created, upload them to Google App Engine dev server:
 ```bash
-    $ cd PALI_DIR/common/pytools/
-    $ python dic1parseBooks.py
-    $ python dic2parseWords.py
-    $ python dic3prefixWordsHtml.py
+    $ cd PALI_DIR/dictionary/setup/
+    $ python init1parseBooks.py
+    $ python init2parseWords.py
+    $ python init3prefixWordsHtml.py
 
     # build succinct trie of words
-    $ cd PALI_DIR/common/pytools/nodejs
+    $ cd PALI_DIR/dictionary/setup/nodejs
     $ nodejs buildSuccinctTrie.js
-    $ cd PALI_DIR/common/pytools/
-    $ python dic4jsonToJS.py
+    $ cd PALI_DIR/dictionary/setup/
+    $ python init4jsonToJS.py
 
     $ cd PALI_DIR/dictionary
     # Install grunt plugins
@@ -83,8 +83,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # keep above "grunt run" terminal running, and open another terminal
     # uploading words files to local GAE datastore of dev server.
     # Please answer 'y' when asked if upload to dev server
-    $ cd PALI_DIR/common/pytools/
-    $ python dic5uploadToGAE.py
+    $ cd PALI_DIR/dictionary/setup/
+    $ python init5uploadToGAE.py
 
     # after uploading finished, open browser to test local dev server:
     # http://localhost:8080/
@@ -133,8 +133,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
 
     # uploading words files to online GAE datastore of production server.
     # Please answer 'n' when asked if upload to dev server
-    $ cd PALI_DIR/common/pytools/
-    $ python dic5uploadToGAE.py
+    $ cd PALI_DIR/dictionary/setup/
+    $ python init5uploadToGAE.py
 
     # deploy tipitaka website
     $ cd PALI_DIR/tipitaka

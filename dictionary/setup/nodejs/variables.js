@@ -4,7 +4,7 @@
 
 function getDictWordsJsonDir() {
   return require('path').resolve(__dirname, 
-      '../../../dictionary/gaelibs/paliwords');
+      '../../pylib/paliwords');
 }
 
 function getBitsjsPath() {
@@ -13,7 +13,7 @@ function getBitsjsPath() {
 
 function getSuccinctTrieJsonPath() {
   return require('path').resolve(__dirname, 
-      '../../../dictionary/gaelibs/json/succinct_trie.json');
+      '../../pylib/json/succinct_trie.json');
 }
 
 if ( typeof exports !== "undefined" ) {

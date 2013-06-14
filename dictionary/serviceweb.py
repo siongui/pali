@@ -5,7 +5,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 import web
-sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from wordJson import getWordJson
 
 import urllib2

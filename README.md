@@ -40,15 +40,15 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
 
 4. Create index of words in dictionary books.
 ```bash
-    $ cd PALI_DIR/common/pytools/
-    $ python dic1parseBooks.py
-    $ python dic2parseWords.py
-    $ python dic3prefixWordsHtml.py
+    $ cd PALI_DIR/dictionary/setup/
+    $ python init1parseBooks.py
+    $ python init2parseWords.py
+    $ python init3prefixWordsHtml.py
 
     # build succinct trie of words
-    $ cd PALI_DIR/common/pytools/nodejs
+    $ cd PALI_DIR/dictionary/setup/nodejs
     $ nodejs buildSuccinctTrie.js
-    $ cd PALI_DIR/common/pytools/
+    $ cd PALI_DIR/dictionary/setup/
     $ python dic4jsonToJS.py
 
     $ cd PALI_DIR/dictionary

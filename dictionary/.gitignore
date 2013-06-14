@@ -3,10 +3,10 @@ app/BingSiteAuth.xml
 app/google147e4ebe06d05f82.html
 app/css/app.min.css
 
-gaelibs/json/books.json
-gaelibs/json/succinct_trie.json
-gaelibs/paliwords/
-gaelibs/prefixWordsHtml/
+pylib/json/books.json
+pylib/json/succinct_trie.json
+pylib/paliwords/
+pylib/prefixWordsHtml/
 
 common
 GAEDevDatastore

@@ -51,7 +51,8 @@ skip_files:
 - ^(.*/)?common/pytools/.*
 - ^(.*/)?app/scripts/.*
 - ^(.*/)?app/css/app\.css
-- ^(.*/)?gaelibs/paliwords/.*
+- ^(.*/)?pylib/paliwords/.*
+- ^(.*/)?setup/.*
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*
 - ^(.*/)?.*\.md
