@@ -66,7 +66,7 @@ the following is the sample config for dictionary website:
 
         Alias           /js/palidic.js {{ PALI_REPO_DIR }}/dictionary/app/all_compiled.js
         Alias           /favicon.ico {{ PALI_REPO_DIR }}/common/app/img/favicon.ico
-        Alias           /robots.txt {{ PALI_REPO_DIR }}/common/gae/robots.txt
+        Alias           /robots.txt {{ PALI_REPO_DIR }}/common/robots.txt
         Alias           /wordJson/ {{ PALI_REPO_DIR }}/dictionary/pylib/paliwords/
 
         WSGIScriptAlias / {{ PALI_REPO_DIR }}/dictionary/mainweb.py
@@ -87,7 +87,7 @@ WSGIPythonPath  {{ PALI_REPO_DIR }}/tipitaka
 
         Alias           /js/tipitaka.js {{ PALI_REPO_DIR }}/tipitaka/app/all_compiled.js
         Alias           /favicon.ico {{ PALI_REPO_DIR }}/common/app/img/favicon.ico
-        Alias           /robots.txt {{ PALI_REPO_DIR }}/common/gae/robots.txt
+        Alias           /robots.txt {{ PALI_REPO_DIR }}/common/robots.txt
         Alias           /wordJson/ {{ PALI_REPO_DIR }}/dictionary/pylib/paliwords/
 
         WSGIScriptAlias / {{ PALI_REPO_DIR }}/tipitaka/devNotGaeRun.py
