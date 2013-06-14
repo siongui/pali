@@ -92,17 +92,17 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
 
 7. Create Tipiṭaka-related translations for server and client.
 ```bash
-    $ cd PALI_DIR/tipitaka/gaelibs/
+    $ cd PALI_DIR/tipitaka/setup/
     $ python setTranslationData.py
 ```
 
 8. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website.
    After data files created, upload them to Google App Engine dev server:
 ```bash
-    $ cd PALI_DIR/common/pytools/
-    $ python tpk1getTocs.py
-    $ python tpk2tocsToJson.py
-    $ python tpk3addSubpathInJson.py
+    $ cd PALI_DIR/tipitaka/setup/
+    $ python init1getTocs.py
+    $ python init2tocsToJson.py
+    $ python init3addSubpathInJson.py
 
     $ cd PALI_DIR/tipitaka
     # Install grunt plugins
@@ -115,8 +115,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # keep above "grunt run" terminal running, and open another terminal
     # uploading data files to local GAE datastore of dev server.
     # Please answer 'y' when asked if upload to dev server
-    $ cd PALI_DIR/common/pytools/
-    $ python tpk4uploadToGAE.py
+    $ cd PALI_DIR/tipitaka/setup/
+    $ python init4uploadToGAE.py
 
     # after uploading finished, open browser to test local dev server:
     # http://localhost:8080/
@@ -134,7 +134,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # uploading words files to online GAE datastore of production server.
     # Please answer 'n' when asked if upload to dev server
     $ cd PALI_DIR/common/pytools/
-    $ python dic4uploadToGAE.py
+    $ python dic5uploadToGAE.py
 
     # deploy tipitaka website
     $ cd PALI_DIR/tipitaka
@@ -144,8 +144,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
 
     # uploading data files to online GAE datastore of production server.
     # Please answer 'n' when asked if upload to dev server
-    $ cd PALI_DIR/common/pytools/
-    $ python tpk4uploadToGAE.py
+    $ cd PALI_DIR/tipitaka/setup/
+    $ python init4uploadToGAE.py
 ```
 
 ## Development of Python/JavaScript/HTML/CSS code for the websites

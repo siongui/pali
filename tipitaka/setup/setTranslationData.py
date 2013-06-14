@@ -1110,8 +1110,10 @@ canonTextTranslation['vi_VN'] = {
 }
 
 if __name__ == '__main__':
-  dstTrInfoPath = os.path.join(os.path.dirname(__file__), 'json/translationInfo.json')
-  dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__), 'json/canonTextTranslation.json')
+  dstTrInfoPath = os.path.join(os.path.dirname(__file__),
+      '../pylib/json/translationInfo.json')
+  dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__),
+      '../pylib/json/canonTextTranslation.json')
 
   if not os.path.exists(os.path.dirname(dstTrInfoPath)):
     os.makedirs(os.path.dirname(dstTrInfoPath))

@@ -105,6 +105,8 @@ if __name__ == '__main__':
   # add this fake node to force stack update in next script
   infoFileContent += (u'2' + separator + u'fake')
 
+  if not os.path.exists(os.path.dirname(getInfoFilePath())):
+    os.makedirs(os.path.dirname(getInfoFilePath()))
   with open(getInfoFilePath(), 'w') as f:
     f.write(infoFileContent.encode('utf-8'))
 

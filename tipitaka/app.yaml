@@ -62,8 +62,8 @@ skip_files:
 - ^(.*/)?app/scripts/.*
 - ^(.*/)?app/css/app\.css
 - ^(.*/)?app/css/tipitaka-latn\.css
-- ^(.*/)?gaelibs/setTranslationData\.py
-- ^(.*/)?gaelibs/romn/.*
+- ^(.*/)?pylib/romn/.*
+- ^(.*/)?setup/.*
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*
 - ^(.*/)?.*\.md

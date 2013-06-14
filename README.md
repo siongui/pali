@@ -68,16 +68,16 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
 
 6. Create Tipiṭaka-related translations for server and client.
 ```bash
-    $ cd PALI_DIR/tipitaka/gaelibs/
+    $ cd PALI_DIR/tipitaka/setup/
     $ python setTranslationData.py
 ```
 
 7. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
 ```bash
-    $ cd PALI_DIR/common/pytools/
-    $ python tpk1getTocs.py
-    $ python tpk2tocsToJson.py
-    $ python tpk3addSubpathInJson.py
+    $ cd PALI_DIR/tipitaka/setup/
+    $ python init1getTocs.py
+    $ python init2tocsToJson.py
+    $ python init3addSubpathInJson.py
 
     $ cd PALI_DIR/tipitaka
     # Install grunt plugins

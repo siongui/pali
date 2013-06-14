@@ -3,17 +3,17 @@ app/google147e4ebe06d05f82.html
 app/all_compiled.js
 
 app/scripts/services/data/treeviewAll.js
-gaelibs/json/treeviewAll.json
+pylib/json/treeviewAll.json
 
 app/scripts/services/data/i18nTpk.js
-gaelibs/json/translationInfo.json
-gaelibs/json/canonTextTranslation.json
+pylib/json/translationInfo.json
+pylib/json/canonTextTranslation.json
 
 app/css/tipitaka-latn.css
 app/css/app.min.css
 
-gaelibs/romn
-gaelibs/translation
+pylib/romn
+pylib/translation
 common
 GAEDevDatastore
 GAEDevBlobstore

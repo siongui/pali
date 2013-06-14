@@ -6,7 +6,7 @@
 import webapp2, jinja2, os, sys, json
 from  webapp2_extras.routes import PathPrefixRoute
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from url import getAllLocalesTranslationsHtml
 from url import checkPath
 

@@ -6,7 +6,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/gae/libs'))
 import web
 from i18n import getSupportedLocales
-sys.path.append(os.path.join(os.path.dirname(__file__), 'gaelibs'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from url import getAllLocalesTranslationsHtml
 from url import serveCanonPageHtml
 from url import serveTranslationPageHtml
@@ -45,7 +45,7 @@ class wordJsonService:
         return jdata
     else:
       path = os.path.join(os.path.dirname(__file__),
-          '../dictionary/gaelibs/paliwords/%s' % word.encode('utf-8'))
+          '../dictionary/pylib/paliwords/%s' % word.encode('utf-8'))
       with open(path, 'r') as f:
         return f.read()
 
