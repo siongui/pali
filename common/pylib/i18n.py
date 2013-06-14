@@ -15,7 +15,7 @@ import os
 import gettext
 import threading
 
-localedir = os.path.join(os.path.dirname(__file__), '../../locale')
+localedir = os.path.join(os.path.dirname(__file__), '../locale')
 domain = 'messages'
 threadLocalData = threading.local()
 threadLocalData.locale = 'en_US'

@@ -14,8 +14,8 @@ handlers:
   upload: app/BingSiteAuth\.xml
 
 - url: /favicon\.ico
-  static_files: common/app/img/favicon.ico
-  upload: common/app/img/favicon\.ico
+  static_files: app/favicon.ico
+  upload: app/favicon\.ico
 
 - url: /js/palidic\.js
   static_files: app/all_compiled.js

@@ -19,7 +19,7 @@ class static:
         return f.read()
 
     if web.ctx.path == '/favicon.ico':
-      with open('common/app/img/favicon.ico', 'r') as f:
+      with open('app/favicon.ico', 'r') as f:
         return f.read()
 
     raise web.notfound()

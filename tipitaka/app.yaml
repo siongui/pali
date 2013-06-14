@@ -6,8 +6,8 @@ threadsafe: true
 
 handlers:
 - url: /favicon\.ico
-  static_files: common/app/img/favicon.ico
-  upload: common/app/img/favicon\.ico
+  static_files: app/favicon.ico
+  upload: app/favicon\.ico
 
 - url: /google147e4ebe06d05f82\.html
   static_files: app/google147e4ebe06d05f82.html
