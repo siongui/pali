@@ -1,5 +1,7 @@
 # Pāḷi Tipiṭaka & Dictionary
 
+* If you want to setup development environment and deploy applications on [Google App Engine Python](https://developers.google.com/appengine/docs/python/), please refer to this [README](docs/README_GAE.md).
+
 My development environment is Ubuntu 13.04 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
 The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repository.
@@ -49,7 +51,7 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ cd PALI_DIR/dictionary/setup/nodejs
     $ nodejs buildSuccinctTrie.js
     $ cd PALI_DIR/dictionary/setup/
-    $ python dic4jsonToJS.py
+    $ python init4jsonToJS.py
 
     $ cd PALI_DIR/dictionary
     # Install grunt plugins
@@ -63,7 +65,7 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
 5. See if dictionary website works: (Please keep above dev server running)
 ```bash
     # open browser to test local dev server:
-    # http://0.0.0.0:8080/
+    # http://localhost:8080/
 ```
 
 6. Create Tipiṭaka-related translations for server and client.
@@ -91,14 +93,14 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
 8. See if tipiṭaka website works: (Please keep above dev server running)
 ```bash
     # open browser to test local dev server:
-    # http://0.0.0.0:8080/
+    # http://localhost:8080/
 ```
 
 9. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](docs/AWS.md)
 
 ## Development of Python/JavaScript/HTML/CSS code for the websites
 
-Open and keep two terminals running, one for running dev server, the other for running grunt watch. The changes you make can be viewed from <em>http://0.0.0.0:8080/</em> in your browser window. (reload the page if the window is already open)
+Open and keep two terminals running, one for running dev server, the other for running grunt watch. The changes you make can be viewed from <em>http://localhost:8080/</em> in your browser window. (reload the page if the window is already open)
 
 ```bash
 # open one termimal
@@ -114,7 +116,7 @@ $ cd PALI_DIR/tipitaka      # if you are developing tipitaka website
 $ python devNotGaeRun.py
 
 # open browser window at the following URL
-# http://0.0.0.0:8080/
+# http://localhost:8080/
 ```
 
 ## Development of i18n
