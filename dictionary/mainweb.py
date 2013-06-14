@@ -19,6 +19,7 @@ from url2 import getHtmlTitle
 
 import jinja2
 import json
+import urllib
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(
@@ -49,7 +50,8 @@ def commonTemplateValues(urlLocale, reqHandlerName, prefix=None, word=None):
 #    'serverEnv': 'ec2',
 #    'tpkWebAppUrl': 'http://tipitaka.sutta.org/',
     'serverEnv': 'appspot',
-    'tpkWebAppUrl': 'http://epalitipitaka.appspot.com/',
+#    'tpkWebAppUrl': 'http://epalitipitaka.appspot.com/',
+    'tpkWebAppUrl': 'http://tipitaka.online-dhamma.net',
     'htmlTitle': getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word),
     'userLocale': userLocale,
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
@@ -61,11 +63,25 @@ def commonTemplateValues(urlLocale, reqHandlerName, prefix=None, word=None):
 
 class MainPage:
   def GET(self, urlLocale=None):
+    if web.ctx.host.split(':')[0] == "palidictionary.appspot.com":
+      # redirect to new domain
+      url = "http://dictionary.online-dhamma.net" + \
+            urllib.quote(web.ctx.path.encode('utf-8')) + \
+            web.ctx.query
+      raise web.redirect(url)
+
     template_values = commonTemplateValues(urlLocale, self.__class__.__name__)
     template = jinja_environment.get_template('index.html')
     return template.render(template_values)
 
 def commonPage(prefix, word, reqHandlerName, urlLocale=None):
+  if web.ctx.host.split(':')[0] == "palidictionary.appspot.com":
+    # redirect to new domain
+    url = "http://dictionary.online-dhamma.net" + \
+          urllib.quote(web.ctx.path.encode('utf-8')) + \
+          web.ctx.query
+    raise web.redirect(url)
+
   if type(prefix) is not unicode:
     prefix = prefix.decode('utf-8')
 
