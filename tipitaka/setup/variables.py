@@ -16,6 +16,8 @@ except:
 TIPITAKA_DIR = join(dirname(__file__), '..')
 COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
 
+localedir = join(dirname(__file__), '../../common/locale/')
+
 def getSDKPath():
   return join(dirname(__file__), "../../../google_appengine/")
 
