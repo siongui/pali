@@ -951,7 +951,7 @@ canonTextTranslation['vi_VN'] = {
     'Kammakaraṇavaggo': 'Phẩm Hành Phạt',
     'Adhikaraṇavaggo': 'Phẩm Tranh Tụng',
     'Bālavaggo': 'Phẩm Người Ngu',
-    'Samacittavaggo': 'Phẩm Tâm Thăng Bằng,
+    'Samacittavaggo': 'Phẩm Tâm Thăng Bằng',
     'Parisavaggo': 'Phẩm Hội Chúng',
     'Puggalavaggo': 'Phẩm Người',
     'Sukhavaggo': 'Phẩm Lạc',
@@ -959,7 +959,7 @@ canonTextTranslation['vi_VN'] = {
     'Dhammavaggo': 'Phẩm Pháp',
     'Bālavaggo': 'Phẩm Người Ngu',
     'Āsāduppajahavaggo': 'Phẩm Hy Vọng Khó Bỏ',
-    'Āyācanavaggo': 'Phẩm Hy Cầu,
+    'Āyācanavaggo': 'Phẩm Hy Cầu',
     'Dānavaggo': 'Phẩm Bố Thí',
     'Santhāravaggo': 'Phẩm Ðón Chào',
     'Samāpattivaggo': 'Phẩm Thiền Chứng',
@@ -981,29 +981,29 @@ canonTextTranslation['vi_VN'] = {
     'Sambodhavaggo': 'Phẩm Chánh Giác',
     'Āpāyikavaggo': 'Phẩm Ðọa Xứ',
     'Kusināravaggo': 'Phẩm Kusināra',
-    'Yodhājīvavaggo': 'Phẩm Chiến Sĩ’,
+    'Yodhājīvavaggo': 'Phẩm Chiến Sĩ',
     'Maṅgalavaggo': 'Phẩm Cát Tường',
     'Acelakavaggo': 'Phẩm Lõa Thể',
     'Kammapathapeyyālaṃ': 'Phần Đường đi của Nghiệp',
     'Rāgapeyyālaṃ': 'Phần Ái Dục',
   'Catukkanipātapāḷi': '4/11. Chương Bốn Pháp',
-    ‘Bhaṇḍagāmavaggo’: ‘Phẩm Làng Bhaṇḍa’
-    ‘Caravaggo’: ‘Phẩm Đi’
-    ‘Uruvelavaggo’: ‘Phẩm Uruvela’
-    ‘Cakkavaggo’: ‘Phẩm Bánh xe’
-    ‘Rohitassavaggo’: ‘Phẩm Thiên tử Rohitassa’
-    ‘Puññābhisandavaggo’: ‘Phẩm Nguồn Sanh Phước‘
-    ‘Pattakammavaggo’: ‘Phẩm Nghiệp Công Ðức’
-    ‘Apaṇṇakavaggo’: ‘Phẩm Không Lỗi Lầm’
-    ‘Macalavaggo’: ‘Phẩm Không Có Rung Ðộng’
-    ‘Asuravaggo’: ‘Phẩm A-tu-la’
-    ‘Valāhakavaggo’: ‘Phẩm Mây Đen’
-    ‘Kesivaggo’: ‘Phẩm Kesi’
-    ‘Bhayavaggo’: ‘Phẩm Sợ Hãi’
-    ‘Puggalavaggo’: ‘Phẩm Các Hạng Người’
-    ‘Ābhāvaggo’: ‘Phẩm Ánh Sáng’
-    ‘Indriyavaggo’: ‘Phẩm Các Căn’
-    ‘Paṭipadāvaggo’: ‘Phẩm Đạo Hành’
+    'Bhaṇḍagāmavaggo': 'Phẩm Làng Bhaṇḍa',
+    'Caravaggo': 'Phẩm Đi',
+    'Uruvelavaggo': 'Phẩm Uruvela',
+    'Cakkavaggo': 'Phẩm Bánh xe',
+    'Rohitassavaggo': 'Phẩm Thiên tử Rohitassa',
+    'Puññābhisandavaggo': 'Phẩm Nguồn Sanh Phước',
+    'Pattakammavaggo': 'Phẩm Nghiệp Công Ðức',
+    'Apaṇṇakavaggo': 'Phẩm Không Lỗi Lầm',
+    'Macalavaggo': 'Phẩm Không Có Rung Ðộng',
+    'Asuravaggo': 'Phẩm A-tu-la',
+    'Valāhakavaggo': 'Phẩm Mây Đen',
+    'Kesivaggo': 'Phẩm Kesi',
+    'Bhayavaggo': 'Phẩm Sợ Hãi',
+    'Puggalavaggo': 'Phẩm Các Hạng Người',
+    'Ābhāvaggo': 'Phẩm Ánh Sáng',
+    'Indriyavaggo': 'Phẩm Các Căn',
+    'Paṭipadāvaggo': 'Phẩm Đạo Hành',
    'Pañcakanipātapāḷi': '5/11. Chương Năm Pháp',
    'Chakkanipātapāḷi': '6/11. Chương Sáu Pháp',
    'Sattakanipātapāḷi': '7/11. Chương Bảy Pháp',
