@@ -46,13 +46,19 @@ def setLocale(locale):
   if locale in locales:
     threadLocalData.locale = locale
 
+
+localeLanguageMapping = {
+  u'en_US': u'English',
+  u'fr_FR': u'Français',
+  u'vi_VN': u'Tiếng Việt',
+  u'zh_TW': u'中文 (繁體)',
+  u'zh_CN': u'中文 (简体)',
+  u'ja_JP': u'日本語',
+}
+
 def translateLocale(value):
-  if value == u'en_US': return u'English'
-  if value == u'fr_FR': return u'Français'
-  if value == u'vi_VN': return u'Tiếng Việt'
-  if value == u'zh_TW': return u'中文 (繁體)'
-  if value == u'zh_CN': return u'中文 (简体)'
-  if value == u'ja_JP': return u'日本語'
+  if value in localeLanguageMapping:
+    return localeLanguageMapping[value]
   return value
 
 
