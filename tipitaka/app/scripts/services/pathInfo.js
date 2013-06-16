@@ -4,8 +4,8 @@
 
 
 angular.module('pali.pathInfo', []).
-  factory('pathInfo', ['$location', '$routeParams', 'tvServ',
-               function($location, $routeParams, tvServ) {
+  factory('pathInfo', ['$location', '$routeParams', 'tvServ', 'i18nSetting',
+               function($location, $routeParams, tvServ, i18nSetting) {
     function getInfoFromPath() {
       var pathInfo = { reqPath: $location.path() };
       var subpathes = $location.path().split('/');
@@ -28,12 +28,12 @@ angular.module('pali.pathInfo', []).
       pathInfo.paliTextPath = '';
       subpathes.shift();
       // get urlLocale if any
-      if (subpathes[0] === 'en_US' ||
-          subpathes[0] === 'fr_FR' ||
-          subpathes[0] === 'vi_VN' ||
-          subpathes[0] === 'zh_TW' ||
-          subpathes[0] === 'zh_CN') {
-        pathInfo.urlLocale = subpathes.shift();
+      for (var i=0; i < i18nSetting.locales.length; i++) {
+        var locale = i18nSetting.locales[i];
+        if (subpathes[0] === locale) {
+          pathInfo.urlLocale = subpathes.shift();
+          break;
+        }
       }
 
       for (var i=0; i<subpathes.length; i++)

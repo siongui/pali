@@ -13,7 +13,8 @@
 
 angular.module('pali.i18n', ['pali.i18nStrings']).
 
-  factory('i18nSetting', ['$rootScope', '$location', '$route', 'i18nserv', function($rootScope, $location, $route, i18nserv) {
+  factory('i18nSetting', ['$rootScope', '$location', '$route', 'i18nserv',
+      function($rootScope, $location, $route, i18nserv) {
   /**
    * FIXME: $route is incurred but not used here because if not referenced here,
    *        $route will not be instantiated without ng-view element, hence
@@ -25,7 +26,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     if (angular.isUndefined($rootScope.i18nLocale))
       $rootScope.i18nLocale = 'en_US';
 
-    var allowedLocales =  eval('(' + document.getElementById('locales').innerHTML + ')');
+    var locales =  eval('(' + document.getElementById('locales').innerHTML + ')');
     var localeLanguageMapping =  eval('(' + document.getElementById('localeLanguageMapping').innerHTML + ')');
 
     // set urlLocale
@@ -33,7 +34,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
       var path = $location.path();
       $rootScope.urlLocale = undefined;
       $rootScope.urlLocaleInPath = '';
-      angular.forEach(allowedLocales, function(locale) {
+      angular.forEach(locales, function(locale) {
         if (path.indexOf('/' + locale + '/') === 0) {
           $rootScope.urlLocale = locale;
           $rootScope.urlLocaleInPath = '/' + locale;
@@ -52,9 +53,10 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     };
 
     return {
+      locales: locales,
       localeLanguageMapping: localeLanguageMapping,
       setLocale: function(value) {
-        angular.forEach(allowedLocales, function(locale) {
+        angular.forEach(locales, function(locale) {
           if (value === locale) $rootScope.i18nLocale = locale;
         });
       }

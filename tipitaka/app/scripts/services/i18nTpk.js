@@ -4,7 +4,9 @@
 
 
 angular.module('pali.i18nTpk', ['pali.data.i18nTpk']).
-  factory('i18nTpkConvert', ['$location', 'i18nTpk', function($location, i18nTpk) {
+  factory('i18nTpkConvert', ['$location', 'i18nTpk', 'i18nSetting',
+      function($location, i18nTpk, i18nSetting) {
+
     function endswith(str, suffix) {
       return str.indexOf(suffix, str.length - suffix.length) != -1;
     }
@@ -109,19 +111,15 @@ angular.module('pali.i18nTpk', ['pali.data.i18nTpk']).
     }
 
     function redirectAccordingToUrlLocale(path) {
-      if ($location.path().indexOf('/en_US/') === 0) {
-        $location.path('/en_US' + path);
-      } else if ($location.path().indexOf('/fr_FR/') === 0) {
-        $location.path('/fr_FR' + path);
-      } else if ($location.path().indexOf('/vi_VN/') === 0) {
-        $location.path('/vi_VN' + path);
-      } else if ($location.path().indexOf('/zh_TW/') === 0) {
-        $location.path('/zh_TW' + path);
-      } else if ($location.path().indexOf('/zh_CN/') === 0) {
-        $location.path('/zh_CN' + path);
-      } else {
-        $location.path(path);
+      for (var i=0; i < i18nSetting.locales.length; i++) {
+        var locale = i18nSetting.locales[i];
+        var prefix = '/' + locale + '/';
+        if ($location.path().indexOf(prefix) === 0) {
+          $location.path('/' + locale + path);
+          return;
+        }
       }
+      $location.path(path);
     }
 
     var serviceInstance = {
