@@ -54,6 +54,8 @@ def commonTemplateValues(urlLocale, reqHandlerName, prefix=None, word=None):
     'tpkWebAppUrl': 'http://tipitaka.online-dhamma.net/',
     'htmlTitle': getHtmlTitle(userLocale, reqHandlerName, i18n, prefix, word),
     'userLocale': userLocale,
+    'locales': json.dumps(i18n.locales),
+    'localeLanguageMapping': json.dumps(i18n.localeLanguageMapping),
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
     'urlLocale': urlLocale,
     'isTrack': isTrack(web.input(track=None).track),

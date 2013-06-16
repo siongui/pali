@@ -25,7 +25,8 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     if (angular.isUndefined($rootScope.i18nLocale))
       $rootScope.i18nLocale = 'en_US';
 
-    var allowedLocales =  ['en_US', 'zh_TW', 'zh_CN', 'fr_FR', 'vi_VN'];
+    var allowedLocales =  eval('(' + document.getElementById('locales').innerHTML + ')');
+    var localeLanguageMapping =  eval('(' + document.getElementById('localeLanguageMapping').innerHTML + ')');
 
     // set urlLocale
     $rootScope.$on('$routeChangeSuccess', function() {
@@ -51,6 +52,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     };
 
     return {
+      localeLanguageMapping: localeLanguageMapping,
       setLocale: function(value) {
         angular.forEach(allowedLocales, function(locale) {
           if (value === locale) $rootScope.i18nLocale = locale;
@@ -67,14 +69,11 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     $rootScope.i18nLangQs = eval('(' + document.getElementById('langQs').innerHTML + ')');
   }]).
 
-  filter('translate', [function() {
+  filter('translate', ['i18nSetting', function(i18nSetting) {
   // filter
     return function(text) {
-      if (text === 'en_US') return 'English';
-      if (text === 'fr_FR') return 'Français';
-      if (text === 'vi_VN') return 'Tiếng Việt';
-      if (text === 'zh_TW') return '中文 (繁體)';
-      if (text === 'zh_CN') return '中文 (简体)';
+      if ( i18nSetting.localeLanguageMapping.hasOwnProperty(text) )
+        return i18nSetting.localeLanguageMapping[text];
       return text;
     }
   }]).

@@ -52,6 +52,8 @@ def commonTemplateValues(urlLocale, userLocale):
     'dicWebAppUrl': 'http://dictionary.online-dhamma.net/',
     'htmlTitle': u'',
     'userLocale': userLocale,
+    'locales': json.dumps(i18n.locales),
+    'localeLanguageMapping': json.dumps(i18n.localeLanguageMapping),
     'langQs': json.dumps(parseAcceptLanguage(web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))),
     'urlLocale': urlLocale,
     'isTrack': isTrack(web.input(track=None).track),
