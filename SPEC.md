@@ -57,3 +57,13 @@ Every Pali word should a unique URL. For example, the URL of the word 'sacca' is
 
 The structure of <strong>/zh_TW/</strong>, <strong>/fr_FR/</strong>, etc. should be the same as that of <strong>/</strong>, except the content (content does not include word explanations) in the URLs are shown in the corresponding {{ locale }} language.
 
+## Data of Pali-English, Pali-Chinese, Pali-Japanese, Pali-Vietnamese, Pali-Burmese dictionaries
+
+All data of Pali-English, Pali-Chinese, Pali-Japanese, Pali-Vietnamese, Pali-Burmese dictionaries is located at the [pali/common/dictionary](https://github.com/siongui/data/tree/master/pali/common/dictionary) directory in the [data repository](https://github.com/siongui/data). The format is explained in the README under the same directory. The data is in CSV format and can be easily processed. To see how data of dictionaries is pre-processed before deployment of dictionary website, please refer to Python scripts under [dictionary/setup](https://github.com/siongui/pali/tree/master/dictionary/setup) at [pali repository](https://github.com/siongui/pali).
+
+There are 504,414 explanations in the database, consisting of 210,111 words.
+
+## Data of XML files of Pali texts written in Roman characters (including canons, commentaries, sub-commentaries, etc.) released by [VRI](http://www.tipitaka.org/)
+
+The data is located at the [pali/common/romn](https://github.com/siongui/data/tree/master/pali/common/romn) directory in the [data repository](https://github.com/siongui/data).
+
