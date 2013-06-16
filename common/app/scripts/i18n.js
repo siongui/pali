@@ -69,6 +69,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     // get value passed by server
     i18nSetting.setLocale(document.getElementById('locale').innerHTML);
     $rootScope.i18nLangQs = eval('(' + document.getElementById('langQs').innerHTML + ')');
+    $rootScope.locales = i18nSetting.locales;
   }]).
 
   filter('translate', ['i18nSetting', function(i18nSetting) {

@@ -19,10 +19,6 @@ div.mainbarStyle > a {
     <a href="/canon" i18n str='Browse'>{$_("Browse")$}</a>
   {% endif %}
   <div dropdown classlink="dropdownLink" linktext="{{ i18nLocale | translate }}▼" classmenu="dropdownMenu">
-    <a href="/en_US/" class="dropdownMenuItem">English</a>
-    <a href="/fr_FR/" class="dropdownMenuItem">Français</a>
-    <a href="/vi_VN/" class="dropdownMenuItem">Tiếng Việt</a>
-    <a href="/zh_TW/" class="dropdownMenuItem">中文 (繁體)</a>
-    <a href="/zh_CN/" class="dropdownMenuItem">中文 (简体)</a>
+    <a ng-repeat="locale in locales" href="/{{ locale }}/" class="dropdownMenuItem">{{ locale | translate }}</a>
   </div>
 </div>
