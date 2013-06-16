@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from i18n import getSupportedLocales
+from i18n import locales
 
 def getLocale(urlLocale, acptLang):
-  if urlLocale in getSupportedLocales():
+  if urlLocale in locales:
     return urlLocale
   else:
     return determineLocale(acptLang)

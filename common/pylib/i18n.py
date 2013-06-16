@@ -46,9 +46,6 @@ def setLocale(locale):
   if locale in locales:
     threadLocalData.locale = locale
 
-def getSupportedLocales():
-  return locales
-
 
 if __name__ == '__main__':
   # for test purpose

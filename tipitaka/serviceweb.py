@@ -5,7 +5,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'common/pylib'))
 import web
-from i18n import getSupportedLocales
+from i18n import locales
 sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
 from url import getAllLocalesTranslationsHtml
 from url import serveCanonPageHtml
@@ -72,9 +72,9 @@ class robots:
     return 'User-agent: *\nDisallow: /'
 
 def checkData(urlLocale, userLocale):
-  if userLocale not in getSupportedLocales():
+  if userLocale not in locales:
     raise web.notfound()
-  if urlLocale not in getSupportedLocales() and None:
+  if urlLocale not in locales and None:
     raise web.notfound()
 
 class htmlMainPage:

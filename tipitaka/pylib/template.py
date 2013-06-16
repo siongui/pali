@@ -36,7 +36,7 @@ jj2env.install_gettext_translations(i18n)
 
 
 def getJinja2Env(locale):
-  if locale:
+  if locale in i18n.locales:
     i18n.setLocale(locale)
   else:
     i18n.setLocale('en_US')
