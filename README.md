@@ -4,15 +4,15 @@
 
 My development environment is Ubuntu 13.04 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
-The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repository.
+The data files, including Pāḷi texts, translations, and dictionaries, are located at [data repository](https://github.com/siongui/data). Some Python and JavaScript libraries are also in [data repository](https://github.com/siongui/data).
 
 Please [install necessary tools for development](INSTALL.md) before setting up development environment.
 
 ## Set Up Development Environment
 
-<i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository.
+<i>PALI_DIR</i> below means the directory where you git clone [pali repository](https://github.com/siongui/pali).
 
-1. git clone the [pali](https://github.com/siongui/pali) repository and [data](https://github.com/siongui/data) repository (put in the same directory).
+1. git clone the [pali repository](https://github.com/siongui/pali) and [data repository](https://github.com/siongui/data) (put in the same directory).
 ```bash
     # create a directory to contain both pali and data repository.
     $ mkdir dev
@@ -22,7 +22,7 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ git clone https://github.com/siongui/data.git
 ```
 
-2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links and i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
+2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links and i18n files (<em>pot</em>, <em>po</em>, <em>mo</em> files in [PALI_DIR/common/locale directory](https://github.com/siongui/pali/tree/master/common/locale)) for use on dev and production server. Note that [pali repository](https://github.com/siongui/pali) and [data repository](https://github.com/siongui/data) must be put in the same directory. Otherwise symbolic links will not point to correct directories.)
 ```bash
     $ python PALI_DIR/setup/setupdev.py
 ```
@@ -34,9 +34,14 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ python init2parseWords.py
     $ python init3prefixWordsHtml.py
 
-    # build succinct trie of words
-    $ cd PALI_DIR/dictionary/setup/nodejs
-    $ nodejs buildSuccinctTrie.js
+    # copy succinct trie of words
+    $ cd PALI_DIR/dictionary/pylib/json/
+    $ cp ../../../../data/src/succinct_trie.json .
+    # (optional) build succinct trie of words
+    #$ cd PALI_DIR/dictionary/setup/nodejs
+    #$ nodejs buildSuccinctTrie.js
+
+    # create client-side JavaScript data files
     $ cd PALI_DIR/dictionary/setup/
     $ python init4jsonToJS.py
 

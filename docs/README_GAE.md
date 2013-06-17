@@ -2,15 +2,15 @@
 
 My development environment is Ubuntu 13.04 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
-The data files, including Pāḷi texts, translations, and dictionaries, are located at [data](https://github.com/siongui/data) repository. Some Python and JavaScript libraries are also in [data](https://github.com/siongui/data) repository.
+The data files, including Pāḷi texts, translations, and dictionaries, are located at [data repository](https://github.com/siongui/data). Some Python and JavaScript libraries are also in [data repository](https://github.com/siongui/data).
 
 Please [install necessary tools for development](INSTALL_GAE.md) before setting up development environment.
 
 ## Set Up Development Environment
 
-<i>PALI_DIR</i> below means the directory where you git clone <em>pali</em> repository.
+<i>PALI_DIR</i> below means the directory where you git clone [pali repository](https://github.com/siongui/pali).
 
-1. git clone the [pali](https://github.com/siongui/pali) repository and [data](https://github.com/siongui/data) repository (put in the same directory). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same directory.
+1. git clone the [pali repository](https://github.com/siongui/pali) and [data repository](https://github.com/siongui/data) (put in the same directory). Then download [Google App Engine Python SDK](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python), unzip it, and also put in the same directory.
 ```bash
     # create a directory to contain both pali and data repository.
     $ mkdir dev
@@ -19,12 +19,12 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     $ git clone https://github.com/siongui/pali.git
     $ git clone https://github.com/siongui/data.git
 
-    # dowload App Engine SDK (remember to put in the same directory as git repositories)
+    # dowload App Engine SDK (remember to put in the same directory as pali and data repositories)
     $ wget http://googleappengine.googlecode.com/files/google_appengine_{{ version }}.zip
     $ unzip google_appengine_{{ version }}.zip
 ```
 
-2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links and i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
+2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links and i18n files (<em>pot</em>, <em>po</em>, <em>mo</em> files in [PALI_DIR/common/locale directory](https://github.com/siongui/pali/tree/master/common/locale)) for use on dev and production server. Note that [pali repository](https://github.com/siongui/pali) and [data repository](https://github.com/siongui/data) must be put in the same directory. Otherwise symbolic links will not point to correct directories.)
 ```bash
     $ python PALI_DIR/setup/setupdev.py
 ```
@@ -53,9 +53,14 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     $ python init2parseWords.py
     $ python init3prefixWordsHtml.py
 
-    # build succinct trie of words
-    $ cd PALI_DIR/dictionary/setup/nodejs
-    $ nodejs buildSuccinctTrie.js
+    # copy succinct trie of words
+    $ cd PALI_DIR/dictionary/pylib/json/
+    $ cp ../../../../data/src/succinct_trie.json .
+    # (optional) build succinct trie of words
+    #$ cd PALI_DIR/dictionary/setup/nodejs
+    #$ nodejs buildSuccinctTrie.js
+
+    # create client-side JavaScript data files
     $ cd PALI_DIR/dictionary/setup/
     $ python init4jsonToJS.py
 
@@ -109,7 +114,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # http://localhost:8080/
 ```
 
-8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
+8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in [PALI_DIR/tipitaka/app.yaml](https://github.com/siongui/pali/blob/master/tipitaka/app.yaml) and [PALI_DIR/dictionary/app.yaml](https://github.com/siongui/pali/blob/master/dictionary/app.yaml).
 ```bash
     # deploy dictionary website
     $ cd PALI_DIR/dictionary
