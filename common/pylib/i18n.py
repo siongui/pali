@@ -21,9 +21,12 @@ threadLocalData = threading.local()
 threadLocalData.locale = 'en_US'
 
 locales = []
+localesRegex = ''
 for dirpath, dirnames, filenames in os.walk(localedir):
   for dirname in dirnames:
     locales.append(dirname)
+    localesRegex += (dirname + '|')
+  localesRegex = localesRegex[:-1]
   break
 
 AllTranslations = {}

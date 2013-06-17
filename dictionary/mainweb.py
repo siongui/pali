@@ -36,10 +36,10 @@ urls = (
   r"/browse/noSuchWord", "RedirectPage",
   r"/", "MainPage",
   r"/about", "MainPage",
-  r"/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/", "MainPage",
-  r"/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/browse/([^/]+)/([^/]+)", "WordPage2",
+  r"/(%s)/" % i18n.localesRegex, "MainPage",
+  r"/(%s)/browse/([^/]+)/([^/]+)" % i18n.localesRegex, "WordPage2",
   r"/browse/([^/]+)/([^/]+)", "WordPage",
-  r"/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/browse/([^/]+)", "PrefixPage2",
+  r"/(%s)/browse/([^/]+)" % i18n.localesRegex, "PrefixPage2",
   r"/browse/([^/]+)", "PrefixPage",
 )
 

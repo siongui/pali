@@ -4,27 +4,28 @@ angular.module('paliDictionary', ['ngCookies', 'pali.wordJson', 'pali.dicBooks',
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
-  config(['$routeProvider', function($routeProvider) {
+  config(['$routeProvider', 'i18nProvider',
+      function($routeProvider, i18nProvider) {
+
     $routeProvider.when('/', {template: '<br />', controller: noopCtrl});
-    $routeProvider.when('/en_US/', {template: '<br />', controller: noopCtrl});
-    $routeProvider.when('/zh_TW/', {template: '<br />', controller: noopCtrl});
-    $routeProvider.when('/zh_CN/', {template: '<br />', controller: noopCtrl});
-    $routeProvider.when('/fr_FR/', {template: '<br />', controller: noopCtrl});
-    $routeProvider.when('/vi_VN/', {template: '<br />', controller: noopCtrl});
+
+    for (var i=0; i < i18nProvider.locales.length; i++) {
+      var locale = i18nProvider.locales[i];
+
+      var pat1 = '/' + locale + '/';
+      $routeProvider.when(pat1, {template: '<br />', controller: noopCtrl});
+
+      var pat2 = '/' + locale + '/browse/:firstLetter';
+      $routeProvider.when(pat2, {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
+
+      var pat3 = '/' + locale + '/browse/:firstLetter/:word';
+      $routeProvider.when(pat3, {templateUrl: '/partials/word.html', controller: wordCtrl});
+    }
+
     $routeProvider.when('/about', {templateUrl: '/partials/about.html', controller: noopCtrl});
     $routeProvider.when('/browse/noSuchWord', {template: '<br />', controller: noSuchWordCtrl});
     $routeProvider.when('/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
-    $routeProvider.when('/en_US/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
-    $routeProvider.when('/zh_TW/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
-    $routeProvider.when('/zh_CN/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
-    $routeProvider.when('/fr_FR/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
-    $routeProvider.when('/vi_VN/browse/:firstLetter', {templateUrl: '/partials/prefix.html', controller: prefixCtrl});
     $routeProvider.when('/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
-    $routeProvider.when('/en_US/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
-    $routeProvider.when('/zh_TW/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
-    $routeProvider.when('/zh_CN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
-    $routeProvider.when('/fr_FR/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
-    $routeProvider.when('/vi_VN/browse/:firstLetter/:word', {templateUrl: '/partials/word.html', controller: wordCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
   run(['$rootScope', '$cookieStore', 'dicBooks',

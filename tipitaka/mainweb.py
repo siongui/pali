@@ -12,7 +12,6 @@ import i18n
 import web
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'pylib'))
-from url import getAllLocalesTranslationsHtml
 from url import checkPath
 
 import json
@@ -31,13 +30,13 @@ jinja_environment = jinja2.Environment(
 jinja_environment.install_gettext_translations(i18n)
 
 urls = (
-  r"/(zh_TW|en_US|zh_CN|fr_FR|vi_VN)/", "MainPage2",
-  r"/(zh_TW|en_US|zh_CN|fr_FR|vi_VN)(.+)/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/([^/]+)/ContrastReading", "ContrastReadingPage2",
-  r"/(zh_TW|en_US|zh_CN|fr_FR|vi_VN)(.+)/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/([^/]+)", "TranslationPage2",
-  r"/(zh_TW|en_US|zh_CN|fr_FR|vi_VN)(.+)", "CanonPage2",
+  r"/(%s)/" % i18n.localesRegex, "MainPage2",
+  r"/(%s)(.+)/(%s)/([^/]+)/ContrastReading" % (i18n.localesRegex, i18n.localesRegex), "ContrastReadingPage2",
+  r"/(%s)(.+)/(%s)/([^/]+)" % (i18n.localesRegex, i18n.localesRegex), "TranslationPage2",
+  r"/(%s)(.+)" % i18n.localesRegex, "CanonPage2",
   r"/", "MainPage",
-  r"(.+)/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/([^/]+)/ContrastReading", "ContrastReadingPage",
-  r"(.+)/(en_US|zh_TW|zh_CN|fr_FR|vi_VN)/([^/]+)", "TranslationPage",
+  r"(.+)/(%s)/([^/]+)/ContrastReading" % i18n.localesRegex, "ContrastReadingPage",
+  r"(.+)/(%s)/([^/]+)" % i18n.localesRegex, "TranslationPage",
   r"(.+)", "CanonPage",
 )
 
@@ -93,7 +92,7 @@ def commonMainPage(urlLocale=None):
   userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
   template_values = commonTemplateValues(urlLocale, userLocale)
   template_values['isIncludeAbout'] = True
-  template_values['pageHtml'] = getAllLocalesTranslationsHtml(urlLocale, userLocale)
+  template_values['pageHtml'] = ''
   template = jinja_environment.get_template('index.html')
   return template.render(template_values)
 

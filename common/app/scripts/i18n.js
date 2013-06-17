@@ -13,6 +13,16 @@
 
 angular.module('pali.i18n', ['pali.i18nStrings']).
 
+  provider('i18n', function() {
+    // reference: https://gist.github.com/Mithrandir0x/3639232
+    this.locales =  eval('(' + document.getElementById('locales').innerHTML + ')');
+
+    this.$get = function() {
+      var self = this;
+      return { locales: self.locales };
+    };
+  }).
+
   factory('i18nSetting', ['$rootScope', '$location', '$route', 'i18nserv',
       function($rootScope, $location, $route, i18nserv) {
   /**
@@ -22,12 +32,11 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
    * @see https://groups.google.com/forum/?fromgroups#!topic/angular/7K_agNCJ50Q
    */
   // service: handle settings of i18n
-    // default locale : en_US
-    if (angular.isUndefined($rootScope.i18nLocale))
-      $rootScope.i18nLocale = 'en_US';
+    $rootScope.i18nLocale = document.getElementById('locale').innerHTML;
 
     var locales =  eval('(' + document.getElementById('locales').innerHTML + ')');
     var localeLanguageMapping =  eval('(' + document.getElementById('localeLanguageMapping').innerHTML + ')');
+    var langQs = eval('(' + document.getElementById('langQs').innerHTML + ')');
 
     // set urlLocale
     $rootScope.$on('$routeChangeSuccess', function() {
@@ -55,20 +64,14 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     return {
       locales: locales,
       localeLanguageMapping: localeLanguageMapping,
-      setLocale: function(value) {
-        angular.forEach(locales, function(locale) {
-          if (value === locale) $rootScope.i18nLocale = locale;
-        });
-      }
+      langQs: langQs
     };
   }]).
 
   run(['$rootScope', 'i18nSetting', function($rootScope, i18nSetting) {
   // initialization code (similar to main)
-    // FIXME: use angular.element or jQuery?
     // get value passed by server
-    i18nSetting.setLocale(document.getElementById('locale').innerHTML);
-    $rootScope.i18nLangQs = eval('(' + document.getElementById('langQs').innerHTML + ')');
+    $rootScope.i18nLangQs = i18nSetting.langQs;
     $rootScope.locales = i18nSetting.locales;
   }]).
 
