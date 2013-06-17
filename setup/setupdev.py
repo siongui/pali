@@ -40,7 +40,7 @@ Manual setup (for reference):
   ln -s ../common/ common
 
   cd $PALI_DIR/common/pylib
-  ln -s ../../../data/pali/common/gae/libs/jianfan/ jianfan
+  ln -s ../../../data/pylib/jianfan/ jianfan
 ```
 """
 
@@ -63,7 +63,7 @@ def setupSymlinks():
   ln('../common/', 'common')
   # enter common dir
   os.chdir('../common/pylib')
-  ln('../../../data/pali/common/gae/libs/jianfan/', 'jianfan')
+  ln('../../../data/pylib/jianfan/', 'jianfan')
 
 
 if __name__ == '__main__':
