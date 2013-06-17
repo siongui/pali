@@ -4,12 +4,6 @@
 import os 
 import shutil
 
-from i18nUtils import createPOT
-from i18nUtils import initOrUpdatePOs
-from i18nUtils import TWtoCN
-from i18nUtils import POtoMO
-from i18nUtils import writeJs
-
 """
 $PALI_DIR is the dir of git clone https://github.com/siongui/pali.git
 Manual setup (for reference):
@@ -80,6 +74,12 @@ if __name__ == '__main__':
   shutil.copyfile(tipitakaLatnCssPath, dstPath)
 
   setupSymlinks()
+
+  from i18nUtils import createPOT
+  from i18nUtils import initOrUpdatePOs
+  from i18nUtils import TWtoCN
+  from i18nUtils import POtoMO
+  from i18nUtils import writeJs
 
   createPOT()
   initOrUpdatePOs()

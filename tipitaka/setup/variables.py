@@ -14,7 +14,7 @@ except:
   from jianfan import ftoj
 
 TIPITAKA_DIR = join(dirname(__file__), '..')
-COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
+DATA_REPO_DIR = join(dirname(__file__), '../../../data/')
 
 localedir = join(dirname(__file__), '../../common/locale/')
 
@@ -22,7 +22,7 @@ def getSDKPath():
   return join(dirname(__file__), "../../../google_appengine/")
 
 def getRomnDir():
-  return join(COMMOM_DATA_DIR, 'romn')
+  return join(DATA_REPO_DIR, 'tipitaka/romn/')
 
 def getInfoFilePath():
   return join(dirname(__file__), '../build/tocsInfo.txt')

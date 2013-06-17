@@ -16,7 +16,7 @@ except:
 #jtof = lambda x: x
 
 DICTIONARY_DIR = join(dirname(__file__), '..')
-COMMOM_DATA_DIR = join(dirname(__file__), '../../../data/pali/common')
+DATA_REPO_DIR = join(dirname(__file__), '../../../data/')
 APP_COMMON_DATA_DIR = join(dirname(__file__),
     "../../common/app/scripts/services/data/")
 
@@ -24,13 +24,13 @@ def getSDKPath():
   return join(dirname(__file__), "../../../google_appengine/")
 
 def getDictBooksCSVPath():
-  return join(COMMOM_DATA_DIR, 'dictionary/dict-books.csv')
+  return join(DATA_REPO_DIR, 'dictionary/dict-books.csv')
 
 def getDictWordsCSV1Path():
-  return join(COMMOM_DATA_DIR, 'dictionary/dict_words_1.csv')
+  return join(DATA_REPO_DIR, 'dictionary/dict_words_1.csv')
 
 def getDictWordsCSV2Path():
-  return join(COMMOM_DATA_DIR, 'dictionary/dict_words_2.csv')
+  return join(DATA_REPO_DIR, 'dictionary/dict_words_2.csv')
 
 def getDictWordsJsonDir():
   return join(DICTIONARY_DIR, 'pylib/paliwords')
