@@ -174,12 +174,12 @@ if __name__ == '__main__':
     initOrUpdatePOs()
     sys.exit(0)
 
-  if sys.argv[1] == "mo":
-    POtoMO()
-    sys.exit(0)
-
   if sys.argv[1] == "cn":
     TWtoCN()
+    sys.exit(0)
+
+  if sys.argv[1] == "mo":
+    POtoMO()
     sys.exit(0)
 
   if sys.argv[1] == "js":

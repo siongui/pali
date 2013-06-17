@@ -4,6 +4,12 @@
 import os 
 import shutil
 
+from i18nUtils import createPOT
+from i18nUtils import initOrUpdatePOs
+from i18nUtils import TWtoCN
+from i18nUtils import POtoMO
+from i18nUtils import writeJs
+
 """
 $PALI_DIR is the dir of git clone https://github.com/siongui/pali.git
 Manual setup (for reference):
@@ -33,8 +39,8 @@ Manual setup (for reference):
   ln -s ../common/ common
 
   cd $PALI_DIR/tipitaka/pylib
-  ln -s ../../../data/pali/common/translation/ translation
-  ln -s ../../../data/pali/common/romn/ romn
+  ln -s ../../../data/tipitaka/translation/ translation
+  ln -s ../../../data/tipitaka/romn/ romn
 
   cd $PALI_DIR/dictionary
   ln -s ../common/ common
@@ -56,8 +62,8 @@ def setupSymlinks():
   os.chdir(os.path.join(os.path.dirname(__file__), '../tipitaka'))
   ln('../common/', 'common')
   os.chdir('pylib')
-  ln('../../../data/pali/common/translation/', 'translation')
-  ln('../../../data/pali/common/romn/', 'romn')
+  ln('../../../data/tipitaka/translation/', 'translation')
+  ln('../../../data/tipitaka/romn/', 'romn')
   # enter dictionary dir
   os.chdir('../../dictionary')
   ln('../common/', 'common')
@@ -68,9 +74,15 @@ def setupSymlinks():
 
 if __name__ == '__main__':
   tipitakaLatnCssPath = os.path.join(os.path.dirname(__file__),
-      '../../data/pali/common/romn/cscd/tipitaka-latn.css')
+      '../../data/tipitaka/romn/cscd/tipitaka-latn.css')
   dstPath = os.path.join(os.path.dirname(__file__),
       '../tipitaka/app/css/tipitaka-latn.css')
   shutil.copyfile(tipitakaLatnCssPath, dstPath)
 
   setupSymlinks()
+
+  createPOT()
+  initOrUpdatePOs()
+  TWtoCN()
+  POtoMO()
+  writeJs()

@@ -24,31 +24,18 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     $ unzip google_appengine_{{ version }}.zip
 ```
 
-2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
+2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links and i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
 ```bash
     $ python PALI_DIR/setup/setupdev.py
 ```
 
-3. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server:
-```bash
-    $ cd PALI_DIR/setup/
-    # create i18n files
-    $ python i18nUtils.py pot
-    $ python i18nUtils.py po
-    $ python i18nUtils.py cn
-    $ python i18nUtils.py mo
-
-    # create JavaScript file of translated strings for the client browser
-    $ python i18nUtils.py js
-```
-
-4. Uncomment (remove leading #) the following line in PALI_DIR/dictionary/app.yaml
+3. Uncomment (remove leading #) the following line in PALI_DIR/dictionary/app.yaml
 ```bash
     #builtins:
     #- remote_api: on
 ```
 
-5. Uncomment (remove leading #) the following line in PALI_DIR/tipitaka/app.yaml
+4. Uncomment (remove leading #) the following line in PALI_DIR/tipitaka/app.yaml
 ```bash
     #- url: /customRemoteBlobstoreAPI
     #  script: customRemoteBlobstoreAPI.app
@@ -58,7 +45,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     #- remote_api: on
 ```
 
-6. Create index of words in dictionary books.
+5. Create index of words in dictionary books.
    After data files created, upload them to Google App Engine dev server:
 ```bash
     $ cd PALI_DIR/dictionary/setup/
@@ -90,13 +77,13 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # http://localhost:8080/
 ```
 
-7. Create Tipiṭaka-related translations for server and client.
+6. Create Tipiṭaka-related translations for server and client.
 ```bash
     $ cd PALI_DIR/tipitaka/setup/
     $ python setTranslationData.py
 ```
 
-8. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website.
+7. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website.
    After data files created, upload them to Google App Engine dev server:
 ```bash
     $ cd PALI_DIR/tipitaka/setup/
@@ -122,7 +109,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # http://localhost:8080/
 ```
 
-9. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
+8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in <i><b>PALI_DIR/tipitaka/app.yaml</b></i> and <i><b>REPO_DIR/dictionary/app.yaml</b></i>. 
 ```bash
     # deploy dictionary website
     $ cd PALI_DIR/dictionary

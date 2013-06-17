@@ -22,25 +22,12 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ git clone https://github.com/siongui/data.git
 ```
 
-2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
+2. Run <b>PALI_DIR/setup/setupdev.py</b> to create symbolic links and i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server. (<em>pali</em> repository and <em>data</em> repository must be put under the same directory. Otherwise symlinks will not point to correct directories.)
 ```bash
     $ python PALI_DIR/setup/setupdev.py
 ```
 
-3. Create i18n files (pot, po, mo files under <strong>PALI_DIR/common/locale/</strong> directory) for use on dev and production server:
-```bash
-    $ cd PALI_DIR/setup/
-    # create i18n files
-    $ python i18nUtils.py pot
-    $ python i18nUtils.py po
-    $ python i18nUtils.py cn
-    $ python i18nUtils.py mo
-
-    # create JavaScript file of translated strings for the client browser
-    $ python i18nUtils.py js
-```
-
-4. Create index of words in dictionary books.
+3. Create index of words in dictionary books.
 ```bash
     $ cd PALI_DIR/dictionary/setup/
     $ python init1parseBooks.py
@@ -62,19 +49,19 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ python devNotGaeRun.py
 ```
 
-5. See if dictionary website works: (Please keep above dev server running)
+4. See if dictionary website works: (Please keep above dev server running)
 ```bash
     # open browser to test local dev server:
     # http://localhost:8080/
 ```
 
-6. Create Tipiṭaka-related translations for server and client.
+5. Create Tipiṭaka-related translations for server and client.
 ```bash
     $ cd PALI_DIR/tipitaka/setup/
     $ python setTranslationData.py
 ```
 
-7. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
+6. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
 ```bash
     $ cd PALI_DIR/tipitaka/setup/
     $ python init1getTocs.py
@@ -90,13 +77,13 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ python devNotGaeRun.py
 ```
 
-8. See if tipiṭaka website works: (Please keep above dev server running)
+7. See if tipiṭaka website works: (Please keep above dev server running)
 ```bash
     # open browser to test local dev server:
     # http://localhost:8080/
 ```
 
-9. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](docs/AWS.md)
+8. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](docs/AWS.md)
 
 ## Development of Python/JavaScript/HTML/CSS code for the websites
 
