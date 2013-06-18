@@ -42,13 +42,9 @@ def getLocaleXmlTranslations(translationLocale, xmlFilename):
     tmp = { 'source': localeXmlTranslation['source'],
             'translator': getTranslator(translationLocale, localeXmlTranslation) }
 
-    # retrieve additional information if available
+    # check if only partial translation is available
     if 'excerpt' in localeXmlTranslation:
       tmp['excerpt'] = localeXmlTranslation['excerpt']
-    if 'URL' in localeXmlTranslation:
-      tmp['URL'] = localeXmlTranslation['URL']
-    if 'copyrightURL' in localeXmlTranslation:
-      tmp['copyrightURL'] = localeXmlTranslation['copyrightURL']
 
     localeXmlTranslations.append(tmp)
 
