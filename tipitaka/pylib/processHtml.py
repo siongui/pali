@@ -4,10 +4,9 @@
 import os
 from lxml import etree
 from xml2html import paliXslt
-from xml2html import translationXslt
+from xml2html import translationXslt2
 from template import getJinja2Env
 from translationInfo import getI18nLinksTemplateValues
-from translationInfo import getXmlLocaleTranslationInfo
 from footNote import processNotes
 from footNote import processTranslatedPElementsNotes
 
@@ -33,14 +32,15 @@ def getCanonPageHtml(node, reqPath, userLocale):
 
 def getTranslationPageHtml(translationLocale, translator, action,
                            reqPath, userLocale):
-  translationPageTemplateValue = {
-      'reqPath': reqPath,
-      'trInfo': getXmlLocaleTranslationInfo(action,
-                                            translationLocale,
-                                            translator) }
-  # xslt
-  transformedHtml = translationXslt(action, translationLocale, translator)
+  translationPageTemplateValue = { 'reqPath': reqPath }
+
+  # extract translation information and then do xslt
+  transformedHtml, translationPageTemplateValue['trInfo'] = \
+      translationXslt2(action, translationLocale, translator)
+
+  # move notes to the bottom of the page
   processNotes(transformedHtml)
+
   # get innerHTML of body
   translationPageTemplateValue['body'] = etree.tostring(
                                     transformedHtml.find('body'))[6:-7]
@@ -51,14 +51,15 @@ def getTranslationPageHtml(translationLocale, translator, action,
 
 def getContrastReadingPageHtml(translationLocale, translator, action,
                                reqPath, userLocale):
-  contrastReadingPageTemplateValue = {
-      'reqPath': reqPath,
-      'trInfo': getXmlLocaleTranslationInfo(action,
-                                            translationLocale,
-                                            translator) }
+  contrastReadingPageTemplateValue = { 'reqPath': reqPath }
 
   oriBody = paliXslt(action).find('body')
-  trBody = translationXslt(action, translationLocale, translator).find('body')
+
+  # extract translation information and then do xslt
+  transformedHtml, contrastReadingPageTemplateValue['trInfo'] = \
+      translationXslt2(action, translationLocale, translator)
+
+  trBody = transformedHtml.find('body')
   if (len(oriBody) != len(trBody)):
     raise Exception('two XML document body childs # not match')
 
@@ -89,6 +90,7 @@ def getContrastReadingPageHtml(translationLocale, translator, action,
 
     table.append(tr)
 
+  # move notes to the bottom of the page
   footNotes = processTranslatedPElementsNotes(trPElms)
 
   contrastReadingPageTemplateValue['contrastReadings'] = \

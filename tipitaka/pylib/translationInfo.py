@@ -91,21 +91,3 @@ def getAllLocalesTranslationsTemplateValues():
 
   return localeTranslations
 
-
-def getXmlLocaleTranslationInfo(action, translationLocale, translator):
-  trInfo = { 'isExcerpt': None,
-           'translationURL': None,
-           'translationCopyrightURL': None }
-
-  xmlFilename = os.path.basename(action)
-  localeXmlTranslations = translationInfo[translationLocale]['canon'][xmlFilename]
-  for localeXmlTranslation in localeXmlTranslations:
-    if translator.decode('utf-8') == translationInfo[translationLocale]['source'][ localeXmlTranslation['source'] ][0]:
-      if 'excerpt' in localeXmlTranslation:
-        trInfo['isExcerpt'] = True
-      if 'copyrightURL' in localeXmlTranslation:
-        trInfo['translationCopyrightURL'] = localeXmlTranslation['copyrightURL']
-      if 'URL' in localeXmlTranslation:
-        trInfo['translationURL'] = localeXmlTranslation['URL']
-
-      return trInfo

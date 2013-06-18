@@ -64,6 +64,43 @@ def xslt(fileLikeObject):
 
 
 def translationXslt(action, translationLocale, translator):
+  """(obsoleted) not used"""
   with open(getTranslationXmlUrl(action, translationLocale, translator),
      'r') as f:
     return xslt(f)
+
+
+def translationXslt2(action, translationLocale, translator):
+  """Extract information of translation in the translation XML, and then do
+     XSLT.
+  """
+  with open(getTranslationXmlUrl(action, translationLocale, translator),
+     'r') as f:
+    trXml = etree.parse(f)
+
+  translationInfo = trXml.find('.//translationInfo')
+
+  info = { 'isExcerpt': None,
+           'translationURL': None,
+           'translationCopyrightURL': None }
+  if translationInfo is not None:
+    translationInfo.getparent().remove(translationInfo)
+
+    for child in translationInfo:
+
+      if child.tag == 'URL':
+        info['translationURL'] = child.text
+        continue
+
+      if child.tag == 'copyrightURL':
+        info['translationCopyrightURL'] = child.text
+        continue
+
+      if child.tag == 'excerpt':
+        info['isExcerpt'] = True
+        continue
+
+      raise Exception('illegal tag: %s' % child.tag)
+
+  return transform(trXml), info
+
