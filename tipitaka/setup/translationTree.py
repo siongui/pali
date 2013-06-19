@@ -54,26 +54,57 @@ def recursiveSetXMLPath(node, xmlFilename):
         return True
 
 def getTranslationTree():
-  with open(TreeviewJsonPath, 'r') as f:
-    treeviewData = json.loads(f.read())
+  langTrees = {}
 
   for lang, key, translator, xmlFilename in xmlInfo():
     print(lang, key, translator, xmlFilename)
-    recursiveSetXMLPath(treeviewData, xmlFilename)
 
-  trimTree(treeviewData)
-  return treeviewData
+    if lang not in langTrees:
+      with open(TreeviewJsonPath, 'r') as f:
+        langTrees[lang] = json.loads(f.read())
+
+    recursiveSetXMLPath(langTrees[lang], xmlFilename)
+
+  for lang in langTrees:
+    trimTree(langTrees[lang])
+
+  return langTrees
 
 
-def translationTreeToHtml(tree, prefix, index):
+def translationTreeToHtml(tree, prefix, index, locale):
   if 'text' not in tree:
     # root tree
-    root = etree.fromstring('<div></div>')
+    ngVar = "show%s" % locale
+
+    root = etree.fromstring('<div ng-init="%s = true"></div>' % ngVar)
+
+    textContainer = etree.fromstring(
+        '<div ng-click="%s = !%s" class="item treeNode"></div>'
+         % (ngVar, ngVar) )
+    textContainer.append(
+        etree.fromstring('<span ng-show="%s">+</span>' % ngVar) )
+    textContainer.append(
+        etree.fromstring('<span ng-hide="%s">-</span>' % ngVar) )
+    textContainer.append( etree.fromstring('<span> </span>') )
+    textContainer.append(
+        etree.fromstring('<span>{{ "%s" | translate }}</span>' % locale) )
+    textContainer.append( etree.fromstring('<span> </span>') )
+    textContainer.append(
+        etree.fromstring('<span>{{_("Translation")}}</span>') )
+
+    root.append(textContainer)
+
+    childrenContainer = etree.fromstring(
+        '<div ng-hide="%s" class="childrenContainer"></div>' % ngVar)
     childIndex = 0
     for child in tree['child']:
-      root.append( translationTreeToHtml(child, 'ng', childIndex) )
+      childrenContainer.append( translationTreeToHtml(
+          child, '%sng' % locale, childIndex, locale) )
       childIndex += 1
+
+    root.append(childrenContainer)
     return root
+
   else:
     if 'child' in tree:
       ngVar = '%s%d' % (prefix, index)
@@ -94,7 +125,7 @@ def translationTreeToHtml(tree, prefix, index):
       childIndex = 0
       for child in tree['child']:
         childrenContainer.append(
-            translationTreeToHtml(child, ngVar, childIndex) )
+            translationTreeToHtml(child, ngVar, childIndex, locale) )
         childIndex += 1
 
       container = etree.fromstring('<div></div>')
@@ -112,15 +143,15 @@ def translationTreeToHtml(tree, prefix, index):
 
 
 if __name__ == '__main__':
-  trTree = getTranslationTree()
+  langTrees = getTranslationTree()
 
-  #import pprint
-  #pprint.pprint(trTree)
-
-  root = translationTreeToHtml(trTree, None, None)
-  print(etree.tostring(root, pretty_print=True))
+  langHtmls = {}
+  for lang in langTrees:
+    langHtmls[lang] = translationTreeToHtml(langTrees[lang], None, None, lang)
+    print(etree.tostring(langHtmls[lang], pretty_print=True))
 
   trTreeHtmlPath = os.path.join(os.path.dirname(__file__),
       '../app/partials/trTree.html')
   with open(trTreeHtmlPath, 'w') as f:
-    f.write(etree.tostring(root))
+    for lang in langHtmls:
+      f.write(etree.tostring(langHtmls[lang]))
