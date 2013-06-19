@@ -65,33 +65,50 @@ def getTranslationTree():
   return treeviewData
 
 
-def translationTreeToHtml(tree):
+def translationTreeToHtml(tree, prefix, index):
   if 'text' not in tree:
     # root tree
     root = etree.fromstring('<div></div>')
+    childIndex = 0
     for child in tree['child']:
-      root.append( translationTreeToHtml(child) )
+      root.append( translationTreeToHtml(child, 'ng', childIndex) )
+      childIndex += 1
     return root
   else:
-    node = etree.fromstring('<div class="item"></div>')
     if 'child' in tree:
-      sign = etree.fromstring('<span>+</span>')
+      ngVar = '%s%d' % (prefix, index)
+      node = etree.fromstring(
+          '<div ng-init="%s = true" ng-click="%s = !%s" class="item"></div>'
+          % (ngVar, ngVar, ngVar) )
+      signp = etree.fromstring('<span ng-show="%s">+</span>' % ngVar)
+      signm = etree.fromstring('<span ng-hide="%s">-</span>' % ngVar)
       textElm = etree.fromstring(
-          '<span class="treeNode">%s<br /></span>' % tree['text']
-      )
+          '<span class="treeNode">%s<br /></span>' % tree['text'])
 
-      node.append(sign)
+      node.append(signp)
+      node.append(signm)
       node.append(textElm)
 
+      childrenContainer = etree.fromstring(
+          '<div ng-hide="%s" class="childrenContainer"></div>' % ngVar)
+      childIndex = 0
       for child in tree['child']:
-        node.append( translationTreeToHtml(child) )
-    else:
-      textElm = etree.fromstring(
-          '<span class="treeNode">%s<br /></span>' % tree['text']
-      )
-      node.append(textElm)
+        childrenContainer.append(
+            translationTreeToHtml(child, ngVar, childIndex) )
+        childIndex += 1
 
-    return node
+      container = etree.fromstring('<div></div>')
+      container.append(node)
+      container.append(childrenContainer)
+
+      return container
+
+    else:
+      node = etree.fromstring('<div class="item"></div>')
+      textElm = etree.fromstring(
+          '<span class="treeNode">%s<br /></span>' % tree['text'])
+      node.append(textElm)
+      return node
 
 
 if __name__ == '__main__':
@@ -100,5 +117,10 @@ if __name__ == '__main__':
   #import pprint
   #pprint.pprint(trTree)
 
-  root = translationTreeToHtml(trTree)
+  root = translationTreeToHtml(trTree, None, None)
   print(etree.tostring(root, pretty_print=True))
+
+  trTreeHtmlPath = os.path.join(os.path.dirname(__file__),
+      '../app/partials/trTree.html')
+  with open(trTreeHtmlPath, 'w') as f:
+    f.write(etree.tostring(root))
