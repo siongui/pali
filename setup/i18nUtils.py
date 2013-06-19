@@ -154,6 +154,14 @@ def writeJs():
   print(json.dumps(obj))
 
 
+def doAll():
+  createPOT()
+  initOrUpdatePOs()
+  TWtoCN()
+  POtoMO()
+  writeJs()
+
+
 if __name__ == '__main__':
   if len(sys.argv) != 2:
     sys.exit(1)
@@ -184,5 +192,9 @@ if __name__ == '__main__':
 
   if sys.argv[1] == "js":
     writeJs()
+    sys.exit(0)
+
+  if sys.argv[1] == "all":
+    doAll()
     sys.exit(0)
 

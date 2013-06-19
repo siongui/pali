@@ -67,6 +67,7 @@ def setupSymlinks():
 
 
 if __name__ == '__main__':
+  # copy necessary css file to css directory of tipitaka webapp
   tipitakaLatnCssPath = os.path.join(os.path.dirname(__file__),
       '../../data/tipitaka/romn/cscd/tipitaka-latn.css')
   dstPath = os.path.join(os.path.dirname(__file__),
@@ -75,14 +76,8 @@ if __name__ == '__main__':
 
   setupSymlinks()
 
-  from i18nUtils import createPOT
-  from i18nUtils import initOrUpdatePOs
-  from i18nUtils import TWtoCN
-  from i18nUtils import POtoMO
-  from i18nUtils import writeJs
+  # cannot import i18nUtils in the beginning of the file because symlink to
+  # jianfan is not yet created
+  from i18nUtils import doAll
+  doAll()
 
-  createPOT()
-  initOrUpdatePOs()
-  TWtoCN()
-  POtoMO()
-  writeJs()

@@ -113,28 +113,19 @@ $ python devNotGaeRun.py
 
 ## Development of i18n
 
-Everytime strings in html files are marked to be translated, remember to re-generate i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>PALI_DIR/setup/</b>) to automate the i18n jobs.
+Everytime strings in html files are marked to be translated, remember to re-create i18n files and re-compile JavaScript files. A helper script named <b>i18nUtils.py</b> (located under <b>PALI_DIR/setup/</b>) to automate the i18n jobs.
 
 ```bash
 $ cd PALI_DIR/setup/
-# create POT from html files
-$ python i18nUtils.py pot
-# initialize PO files if not exist, or update POs files if exist.
-$ python i18nUtils.py po
-# after initialization, edit PO files and translate strings in PO files. Then
-$ python i18nUtils.py cn
-# the above command update zh_CN PO file from zh_TW PO file,
-# so you do not have to manual translate (optional if you want to manually translate zh_CN PO file).
-# then create MO files for server-side i18n
-$ python i18nUtils.py mo
-# create files for client-side i18n
-$ python i18nUtils.py js
+# re-create i18n files and re-compile JavaScript files
+$ python i18nUtils.py all
 
-# run grunt to update files
 $ cd PALI_DIR/dictionary
+# run grunt to update combined js file of dictionary website
 $ grunt
 # ctrl-C to abort grunt watch
 $ cd PALI_DIR/tipitaka
+# run grunt to update combined js file of tipitaka website
 $ grunt
 ```
 
