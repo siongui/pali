@@ -18,6 +18,8 @@ DATA_REPO_DIR = join(dirname(__file__), '../../../data/')
 
 localedir = join(dirname(__file__), '../../common/locale/')
 
+TranslationDir = join(DATA_REPO_DIR, 'tipitaka/translation/')
+
 def getSDKPath():
   return join(dirname(__file__), "../../../google_appengine/")
 
