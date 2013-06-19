@@ -143,19 +143,9 @@ jstr = re.sub(r"'", r'"', jstr)
 d = json.JSONDecoder(object_pairs_hook = collections.OrderedDict)
 translationInfo = d.decode(jstr)
 
-canonTextTranslation = {}
 
-if __name__ == '__main__':
-  dstTrInfoPath = os.path.join(os.path.dirname(__file__),
-      '../pylib/json/translationInfo.json')
-  dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__),
-      '../pylib/json/canonTextTranslation.json')
-
-  if not os.path.exists(os.path.dirname(dstTrInfoPath)):
-    os.makedirs(os.path.dirname(dstTrInfoPath))
-
-  with open(dstTrInfoPath, 'w') as f:
-    f.write(json.dumps(translationInfo))
+def getCanonTextTranslation():
+  canonTextTranslation = {}
 
   # initialize canonTextTranslation
   for dirpath, dirnames, filenames in os.walk(localedir):
@@ -171,6 +161,23 @@ if __name__ == '__main__':
   canonTextTranslation['zh_CN'] = {}
   for key in canonTextTranslation['zh_TW']:
     canonTextTranslation['zh_CN'][key] = ftoj(canonTextTranslation['zh_TW'][key])
+
+  return canonTextTranslation
+
+
+if __name__ == '__main__':
+  dstTrInfoPath = os.path.join(os.path.dirname(__file__),
+      '../pylib/json/translationInfo.json')
+  dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__),
+      '../pylib/json/canonTextTranslation.json')
+
+  if not os.path.exists(os.path.dirname(dstTrInfoPath)):
+    os.makedirs(os.path.dirname(dstTrInfoPath))
+
+  with open(dstTrInfoPath, 'w') as f:
+    f.write(json.dumps(translationInfo))
+
+  canonTextTranslation = getCanonTextTranslation()
   with open(dstCanonTextTranslationPath, 'w') as f:
     f.write(json.dumps(canonTextTranslation))
 
