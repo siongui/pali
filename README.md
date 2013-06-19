@@ -60,18 +60,15 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     # http://localhost:8080/
 ```
 
-5. Create Tipiṭaka-related translations for server and client.
-```bash
-    $ cd PALI_DIR/tipitaka/setup/
-    $ python setTranslationData.py
-```
-
-6. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
+5. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website:
 ```bash
     $ cd PALI_DIR/tipitaka/setup/
     $ python init1getTocs.py
     $ python init2tocsToJson.py
     $ python init3addSubpathInJson.py
+
+    # Create Tipiṭaka-related translations for server and client.
+    $ python setTranslationData.py
 
     $ cd PALI_DIR/tipitaka
     # Install grunt plugins
@@ -82,13 +79,13 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     $ python devNotGaeRun.py
 ```
 
-7. See if tipiṭaka website works: (Please keep above dev server running)
+6. See if tipiṭaka website works: (Please keep above dev server running)
 ```bash
     # open browser to test local dev server:
     # http://localhost:8080/
 ```
 
-8. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](docs/AWS.md)
+7. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](docs/AWS.md)
 
 ## Development of Python/JavaScript/HTML/CSS code for the websites
 

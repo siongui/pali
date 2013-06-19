@@ -82,19 +82,16 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # http://localhost:8080/
 ```
 
-6. Create Tipiṭaka-related translations for server and client.
-```bash
-    $ cd PALI_DIR/tipitaka/setup/
-    $ python setTranslationData.py
-```
-
-7. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website.
+6. Create data files used for Pāḷi Tipiṭaka and path of webpages of online Pāḷi Tipiṭaka website.
    After data files created, upload them to Google App Engine dev server:
 ```bash
     $ cd PALI_DIR/tipitaka/setup/
     $ python init1getTocs.py
     $ python init2tocsToJson.py
     $ python init3addSubpathInJson.py
+
+    # Create Tipiṭaka-related translations for server and client.
+    $ python setTranslationData.py
 
     $ cd PALI_DIR/tipitaka
     # Install grunt plugins
@@ -114,7 +111,7 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # http://localhost:8080/
 ```
 
-8. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in [PALI_DIR/tipitaka/app.yaml](https://github.com/siongui/pali/blob/master/tipitaka/app.yaml) and [PALI_DIR/dictionary/app.yaml](https://github.com/siongui/pali/blob/master/dictionary/app.yaml).
+7. Deploy on [Google App Engine (Python)](https://developers.google.com/appengine/docs/python/gettingstartedpython27/uploading): Before deployment, please modify the application name to your app name at the first line in [PALI_DIR/tipitaka/app.yaml](https://github.com/siongui/pali/blob/master/tipitaka/app.yaml) and [PALI_DIR/dictionary/app.yaml](https://github.com/siongui/pali/blob/master/dictionary/app.yaml).
 ```bash
     # deploy dictionary website
     $ cd PALI_DIR/dictionary
