@@ -4,46 +4,32 @@
 import os
 import json
 import imp
-from lxml import etree
 
 from variables import ftoj
 from variables import localedir
-from variables import TranslationDir
 
+from readTranslationDir import xmlInfo
+from translationTreesToHtml import createTranslationTreesHtml
 
 def getTranslationInfo():
   translationInfo = {}
-  langsXml = etree.parse( os.path.join(TranslationDir, 'languages.xml') )
+  for lang, key, translator, xml, isExcerpt in xmlInfo():
+    print(lang, key, translator, xml, isExcerpt)
 
-  for language in langsXml.xpath('.//language'):
-    # traverse dir with specific language
-    directory = language.find('directory')
-    lang = directory.text
-    translationInfo[lang] = { 'canon': {}, 'source': {} }
+    if lang not in translationInfo:
+      translationInfo[lang] = { 'canon': {}, 'source': {} }
 
-    sourcesXml = etree.parse( os.path.join(TranslationDir,
-        '%s/sources.xml' % lang) )
-    for source in sourcesXml.xpath('.//source'):
-      # read informations of translators
-      key = source.find('key').text
-      translator = source.find('translator').text
+    if key not in translationInfo[lang]['source']:
       translationInfo[lang]['source'][key] = [ translator ]
 
-      translatorXmlDir = os.path.join( TranslationDir, '%s/%s/' % (lang, key) )
-      for xml in os.listdir(translatorXmlDir):
-        # traverse dir with translations by specific translator
-        if not xml.endswith('.xml'): continue
+    info = { 'source': key }
+    if isExcerpt:
+      info['excerpt'] = True
 
-        xmlInfo = { 'source': key }
-        xmlTree = etree.parse( os.path.join(translatorXmlDir, xml) )
-        isExcerpt = xmlTree.find('.//excerpt')
-        if isExcerpt is not None:
-          xmlInfo['excerpt'] = True
-
-        if xml in translationInfo[lang]['canon']:
-          translationInfo[lang]['canon'][xml].append( xmlInfo )
-        else:
-          translationInfo[lang]['canon'][xml] = [ xmlInfo ]
+    if xml in translationInfo[lang]['canon']:
+      translationInfo[lang]['canon'][xml].append( info )
+    else:
+      translationInfo[lang]['canon'][xml] = [ info ]
 
   import pprint
   pprint.pprint(translationInfo)
@@ -72,6 +58,8 @@ def getCanonTextTranslation():
 
 
 if __name__ == '__main__':
+  createTranslationTreesHtml()
+
   dstTrInfoPath = os.path.join(os.path.dirname(__file__),
       '../pylib/json/translationInfo.json')
   dstCanonTextTranslationPath = os.path.join(os.path.dirname(__file__),

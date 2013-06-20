@@ -56,7 +56,7 @@ def translationTreeToHtml(tree, prefix, index, locale):
       return node
 
 
-if __name__ == '__main__':
+def createTranslationTreesHtml():
   langTrees = getTranslationTrees()
 
   langHtmls = {}
@@ -69,3 +69,7 @@ if __name__ == '__main__':
   with open(trTreeHtmlPath, 'w') as f:
     for lang in langHtmls:
       f.write(etree.tostring(langHtmls[lang]))
+
+
+if __name__ == '__main__':
+  createTranslationTreesHtml()

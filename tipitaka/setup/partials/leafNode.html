@@ -10,10 +10,12 @@
   {% for translation in translations %}
     <div class="item treeNode"
          ng-click="clickTranslation('{$ translation['xmlFilename'] $}', '{$ translation['translator'] $}', '{$ translation['key'] $}', '{$ locale $}')">
+      {% if translation['isExcerpt'] %}[{{_("Excerpt")}}]{% endif %}
       {$ translation['translator'] $} {{_("Translation")}}
     </div>
     <div class="item treeNode"
          ng-click="clickContrastReading('{$ translation['xmlFilename'] $}', '{$ translation['translator'] $}', '{$ translation['key'] $}', '{$ locale $}')">
+      {% if translation['isExcerpt'] %}[{{_("Excerpt")}}]{% endif %}
       {$ translation['translator'] $} {{_("Contrast Reading")}}
     </div>
   {% endfor %}
