@@ -38,21 +38,9 @@ function canonCtrl($scope, $http, $compile, pathInfo, htmlDoc2View) {
 canonCtrl.$inject = ['$scope', '$http', '$compile', 'pathInfo', 'htmlDoc2View'];
 
 
-function infoCtrl($scope, $http, $compile) {
-  var data = { userLocale: $scope.i18nLocale };
-  if (angular.isDefined($scope.urlLocale))
-    data.urlLocale = $scope.urlLocale;
-  else
-    data.urlLocale = null;
-
-  $http.post('/html/MainPage', JSON.stringify(data)).
-    success(function(data, status, headers, config) {
-      $scope.xmlDoms = $compile(data)($scope);
-    }).error(function(data, status, headers, config) {
-      // TODO: error handling
-    });
+function infoCtrl() {
 }
-infoCtrl.$inject = ['$scope', '$http', '$compile'];
+infoCtrl.$inject = [];
 
 
 function translationCtrl($scope, $http, pathInfo) {

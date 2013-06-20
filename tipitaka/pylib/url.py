@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from translationInfo import getAllLocalesTranslationsTemplateValues
 from template import getJinja2Env
 from pathInfo import isValidPath
 from htmlTitle import getHtmlTitle
@@ -34,23 +33,6 @@ def checkPath(reqPath, urlLocale, paliTextPath, userLocale,
       result['pageHtml'] = getCanonPageHtml(result['node'], reqPath, userLocale)
 
   return result
-
-
-# cache
-AllTransCache = {}
-def getAllLocalesTranslationsHtml(urlLocale, userLocale):
-  # check cache first
-  key = '%s#%s' % (urlLocale, userLocale)
-  if key in AllTransCache:
-    return AllTransCache[key]
-
-  # cache miss
-  template = getJinja2Env(userLocale).get_template('info.html')
-  AllTransCache[key] = template.render({'urlLocale': urlLocale,
-      'userLocale': userLocale,
-      'localeTranslations': getAllLocalesTranslationsTemplateValues()})
-
-  return AllTransCache[key]
 
 
 def serveCanonPageHtml(reqPath, urlLocale, paliTextPath, userLocale):

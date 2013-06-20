@@ -4,8 +4,6 @@
 import os
 import json
 import collections
-# from pathInfo import xmlFilename2Info (cannot use because of circular import)
-import pathInfo
 
 # See setTranslationData.py
 with open(os.path.join(os.path.dirname(__file__), 'json/translationInfo.json'), 'r') as f:
@@ -65,25 +63,4 @@ def getI18nLinksTemplateValues(xmlFilename):
   if len(i18nLinksTmpValue['localeTranslations']) > 0:
     i18nLinksTmpValue['xmlFilename'] = xmlFilename
     return i18nLinksTmpValue
-
-
-def getAllLocalesTranslationsTemplateValues():
-  localeTranslations = []
-  for translationLocale in translationInfo:
-    localeTranslation = { 'translationLocale': translationLocale }
-    localeTranslation['translations'] = []
-    for xmlFilename in translationInfo[translationLocale]['canon']:
-      info = pathInfo.xmlFilename2Info(xmlFilename)
-      translation = { 'xmlFilename': xmlFilename,
-                      'path': info['path'],
-                      'translatedCanonNames': info['translatedCanonNames'],
-                      'canonNames': info['canonNames'] }
-      translation['localeXmlTranslations'] = \
-        getLocaleXmlTranslations(translationLocale, xmlFilename)
-      localeTranslation['translations'].append(translation)
-
-    if len(localeTranslation['translations']) > 0:
-      localeTranslations.append(localeTranslation)
-
-  return localeTranslations
 

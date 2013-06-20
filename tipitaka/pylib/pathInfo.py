@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import os, json
-# from translationInfo import isValidTranslation (cannot use because of circular import)
-import translationInfo
+import os
+import json
+from translationInfo import isValidTranslation
 from htmlTitle import nodeTextStrip2
 from htmlTitle import getTranslatedCanonName
 
@@ -104,52 +104,9 @@ def isValidPath(paliTextPath, translationLocale=None, translator=None):
   if result['isValid'] and translationLocale:
     if 'action' in result['node']:
       xmlFilename = os.path.basename(result['node']['action'])
-      if translationInfo.isValidTranslation(xmlFilename, translationLocale, translator):
+      if isValidTranslation(xmlFilename, translationLocale, translator):
         return result
     return { 'isValid': False }
   else:
     return result
 
-
-def recursiveGetInfo(node, pathPrefix, xmlFilename):
-  path = pathPrefix + '/' + node['subpath']
-  if 'action' in node:
-    if os.path.basename(node['action']) == xmlFilename:
-      return { 'path': path,
-               'canonNames': [nodeTextStrip2(node['text'])],
-               'translatedCanonNames': [getTranslatedCanonName(node['text'])] }
-  else:
-    for child in node['child']:
-      result = recursiveGetInfo(child, path, xmlFilename)
-      if result:
-        result['canonNames'].append(nodeTextStrip2(node['text']))
-        result['translatedCanonNames'].append(getTranslatedCanonName(node['text']))
-        return result
-
-# cache
-xmlFilename2InfoCache = {}
-
-def xmlFilename2Info(xmlFilename):
-  """Convert xmlFilename to corresponding information.
-
-  Args:
-      xmlFilename: the name of the xml file of pali text, for example:
-          s0102m.mul2.xml
-          s0402m2.mul6.xml
-
-  Returns:
-      The corresponding information.
-          { 'path': {{paliTextPath}},
-            'canonNames': canonNames,
-            'translatedCanonNames': translatedCanonNames }
-  """
-  if xmlFilename in xmlFilename2InfoCache:
-    return xmlFilename2InfoCache[xmlFilename]
-
-  for child in treeviewData['child']:
-    result = recursiveGetInfo(child, u'', xmlFilename)
-    if result:
-      xmlFilename2InfoCache[xmlFilename] = result
-      return result
-
-  raise Exception('cannot get info of %s' % xmlFilename)
