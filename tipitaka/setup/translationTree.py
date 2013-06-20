@@ -6,34 +6,7 @@ import json
 from lxml import etree
 
 from variables import TreeviewJsonPath
-from variables import TranslationDir
-
-def xmlInfo():
-  langsXml = etree.parse( os.path.join(TranslationDir, 'languages.xml') )
-
-  for language in langsXml.xpath('.//language'):
-    # traverse dir with specific language
-    directory = language.find('directory')
-    lang = directory.text
-
-    sourcesXml = etree.parse( os.path.join(TranslationDir,
-        '%s/sources.xml' % lang) )
-    for source in sourcesXml.xpath('.//source'):
-      # read informations of translators
-      key = source.find('key').text
-      translator = source.find('translator').text
-
-      translatorXmlDir = os.path.join( TranslationDir, '%s/%s/' % (lang, key) )
-      for xml in os.listdir(translatorXmlDir):
-        # traverse dir with translations by specific translator
-        if not xml.endswith('.xml'): continue
-
-        xmlTree = etree.parse( os.path.join(translatorXmlDir, xml) )
-        isExcerpt = False
-        if xmlTree.find('.//excerpt') is not None:
-          isExcerpt = True
-
-        yield (lang, key, translator, xml, isExcerpt)
+from readTranslationDir import xmlInfo
 
 
 def trimTree(tree):
@@ -126,9 +99,8 @@ def translationTreeToHtml(tree, prefix, index, locale):
     return root
 
   else:
-    ngVar = '%s%d' % (prefix, index)
-
     if 'child' in tree:
+      ngVar = '%s%d' % (prefix, index)
       node = etree.fromstring(
           '<div ng-init="%s = true" ng-click="%s = !%s" class="item"></div>'
           % (ngVar, ngVar, ngVar) )
@@ -156,7 +128,7 @@ def translationTreeToHtml(tree, prefix, index, locale):
       node.append(textElm)
 
       childrenContainer = etree.fromstring(
-          '<div ng-hide="%s" class="childrenContainer"></div>' % ngVar)
+          '<div class="childrenContainer"></div>')
       for translation in tree['translations']:
         childrenContainer.append( etree.fromstring(
             '<div class="item treeNode">%s</div>'
