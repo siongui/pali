@@ -15,6 +15,7 @@ angular.module('pali.treeview', []).
           i18nTpkConvert.redirectAccordingToUrlLocale(path);
         };
 
+        /*
         scope.treeviewTranslatedNodeText = function(text) {
           if (scope.setting.translateTreeview) {
             var trText = i18nTpkConvert.translateNodeText2(text, scope.i18nLocale);
@@ -22,6 +23,7 @@ angular.module('pali.treeview', []).
           }
           return '';
         }
+        */
 
         // show tipitaka, commentaries, and sub-commentaries
         for (var i=0; i< tvServ.allPali['child'].length; i++) {
@@ -36,8 +38,11 @@ angular.module('pali.treeview', []).
             // not leaf node, keys: 'text', 'child', 'subpath'
             var element = angular.element('<div class="item"></div>');
             var sign = angular.element('<span>+</span>');
-            var textElm = $compile('<span class="treeNode">'+ text + '<br />' +
-                                                           '<small style="color: red;">{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span>')(scope);
+            var textElm = $compile(
+                '<span class="treeNode">'+ text + '<br />' +
+                '<small>{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span>'
+                )(scope);
+
             element.append(sign);
             element.append(textElm);
 
@@ -65,10 +70,13 @@ angular.module('pali.treeview', []).
             return all;
           } else {
             // leaf node, keys: 'text', 'action', 'subpath'
-            var element = $compile('<div class="item" ng-click="leafNodeClicked(' +
-                                   "'" + node['action'] + "', '" + text + "', '" + path + "'" +
-                                   ')"><span class="treeNode">' + text + '<br />' +
-                                   '<small style="color: red;">{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span></div>')(scope);
+            var element = $compile(
+                '<div class="item" ng-click="leafNodeClicked(' +
+                "'" + node['action'] + "', '" + text + "', '" + path + "'" +
+                ')"><span class="treeNode">' + text + '<br />' +
+                '<small>{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span></div>'
+                )(scope);
+
             return element;
           }
         }

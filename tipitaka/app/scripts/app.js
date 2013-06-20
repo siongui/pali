@@ -58,4 +58,12 @@ angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'p
     $rootScope.initOK = true;
     $rootScope.translateNodeText2 = i18nTpkConvert.translateNodeText2;
     $rootScope.translateNodeText3 = i18nTpkConvert.translateNodeText3;
+    $rootScope.treeviewTranslatedNodeText = function(text) {
+      if ($rootScope.setting.translateTreeview) {
+        var trText = i18nTpkConvert.translateNodeText2(text,
+                                                       $rootScope.i18nLocale);
+        if (trText !== text) return trText;
+      }
+      return '';
+    }
   }]);

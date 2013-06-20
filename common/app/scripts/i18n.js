@@ -53,9 +53,7 @@ angular.module('pali.i18n', ['pali.i18nStrings']).
     });
 
     /**
-     * currently {{_("i18n_string")}} cannot be used at client side
-     * because similar syntax has been used on server side.
-     * it's reserved for possible future use
+     * usage: {{_("i18n_string")}}
      */
     $rootScope._ = function(str) {
       return i18nserv.gettext(str, $rootScope.i18nLocale);
