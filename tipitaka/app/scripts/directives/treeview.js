@@ -4,35 +4,19 @@
 
 
 angular.module('pali.treeview', []).
-  directive('treeview', ['$compile', 'tvServ', 'i18nTpkConvert', function($compile, tvServ, i18nTpkConvert) {
+  directive('treeview', ['$compile', 'tvServ', function($compile, tvServ) {
     return {
       restrict: 'A',
       link: function(scope, elm, attrs) {
 
-        scope.leafNodeClicked = function(action, text, path) {
-          scope.action = action;
-          scope.text = text;
-          i18nTpkConvert.redirectAccordingToUrlLocale(path);
-        };
-
-        /*
-        scope.treeviewTranslatedNodeText = function(text) {
-          if (scope.setting.translateTreeview) {
-            var trText = i18nTpkConvert.translateNodeText2(text, scope.i18nLocale);
-            if (trText !== text) return trText;
-          }
-          return '';
-        }
-        */
-
         // show tipitaka, commentaries, and sub-commentaries
         for (var i=0; i< tvServ.allPali['child'].length; i++) {
-          var node = traverseTreeviewData( tvServ.allPali['child'][i], '/' + tvServ.allPali['child'][i]['subpath'] );
+          var node = traverseTreeviewData( tvServ.allPali['child'][i]);
           if (i===0) node[0].lastChild.style.display = '';
           elm.append(node);
         }
 
-        function traverseTreeviewData(node, path) {
+        function traverseTreeviewData(node) {
           var text = node['text'];
           if (node['child']) {
             // not leaf node, keys: 'text', 'child', 'subpath'
@@ -49,8 +33,7 @@ angular.module('pali.treeview', []).
             var childrenContainer = $compile('<div class="childrenContainer"></div>')(scope);
             for (var i=0; i<node['child'].length; i++) {
               var child = node['child'][i];
-              var childPath = path + '/' + child['subpath'];
-              childrenContainer.append(traverseTreeviewData(child, childPath));
+              childrenContainer.append(traverseTreeviewData(child));
             }
             childrenContainer.css('display', 'none');
 
@@ -71,8 +54,8 @@ angular.module('pali.treeview', []).
           } else {
             // leaf node, keys: 'text', 'action', 'subpath'
             var element = $compile(
-                '<div class="item" ng-click="leafNodeClicked(' +
-                "'" + node['action'] + "', '" + text + "', '" + path + "'" +
+                '<div class="item" ng-click="clickPali2(' +
+                "'" + node['action'] + "'" +
                 ')"><span class="treeNode">' + text + '<br />' +
                 '<small>{{ treeviewTranslatedNodeText("' + text + '") }}</small>' + '</span></div>'
                 )(scope);

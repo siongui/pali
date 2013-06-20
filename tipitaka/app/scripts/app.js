@@ -68,6 +68,7 @@ angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'p
     }
 
     $rootScope.clickPali = tvEvt.clickPali;
+    $rootScope.clickPali2 = tvEvt.clickPali2;
     $rootScope.clickTranslation = tvEvt.clickTranslation;
     $rootScope.clickContrastReading = tvEvt.clickContrastReading;
 

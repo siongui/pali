@@ -4,25 +4,37 @@
 
 
 angular.module('pali.treeviewEvent', []).
-  factory('tvEvt', ['$location', 'tvServ', function($location, tvServ) {
+  factory('tvEvt', ['$location', '$rootScope', 'tvServ',
+                    function($location, $rootScope, tvServ) {
+
+    function redirect(path) {
+      $location.path( $rootScope.urlLocaleInPath + path );
+    }
+
+    function clickPali2(action) {
+      // remove leading 'cscd/'
+      clickPali( action.slice(5) );
+    }
+
     function clickPali(xmlFilename) {
-      $location.path( tvServ.xmlFilename2Path(xmlFilename) );
+      redirect( tvServ.xmlFilename2Path(xmlFilename) );
     }
 
     function clickTranslation(xmlFilename, translator, key, locale) {
       var paliTextPath = tvServ.xmlFilename2Path(xmlFilename);
       var path = paliTextPath + '/' + locale + '/' + translator;
-      $location.path(path);
+      redirect( path );
     }
 
     function clickContrastReading(xmlFilename, translator, key, locale) {
       var paliTextPath = tvServ.xmlFilename2Path(xmlFilename);
       var path = paliTextPath + '/' + locale + '/' + translator + '/ContrastReading';
-      $location.path(path);
+      redirect( path );
     }
 
     return {
       clickPali: clickPali,
+      clickPali2: clickPali2,
       clickTranslation: clickTranslation,
       clickContrastReading: clickContrastReading
     };

@@ -4,8 +4,8 @@
 
 
 angular.module('pali.i18nTpk', ['pali.data.i18nTpk']).
-  factory('i18nTpkConvert', ['$location', 'i18nTpk', 'i18nSetting',
-      function($location, i18nTpk, i18nSetting) {
+  factory('i18nTpkConvert', ['i18nTpk',
+      function(i18nTpk) {
 
     function endswith(str, suffix) {
       return str.indexOf(suffix, str.length - suffix.length) != -1;
@@ -110,24 +110,11 @@ angular.module('pali.i18nTpk', ['pali.data.i18nTpk']).
         return ' (' + trStr + ')';
     }
 
-    function redirectAccordingToUrlLocale(path) {
-      for (var i=0; i < i18nSetting.locales.length; i++) {
-        var locale = i18nSetting.locales[i];
-        var prefix = '/' + locale + '/';
-        if ($location.path().indexOf(prefix) === 0) {
-          $location.path('/' + locale + path);
-          return;
-        }
-      }
-      $location.path(path);
-    }
-
     var serviceInstance = {
       nodeTextStrip2: nodeTextStrip2,
       translateNodeText: translateNodeText,
       translateNodeText2: translateNodeText2,
-      translateNodeText3: translateNodeText3,
-      redirectAccordingToUrlLocale: redirectAccordingToUrlLocale
+      translateNodeText3: translateNodeText3
     };
     return serviceInstance;
   }]);
