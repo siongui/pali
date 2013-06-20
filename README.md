@@ -49,8 +49,8 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     # Install grunt plugins
     $ npm install
     # combine and minify JavaScript/CSS.
-    $ grunt
-    # ctrl-C to abort watching, and then run dev server.
+    $ grunt min
+    # run dev server.
     $ python devNotGaeRun.py
 ```
 
@@ -74,8 +74,8 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     # Install grunt plugins
     $ npm install
     # combine and minify JavaScript/CSS.
-    $ grunt
-    # ctrl-C to abort watching, and then run dev server.
+    $ grunt min
+    # run dev server.
     $ python devNotGaeRun.py
 ```
 
@@ -114,15 +114,15 @@ Everytime strings in html files are marked to be translated, remember to re-crea
 
 ```bash
 $ cd PALI_DIR/setup/
-# re-create i18n files and re-compile JavaScript files
+# re-create i18n files and re-create JavaScript file for i18n
 $ python i18nUtils.py all
 
 $ cd PALI_DIR/dictionary
-# run grunt to update combined js file of dictionary website
-$ grunt
-# ctrl-C to abort grunt watch
+# re-combine and re-minify JavaScript/CSS of dictionary website
+$ grunt min
+
 $ cd PALI_DIR/tipitaka
-# run grunt to update combined js file of tipitaka website
-$ grunt
+# re-combine and re-minify JavaScript/CSS of tipiṭaka website
+$ grunt min
 ```
 

@@ -68,8 +68,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # Install grunt plugins
     $ npm install
     # combine and minify JavaScript/CSS.
-    $ grunt
-    # ctrl-C to abort watching, and then run Google App Engine dev server.
+    $ grunt min
+    # run Google App Engine dev server.
     $ grunt run
 
     # keep above "grunt run" terminal running, and open another terminal
@@ -97,8 +97,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # Install grunt plugins
     $ npm install
     # combine and minify JavaScript/CSS.
-    $ grunt
-    # ctrl-C to abort watching, and then run Google App Engine dev server.
+    $ grunt min
+    # run Google App Engine dev server.
     $ grunt run
 
     # keep above "grunt run" terminal running, and open another terminal
@@ -116,8 +116,8 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
     # deploy dictionary website
     $ cd PALI_DIR/dictionary
     # combine and minify JavaScript/CSS.
-    $ grunt
-    # ctrl-C to abort watching, then upload dictionary website to Google App Engine production server.
+    $ grunt min
+    # upload dictionary website to Google App Engine production server.
     $ grunt update
 
     # uploading words files to online GAE datastore of production server.
@@ -127,8 +127,9 @@ Please [install necessary tools for development](INSTALL_GAE.md) before setting 
 
     # deploy tipitaka website
     $ cd PALI_DIR/tipitaka
-    $ grunt
-    # ctrl-C to abort watching, then upload tipitaka website app to Google App Engine production server.
+    # combine and minify JavaScript/CSS.
+    $ grunt min
+    # upload tipiṭaka website to Google App Engine production server.
     $ grunt update
 
     # uploading data files to online GAE datastore of production server.
@@ -164,15 +165,15 @@ Everytime strings in html files are marked to be translated, remember to re-crea
 
 ```bash
 $ cd PALI_DIR/setup/
-# re-create i18n files and re-compile JavaScript files
+# re-create i18n files and re-create JavaScript file for i18n
 $ python i18nUtils.py all
 
 $ cd PALI_DIR/dictionary
-# run grunt to update combined js file of dictionary website
-$ grunt
-# ctrl-C to abort grunt watch
+# re-combine and re-minify JavaScript/CSS of dictionary website
+$ grunt min
+
 $ cd PALI_DIR/tipitaka
-# run grunt to update combined js file of tipitaka website
-$ grunt
+# re-combine and re-minify JavaScript/CSS of tipiṭaka website
+$ grunt min
 ```
 
