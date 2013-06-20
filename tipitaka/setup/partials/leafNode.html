@@ -1,0 +1,15 @@
+<div>
+<div class="item"
+     ng-click="clickLeafNode('{$ translations[0]['xmlFilename'] $}')">
+  <span class="treeNode">
+    {$ text $}<br />
+    <small>{{ treeviewTranslatedNodeText("{$ text $}") }}</small>
+  </span>
+</div>
+<div class="childrenContainer">
+  {% for translation in translations %}
+    <div class="item treeNode">{$ translation['translator'] $} {{_("Translation")}}</div>
+    <div class="item treeNode">{$ translation['translator'] $} {{_("Contrast Reading")}}</div>
+  {% endfor %}
+</div>
+</div>

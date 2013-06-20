@@ -1,0 +1,10 @@
+<div ng-init="{$ ngVar $} = true">
+  <div ng-click="{$ ngVar $} = !{$ ngVar $}" class="item treeNode">
+    <span ng-show="{$ ngVar $}">+</span>
+    <span ng-hide="{$ ngVar $}">-</span>
+    <span> </span>
+    <span>{{ "{$ locale $}" | translate }}</span>
+    <span> </span>
+    <span>{{_("Translation")}}</span>
+  </div>
+</div>

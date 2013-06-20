@@ -1,0 +1,10 @@
+<div ng-init="{$ ngVar $} = true"
+     ng-click="{$ ngVar $} = !{$ ngVar $}"
+     class="item">
+  <span ng-show="{$ ngVar $}">+</span>
+  <span ng-hide="{$ ngVar $}">-</span>
+  <span class="treeNode">
+    {$ text $}<br />
+    <small>{{ treeviewTranslatedNodeText("{$ text $}") }}</small>
+  </span>
+</div>

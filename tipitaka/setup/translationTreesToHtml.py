@@ -2,9 +2,16 @@
 # -*- coding:utf-8 -*-
 
 import os
+import jinja2
 from lxml import etree
 
 from constructTranslationTrees import getTranslationTrees
+
+jj2env = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(
+      [os.path.join(os.path.dirname(__file__), 'partials')]),
+    variable_start_string='{$',
+    variable_end_string='$}')
 
 
 def translationTreeToHtml(tree, prefix, index, locale):
@@ -12,25 +19,9 @@ def translationTreeToHtml(tree, prefix, index, locale):
     # root tree
     ngVar = "show%s" % locale
 
-    root = etree.fromstring('<div ng-init="%s = true"></div>' % ngVar)
-
-    textContainer = etree.fromstring(
-        '<div ng-click="%s = !%s" class="item treeNode"></div>'
-         % (ngVar, ngVar) )
-    textContainer.append(
-        etree.fromstring('<span ng-show="%s">+</span>' % ngVar) )
-    textContainer.append(
-        etree.fromstring('<span ng-hide="%s">-</span>' % ngVar) )
-    textContainer.append(
-        etree.fromstring('<span> </span>') )
-    textContainer.append(
-        etree.fromstring('<span>{{ "%s" | translate }}</span>' % locale) )
-    textContainer.append(
-        etree.fromstring('<span> </span>') )
-    textContainer.append(
-        etree.fromstring('<span>{{_("Translation")}}</span>') )
-
-    root.append(textContainer)
+    template = jj2env.get_template('rootNode.html')
+    root = etree.fromstring(
+        template.render( {'ngVar': ngVar, 'locale': locale } ) )
 
     childrenContainer = etree.fromstring(
         '<div ng-hide="%s" class="childrenContainer"></div>' % ngVar)
@@ -46,17 +37,10 @@ def translationTreeToHtml(tree, prefix, index, locale):
   else:
     if 'child' in tree:
       ngVar = '%s%d' % (prefix, index)
-      node = etree.fromstring(
-          '<div ng-init="%s = true" ng-click="%s = !%s" class="item"></div>'
-          % (ngVar, ngVar, ngVar) )
-      signp = etree.fromstring('<span ng-show="%s">+</span>' % ngVar)
-      signm = etree.fromstring('<span ng-hide="%s">-</span>' % ngVar)
-      textElm = etree.fromstring(
-          '<span class="treeNode">%s<br /></span>' % tree['text'])
 
-      node.append(signp)
-      node.append(signm)
-      node.append(textElm)
+      template = jj2env.get_template('nonLeafNode.html')
+      node = etree.fromstring(
+          template.render( {'ngVar': ngVar, 'text': tree['text'] } ) )
 
       childrenContainer = etree.fromstring(
           '<div ng-hide="%s" class="childrenContainer"></div>' % ngVar)
@@ -66,24 +50,18 @@ def translationTreeToHtml(tree, prefix, index, locale):
             translationTreeToHtml(child, ngVar, childIndex, locale) )
         childIndex += 1
 
+      container = etree.fromstring('<div></div>')
+      container.append(node)
+      container.append(childrenContainer)
+
+      return container
+
     else:
-      node = etree.fromstring('<div class="item"></div>')
-      textElm = etree.fromstring(
-          '<span class="treeNode">%s<br /></span>' % tree['text'])
-      node.append(textElm)
+      template = jj2env.get_template('leafNode.html')
+      node = etree.fromstring( template.render(
+          {'translations': tree['translations'], 'text': tree['text'] } ) )
 
-      childrenContainer = etree.fromstring(
-          '<div class="childrenContainer"></div>')
-      for translation in tree['translations']:
-        childrenContainer.append( etree.fromstring(
-            '<div class="item treeNode">%s</div>'
-                % translation['translator'] ) )
-
-    container = etree.fromstring('<div></div>')
-    container.append(node)
-    container.append(childrenContainer)
-
-    return container
+      return node
 
 
 if __name__ == '__main__':
