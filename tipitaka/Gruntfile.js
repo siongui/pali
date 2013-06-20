@@ -24,6 +24,7 @@ module.exports = function(grunt) {
               'app/scripts/services/mainview.js',
               'app/scripts/services/pathInfo.js',
               'app/scripts/services/treeviewInfo.js',
+              'app/scripts/services/treeviewEvent.js',
               'common/app/scripts/services/paliWordJson.js',
               'common/app/scripts/services/shortExp.js',
               'common/app/scripts/services/ngBits.js',

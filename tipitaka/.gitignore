@@ -12,6 +12,8 @@ pylib/json/canonTextTranslation.json
 app/css/tipitaka-latn.css
 app/css/app.min.css
 
+app/partials/trTree.html
+
 pylib/romn
 pylib/translation
 common

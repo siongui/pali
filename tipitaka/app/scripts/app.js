@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch', 'pali.resizableViews', 'pali.mainview', 'pali.pathInfo', 'pali.treeviewInfo', 'pali.i18nTpk', 'pali.expOrder']).
+angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'pali.dropdown', 'pali.wordSearch', 'pali.resizableViews', 'pali.mainview', 'pali.pathInfo', 'pali.treeviewInfo', 'pali.treeviewEvent', 'pali.i18nTpk', 'pali.expOrder']).
   config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }]).
@@ -31,8 +31,8 @@ angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'p
     $routeProvider.when('/*prefixPath', {templateUrl: '/partials/canon.html', controller: canonCtrl});
     $routeProvider.otherwise({redirectTo: '/'});
   }]).
-  run(['$rootScope', '$location', '$document', 'resizableViews', 'i18nTpkConvert',
-  function($rootScope, $location, $document, resizableViews, i18nTpkConvert) {
+  run(['$rootScope', '$location', '$document', 'resizableViews', 'i18nTpkConvert', 'tvEvt',
+  function($rootScope, $location, $document, resizableViews, i18nTpkConvert, tvEvt) {
     // initialize resizable views
     resizableViews.initViews('allContainer', 'treeview', 'viewwrapper', 'viewarrow', 'viewseparator', 'mainview');
 
@@ -66,4 +66,9 @@ angular.module('paliTipitaka', ['pali.treeview', 'pali.i18n', 'pali.tooltip', 'p
       }
       return '';
     }
+
+    $rootScope.clickPali = tvEvt.clickPali;
+    $rootScope.clickTranslation = tvEvt.clickTranslation;
+    $rootScope.clickContrastReading = tvEvt.clickContrastReading;
+
   }]);

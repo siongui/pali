@@ -45,7 +45,25 @@ angular.module('pali.treeviewInfo', ['pali.treeviewAllJson']).
       }
     }
 
+    function recursiveGetPath(node, xmlFilename) {
+      if (node.hasOwnProperty('child')) {
+        for (var i=0; i < node['child'].length; i++) {
+          var result = recursiveGetPath(node['child'][i], xmlFilename);
+          if (angular.isString(result))
+            return ('/' + node['child'][i]['subpath'] + result);
+        }
+      } else {
+        if ( node['action'] === ('cscd/' + xmlFilename) )
+          return '';
+      }
+    }
+
+    function xmlFilename2Path(xmlFilename) {
+      return recursiveGetPath(treeviewAllJson.all, xmlFilename);
+    }
+
     var serviceInstance = {
+      xmlFilename2Path: xmlFilename2Path,
       getInfo: getInfo,
       allPali: treeviewAllJson.all
     };
