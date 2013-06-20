@@ -49,7 +49,9 @@ def translationTreeToHtml(tree, prefix, index, locale):
     else:
       template = jj2env.get_template('leafNode.html')
       node = etree.fromstring( template.render(
-          {'translations': tree['translations'], 'text': tree['text'] } ) )
+          {'translations': tree['translations'],
+           'text': tree['text'],
+           'locale': locale } ) )
 
       return node
 

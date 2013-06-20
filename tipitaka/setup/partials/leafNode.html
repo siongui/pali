@@ -1,6 +1,6 @@
 <div>
 <div class="item"
-     ng-click="clickLeafNode('{$ translations[0]['xmlFilename'] $}')">
+     ng-click="clickPali('{$ translations[0]['xmlFilename'] $}')">
   <span class="treeNode">
     {$ text $}<br />
     <small>{{ treeviewTranslatedNodeText("{$ text $}") }}</small>
@@ -8,8 +8,14 @@
 </div>
 <div class="childrenContainer">
   {% for translation in translations %}
-    <div class="item treeNode">{$ translation['translator'] $} {{_("Translation")}}</div>
-    <div class="item treeNode">{$ translation['translator'] $} {{_("Contrast Reading")}}</div>
+    <div class="item treeNode"
+         ng-click="clickTranslation('{$ translation['xmlFilename'] $}', '{$ translation['translator'] $}', '{$ translation['key'] $}', '{$ locale $}')">
+      {$ translation['translator'] $} {{_("Translation")}}
+    </div>
+    <div class="item treeNode"
+         ng-click="clickContrastReading('{$ translation['xmlFilename'] $}', '{$ translation['translator'] $}', '{$ translation['key'] $}', '{$ locale $}')">
+      {$ translation['translator'] $} {{_("Contrast Reading")}}
+    </div>
   {% endfor %}
 </div>
 </div>
