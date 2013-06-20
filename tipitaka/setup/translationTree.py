@@ -28,7 +28,12 @@ def xmlInfo():
         # traverse dir with translations by specific translator
         if not xml.endswith('.xml'): continue
 
-        yield (lang, key, translator, xml)
+        xmlTree = etree.parse( os.path.join(translatorXmlDir, xml) )
+        isExcerpt = False
+        if xmlTree.find('.//excerpt') is not None:
+          isExcerpt = True
+
+        yield (lang, key, translator, xml, isExcerpt)
 
 
 def trimTree(tree):
@@ -42,28 +47,41 @@ def trimTree(tree):
 
   tree['child'] = keepList
 
-def recursiveSetXMLPath(node, xmlFilename):
+def recursiveSetXMLPath(node, xmlFileInfo):
   if 'action' in node:
-    if os.path.basename(node['action']) == xmlFilename:
+    if os.path.basename(node['action']) == xmlFileInfo[2]:
       node['keep'] = True
+
+      if 'translations' in node:
+        node['translations'].append( {'key': xmlFileInfo[0],
+                                      'translator': xmlFileInfo[1],
+                                      'xmlFilename': xmlFileInfo[2],
+                                      'isExcerpt': xmlFileInfo[3] } )
+      else:
+        node['translations'] = [ {'key': xmlFileInfo[0],
+                                  'translator': xmlFileInfo[1],
+                                  'xmlFilename': xmlFileInfo[2],
+                                  'isExcerpt': xmlFileInfo[3] } ]
+
       return True
   else:
     for child in node['child']:
-      if recursiveSetXMLPath(child, xmlFilename):
+      if recursiveSetXMLPath(child, xmlFileInfo):
         node['keep'] = True
         return True
 
 def getTranslationTree():
   langTrees = {}
 
-  for lang, key, translator, xmlFilename in xmlInfo():
-    print(lang, key, translator, xmlFilename)
+  for lang, key, translator, xmlFilename, isExcerpt in xmlInfo():
+    print(lang, key, translator, xmlFilename, isExcerpt)
 
     if lang not in langTrees:
       with open(TreeviewJsonPath, 'r') as f:
         langTrees[lang] = json.loads(f.read())
 
-    recursiveSetXMLPath(langTrees[lang], xmlFilename)
+    recursiveSetXMLPath(langTrees[lang],
+                        [key, translator, xmlFilename, isExcerpt])
 
   for lang in langTrees:
     trimTree(langTrees[lang])
@@ -85,10 +103,12 @@ def translationTreeToHtml(tree, prefix, index, locale):
         etree.fromstring('<span ng-show="%s">+</span>' % ngVar) )
     textContainer.append(
         etree.fromstring('<span ng-hide="%s">-</span>' % ngVar) )
-    textContainer.append( etree.fromstring('<span> </span>') )
+    textContainer.append(
+        etree.fromstring('<span> </span>') )
     textContainer.append(
         etree.fromstring('<span>{{ "%s" | translate }}</span>' % locale) )
-    textContainer.append( etree.fromstring('<span> </span>') )
+    textContainer.append(
+        etree.fromstring('<span> </span>') )
     textContainer.append(
         etree.fromstring('<span>{{_("Translation")}}</span>') )
 
@@ -106,8 +126,9 @@ def translationTreeToHtml(tree, prefix, index, locale):
     return root
 
   else:
+    ngVar = '%s%d' % (prefix, index)
+
     if 'child' in tree:
-      ngVar = '%s%d' % (prefix, index)
       node = etree.fromstring(
           '<div ng-init="%s = true" ng-click="%s = !%s" class="item"></div>'
           % (ngVar, ngVar, ngVar) )
@@ -128,18 +149,24 @@ def translationTreeToHtml(tree, prefix, index, locale):
             translationTreeToHtml(child, ngVar, childIndex, locale) )
         childIndex += 1
 
-      container = etree.fromstring('<div></div>')
-      container.append(node)
-      container.append(childrenContainer)
-
-      return container
-
     else:
       node = etree.fromstring('<div class="item"></div>')
       textElm = etree.fromstring(
           '<span class="treeNode">%s<br /></span>' % tree['text'])
       node.append(textElm)
-      return node
+
+      childrenContainer = etree.fromstring(
+          '<div ng-hide="%s" class="childrenContainer"></div>' % ngVar)
+      for translation in tree['translations']:
+        childrenContainer.append( etree.fromstring(
+            '<div class="item treeNode">%s</div>'
+                % translation['translator'] ) )
+
+    container = etree.fromstring('<div></div>')
+    container.append(node)
+    container.append(childrenContainer)
+
+    return container
 
 
 if __name__ == '__main__':
