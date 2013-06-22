@@ -39,7 +39,7 @@ PaliTextTitle = {
      'Cakkavattisuttaṃ': 'Kinh Chuyển luân thánh vương',
      'Aggaññasuttaṃ': 'Kinh Khởi thế nhân bổn',
      'Sampasādanīyasuttaṃ': 'Kinh Tự hoan hỷ',
-#    'Pāsādikasuttaṃ': 'Kinh Thanh tịnh',
+     'Pāsādikasuttaṃ': 'Kinh Thanh cao',
      'Lakkhaṇasuttaṃ': 'Kinh Tướng',
      'Siṅgālasuttaṃ': "Kinh giảng cho Siṅgāla",
      'Āṭānāṭiyasuttaṃ': 'Kinh Āṭānāṭiya',
