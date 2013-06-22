@@ -372,7 +372,7 @@ PaliTextTitle = {
 #     'Mahāvaggo': 'The Great Chapter',
 #     'Aṭṭhakavaggo': 'The Octet Chapter',
 #     'Pārāyanavaggo': 'The Chapter on the Way to the Far Shore',
-   'Vimānavatthupāḷi': 'Truyên Thiên Cung',
+   'Vimānavatthupāḷi': 'Truyện Thiên Cung',
    'Petavatthupāḷi': 'Truyện Ngạ Quỷ',
    'Theragāthāpāḷi': 'Trưởng lão Kệ',
    'Therīgāthāpāḷi': 'Trưởng lão ni Kệ',
