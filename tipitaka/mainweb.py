@@ -41,14 +41,21 @@ urls = (
 )
 
 
+def RedirectToNewDomain(oldDomain, newDomain):
+  if web.ctx.host.split(':')[0] == oldDomain:
+    url = newDomain + urllib.quote(web.ctx.path.encode('utf-8')) + web.ctx.query
+    raise web.redirect(url)
+
 def commonTemplateValues(urlLocale, userLocale):
   i18n.setLocale(userLocale)
   template_values = {
 #    'serverEnv': 'ec2',
 #    'dicWebAppUrl': 'http://dictionary.sutta.org/',
     'serverEnv': 'appspot',
-#    'dicWebAppUrl': 'http://palidictionary.appspot.com/',
-    'dicWebAppUrl': 'http://dictionary.online-dhamma.net/',
+    'tpkWebAppUrl': 'http://epalitipitaka.appspot.com/',
+    'dicWebAppUrl': 'http://palidictionary.appspot.com/',
+#    'tpkWebAppUrl': 'http://tipitaka.online-dhamma.net/',
+#    'dicWebAppUrl': 'http://dictionary.online-dhamma.net/',
     'htmlTitle': u'',
     'userLocale': userLocale,
     'locales': json.dumps(i18n.locales),
@@ -62,13 +69,6 @@ def commonTemplateValues(urlLocale, userLocale):
 
 
 def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=None):
-  if web.ctx.host.split(':')[0] == "epalitipitaka.appspot.com":
-    # redirect to new domain
-    url = "http://tipitaka.online-dhamma.net" + \
-          urllib.quote(web.ctx.path.encode('utf-8')) + \
-          web.ctx.query
-    raise web.redirect(url)
-
   userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
   result = checkPath(web.ctx.path, urlLocale, paliTextPath,
                      userLocale, translationLocale, translator)
@@ -82,13 +82,6 @@ def commonPage(paliTextPath, translationLocale=None, translator=None, urlLocale=
 
 
 def commonMainPage(urlLocale=None):
-  if web.ctx.host.split(':')[0] == "epalitipitaka.appspot.com":
-    # redirect to new domain
-    url = "http://tipitaka.online-dhamma.net" + \
-          urllib.quote(web.ctx.path.encode('utf-8')) + \
-          web.ctx.query
-    raise web.redirect(url)
-
   userLocale = getLocale(urlLocale, web.ctx.env.get('HTTP_ACCEPT_LANGUAGE'))
   template_values = commonTemplateValues(urlLocale, userLocale)
   template_values['isIncludeAbout'] = True

@@ -64,7 +64,7 @@ def uploadXmlsToBlobstore():
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
-      key = path[len(romn_dir)+1:]
+      key = path[len(romn_dir):]
       print('uploading %s ...' % key)
       with open(path, 'rb') as f:
         # Create the file
@@ -101,7 +101,7 @@ def uploadXmlsViaCustomRemoteBlobstoreAPI():
   for dirpath, dirnames, filenames in os.walk(romn_dir):
     for filename in filenames:
       path = os.path.join(dirpath, filename)
-      key = path[len(romn_dir)+1:]
+      key = path[len(romn_dir):]
       print('uploading %s ...' % key)
 
       """Python HTTP POST json-format data (payload is encoded with base64).

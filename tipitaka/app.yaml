@@ -61,7 +61,8 @@ skip_files:
 - ^(.*/)?app/scripts/.*
 - ^(.*/)?app/css/app\.css
 - ^(.*/)?app/css/tipitaka-latn\.css
-- ^(.*/)?pylib/romn/.*
+#- ^(.*/)?pylib/romn/.*
+- ^(.*/)?pylib/romn/.*\.xml
 - ^(.*/)?setup/.*
 - ^(.*/)?node_modules/.*
 - ^(.*/)?build/.*

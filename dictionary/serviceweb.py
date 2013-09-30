@@ -28,7 +28,7 @@ class wordJsonService:
 
 class robots:
   def GET(self):
-    if web.ctx.host == 'dictionary.online-dhamma.net':
+    if web.ctx.host == 'palidictionary.appspot.com':
       return 'User-agent: *\nDisallow: /wordJson/\n'
     return 'User-agent: *\nDisallow: /'
 

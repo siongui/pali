@@ -38,8 +38,10 @@ try:
   class XmlBlobKey(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
 
-  xslt_root = etree.parse(blobstore.BlobReader(
-      XmlBlobKey.get_by_id('cscd/tipitaka-latn.xsl').blob_key))
+  #xslt_root = etree.parse(blobstore.BlobReader(
+  #    XmlBlobKey.get_by_id('cscd/tipitaka-latn.xsl').blob_key))
+  with open(getCanonXmlUrl('cscd/tipitaka-latn.xsl'), 'r') as f:
+    xslt_root = etree.parse(f)
 
   def paliXslt(action):
     return xslt(blobstore.BlobReader(XmlBlobKey.get_by_id(action).blob_key))
