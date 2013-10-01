@@ -1,6 +1,7 @@
 {
   "name": "pali-dictionary",
   "version": "0.1.0",
+  "private": true,
   "description": "Pāḷi Dictionary Webapp",
   "homepage": "https://github.com/siongui/pali",
   "scripts": {
@@ -29,9 +30,9 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.2.1",
-    "grunt-contrib-watch": "~0.4.3",
-    "grunt-contrib-cssmin": "~0.6.1"
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-cssmin": "~0.6.2"
   },
   "engines": {
     "node": ">= 0.8.0"

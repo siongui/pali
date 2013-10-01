@@ -65,7 +65,7 @@ class wordJsonService:
 
 class robots:
   def GET(self):
-    if web.ctx.host == 'http://epalitipitaka.appspot.com/':
+    if web.ctx.host == 'epalitipitaka.appspot.com':
       return 'User-agent: *\nDisallow: /html/\n'
     return 'User-agent: *\nDisallow: /'
 
