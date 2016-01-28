@@ -22,7 +22,28 @@ package main
 import "os"
 import "encoding/csv"
 import "io"
-import "fmt"
+
+func parseRecord(record []string) {
+	// language of the dictionary,
+	// "C" means chinese dictionary, "E" means non-chinese dictionary.
+	lang := record[0]
+	// id of the dictionary. Each dictionary has a unique value.
+	id := record[1]
+	// name of the dictionary.
+	name := record[2]
+	// name and author of the dictionary.
+	author := record[3]
+
+	switch lang {
+	case "C":
+		print("Chinese Dic ")
+	case "E":
+		print("non-Chinese Dic ")
+	default:
+		panic("wrong lang")
+	}
+	println(id + name + author)
+}
 
 func main() {
 	const bookCsvPath = "data/dictionary/dict-books.csv"
@@ -44,6 +65,9 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(record)
+		if record[0] == "b_lang" {
+			continue
+		}
+		parseRecord(record)
 	}
 }

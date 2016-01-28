@@ -13,28 +13,28 @@ Set Up Development Environment
 
 1. Download Go_:
 
-  .. code-block:: bash
+   .. code-block:: bash
 
-    # create a workspace in your home directory
-    $ mkdir ~/dev
-    # enter workspace
-    $ cd ~/dev
-    # download Go 1.5.3 for Linux 64-bit
-    $ wget https://storage.googleapis.com/golang/go1.5.3.linux-amd64.tar.gz
-    # uncompress and untar
-    $ tar xvzf go1.5.3.linux-amd64.tar.gz
+     # create a workspace in your home directory
+     $ mkdir ~/dev
+     # enter workspace
+     $ cd ~/dev
+     # download Go 1.5.3 for Linux 64-bit
+     $ wget https://storage.googleapis.com/golang/go1.5.3.linux-amd64.tar.gz
+     # uncompress and untar
+     $ tar xvzf go1.5.3.linux-amd64.tar.gz
 
 2. `git clone`_ the `pali repository`_ and `data repository`_:
 
-  .. code-block:: bash
+   .. code-block:: bash
 
-    # git clone pali repository
-    $ cd ~/dev
-    $ git clone https://github.com/siongui/pali.git
-    # enter directory of go implementation
-    $ cd ~/dev/pali/go
-    # git clone data repository
-    $ make clone
+     # git clone pali repository
+     $ cd ~/dev
+     $ git clone https://github.com/siongui/pali.git
+     # enter directory of go implementation
+     $ cd ~/dev/pali/go
+     # git clone data repository
+     $ make clone
 
 
 UNLICENSE
