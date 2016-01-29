@@ -1,4 +1,5 @@
 package main
+
 /*
 In this script, we will parse information about dictionaries and build the type
 "DicIndex" struct, and save the infomation in JSON file.

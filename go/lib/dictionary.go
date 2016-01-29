@@ -29,3 +29,7 @@ type DicIndex map[string]DictInfo
 
 const BookCsvPath = "data/dictionary/dict-books.csv"
 const BookJsonPath = "website/json/dicIndex.json"
+
+const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
+const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
+const WordsJsonDir = "website/json/"

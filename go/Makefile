@@ -14,6 +14,7 @@ parsebooks:
 
 fmt:
 	@go fmt setup/parsebooks.go
+	@go fmt lib/*.go
 
 clone:
 	@git clone https://github.com/siongui/data.git

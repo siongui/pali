@@ -36,12 +36,18 @@ Set Up Development Environment
      # git clone data repository
      $ make clone
 
-3. Install GopherJS_, `go-libsass`_, `gettext-go`_, OpenCC_ and
-   `OpenCC Go binding`_:
+3. Install GopherJS_, `go-libsass`_, `gettext-go`_, OpenCC_,
+   `OpenCC Go binding`_, and common libraries for this project:
 
    .. code-block:: bash
 
      $ make install
+
+4. Set up data of this project:
+
+   .. code-block:: bash
+
+     $ make parsebooks
 
 
 UNLICENSE
