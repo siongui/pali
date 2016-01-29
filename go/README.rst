@@ -36,6 +36,13 @@ Set Up Development Environment
      # git clone data repository
      $ make clone
 
+3. Install GopherJS_, `go-libsass`_, `gettext-go`_, OpenCC_ and
+   `OpenCC Go binding`_:
+
+   .. code-block:: bash
+
+     $ make install
+
 
 UNLICENSE
 +++++++++
@@ -60,3 +67,8 @@ References
 .. _pali repository: https://github.com/siongui/pali
 .. _data repository: https://github.com/siongui/data
 .. _UNLICENSE: http://unlicense.org/
+.. _GopherJS: http://www.gopherjs.org/
+.. _go-libsass: https://github.com/wellington/go-libsass
+.. _gettext-go: https://github.com/chai2010/gettext-go
+.. _OpenCC: https://github.com/BYVoid/OpenCC
+.. _OpenCC Go binding: https://github.com/siongui/go-opencc

@@ -16,19 +16,32 @@ dicIndex = object of key-value pairs, where
 
 References:
 https://www.google.com/search?q=golang+read+csv
+http://stackoverflow.com/questions/10858787/what-are-the-uses-for-tags-in-go
 */
 package main
 
 import "os"
 import "encoding/csv"
 import "io"
+import "github.com/siongui/go-opencc"
+import "fmt"
 
-func parseRecord(record []string) {
+type dictInfo struct {
+	lang      string `json:"lang"`
+	separator string `json:"separator"`
+	name      string `json:"name"`
+	author    string `json:"author"`
+}
+
+var c *opencc.Converter
+
+func parseRecord(record []string) (id string, dict dictInfo) {
 	// language of the dictionary,
-	// "C" means chinese dictionary, "E" means non-chinese dictionary.
+	// "C" means Chinese and Japanese dictionary,
+	// "E" means non-Chinese dictionary.
 	lang := record[0]
 	// id of the dictionary. Each dictionary has a unique value.
-	id := record[1]
+	id = record[1]
 	// name of the dictionary.
 	name := record[2]
 	// name and author of the dictionary.
@@ -36,17 +49,51 @@ func parseRecord(record []string) {
 
 	switch lang {
 	case "C":
-		print("Chinese Dic ")
+		// Chinese and Japanese dictionaries
+		switch id {
+		case "A":
+			// Japanese dictionary
+			dict.lang = "ja"
+			dict.separator = " -"
+			dict.name = "《パーリ語辞典》"
+			dict.author = "増補改訂パーリ語辞典  水野弘元著"
+		case "S":
+			// Japanese dictionary
+			dict.lang = "ja"
+			dict.separator = " -"
+			dict.name = "《パーリ語辞典》"
+			dict.author = "パーリ語辞典  水野弘元著"
+		default:
+			// Chinese dictionary
+			dict.lang = "zh"
+
+			switch id {
+			case "D":
+				dict.separator = "~"
+			case "H":
+				dict.separator = " -"
+			case "T":
+				dict.separator = " -"
+			default:
+				dict.separator = "。"
+			}
+
+			dict.name = c.Convert(name)
+			dict.author = c.Convert(author)
+		}
 	case "E":
-		print("non-Chinese Dic ")
+		// English, Vietnam, Myanmar dictionaries
+		println("noncht")
 	default:
 		panic("wrong lang")
 	}
-	println(id + name + author)
+	return
 }
 
 func main() {
 	const bookCsvPath = "data/dictionary/dict-books.csv"
+	c = opencc.NewConverter("zhs2zht.ini")
+	defer c.Close()
 
 	// open csv file
 	fcsv, err := os.Open(bookCsvPath)
@@ -68,6 +115,7 @@ func main() {
 		if record[0] == "b_lang" {
 			continue
 		}
-		parseRecord(record)
+		id, dict := parseRecord(record)
+		fmt.Println(id, dict)
 	}
 }
