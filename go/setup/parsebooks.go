@@ -24,14 +24,16 @@ import "os"
 import "encoding/csv"
 import "io"
 import "github.com/siongui/go-opencc"
-import "fmt"
+import "encoding/json"
 
 type dictInfo struct {
-	lang      string `json:"lang"`
-	separator string `json:"separator"`
-	name      string `json:"name"`
-	author    string `json:"author"`
+	Lang      string `json:"lang"`
+	Separator string `json:"separator"`
+	Name      string `json:"name"`
+	Author    string `json:"author"`
 }
+
+type dicIndex map[string]dictInfo
 
 var c *opencc.Converter
 
@@ -42,7 +44,7 @@ func parseRecord(record []string) (id string, dict dictInfo) {
 	lang := record[0]
 	// id of the dictionary. Each dictionary has a unique value.
 	id = record[1]
-	// name of the dictionary.
+	// short name of the dictionary.
 	name := record[2]
 	// name and author of the dictionary.
 	author := record[3]
@@ -53,37 +55,63 @@ func parseRecord(record []string) (id string, dict dictInfo) {
 		switch id {
 		case "A":
 			// Japanese dictionary
-			dict.lang = "ja"
-			dict.separator = " -"
-			dict.name = "《パーリ語辞典》"
-			dict.author = "増補改訂パーリ語辞典  水野弘元著"
+			dict.Lang = "ja"
+			dict.Separator = " -"
+			dict.Name = "《パーリ語辞典》"
+			dict.Author = "増補改訂パーリ語辞典  水野弘元著"
 		case "S":
 			// Japanese dictionary
-			dict.lang = "ja"
-			dict.separator = " -"
-			dict.name = "《パーリ語辞典》"
-			dict.author = "パーリ語辞典  水野弘元著"
+			dict.Lang = "ja"
+			dict.Separator = " -"
+			dict.Name = "《パーリ語辞典》"
+			dict.Author = "パーリ語辞典  水野弘元著"
 		default:
 			// Chinese dictionary
-			dict.lang = "zh"
+			dict.Lang = "zh"
 
 			switch id {
 			case "D":
-				dict.separator = "~"
+				dict.Separator = "~"
 			case "H":
-				dict.separator = " -"
+				dict.Separator = " -"
 			case "T":
-				dict.separator = " -"
+				dict.Separator = " -"
 			default:
-				dict.separator = "。"
+				dict.Separator = "。"
 			}
 
-			dict.name = c.Convert(name)
-			dict.author = c.Convert(author)
+			dict.Name = c.Convert(name)
+			dict.Author = c.Convert(author)
 		}
 	case "E":
 		// English, Vietnam, Myanmar dictionaries
-		println("noncht")
+		switch id {
+		case "U", "Q", "E":
+			// Vietnamese dictionary
+			dict.Lang = "vi"
+			// FIXME: is "。" correct separator?
+			dict.Separator = "。"
+		case "B", "K", "O", "R":
+			// Burmese(Myanmar) dictionary
+			dict.Lang = "my"
+			// FIXME: is "。" correct separator?
+			dict.Separator = "。"
+		default:
+			// English dictionary
+			dict.Lang = "en"
+			switch id {
+			case "N":
+				dict.Separator = "<br>"
+			case "C":
+				dict.Separator = "<br>"
+			case "P":
+				dict.Separator = "<i>"
+			default:
+				dict.Separator = "。"
+			}
+		}
+		dict.Name = name
+		dict.Author = author
 	default:
 		panic("wrong lang")
 	}
@@ -103,6 +131,7 @@ func main() {
 	defer fcsv.Close()
 
 	// read csv
+	di := dicIndex{}
 	r := csv.NewReader(fcsv)
 	for {
 		record, err := r.Read()
@@ -116,6 +145,22 @@ func main() {
 			continue
 		}
 		id, dict := parseRecord(record)
-		fmt.Println(id, dict)
+		di[id] = dict
 	}
+
+	// save in JSON file
+	const jsonPath = "website/json/dicIndex.json"
+	fo, err := os.Create(jsonPath)
+	if err != nil {
+		panic(err)
+	}
+	defer fo.Close()
+	e := json.NewEncoder(fo)
+	if err := e.Encode(di); err != nil {
+		panic(err)
+	}
+
+	// print JSON indent
+	b, _ := json.MarshalIndent(di, "", "  ")
+	println(string(b))
 }

@@ -5,7 +5,11 @@ export GOROOT=$(realpath ../../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
-setUp:
+WEBSITE_DIR=website
+WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
+
+parsebooks:
+	@[ -d $(WEBSITE_JSON_DIR) ] || mkdir -p $(WEBSITE_JSON_DIR)
 	@go run setup/parsebooks.go
 
 fmt:
