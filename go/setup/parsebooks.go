@@ -11,11 +11,10 @@ https://www.google.com/search?q=golang+read+csv
 import "os"
 import "encoding/csv"
 import "io"
-import "github.com/siongui/go-opencc"
 import "encoding/json"
 import "github.com/siongui/pali/go/lib"
 
-var c *opencc.Converter
+var cs2t = lib.Zhs2zhtConverter()
 
 func parseRecord(record []string) (id string, dict lib.DictInfo) {
 	// language of the dictionary,
@@ -60,8 +59,8 @@ func parseRecord(record []string) (id string, dict lib.DictInfo) {
 				dict.Separator = "。"
 			}
 
-			dict.Name = c.Convert(name)
-			dict.Author = c.Convert(author)
+			dict.Name = cs2t.Convert(name)
+			dict.Author = cs2t.Convert(author)
 		}
 	case "E":
 		// English, Vietnam, Myanmar dictionaries
@@ -99,8 +98,7 @@ func parseRecord(record []string) (id string, dict lib.DictInfo) {
 }
 
 func main() {
-	c = opencc.NewConverter("zhs2zht.ini")
-	defer c.Close()
+	defer cs2t.Close()
 
 	// open csv file
 	fcsv, err := os.Open(lib.BookCsvPath)
