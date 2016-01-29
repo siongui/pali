@@ -1,43 +1,22 @@
+package main
 /*
-In this script, we will build "dicIndex".
-The format of dicIndex:
-dicIndex = object of key-value pairs, where
-  key = id of the dictionary
-  value = [cell1, cell2, cell3, cell4], where
-    cell1 = language of the dictionary.
-            zh: Chinese
-            ja: Japanese
-            en: English
-            vi: Vietnamese
-            my: Burmese(Myanmar)
-    cell2 = separator, used to get short explanation of the word.
-    cell3 = short name of the dictionary
-    cell4 = name and author of the dictionary
+In this script, we will parse information about dictionaries and build the type
+"DicIndex" struct, and save the infomation in JSON file.
 
 References:
 https://www.google.com/search?q=golang+read+csv
-http://stackoverflow.com/questions/10858787/what-are-the-uses-for-tags-in-go
 */
-package main
 
 import "os"
 import "encoding/csv"
 import "io"
 import "github.com/siongui/go-opencc"
 import "encoding/json"
-
-type dictInfo struct {
-	Lang      string `json:"lang"`
-	Separator string `json:"separator"`
-	Name      string `json:"name"`
-	Author    string `json:"author"`
-}
-
-type dicIndex map[string]dictInfo
+import "github.com/siongui/pali/go/lib"
 
 var c *opencc.Converter
 
-func parseRecord(record []string) (id string, dict dictInfo) {
+func parseRecord(record []string) (id string, dict lib.DictInfo) {
 	// language of the dictionary,
 	// "C" means Chinese and Japanese dictionary,
 	// "E" means non-Chinese dictionary.
@@ -119,19 +98,18 @@ func parseRecord(record []string) (id string, dict dictInfo) {
 }
 
 func main() {
-	const bookCsvPath = "data/dictionary/dict-books.csv"
 	c = opencc.NewConverter("zhs2zht.ini")
 	defer c.Close()
 
 	// open csv file
-	fcsv, err := os.Open(bookCsvPath)
+	fcsv, err := os.Open(lib.BookCsvPath)
 	if err != nil {
 		panic(err)
 	}
 	defer fcsv.Close()
 
 	// read csv
-	di := dicIndex{}
+	di := lib.DicIndex{}
 	r := csv.NewReader(fcsv)
 	for {
 		record, err := r.Read()
@@ -149,8 +127,7 @@ func main() {
 	}
 
 	// save in JSON file
-	const jsonPath = "website/json/dicIndex.json"
-	fo, err := os.Create(jsonPath)
+	fo, err := os.Create(lib.BookJsonPath)
 	if err != nil {
 		panic(err)
 	}

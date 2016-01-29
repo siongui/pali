@@ -19,6 +19,7 @@ clone:
 	@git clone https://github.com/siongui/data.git
 
 install:
+	go get -u github.com/siongui/pali/go/lib
 	go get -u github.com/gopherjs/gopherjs
 	go get -u github.com/wellington/go-libsass
 	go get -u github.com/chai2010/gettext-go/gettext
