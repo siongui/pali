@@ -4,13 +4,49 @@ import "github.com/siongui/pali/go/lib"
 import "os"
 import "encoding/csv"
 import "io"
-import "fmt"
+import "strings"
 
 var cs2t = lib.Zhs2zhtConverter()
 var dicIndex = lib.GetDicIndex()
 
 func processWord(record []string) {
-	fmt.Println(record[0])
+	// number of the word, useless
+	num := record[0]
+
+	// id of the book which the word belongs to
+	bookId := record[2]
+
+	// word (The first character of the cell may be upper-case)
+	// Google search: golang lowercase
+	word := strings.ToLower(record[4])
+
+	// explanation of the pali word in one dictionary
+	explanation := record[6]
+
+
+	println(num + " " + word)
+	// Google search: golang check if file exists
+	if _, err := os.Stat(lib.GetWordPath(word)); err == nil {
+		// append new data to existing json file
+		wi := lib.GetWordInfo(word)
+		if dicIndex[bookId].Lang == "zh" {
+			// convert simplified chinese to traditional chinese
+			wi[bookId] = cs2t.Convert(explanation)
+		} else {
+			wi[bookId] = explanation
+		}
+		lib.SaveJsonFile(wi, lib.GetWordPath(word))
+	} else {
+		// create new json file
+		wi := lib.WordInfo{}
+		if dicIndex[bookId].Lang == "zh" {
+			// convert simplified chinese to traditional chinese
+			wi[bookId] = cs2t.Convert(explanation)
+		} else {
+			wi[bookId] = explanation
+		}
+		lib.SaveJsonFile(wi, lib.GetWordPath(word))
+	}
 }
 
 func processWordsCSV(csvPath string) {
@@ -37,7 +73,6 @@ func processWordsCSV(csvPath string) {
 
 func main() {
 	defer cs2t.Close()
-	fmt.Println(dicIndex)
 	processWordsCSV(lib.WordsCSV1Path)
 	processWordsCSV(lib.WordsCSV2Path)
 }

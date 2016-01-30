@@ -29,14 +29,18 @@ type DictInfo struct {
 	Author    string `json:"author"`
 }
 
+// book id <-> book info
 type DicIndex map[string]DictInfo
+
+// book id <-> word explanation
+type WordInfo map[string]string
 
 const BookCsvPath = "data/dictionary/dict-books.csv"
 const BookJsonPath = "website/json/dicIndex.json"
 
 const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
 const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
-const WordsJsonDir = "website/json/"
+const wordsJsonDir = "website/json/"
 
 func Zhs2zhtConverter() *opencc.Converter {
 	return opencc.NewConverter("zhs2zht.ini")
@@ -72,4 +76,23 @@ func GetDicIndex() DicIndex {
 		panic(err)
 	}
 	return d
+}
+
+func GetWordPath(word string) string {
+	return wordsJsonDir + word + ".json"
+}
+
+func GetWordInfo(word string) WordInfo {
+	f, err := os.Open(GetWordPath(word))
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	dec := json.NewDecoder(f)
+	w := WordInfo{}
+	if err := dec.Decode(&w); err != nil {
+		panic(err)
+	}
+	return w
 }
