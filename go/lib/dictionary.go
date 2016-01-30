@@ -42,6 +42,23 @@ func Zhs2zhtConverter() *opencc.Converter {
 	return opencc.NewConverter("zhs2zht.ini")
 }
 
+func SaveJsonFile(v interface{}, path string) {
+	fo, err := os.Create(path)
+	if err != nil {
+		panic(err)
+	}
+	defer fo.Close()
+	e := json.NewEncoder(fo)
+	if err := e.Encode(v); err != nil {
+		panic(err)
+	}
+}
+
+func PrettyPrint(v interface{}) {
+	b, _ := json.MarshalIndent(v, "", "  ")
+	println(string(b))
+}
+
 func GetDicIndex() DicIndex {
 	f, err := os.Open(BookJsonPath)
 	if err != nil {

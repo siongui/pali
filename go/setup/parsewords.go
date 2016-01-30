@@ -9,6 +9,10 @@ import "fmt"
 var cs2t = lib.Zhs2zhtConverter()
 var dicIndex = lib.GetDicIndex()
 
+func processWord(record []string) {
+	fmt.Println(record[0])
+}
+
 func processWordsCSV(csvPath string) {
 	// open csv file
 	fcsv, err := os.Open(csvPath)
@@ -27,7 +31,7 @@ func processWordsCSV(csvPath string) {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(record)
+		processWord(record)
 	}
 }
 

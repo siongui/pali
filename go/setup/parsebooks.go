@@ -11,7 +11,6 @@ https://www.google.com/search?q=golang+read+csv
 import "os"
 import "encoding/csv"
 import "io"
-import "encoding/json"
 import "github.com/siongui/pali/go/lib"
 
 var cs2t = lib.Zhs2zhtConverter()
@@ -125,18 +124,6 @@ func main() {
 		di[id] = dict
 	}
 
-	// save in JSON file
-	fo, err := os.Create(lib.BookJsonPath)
-	if err != nil {
-		panic(err)
-	}
-	defer fo.Close()
-	e := json.NewEncoder(fo)
-	if err := e.Encode(di); err != nil {
-		panic(err)
-	}
-
-	// print JSON indent
-	b, _ := json.MarshalIndent(di, "", "  ")
-	println(string(b))
+	lib.SaveJsonFile(di, lib.BookJsonPath)
+	lib.PrettyPrint(di)
 }
