@@ -50,6 +50,7 @@ Set Up Development Environment
      $ make parsebooks
      $ make parsewords
      $ make html
+     $ make scss
      $ make js
 
 5. Run development server at http://localhost:8000/

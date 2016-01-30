@@ -5,6 +5,7 @@ export GOROOT=$(realpath ../../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
+SCSSDIR=theme/styling
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 
@@ -14,6 +15,9 @@ devserver: js
 js:
 	gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
 	@#gopherjs build gopherjs/*.go -m -o $(WEBSITE_DIR)/pali.js
+
+scss:
+	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(WEBSITE_DIR)/style.css
 
 html:
 	cp theme/index.html $(WEBSITE_DIR)
@@ -36,9 +40,8 @@ fmt:
 clone:
 	@git clone https://github.com/siongui/data.git
 
-install: lib_pali lib_opencc
+install: lib_pali lib_opencc lib_pyScss
 	go get -u github.com/gopherjs/gopherjs
-	go get -u github.com/wellington/go-libsass
 	go get -u github.com/chai2010/gettext-go/gettext
 	@#-go get -u honnef.co/go/js/dom
 	@#-go get -u honnef.co/go/js/xhr
@@ -50,6 +53,13 @@ lib_pali:
 lib_opencc:
 	sudo apt-get install opencc libopencc-dev
 	go get -u github.com/siongui/go-opencc
+
+lib_pyScss:
+	sudo apt-get install python-pip
+	sudo pip install pyScss
+
+lib_go_libsass:
+	go get -u github.com/wellington/go-libsass
 
 test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/
