@@ -101,7 +101,7 @@ func main() {
 	defer cs2t.Close()
 
 	// open csv file
-	fcsv, err := os.Open(lib.BookCsvPath)
+	fcsv, err := os.Open(BookCsvPath)
 	if err != nil {
 		panic(err)
 	}
@@ -125,6 +125,6 @@ func main() {
 		di[id] = dict
 	}
 
-	lib.SaveJsonFile(di, lib.BookJsonPath)
-	lib.PrettyPrint(di)
+	SaveJsonFile(di, BookJsonPath)
+	PrettyPrint(di)
 }

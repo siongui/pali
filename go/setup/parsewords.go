@@ -8,7 +8,7 @@ import "strings"
 import "github.com/siongui/go-opencc"
 
 var cs2t = opencc.NewConverter("zhs2zht.ini")
-var dicIndex = lib.GetDicIndex()
+var dicIndex = GetDicIndex()
 
 func processWord(record []string) {
 	// number of the word, useless
@@ -26,17 +26,17 @@ func processWord(record []string) {
 
 	println(num + " " + word)
 	// Google search: golang check if file exists
-	path := lib.GetWordPath(word)
+	path := GetWordPath(word)
 	if _, err := os.Stat(path); err == nil {
 		// append new data to existing json file
-		wi := lib.GetWordInfo(word)
+		wi := GetWordInfo(word)
 		if dicIndex[bookId].Lang == "zh" {
 			// convert simplified chinese to traditional chinese
 			wi[bookId] = cs2t.Convert(explanation)
 		} else {
 			wi[bookId] = explanation
 		}
-		lib.SaveJsonFile(wi, path)
+		SaveJsonFile(wi, path)
 	} else {
 		// create new json file
 		wi := lib.WordInfo{}
@@ -46,7 +46,7 @@ func processWord(record []string) {
 		} else {
 			wi[bookId] = explanation
 		}
-		lib.SaveJsonFile(wi, path)
+		SaveJsonFile(wi, path)
 	}
 }
 
@@ -74,6 +74,6 @@ func processWordsCSV(csvPath string) {
 
 func main() {
 	defer cs2t.Close()
-	processWordsCSV(lib.WordsCSV1Path)
-	processWordsCSV(lib.WordsCSV2Path)
+	processWordsCSV(WordsCSV1Path)
+	processWordsCSV(WordsCSV2Path)
 }
