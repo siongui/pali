@@ -48,6 +48,7 @@ Set Up Development Environment
    .. code-block:: bash
 
      $ make parsebooks
+     $ make parsewords
 
 
 UNLICENSE

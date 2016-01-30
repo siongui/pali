@@ -19,6 +19,8 @@ http://stackoverflow.com/questions/10858787/what-are-the-uses-for-tags-in-go
 package lib
 
 import "github.com/siongui/go-opencc"
+import "os"
+import "encoding/json"
 
 type DictInfo struct {
 	Lang      string `json:"lang"`
@@ -38,4 +40,19 @@ const WordsJsonDir = "website/json/"
 
 func Zhs2zhtConverter() *opencc.Converter {
 	return opencc.NewConverter("zhs2zht.ini")
+}
+
+func GetDicIndex() DicIndex {
+	f, err := os.Open(BookJsonPath)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	dec := json.NewDecoder(f)
+	d := DicIndex{}
+	if err := dec.Decode(&d); err != nil {
+		panic(err)
+	}
+	return d
 }

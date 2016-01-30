@@ -8,12 +8,15 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 
+parsewords:
+	@go run setup/parsewords.go
+
 parsebooks:
 	@[ -d $(WEBSITE_JSON_DIR) ] || mkdir -p $(WEBSITE_JSON_DIR)
 	@go run setup/parsebooks.go
 
 fmt:
-	@go fmt setup/parsebooks.go
+	@go fmt setup/*.go
 	@go fmt lib/*.go
 
 clone:
@@ -27,6 +30,7 @@ install: lib_pali lib_opencc
 	@#-go get -u honnef.co/go/js/xhr
 
 lib_pali:
+	rm -rf src/github.com/siongui/pali/
 	go get -u github.com/siongui/pali/go/lib
 
 lib_opencc:
@@ -36,4 +40,4 @@ lib_opencc:
 test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/
 	cp -r lib/ src/github.com/siongui/pali/go/
-	go get -u github.com/siongui/pali/go/lib
+	go get github.com/siongui/pali/go/lib
