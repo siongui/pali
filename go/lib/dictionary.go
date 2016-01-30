@@ -35,12 +35,14 @@ type DicIndex map[string]DictInfo
 // book id <-> word explanation
 type WordInfo map[string]string
 
+const WebsiteDir = "website"
+
 const BookCsvPath = "data/dictionary/dict-books.csv"
-const BookJsonPath = "website/json/dicIndex.json"
+const BookJsonPath = WebsiteDir + "/json/dicIndex.json"
 
 const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
 const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
-const wordsJsonDir = "website/json/"
+const wordsJsonDir = WebsiteDir + "/json"
 
 func Zhs2zhtConverter() *opencc.Converter {
 	return opencc.NewConverter("zhs2zht.ini")

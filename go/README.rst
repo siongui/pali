@@ -49,6 +49,14 @@ Set Up Development Environment
 
      $ make parsebooks
      $ make parsewords
+     $ make html
+     $ make js
+
+5. Run development server at http://localhost:8000/
+
+   .. code-block:: bash
+
+     $ make devserver
 
 
 UNLICENSE

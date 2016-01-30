@@ -23,10 +23,10 @@ func processWord(record []string) {
 	// explanation of the pali word in one dictionary
 	explanation := record[6]
 
-
 	println(num + " " + word)
 	// Google search: golang check if file exists
-	if _, err := os.Stat(lib.GetWordPath(word)); err == nil {
+	path := lib.GetWordPath(word)
+	if _, err := os.Stat(path); err == nil {
 		// append new data to existing json file
 		wi := lib.GetWordInfo(word)
 		if dicIndex[bookId].Lang == "zh" {
@@ -35,7 +35,7 @@ func processWord(record []string) {
 		} else {
 			wi[bookId] = explanation
 		}
-		lib.SaveJsonFile(wi, lib.GetWordPath(word))
+		lib.SaveJsonFile(wi, path)
 	} else {
 		// create new json file
 		wi := lib.WordInfo{}
@@ -45,7 +45,7 @@ func processWord(record []string) {
 		} else {
 			wi[bookId] = explanation
 		}
-		lib.SaveJsonFile(wi, lib.GetWordPath(word))
+		lib.SaveJsonFile(wi, path)
 	}
 }
 

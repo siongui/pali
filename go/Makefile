@@ -8,16 +8,30 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 
-parsewords:
+devserver:
+	go run server.go
+
+js:
+	gopherjs build gopherjs/pali.go -o $(WEBSITE_DIR)/pali.js
+	@#gopherjs build gopherjs/pali.go -m -o $(WEBSITE_DIR)/pali.js
+
+html:
+	cp theme/index.html $(WEBSITE_DIR)
+
+parsewords: dir
 	@go run setup/parsewords.go
 
-parsebooks:
-	@[ -d $(WEBSITE_JSON_DIR) ] || mkdir -p $(WEBSITE_JSON_DIR)
+parsebooks: dir
 	@go run setup/parsebooks.go
+
+dir:
+	@[ -d $(WEBSITE_JSON_DIR) ] || mkdir -p $(WEBSITE_JSON_DIR)
 
 fmt:
 	@go fmt setup/*.go
 	@go fmt lib/*.go
+	@go fmt gopherjs/*.go
+	@go fmt server.go
 
 clone:
 	@git clone https://github.com/siongui/data.git
