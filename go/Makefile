@@ -12,8 +12,8 @@ devserver: js
 	go run server.go
 
 js:
-	gopherjs build gopherjs/pali.go -o $(WEBSITE_DIR)/pali.js
-	@#gopherjs build gopherjs/pali.go -m -o $(WEBSITE_DIR)/pali.js
+	gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
+	@#gopherjs build gopherjs/*.go -m -o $(WEBSITE_DIR)/pali.js
 
 html:
 	cp theme/index.html $(WEBSITE_DIR)

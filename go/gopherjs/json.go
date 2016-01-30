@@ -1,15 +1,23 @@
-package lib
+package main
 
+import "github.com/siongui/pali/go/lib"
 import "encoding/json"
-
-const DicIndexUrlPath = "/json/dicIndex.json"
 
 func HttpWordJsonPath(word string) string {
 	return "/json/" + word + ".json"
 }
 
-func GetDicIndex() DicIndex {
-	di := DicIndex{}
+func DecodeWordJson(w string) lib.WordInfo {
+	wi := lib.WordInfo{}
+	err := json.Unmarshal([]byte(w), &wi)
+	if err != nil {
+		panic(err)
+	}
+	return wi
+}
+
+func GetDicIndex() lib.DicIndex {
+	di := lib.DicIndex{}
 	err := json.Unmarshal(dicIndexJsonBlob, &di)
 	if err != nil {
 		panic(err)
