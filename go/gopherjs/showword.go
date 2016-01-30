@@ -10,11 +10,17 @@ func showWord(wi lib.WordInfo) {
 	}
 
 	for bookId, explanation := range wi {
-		book := js.Global.Get("document").Call("createElement", "div")
+		a := js.Global.Get("document").Call("createElement", "article")
+		a.Get("classList").Call("add", "word-explanation")
+
+		book := js.Global.Get("document").Call("createElement", "header")
 		book.Set("textContent", dicIndex[bookId].Author)
-		mainContent.Call("appendChild", book)
-		exp := js.Global.Get("document").Call("createElement", "div")
+		a.Call("appendChild", book)
+
+		exp := js.Global.Get("document").Call("createElement", "p")
 		exp.Set("innerHTML", explanation)
-		mainContent.Call("appendChild", exp)
+		a.Call("appendChild", exp)
+
+		mainContent.Call("appendChild", a)
 	}
 }
