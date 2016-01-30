@@ -18,7 +18,6 @@ http://stackoverflow.com/questions/10858787/what-are-the-uses-for-tags-in-go
 */
 package lib
 
-import "github.com/siongui/go-opencc"
 import "os"
 import "encoding/json"
 
@@ -43,10 +42,6 @@ const BookJsonPath = WebsiteDir + "/json/dicIndex.json"
 const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
 const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
 const wordsJsonDir = WebsiteDir + "/json"
-
-func Zhs2zhtConverter() *opencc.Converter {
-	return opencc.NewConverter("zhs2zht.ini")
-}
 
 func SaveJsonFile(v interface{}, path string) {
 	fo, err := os.Create(path)

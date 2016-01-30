@@ -5,8 +5,9 @@ import "os"
 import "encoding/csv"
 import "io"
 import "strings"
+import "github.com/siongui/go-opencc"
 
-var cs2t = lib.Zhs2zhtConverter()
+var cs2t = opencc.NewConverter("zhs2zht.ini")
 var dicIndex = lib.GetDicIndex()
 
 func processWord(record []string) {

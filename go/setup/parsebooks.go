@@ -12,8 +12,9 @@ import "os"
 import "encoding/csv"
 import "io"
 import "github.com/siongui/pali/go/lib"
+import "github.com/siongui/go-opencc"
 
-var cs2t = lib.Zhs2zhtConverter()
+var cs2t = opencc.NewConverter("zhs2zht.ini")
 
 func parseRecord(record []string) (id string, dict lib.DictInfo) {
 	// language of the dictionary,
