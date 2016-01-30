@@ -8,7 +8,7 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 
-devserver:
+devserver: js
 	go run server.go
 
 js:
