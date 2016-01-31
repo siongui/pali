@@ -5,6 +5,7 @@ import "github.com/gopherjs/gopherjs/js"
 func handleGetWordOK(json string) {
 	wi := DecodeWordJson(json)
 	go showWordByTemplate(wi)
+	//showWord(wi)
 }
 
 func handleGetWordError() {

@@ -2,6 +2,14 @@ package main
 
 import "github.com/siongui/pali/go/lib"
 import "encoding/json"
+import "io"
+
+func DecodeHttpRespWord(respBody io.ReadCloser) (wi lib.WordInfo) {
+	dec := json.NewDecoder(respBody)
+	// handle err here?
+	dec.Decode(&wi)
+	return
+}
 
 func DecodeWordJson(w string) lib.WordInfo {
 	wi := lib.WordInfo{}
