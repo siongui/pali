@@ -3,10 +3,6 @@ package main
 import "github.com/siongui/pali/go/lib"
 import "encoding/json"
 
-func HttpWordJsonPath(word string) string {
-	return "/json/" + word + ".json"
-}
-
 func DecodeWordJson(w string) lib.WordInfo {
 	wi := lib.WordInfo{}
 	err := json.Unmarshal([]byte(w), &wi)

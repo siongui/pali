@@ -12,9 +12,11 @@ WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 devserver: js
 	go run server.go
 
+production: html scss
+	gopherjs build gopherjs/*.go -m -o $(WEBSITE_DIR)/pali.js
+
 js:
 	gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
-	@#gopherjs build gopherjs/*.go -m -o $(WEBSITE_DIR)/pali.js
 
 scss:
 	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(WEBSITE_DIR)/style.css
