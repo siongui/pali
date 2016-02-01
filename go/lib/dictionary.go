@@ -1,6 +1,6 @@
 /*
-The format of DicIndex:
-DicIndex = object of key-value pairs, where
+The format of BookIdAndInfos:
+BookIdAndInfos = object of key-value pairs, where
   key = id of the dictionary
   value = [cell1, cell2, cell3, cell4], where
     cell1 = language of the dictionary.
@@ -20,7 +20,7 @@ package lib
 
 import "html/template"
 
-type DictInfo struct {
+type BookInfo struct {
 	Lang      string `json:"lang"`
 	Separator string `json:"separator"`
 	Name      string `json:"name"`
@@ -28,31 +28,31 @@ type DictInfo struct {
 }
 
 // book id <-> book info
-type DicIndex map[string]DictInfo
+type BookIdAndInfos map[string]BookInfo
 
 // book id <-> word explanation
-type WordInfo map[string]string
+type BookIdWordExps map[string]string
 
-type WordExplanation struct {
-	BookInfo    string
+type BookNameWordExp struct {
+	BookName    string
 	Explanation template.HTML
 }
 
-const HtmlTemplateWordExplanations = `
-{{range $word := .}}
+const HtmlTemplateBookNameWordExps = `
+{{range $bnwe := .}}
 <article class="word-explanation">
-  <header>{{$word.BookInfo}}</header>
-  <p>{{$word.Explanation}}</p>
+  <header>{{$bnwe.BookName}}</header>
+  <p>{{$bnwe.Explanation}}</p>
 </article>
 {{end}}`
 
-func WordInfoToWordExplanation(wi WordInfo, di DicIndex) []WordExplanation {
-	var wordExplanations []WordExplanation
+func BookIdWordExps2BookNameWordExps(wi BookIdWordExps, di BookIdAndInfos) []BookNameWordExp {
+	var bnwes []BookNameWordExp
 	for bookId, explanation := range wi {
-		wordExplanations = append(wordExplanations, WordExplanation{
-			BookInfo:    di[bookId].Author,
+		bnwes = append(bnwes, BookNameWordExp{
+			BookName:    di[bookId].Author,
 			Explanation: template.HTML(explanation),
 		})
 	}
-	return wordExplanations
+	return bnwes
 }

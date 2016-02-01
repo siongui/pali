@@ -76,3 +76,6 @@ test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/
 	cp -r lib/ src/github.com/siongui/pali/go/
 	go get github.com/siongui/pali/go/lib
+
+clean:
+	rm -rf bin pkg src data website

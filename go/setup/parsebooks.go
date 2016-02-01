@@ -2,7 +2,7 @@ package main
 
 /*
 In this script, we will parse information about dictionaries and build the type
-"DicIndex" struct, and save the infomation in JSON file.
+"BookIdAndInfos" struct, and save the infomation in JSON file.
 
 References:
 https://www.google.com/search?q=golang+read+csv
@@ -16,7 +16,7 @@ import "github.com/siongui/go-opencc"
 
 var cs2t = opencc.NewConverter("zhs2zht.ini")
 
-func parseRecord(record []string) (id string, dict lib.DictInfo) {
+func parseRecord(record []string) (id string, dict lib.BookInfo) {
 	// language of the dictionary,
 	// "C" means Chinese and Japanese dictionary,
 	// "E" means non-Chinese dictionary.
@@ -108,7 +108,7 @@ func main() {
 	defer fcsv.Close()
 
 	// read csv
-	di := lib.DicIndex{}
+	di := lib.BookIdAndInfos{}
 	r := csv.NewReader(fcsv)
 	for {
 		record, err := r.Read()

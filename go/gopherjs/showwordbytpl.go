@@ -4,14 +4,14 @@ import "github.com/siongui/pali/go/lib"
 import "html/template"
 import "bytes"
 
-func showWordByTemplate(wi lib.WordInfo) {
+func showWordByTemplate(wi lib.BookIdWordExps) {
 	RemoveAllChildNodes(mainContent)
 
-	wordExplanations := lib.WordInfoToWordExplanation(wi, dicIndex)
-	t1, _ := template.New("wordExplanation").Parse(lib.HtmlTemplateWordExplanations)
+	bnwes := lib.BookIdWordExps2BookNameWordExps(wi, bookIdAndInfos)
+	t1, _ := template.New("wordExplanation").Parse(lib.HtmlTemplateBookNameWordExps)
 	// Google Search: go html template output string
 	// https://groups.google.com/forum/#!topic/golang-nuts/dSFHCV-e6Nw
 	var buf bytes.Buffer
-	t1.Execute(&buf, wordExplanations)
+	t1.Execute(&buf, bnwes)
 	mainContent.Set("innerHTML", buf.String())
 }

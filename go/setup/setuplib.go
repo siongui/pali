@@ -7,7 +7,7 @@ import "github.com/siongui/pali/go/lib"
 const WebsiteDir = "website"
 
 const BookCsvPath = "data/dictionary/dict-books.csv"
-const BookJsonPath = WebsiteDir + "/json/dicIndex.json"
+const BookJsonPath = WebsiteDir + "/json/bookIdAndInfos.json"
 
 const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
 const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
@@ -30,7 +30,7 @@ func PrettyPrint(v interface{}) {
 	println(string(b))
 }
 
-func GetDicIndex() lib.DicIndex {
+func GetBookIdAndInfos() lib.BookIdAndInfos {
 	f, err := os.Open(BookJsonPath)
 	if err != nil {
 		panic(err)
@@ -38,7 +38,7 @@ func GetDicIndex() lib.DicIndex {
 	defer f.Close()
 
 	dec := json.NewDecoder(f)
-	d := lib.DicIndex{}
+	d := lib.BookIdAndInfos{}
 	if err := dec.Decode(&d); err != nil {
 		panic(err)
 	}
@@ -49,7 +49,7 @@ func GetWordPath(word string) string {
 	return wordsJsonDir + "/" + word + ".json"
 }
 
-func GetWordInfo(word string) lib.WordInfo {
+func GetBookIdWordExps(word string) lib.BookIdWordExps {
 	f, err := os.Open(GetWordPath(word))
 	if err != nil {
 		panic(err)
@@ -57,7 +57,7 @@ func GetWordInfo(word string) lib.WordInfo {
 	defer f.Close()
 
 	dec := json.NewDecoder(f)
-	w := lib.WordInfo{}
+	w := lib.BookIdWordExps{}
 	if err := dec.Decode(&w); err != nil {
 		panic(err)
 	}

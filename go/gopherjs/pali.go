@@ -4,7 +4,7 @@ import "github.com/gopherjs/gopherjs/js"
 
 var word *js.Object
 var mainContent *js.Object
-var dicIndex = GetDicIndex()
+var bookIdAndInfos = GetBookIdAndInfos()
 var isDev = (js.Global.Get("location").Get("hostname").String() == "localhost")
 
 func HttpWordJsonPath(word string) string {
