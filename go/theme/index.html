@@ -4,12 +4,38 @@
   <meta charset="utf-8">
   <title>Pāli Dictionary</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h3>Pāli Dictionary</h3>
-  <a href="https://github.com/siongui/pali/tree/master/go">source code</a>
-  <a href="https://github.com/siongui/pali-dictionary">repo</a>
+
+<nav class="top-nav" role="navigation">
+  <div class="nav-header-window">
+    <div class="toggleable-window visible-xs">
+      <input type="checkbox" class="toggle" id="punch" checked>
+      <label for="punch">&equiv;</label>
+      <div>
+        <a href="https://github.com/siongui/pali/tree/master/go">Code</a>
+        <a href="https://github.com/siongui/pali-dictionary">Repo</a>
+        <a href="https://palidictionary.appspot.com/">Site1</a>
+        <a href="http://dictionary.sutta.org/">Site2</a>
+        <span><a href="https://siongui.github.io/pali-dictionary/">English</a></span>
+      </div>
+    </div>
+    <header><h1><a href="https://siongui.github.io/pali-dictionary/">Pāli Dictionary</a></h1></header>
+  </div><!--
+--><div class="nav-links hidden-xs">
+    <ul>
+      <li><a href="https://github.com/siongui/pali/tree/master/go">Code</a></li>
+      <li><a href="https://github.com/siongui/pali-dictionary">Repo</a></li>
+      <li><a href="https://palidictionary.appspot.com/">Site1</a></li>
+      <li><a href="http://dictionary.sutta.org/">Site2</a></li>
+    </ul>
+  </div><!--
+--><div class="nav-lang-select hidden-xs">
+    <a href="https://siongui.github.io/pali-dictionary/">English</a>
+  </div>
+</nav>
+
   <input id="word" type="text" autofocus="autofocus"
          placeholder="Input Pāli Word">
   <div id="main-content"></div>
