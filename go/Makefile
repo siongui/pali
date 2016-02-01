@@ -8,12 +8,22 @@ export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 SCSSDIR=theme/styling
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
+PRODUCTION_DIR=src/github.com/siongui/pali-dictionary
 
 devserver: js
 	go run server.go
 
-production: html scss
-	gopherjs build gopherjs/*.go -m -o $(WEBSITE_DIR)/pali.js
+production:
+	rm -rf $(PRODUCTION_DIR)
+	git clone https://github.com/siongui/pali-dictionary.git $(PRODUCTION_DIR)
+	mkdir $(PRODUCTION_DIR)/output
+	cp theme/index.html $(PRODUCTION_DIR)/output
+	sed -i 's/"\/style.css"/"\/pali-dictionary\/style.css"/g' $(PRODUCTION_DIR)/output/index.html
+	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/output/pali.js
+	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(PRODUCTION_DIR)/output/style.css
+	@# Google Search: makefile change directory
+	@# http://stackoverflow.com/questions/1789594/how-to-write-cd-command-in-makefile
+	cd $(PRODUCTION_DIR); ghp-import output; git push origin gh-pages
 
 js:
 	gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
