@@ -36,7 +36,7 @@ Set Up Development Environment
      # git clone data repository
      $ make clone
 
-3. Install GopherJS_, `go-libsass`_, `gettext-go`_, OpenCC_,
+3. Install GopherJS_, pyScss_ (or `go-libsass`_), `gettext-go`_, OpenCC_,
    `OpenCC Go binding`_, and common libraries for this project:
 
    .. code-block:: bash
@@ -74,7 +74,7 @@ References
 .. [2] `siongui/data: Data files for Pāḷi Tipiṭaka, Pāḷi Dictionaries, and external libraries <https://github.com/siongui/data>`_
 
 
-.. _Pāli Dictionary: https://palidictionary.appspot.com/
+.. _Pāli Dictionary: https://siongui.github.io/pali-dictionary/
 .. _Pāli Tipiṭaka: https://epalitipitaka.appspot.com/
 .. _Go: https://golang.org/
 .. _Ubuntu 15.10: http://releases.ubuntu.com/15.10/
@@ -85,6 +85,7 @@ References
 .. _UNLICENSE: http://unlicense.org/
 .. _GopherJS: http://www.gopherjs.org/
 .. _go-libsass: https://github.com/wellington/go-libsass
+.. _pyScss: https://github.com/Kronuz/pyScss
 .. _gettext-go: https://github.com/chai2010/gettext-go
 .. _OpenCC: https://github.com/BYVoid/OpenCC
 .. _OpenCC Go binding: https://github.com/siongui/go-opencc
