@@ -45,3 +45,14 @@ const HtmlTemplateWordExplanations = `
   <p>{{$word.Explanation}}</p>
 </article>
 {{end}}`
+
+func WordInfoToWordExplanation(wi WordInfo, di DicIndex) []WordExplanation {
+	var wordExplanations []WordExplanation
+	for bookId, explanation := range wi {
+		wordExplanations = append(wordExplanations, WordExplanation{
+			BookInfo:    di[bookId].Author,
+			Explanation: template.HTML(explanation),
+		})
+	}
+	return wordExplanations
+}
