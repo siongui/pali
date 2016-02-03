@@ -18,7 +18,7 @@ production:
 	rm -rf $(PRODUCTION_DIR)
 	git clone https://github.com/siongui/pali-dictionary.git $(PRODUCTION_DIR)
 	mkdir $(PRODUCTION_DIR)/output
-	cp theme/index.html $(PRODUCTION_DIR)/output
+	go run setup/setuppath.go setup/html.go > $(PRODUCTION_DIR)/output/index.html
 	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/output/pali.js
 	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(PRODUCTION_DIR)/output/style.css
 	@# Google Search: makefile change directory
@@ -32,7 +32,8 @@ scss:
 	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(WEBSITE_DIR)/style.css
 
 html:
-	cp theme/index.html $(WEBSITE_DIR)
+	@# Google Search: shell stdout to file
+	@go run setup/setuppath.go setup/html.go > $(WEBSITE_DIR)/index.html
 
 blobgo:
 	@go run setup/setuppath.go setup/createblob.go
@@ -58,7 +59,7 @@ fmt:
 clone:
 	@git clone https://github.com/siongui/data.git
 
-install: lib_pali lib_opencc lib_pyScss lib_succinct_trie
+install: lib_pali lib_opencc lib_pyScss lib_succinct_trie lib_ime_pali
 	go get -u github.com/gopherjs/gopherjs
 	go get -u github.com/chai2010/gettext-go/gettext
 	@#-go get -u honnef.co/go/js/dom
@@ -81,6 +82,9 @@ lib_go_libsass:
 
 lib_succinct_trie:
 	go get -u github.com/siongui/go-succinct-data-structure-trie
+
+lib_ime_pali:
+	go get -u github.com/siongui/go-online-input-method-pali
 
 test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/

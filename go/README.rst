@@ -37,8 +37,8 @@ Set Up Development Environment
      $ make clone
 
 3. Install GopherJS_, pyScss_ (or `go-libsass`_), `gettext-go`_, OpenCC_,
-   `OpenCC Go binding`_, `go-succinct-trie`_, and common libraries for this
-   project:
+   `OpenCC Go binding`_, `go-succinct-trie`_, `go-online-pali-ime`_, and common
+   libraries for this project:
 
    .. code-block:: bash
 
@@ -100,3 +100,4 @@ References
 .. _OpenCC: https://github.com/BYVoid/OpenCC
 .. _OpenCC Go binding: https://github.com/siongui/go-opencc
 .. _go-succinct-trie: https://github.com/siongui/go-succinct-data-structure-trie
+.. _go-online-pali-ime: https://github.com/siongui/go-online-input-method-pali

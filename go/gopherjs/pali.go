@@ -1,6 +1,7 @@
 package main
 
 import "github.com/gopherjs/gopherjs/js"
+import "github.com/siongui/go-online-input-method-pali"
 
 var word *js.Object
 var mainContent *js.Object
@@ -24,6 +25,7 @@ func handleInputKeyUp(event *js.Object) {
 }
 
 func main() {
+	imepali.BindPaliInputMethodToInputTextElementById("word")
 	word = js.Global.Get("document").Call("getElementById", "word")
 	mainContent = js.Global.Get("document").Call("getElementById", "main-content")
 	word.Set("value", "sacca")
