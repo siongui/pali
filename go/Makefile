@@ -10,6 +10,7 @@ WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 PRODUCTION_DIR=src/github.com/siongui/pali-dictionary
 
+
 devserver: js
 	go run server.go
 
@@ -33,6 +34,10 @@ scss:
 html:
 	cp theme/index.html $(WEBSITE_DIR)
 
+succinct_trie:
+	-rm website/json/bookIdAndInfos.json
+	go run setup/buildSuccinctTrie.go
+
 parsewords: dir
 	@go run setup/setuplib.go setup/parsewords.go
 
@@ -51,7 +56,7 @@ fmt:
 clone:
 	@git clone https://github.com/siongui/data.git
 
-install: lib_pali lib_opencc lib_pyScss
+install: lib_pali lib_opencc lib_pyScss lib_succinct_trie
 	go get -u github.com/gopherjs/gopherjs
 	go get -u github.com/chai2010/gettext-go/gettext
 	@#-go get -u honnef.co/go/js/dom
@@ -71,6 +76,9 @@ lib_pyScss:
 
 lib_go_libsass:
 	go get -u github.com/wellington/go-libsass
+
+lib_succinct_trie:
+	go get -u github.com/siongui/go-succinct-data-structure-trie
 
 test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/

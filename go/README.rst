@@ -37,7 +37,8 @@ Set Up Development Environment
      $ make clone
 
 3. Install GopherJS_, pyScss_ (or `go-libsass`_), `gettext-go`_, OpenCC_,
-   `OpenCC Go binding`_, and common libraries for this project:
+   `OpenCC Go binding`_, `go-succinct-trie`_, and common libraries for this
+   project:
 
    .. code-block:: bash
 
@@ -49,6 +50,7 @@ Set Up Development Environment
 
      $ make parsebooks
      $ make parsewords
+     $ make succinct_trie
      $ make html
      $ make scss
      $ make js
@@ -89,3 +91,4 @@ References
 .. _gettext-go: https://github.com/chai2010/gettext-go
 .. _OpenCC: https://github.com/BYVoid/OpenCC
 .. _OpenCC Go binding: https://github.com/siongui/go-opencc
+.. _go-succinct-trie: https://github.com/siongui/go-succinct-data-structure-trie
