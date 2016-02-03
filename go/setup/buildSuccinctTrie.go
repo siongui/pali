@@ -15,7 +15,7 @@ func main() {
 
 	i := 0
 	// walk all word json files
-	filepath.Walk("website/json", func(path string, info os.FileInfo, err error) error {
+	filepath.Walk(wordsJsonDir, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			word := info.Name()[:len(info.Name())-5]
 			print(i)
@@ -27,14 +27,16 @@ func main() {
 		}
 		return nil
 	})
+
 	// encode: trie encoding
 	teData := te.Encode()
 	//println(teData)
-	ioutil.WriteFile("website/strie.txt", []byte(teData), 0644)
+	ioutil.WriteFile(trieDataPath, []byte(teData), 0644)
 	println(te.GetNodeCount())
-	ioutil.WriteFile("website/strie_node_count.txt", []byte(strconv.Itoa(int(te.GetNodeCount()))), 0644)
+	ioutil.WriteFile(trieNodeCountPath, []byte(strconv.Itoa(int(te.GetNodeCount()))), 0644)
+
 	// encode: build cache for quick lookup
 	rd := bits.CreateRankDirectory(teData, te.GetNodeCount()*2+1, bits.L1, bits.L2)
 	//println(rd.GetData())
-	ioutil.WriteFile("website/rd.txt", []byte(rd.GetData()), 0644)
+	ioutil.WriteFile(rankDirectoryDataPath, []byte(rd.GetData()), 0644)
 }

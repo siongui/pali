@@ -48,9 +48,17 @@ Set Up Development Environment
 
    .. code-block:: bash
 
+     # optional: parse dictionary books
      $ make parsebooks
+
      $ make parsewords
+
+     # optional: build succinct trie
      $ make succinct_trie
+
+     # optional: create blob
+     $ make blobgo
+
      $ make html
      $ make scss
      $ make js

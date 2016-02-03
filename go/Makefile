@@ -34,15 +34,17 @@ scss:
 html:
 	cp theme/index.html $(WEBSITE_DIR)
 
+blobgo:
+	@go run setup/setuppath.go setup/createblob.go
+
 succinct_trie:
-	-rm website/json/bookIdAndInfos.json
-	go run setup/buildSuccinctTrie.go
+	@go run setup/setuppath.go setup/buildSuccinctTrie.go
 
 parsewords: dir
-	@go run setup/setuplib.go setup/parsewords.go
+	@go run setup/setuppath.go setup/setuplib.go setup/parsewords.go
 
 parsebooks: dir
-	@go run setup/setuplib.go setup/parsebooks.go
+	@go run setup/setuppath.go setup/setuplib.go setup/parsebooks.go
 
 dir:
 	@[ -d $(WEBSITE_JSON_DIR) ] || mkdir -p $(WEBSITE_JSON_DIR)

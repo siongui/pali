@@ -4,15 +4,6 @@ import "os"
 import "encoding/json"
 import "github.com/siongui/pali/go/lib"
 
-const WebsiteDir = "website"
-
-const BookCsvPath = "data/dictionary/dict-books.csv"
-const BookJsonPath = WebsiteDir + "/json/bookIdAndInfos.json"
-
-const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
-const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
-const wordsJsonDir = WebsiteDir + "/json"
-
 func SaveJsonFile(v interface{}, path string) {
 	fo, err := os.Create(path)
 	if err != nil {
