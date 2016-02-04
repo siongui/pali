@@ -21,3 +21,14 @@ func showWord(wi lib.BookIdWordExps) {
 		mainContent.Call("appendChild", a)
 	}
 }
+
+func showSuggestedWords(words []string) {
+	RemoveAllChildNodes(mainContent)
+
+	for _, word := range words {
+		w := js.Global.Get("document").Call("createElement", "div")
+		w.Set("textContent", word)
+
+		mainContent.Call("appendChild", w)
+	}
+}
