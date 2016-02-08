@@ -37,8 +37,8 @@ Set Up Development Environment
      $ make clone
 
 3. Install GopherJS_, pyScss_ (or `go-libsass`_), `gettext-go`_, OpenCC_,
-   `OpenCC Go binding`_, `go-succinct-trie`_, `go-online-pali-ime`_, and common
-   libraries for this project:
+   `OpenCC Go binding`_, `go-succinct-trie`_, `go-online-pali-ime`_,
+   `gopherjs-i18n`_ and common libraries for this project:
 
    .. code-block:: bash
 
@@ -52,6 +52,9 @@ Set Up Development Environment
      $ make parsebooks
 
      $ make parsewords
+
+     # optional: convert po files to json
+     $ make po2json
 
      # optional: build succinct trie
      $ make succinct_trie
@@ -101,3 +104,4 @@ References
 .. _OpenCC Go binding: https://github.com/siongui/go-opencc
 .. _go-succinct-trie: https://github.com/siongui/go-succinct-data-structure-trie
 .. _go-online-pali-ime: https://github.com/siongui/go-online-input-method-pali
+.. _gopherjs-i18n: https://github.com/siongui/gopherjs-i18n

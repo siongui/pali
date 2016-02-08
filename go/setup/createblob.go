@@ -10,6 +10,7 @@ type JsData struct {
 	SuccinctTrieData      string
 	SuccinctTrieNodeCount string
 	RankDirectoryData     string
+	PoJson                string
 }
 
 func main() {
@@ -29,11 +30,16 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	po, err := ioutil.ReadFile(poJsonPath)
+	if err != nil {
+		fmt.Println(err)
+	}
 	d := JsData{
 		BookIdAndInfosJson:    string(bj),
 		SuccinctTrieData:      string(td),
 		SuccinctTrieNodeCount: string(tc),
 		RankDirectoryData:     string(rd),
+		PoJson:                string(po),
 	}
 	f, err := os.Create(blobFilePath)
 	if err != nil {

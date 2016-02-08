@@ -4,6 +4,8 @@ package main
 const BookCsvPath = "data/dictionary/dict-books.csv"
 const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
 const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
+const localeDir = "../common/locale"
+const poDomain = "messages"
 
 // template of website
 const themeDir = "theme/template"
@@ -21,3 +23,4 @@ const rankDirectoryDataPath = WebsiteDir + "/rd.txt"
 const blobTemplatePath = "setup/blob.tpl"
 const blobFilePath = "gopherjs/blob.go"
 const indexHtmlPath = WebsiteDir + "/index.html"
+const poJsonPath = WebsiteDir + "/po.json"

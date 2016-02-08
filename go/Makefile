@@ -41,6 +41,9 @@ blobgo:
 succinct_trie:
 	@go run setup/setuppath.go setup/buildSuccinctTrie.go
 
+po2json:
+	@go run setup/setuppath.go setup/po2json.go
+
 parsewords: dir
 	@go run setup/setuppath.go setup/setuplib.go setup/parsewords.go
 
@@ -59,7 +62,7 @@ fmt:
 clone:
 	@git clone https://github.com/siongui/data.git
 
-install: lib_pali lib_opencc lib_pyScss lib_succinct_trie lib_ime_pali
+install: lib_pali lib_opencc lib_pyScss lib_succinct_trie lib_ime_pali lib_gopherjs_i18n
 	go get -u github.com/gopherjs/gopherjs
 	go get -u github.com/chai2010/gettext-go/gettext
 	@#-go get -u honnef.co/go/js/dom
@@ -85,6 +88,9 @@ lib_succinct_trie:
 
 lib_ime_pali:
 	go get -u github.com/siongui/go-online-input-method-pali
+
+lib_gopherjs_i18n:
+	go get -u github.com/siongui/gopherjs-i18n
 
 test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/
