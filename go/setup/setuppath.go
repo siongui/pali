@@ -8,10 +8,7 @@ const localeDir = "../common/locale"
 const poDomain = "messages"
 
 // template of website
-const themeDir = "theme/template"
-const indexTpl = themeDir + "/index.html"
-const navbarTpl = themeDir + "/includes/navbar.html"
-const imeTpl = themeDir + "/includes/ime.html"
+const htmlTemplateDir = "theme/template"
 
 // output
 const WebsiteDir = "website"
