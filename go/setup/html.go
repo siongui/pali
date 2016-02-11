@@ -8,8 +8,13 @@ import (
 	"path/filepath"
 )
 
+type templateData struct {
+	TipitakaURL string
+}
+
 func main() {
 	var alltmpl string
+	data := templateData{tipitakaURL}
 
 	filepath.Walk(htmlTemplateDir, func(path string, info os.FileInfo, err error) error {
 		name := info.Name()
@@ -24,7 +29,7 @@ func main() {
 	})
 
 	tpl := template.Must(template.New("pali").Parse(alltmpl))
-	err := tpl.Execute(os.Stdout, nil)
+	err := tpl.Execute(os.Stdout, &data)
 	if err != nil {
 		fmt.Println(err)
 	}

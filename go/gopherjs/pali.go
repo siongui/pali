@@ -28,7 +28,7 @@ func handleInputKeyUp(event *js.Object) {
 	} else {
 		// show words suggestion
 		w := word.Get("value").String()
-		suggestedWords := frozenTrie.GetSuggestedWords(w, 10)
+		suggestedWords := frozenTrie.GetSuggestedWords(w, 30)
 		showSuggestedWords(suggestedWords)
 	}
 }
@@ -46,6 +46,8 @@ func main() {
 	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
 	frozenTrie = bits.FrozenTrie{}
 	frozenTrie.Init(succinctTrieDataBlob, rankDirectoryDataBlob, succinctTrieNodeCount)
+
+	setupLinks()
 
 	word.Call("addEventListener", "keyup", handleInputKeyUp, false)
 }

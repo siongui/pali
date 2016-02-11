@@ -132,6 +132,7 @@ a {
 }
 
 .word-explanation {
+  text-align: left;
   background-color: #E0E0E0;
   header {
     background-color: aqua;
@@ -140,4 +141,14 @@ a {
 
 .invisible {
   display: none;
+}
+
+.container {
+  text-align: center;
+}
+
+#word {
+  line-height: 2rem;
+  margin: 10px;
+  font-size: 2rem;
 }
