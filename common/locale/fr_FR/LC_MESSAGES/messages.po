@@ -29,6 +29,9 @@ msgstr "Le mot commence par"
 msgid "Pāḷi Dictionary"
 msgstr "Dictionnaire Pāḷi"
 
+msgid "Pāli Dictionary"
+msgstr "Dictionnaire Pāḷi"
+
 msgid "Home"
 msgstr "Index"
 

@@ -88,7 +88,7 @@ References
 
 
 .. _Pāli Dictionary: https://siongui.github.io/pali-dictionary/
-.. _Pāli Tipiṭaka: https://epalitipitaka.appspot.com/
+.. _Pāli Tipiṭaka: http://tipitaka.sutta.org/
 .. _Go: https://golang.org/
 .. _Ubuntu 15.10: http://releases.ubuntu.com/15.10/
 .. _Go 1.5.3: https://golang.org/dl/

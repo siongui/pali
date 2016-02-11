@@ -10,8 +10,8 @@ const poDomain = "messages"
 // template of website
 const htmlTemplateDir = "theme/template"
 
-//const tipitakaURL = "http://tipitaka.sutta.org/"
-const tipitakaURL = "https://epalitipitaka.appspot.com/"
+//const tipitakaURL = "https://epalitipitaka.appspot.com/"
+const tipitakaURL = "http://tipitaka.sutta.org/"
 
 // output
 const WebsiteDir = "website"

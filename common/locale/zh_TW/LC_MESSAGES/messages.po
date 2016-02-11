@@ -28,6 +28,9 @@ msgstr "單字,開頭為"
 msgid "Pāḷi Dictionary"
 msgstr "巴利字典"
 
+msgid "Pāli Dictionary"
+msgstr "巴利字典"
+
 msgid "Home"
 msgstr "首頁"
 
