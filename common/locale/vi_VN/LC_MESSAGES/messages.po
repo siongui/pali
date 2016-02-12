@@ -20,6 +20,9 @@ msgstr ""
 msgid "Pali Dictionary | Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"
 msgstr "Từ điển Pāḷi | Từ Pāḷi sang Tiếng Anh, Tiếng Hoa, Tiếng Nhật, Tiếng Việt, Tiếng Miến"
 
+msgid "Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"
+msgstr "Từ Pāḷi sang Tiếng Anh, Tiếng Hoa, Tiếng Nhật, Tiếng Việt, Tiếng Miến"
+
 msgid "Definition and Meaning"
 msgstr "Giải nghĩa"
 

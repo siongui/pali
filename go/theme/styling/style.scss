@@ -148,7 +148,15 @@ a {
 }
 
 #word {
-  line-height: 2rem;
+  line-height: 1.5em;
   margin: 10px;
-  font-size: 2rem;
+  font-size: 1.5em;
+}
+
+.setting-menu {
+  background-color: #d9edf7;
+  border-color: #3a87ad;
+  border-radius: 4px;
+  color: #3a87ad;
+  padding: .5em;
 }

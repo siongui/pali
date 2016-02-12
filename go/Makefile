@@ -9,6 +9,7 @@ SCSSDIR=theme/styling
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 PRODUCTION_DIR=src/github.com/siongui/pali-dictionary
+LOCALE_DIR=../common/locale
 
 
 devserver: js
@@ -62,9 +63,8 @@ fmt:
 clone:
 	@git clone https://github.com/siongui/data.git
 
-install: lib_pali lib_opencc lib_pyScss lib_succinct_trie lib_ime_pali lib_gopherjs_i18n
+install: lib_pali lib_opencc lib_pyScss lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go
 	go get -u github.com/gopherjs/gopherjs
-	go get -u github.com/chai2010/gettext-go/gettext
 	@#-go get -u honnef.co/go/js/dom
 	@#-go get -u honnef.co/go/js/xhr
 
@@ -91,6 +91,14 @@ lib_ime_pali:
 
 lib_gopherjs_i18n:
 	go get -u github.com/siongui/gopherjs-i18n
+
+lib_gettext_go:
+	go get -u github.com/chai2010/gettext-go/gettext
+
+po2mo:
+	msgfmt $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.mo
+	msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
+	msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
 
 test_lib_pali:
 	rm -rf src/github.com/siongui/pali/go/lib/

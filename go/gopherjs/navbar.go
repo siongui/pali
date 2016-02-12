@@ -9,6 +9,7 @@ func setupNavbar() {
 	d := js.Global.Get("document")
 	about := d.Call("getElementById", "about")
 	punch := d.Call("getElementById", "punch")
+	settingMenu := d.Call("querySelector", ".setting-menu")
 
 	// about link
 	nodeList := d.Call("querySelectorAll", ".about-link")
@@ -40,8 +41,10 @@ func setupNavbar() {
 			// toggle arrow
 			downArrow := link.Get("firstChild")
 			downArrow.Get("classList").Call("toggle", "invisible")
-			// rightArrow
+			// right arrow
 			downArrow.Get("nextSibling").Get("classList").Call("toggle", "invisible")
+			// setting menu
+			settingMenu.Get("classList").Call("toggle", "invisible")
 
 			// close toggle window on mobile device
 			punch.Set("checked", true)

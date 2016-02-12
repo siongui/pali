@@ -1,0 +1,38 @@
+{{define "setting"}}
+<div class="setting-menu invisible">
+  <input type="checkbox" id="isShowWordPreview"/>
+    <span data-default-string="Input Word Explanation Preview">{{gettext "Input Word Explanation Preview"}}</span>
+    <br />
+<br />
+<div>
+  <span data-default-string="What Languages of Dictionaries to Show?">{{gettext "What Languages of Dictionaries to Show?"}}</span>
+    <br />
+  <input type="checkbox" checked="checked" id="p2en"/>
+    <span data-default-string='Pāli-English'>{{gettext "Pāli-English"}}</span>
+    <br />
+  <input type="checkbox" checked="checked" id="p2ja"/>
+    <span data-default-string='Pāli-Japanese'>{{gettext "Pāli-Japanese"}}</span>
+    <br />
+  <input type="checkbox" checked="checked" id="p2zh"/>
+    <span data-default-string='Pāli-Chinese'>{{gettext "Pāli-Chinese"}}</span>
+    <br />
+  <input type="checkbox" checked="checked" id="p2vi"/>
+    <span data-default-string='Pāli-Vietnamese'>{{gettext "Pāli-Vietnamese"}}</span>
+    <br />
+  <input type="checkbox" checked="checked" id="p2my"/>
+    <span data-default-string='Pāli-Burmese'>{{gettext "Pāli-Burmese"}}</span>
+    <br />
+</div>
+<br />
+  <span data-default-string='The Order of Languages of Dictionaries to Show?'>{{gettext "The Order of Languages of Dictionaries to Show?"}}</span>
+    <br />
+  <select id="dicLangOrder">
+    <option value="hdr" selected="selected" data-default-string='According to Language Settings in Browser'>{{gettext "According to Language Settings in Browser"}}</option>
+    <option value="en" data-default-string='English First'>{{gettext "English First"}}</option>
+    <option value="ja" data-default-string='Japanese First'>{{gettext "Japanese First"}}</option>
+    <option value="zh" data-default-string='Chinese First'>{{gettext "Chinese First"}}</option>
+    <option value="vi" data-default-string='Vietnamese First'>{{gettext "Vietnamese First"}}</option>
+    <option value="my" data-default-string='Burmese First'>{{gettext "Burmese First"}}</option>
+  </select>
+</div>
+{{end}}

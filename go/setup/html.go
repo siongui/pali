@@ -6,28 +6,33 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"github.com/chai2010/gettext-go/gettext"
 )
 
 type templateData struct {
 	TipitakaURL   string
-	OgTitle       string
-	OgDescription string
 	OgImage       string
 	OgUrl         string
 	OgLocale      string
 }
 
+func setupLocale(locale string, domain string, dir string) {
+	gettext.SetLocale(locale)
+	gettext.Textdomain(domain)
+
+	gettext.BindTextdomain(domain, dir, nil)
+}
+
+func changeLocale(locale string) {
+	gettext.SetLocale(locale)
+}
+
+func translate(input string) string {
+	return gettext.PGettext("", input)
+}
+
 func main() {
 	var alltmpl string
-	data := templateData{
-		TipitakaURL:   tipitakaURL,
-		OgTitle:       "Pāli Dictionary",
-		OgDescription: "Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary",
-		OgImage:       "https://upload.wikimedia.org/wikipedia/commons/d/df/Dharma_Wheel.svg",
-		OgUrl:         "https://siongui.github.io/pali-dictionary/",
-		OgLocale:      "en_US",
-	}
-
 	filepath.Walk(htmlTemplateDir, func(path string, info os.FileInfo, err error) error {
 		name := info.Name()
 		if !info.IsDir() && name[len(name)-5:] == ".html" {
@@ -40,7 +45,21 @@ func main() {
 		return nil
 	})
 
-	tpl := template.Must(template.New("pali").Parse(alltmpl))
+	data := templateData{
+		TipitakaURL:   tipitakaURL,
+		OgImage:       "https://upload.wikimedia.org/wikipedia/commons/d/df/Dharma_Wheel.svg",
+		OgUrl:         "https://siongui.github.io/pali-dictionary/",
+		OgLocale:      "en_US",
+	}
+	setupLocale("zh_TW", "messages", localeDir)
+	setupLocale("vi_VN", "messages", localeDir)
+	setupLocale("fr_FR", "messages", localeDir)
+	funcMap := template.FuncMap{
+		"gettext": translate,
+	}
+
+	changeLocale(data.OgLocale)
+	tpl := template.Must(template.New("pali").Funcs(funcMap).Parse(alltmpl))
 	err := tpl.Execute(os.Stdout, &data)
 	if err != nil {
 		fmt.Println(err)

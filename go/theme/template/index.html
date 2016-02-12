@@ -2,11 +2,11 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="utf-8">
-  <title>Pāli Dictionary</title>
+  <title>{{gettext "Pāli Dictionary"}}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="{{.OgTitle}}" />
+  <meta property="og:title" content="{{gettext "Pāli Dictionary"}}" />
   <meta property="og:type" content="website" />
-  <meta property="og:description" content="{{.OgDescription}}" />
+  <meta property="og:description" content="{{gettext "Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"}}" />
   <meta property="og:image" content="{{.OgImage}}" />
   <meta property="og:url" content="{{.OgUrl}}" />
   <meta property="og:locale" content="{{.OgLocale}}" />
@@ -18,9 +18,10 @@
 </head>
 <body>
   {{template "navbar" .}}
+  {{template "setting" .}}
 <div class="container">
   <input id="word" type="text" autofocus="autofocus"
-         placeholder="Input Pāli Word">
+         placeholder="{{gettext "Input Pāli Word"}}">
   <div id="main-content"></div>
   {{template "ime" .}}
 </div>
