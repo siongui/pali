@@ -62,6 +62,7 @@ Set Up Development Environment
      # optional: create blob
      $ make blobgo
 
+     $ make po2mo
      $ make html
      $ make scss
      $ make js

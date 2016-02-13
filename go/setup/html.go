@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
+	"github.com/chai2010/gettext-go/gettext"
 	"html/template"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"github.com/chai2010/gettext-go/gettext"
 )
 
 type templateData struct {
-	TipitakaURL   string
-	OgImage       string
-	OgUrl         string
-	OgLocale      string
+	TipitakaURL string
+	OgImage     string
+	OgUrl       string
+	OgLocale    string
 }
 
 func setupLocale(locale string, domain string, dir string) {
@@ -46,10 +46,10 @@ func main() {
 	})
 
 	data := templateData{
-		TipitakaURL:   tipitakaURL,
-		OgImage:       "https://upload.wikimedia.org/wikipedia/commons/d/df/Dharma_Wheel.svg",
-		OgUrl:         "https://siongui.github.io/pali-dictionary/",
-		OgLocale:      "en_US",
+		TipitakaURL: tipitakaURL,
+		OgImage:     "https://upload.wikimedia.org/wikipedia/commons/d/df/Dharma_Wheel.svg",
+		OgUrl:       "https://siongui.github.io/pali-dictionary/",
+		OgLocale:    "en_US",
 	}
 	setupLocale("zh_TW", "messages", localeDir)
 	setupLocale("vi_VN", "messages", localeDir)

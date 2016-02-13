@@ -48,6 +48,7 @@ func main() {
 	frozenTrie.Init(succinctTrieDataBlob, rankDirectoryDataBlob, succinctTrieNodeCount)
 
 	setupNavbar()
+	setupSetting()
 
 	word.Call("addEventListener", "keyup", handleInputKeyUp, false)
 }
