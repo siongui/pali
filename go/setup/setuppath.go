@@ -6,6 +6,8 @@ const WordsCSV1Path = "data/dictionary/dict_words_1.csv"
 const WordsCSV2Path = "data/dictionary/dict_words_2.csv"
 const localeDir = "../common/locale"
 const poDomain = "messages"
+const scssDir = "theme/styling"
+const scssPath = scssDir + "/style.scss"
 
 // template of website
 const htmlTemplateDir = "theme/template"
@@ -24,3 +26,4 @@ const blobTemplatePath = "setup/blob.tpl"
 const blobFilePath = "gopherjs/blob.go"
 const indexHtmlPath = WebsiteDir + "/index.html"
 const poJsonPath = WebsiteDir + "/po.json"
+const cssPath = WebsiteDir + "/style.css"
