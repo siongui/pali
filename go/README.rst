@@ -24,6 +24,9 @@ Set Up Development Environment
      # uncompress and untar
      $ tar xvzf go1.5.3.linux-amd64.tar.gz
 
+   If you do not follow the above steps, please modify ``GOROOT`` and ``GOPATH``
+   in `Makefile <Makefile>`_.
+
 2. `git clone`_ the `pali repository`_ and `data repository`_:
 
    .. code-block:: bash
