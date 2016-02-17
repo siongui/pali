@@ -1,4 +1,4 @@
-# Pāḷi Tipiṭaka & Dictionary
+# [Pāḷi Tipiṭaka](http://tipitaka.sutta.org/) & [Pāli Dictionary](http://dictionary.sutta.org/)
 
 * If you want to setup development environment and deploy applications on [Google App Engine Python](https://developers.google.com/appengine/docs/python/), please refer to this [README](docs/README_GAE.md).
 

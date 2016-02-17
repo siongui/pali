@@ -39,7 +39,7 @@ Set Up Development Environment
      # git clone data repository
      $ make clone
 
-3. Install GopherJS_, pyScss_ (or `go-libsass`_), `gettext-go`_, OpenCC_,
+3. Install GopherJS_, `go-libsass`_ (or pyScss_), `gettext-go`_, OpenCC_,
    `OpenCC Go binding`_, `go-succinct-trie`_, `go-online-pali-ime`_,
    `gopherjs-i18n`_ and common libraries for this project:
 

@@ -13,27 +13,38 @@ LOCALE_DIR=../common/locale
 
 
 devserver: js
-	go run server.go
+	@# http://stackoverflow.com/a/5947779
+	@echo "\033[92mDevelopment Server Running ...\033[0m"
+	@go run server.go
 
 production:
+	@echo "\033[92mClone Remote Repo ...\033[0m"
 	rm -rf $(PRODUCTION_DIR)
 	git clone https://github.com/siongui/pali-dictionary.git $(PRODUCTION_DIR)
+	@echo "\033[92mGenerating HTML ...\033[0m"
 	mkdir $(PRODUCTION_DIR)/output
 	go run setup/setuppath.go setup/html.go > $(PRODUCTION_DIR)/output/index.html
+	@echo "\033[92mGenerating JavaScript ...\033[0m"
 	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/output/pali.js
+	@echo "\033[92mGenerating CSS ...\033[0m"
+	@# TODO: use github.com/wellington/go-libsass
 	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(PRODUCTION_DIR)/output/style.css
+	@echo "\033[92mPush to Remote Repo ...\033[0m"
 	@# Google Search: makefile change directory
 	@# http://stackoverflow.com/questions/1789594/how-to-write-cd-command-in-makefile
 	cd $(PRODUCTION_DIR); ghp-import output; git push origin gh-pages
 
 js:
+	@echo "\033[92mGenerating JavaScript ...\033[0m"
 	gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
 
 scss:
+	@echo "\033[92mGenerating CSS ...\033[0m"
 	@go run setup/setuppath.go setup/scss.go
 	@#python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(WEBSITE_DIR)/style.css
 
 html:
+	@echo "\033[92mGenerating HTML ...\033[0m"
 	@# Google Search: shell stdout to file
 	@go run setup/setuppath.go setup/html.go > $(WEBSITE_DIR)/index.html
 

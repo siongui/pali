@@ -40,7 +40,7 @@ func main() {
 	// init variables
 	word = js.Global.Get("document").Call("getElementById", "word")
 	mainContent = js.Global.Get("document").Call("getElementById", "main-content")
-	word.Set("value", "sacca")
+	//word.Set("value", "sacca")
 
 	// init trie for words suggestion
 	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
