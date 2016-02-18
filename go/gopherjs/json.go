@@ -28,3 +28,20 @@ func GetBookIdAndInfos() lib.BookIdAndInfos {
 	}
 	return di
 }
+
+func PaliDictionarySetting2JsonString(setting lib.PaliDictionarySetting) string {
+	b, err := json.Marshal(setting)
+	if err != nil {
+		panic(err)
+	}
+	return string(b)
+}
+
+func JsonString2PaliDictionarySetting(jsonStr string) lib.PaliDictionarySetting {
+	setting := lib.PaliDictionarySetting{}
+	err := json.Unmarshal([]byte(jsonStr), &setting)
+	if err != nil {
+		panic(err)
+	}
+	return setting
+}

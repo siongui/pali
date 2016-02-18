@@ -9,17 +9,13 @@ https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_S
 */
 
 import "github.com/gopherjs/gopherjs/js"
+import "github.com/siongui/pali/go/lib"
 
 var localStorage = js.Global.Get("localStorage")
 
-type paliSetting struct {
-	IsShowWordPreview bool
-	P2en              bool
-	P2ja              bool
-	P2zh              bool
-	P2vi              bool
-	P2my              bool
-	DicLangOrder      string
+func savePaliDictionarySetting(setting lib.PaliDictionarySetting) {
+	str := PaliDictionarySetting2JsonString(setting)
+	localStorage.Set("PaliDictionarySetting", str)
 }
 
 func setupSetting() {
@@ -32,7 +28,7 @@ func setupSetting() {
 	p2my := d.Call("getElementById", "p2my")
 	dicLangOrder := d.Call("getElementById", "dicLangOrder")
 
-	setting := paliSetting{
+	setting := lib.PaliDictionarySetting{
 		IsShowWordPreview: false,
 		P2en:              true,
 		P2ja:              true,
@@ -42,7 +38,7 @@ func setupSetting() {
 		DicLangOrder:      "hdr",
 	}
 	// check if there is saved setting in user browser
-	if localStorage.Get("paliSetting") == js.Undefined {
+	if localStorage.Get("PaliDictionarySetting") == js.Undefined {
 		// no setting saved, use default setting
 		setting.IsShowWordPreview = isPreview.Get("checked").Bool()
 		setting.P2en = p2en.Get("checked").Bool()
@@ -54,45 +50,45 @@ func setupSetting() {
 			dicLangOrder.Get("selectedIndex").Int()).Get("value").String()
 	} else {
 		// use saved setting
-		//localStorage.Call("getItem", "paliSetting").String()
-		//jsonString2Setting
+		//localStorage.Call("getItem", "PaliDictionarySetting").String()
+		setting = JsonString2PaliDictionarySetting(localStorage.Get("PaliDictionarySetting").String())
+		isPreview.Set("checked", setting.IsShowWordPreview)
+		p2en.Set("checked", setting.P2en)
+		p2ja.Set("checked", setting.P2ja)
+		p2zh.Set("checked", setting.P2zh)
+		p2vi.Set("checked", setting.P2vi)
+		p2my.Set("checked", setting.P2my)
+		dicLangOrder.Set("value", setting.DicLangOrder)
 	}
 
 	isPreview.Call("addEventListener", "click", func(event *js.Object) {
 		setting.IsShowWordPreview = isPreview.Get("checked").Bool()
-		// save setting
-		print("isPreview")
+		savePaliDictionarySetting(setting)
 	})
 	// http://stackoverflow.com/questions/4471401/getting-value-of-html-checkbox-from-onclick-onchange-events
 	p2en.Call("addEventListener", "click", func(event *js.Object) {
 		setting.P2en = p2en.Get("checked").Bool()
-		// save setting
-		print("p2en")
+		savePaliDictionarySetting(setting)
 	})
 	p2ja.Call("addEventListener", "click", func(event *js.Object) {
 		setting.P2ja = p2ja.Get("checked").Bool()
-		// save setting
-		print("p2ja")
+		savePaliDictionarySetting(setting)
 	})
 	p2zh.Call("addEventListener", "click", func(event *js.Object) {
 		setting.P2zh = p2zh.Get("checked").Bool()
-		// save setting
-		print("p2zh")
+		savePaliDictionarySetting(setting)
 	})
 	p2vi.Call("addEventListener", "click", func(event *js.Object) {
 		setting.P2vi = p2vi.Get("checked").Bool()
-		// save setting
-		print("p2vi")
+		savePaliDictionarySetting(setting)
 	})
 	p2my.Call("addEventListener", "click", func(event *js.Object) {
 		setting.P2my = p2my.Get("checked").Bool()
-		// save setting
-		print("p2my")
+		savePaliDictionarySetting(setting)
 	})
 	dicLangOrder.Call("addEventListener", "change", func(event *js.Object) {
 		setting.DicLangOrder = dicLangOrder.Get("options").Call("item",
 			dicLangOrder.Get("selectedIndex").Int()).Get("value").String()
-		// save setting
-		print(setting.DicLangOrder)
+		savePaliDictionarySetting(setting)
 	})
 }
