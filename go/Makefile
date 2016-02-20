@@ -143,4 +143,5 @@ test_lib_pali:
 
 clean:
 	@echo "\033[92mClean Repo ...\033[0m"
-	rm -rf bin pkg src data website
+	@#rm -rf bin pkg src data website
+	rm -rf bin pkg src website
