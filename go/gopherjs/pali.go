@@ -4,6 +4,7 @@ import (
 	"github.com/gopherjs/gopherjs/js"
 	imepali "github.com/siongui/go-online-input-method-pali"
 	bits "github.com/siongui/go-succinct-data-structure-trie"
+	jsgettext "github.com/siongui/gopherjs-i18n"
 )
 
 var word *js.Object
@@ -49,6 +50,16 @@ func main() {
 
 	setupNavbar()
 	setupSetting()
+
+	// show language according to NavigatorLanguages API
+	languages := js.Global.Get("navigator").Get("languages").String()
+	supportedLocales := []string{"en_US", "zh_TW", "vi_VN", "fr_FR"}
+	initialLocale := jsgettext.DetermineLocaleByNavigatorLanguages(languages, supportedLocales)
+	jsgettext.Translate(initialLocale)
+	if initialLocale != "en_US" {
+		langSelect := js.Global.Get("document").Call("getElementById", "lang-select")
+		langSelect.Set("value", initialLocale)
+	}
 
 	word.Call("addEventListener", "keyup", handleInputKeyUp, false)
 }
