@@ -55,8 +55,8 @@ func main() {
 	languages := js.Global.Get("navigator").Get("languages").String()
 	supportedLocales := []string{"en_US", "zh_TW", "vi_VN", "fr_FR"}
 	initialLocale := jsgettext.DetermineLocaleByNavigatorLanguages(languages, supportedLocales)
-	jsgettext.Translate(initialLocale)
 	if initialLocale != "en_US" {
+		jsgettext.Translate(initialLocale)
 		langSelect := js.Global.Get("document").Call("getElementById", "lang-select")
 		langSelect.Set("value", initialLocale)
 	}

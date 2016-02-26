@@ -7,7 +7,7 @@ import "bytes"
 func showWordByTemplate(wi lib.BookIdWordExps) {
 	RemoveAllChildNodes(mainContent)
 
-	bnwes := lib.BookIdWordExps2BookNameWordExps(wi, bookIdAndInfos)
+	bnwes := lib.BookIdWordExps2BookNameWordExpsAccordingToSetting(wi, bookIdAndInfos, getSetting())
 	t1, _ := template.New("wordExplanation").Parse(lib.HtmlTemplateBookNameWordExps)
 	// Google Search: go html template output string
 	// https://groups.google.com/forum/#!topic/golang-nuts/dSFHCV-e6Nw

@@ -66,3 +66,111 @@ type PaliDictionarySetting struct {
 	P2my              bool   `json:"p2my"`
 	DicLangOrder      string `json:"dicLangOrder"`
 }
+
+// book id <-> BookIdWordExps
+type mapBookId2BookNameWordExp map[string]BookNameWordExp
+
+func combineBookId2BookNameWordExp(langsbi2bnwe ...mapBookId2BookNameWordExp) []BookNameWordExp {
+	var result []BookNameWordExp
+	for _, bi2bnwe := range langsbi2bnwe {
+		for _, bnwe := range bi2bnwe {
+			result = append(result, bnwe)
+		}
+	}
+	return result
+}
+
+func BookIdWordExps2BookNameWordExpsAccordingToSetting(wi BookIdWordExps, di BookIdAndInfos, setting PaliDictionarySetting) []BookNameWordExp {
+	enBookId2BookNameWordExp := mapBookId2BookNameWordExp{}
+	jaBookId2BookNameWordExp := mapBookId2BookNameWordExp{}
+	zhBookId2BookNameWordExp := mapBookId2BookNameWordExp{}
+	viBookId2BookNameWordExp := mapBookId2BookNameWordExp{}
+	myBookId2BookNameWordExp := mapBookId2BookNameWordExp{}
+
+	for bookId, explanation := range wi {
+		if di[bookId].Lang == "en" && setting.P2en {
+			enBookId2BookNameWordExp[bookId] = BookNameWordExp{
+				BookName:    di[bookId].Author,
+				Explanation: template.HTML(explanation),
+			}
+			continue
+		}
+		if di[bookId].Lang == "ja" && setting.P2ja {
+			jaBookId2BookNameWordExp[bookId] = BookNameWordExp{
+				BookName:    di[bookId].Author,
+				Explanation: template.HTML(explanation),
+			}
+			continue
+		}
+		if di[bookId].Lang == "zh" && setting.P2zh {
+			zhBookId2BookNameWordExp[bookId] = BookNameWordExp{
+				BookName:    di[bookId].Author,
+				Explanation: template.HTML(explanation),
+			}
+			continue
+		}
+		if di[bookId].Lang == "vi" && setting.P2vi {
+			viBookId2BookNameWordExp[bookId] = BookNameWordExp{
+				BookName:    di[bookId].Author,
+				Explanation: template.HTML(explanation),
+			}
+			continue
+		}
+		if di[bookId].Lang == "my" && setting.P2my {
+			myBookId2BookNameWordExp[bookId] = BookNameWordExp{
+				BookName:    di[bookId].Author,
+				Explanation: template.HTML(explanation),
+			}
+			continue
+		}
+	}
+
+	if setting.DicLangOrder == "en" {
+		return combineBookId2BookNameWordExp(
+			enBookId2BookNameWordExp,
+			zhBookId2BookNameWordExp,
+			jaBookId2BookNameWordExp,
+			viBookId2BookNameWordExp,
+			myBookId2BookNameWordExp)
+	}
+	if setting.DicLangOrder == "ja" {
+		return combineBookId2BookNameWordExp(
+			jaBookId2BookNameWordExp,
+			zhBookId2BookNameWordExp,
+			enBookId2BookNameWordExp,
+			viBookId2BookNameWordExp,
+			myBookId2BookNameWordExp)
+	}
+	if setting.DicLangOrder == "zh" {
+		return combineBookId2BookNameWordExp(
+			zhBookId2BookNameWordExp,
+			jaBookId2BookNameWordExp,
+			enBookId2BookNameWordExp,
+			viBookId2BookNameWordExp,
+			myBookId2BookNameWordExp)
+	}
+	if setting.DicLangOrder == "vi" {
+		return combineBookId2BookNameWordExp(
+			viBookId2BookNameWordExp,
+			enBookId2BookNameWordExp,
+			zhBookId2BookNameWordExp,
+			jaBookId2BookNameWordExp,
+			myBookId2BookNameWordExp)
+	}
+	if setting.DicLangOrder == "my" {
+		return combineBookId2BookNameWordExp(
+			myBookId2BookNameWordExp,
+			enBookId2BookNameWordExp,
+			zhBookId2BookNameWordExp,
+			jaBookId2BookNameWordExp,
+			viBookId2BookNameWordExp)
+	}
+
+	// TODO: According to Language Settings in Browser
+	return combineBookId2BookNameWordExp(
+		enBookId2BookNameWordExp,
+		zhBookId2BookNameWordExp,
+		jaBookId2BookNameWordExp,
+		viBookId2BookNameWordExp,
+		myBookId2BookNameWordExp)
+}

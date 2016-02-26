@@ -48,6 +48,7 @@ func setupSetting() {
 		setting.P2my = p2my.Get("checked").Bool()
 		setting.DicLangOrder = dicLangOrder.Get("options").Call("item",
 			dicLangOrder.Get("selectedIndex").Int()).Get("value").String()
+		savePaliDictionarySetting(setting)
 	} else {
 		// use saved setting
 		//localStorage.Call("getItem", "PaliDictionarySetting").String()
@@ -91,4 +92,8 @@ func setupSetting() {
 			dicLangOrder.Get("selectedIndex").Int()).Get("value").String()
 		savePaliDictionarySetting(setting)
 	})
+}
+
+func getSetting() lib.PaliDictionarySetting {
+	return JsonString2PaliDictionarySetting(localStorage.Get("PaliDictionarySetting").String())
 }
