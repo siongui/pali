@@ -24,13 +24,12 @@ func handleInputKeyUp(event *js.Object) {
 	if keycode := event.Get("keyCode").Int(); keycode == 13 {
 		// user press enter key
 		w := word.Get("value").String()
-		//xhrGetWordJson(w)
 		go httpGetWordJson(w)
 	} else {
 		// show words suggestion
 		w := word.Get("value").String()
 		suggestedWords := frozenTrie.GetSuggestedWords(w, 30)
-		showSuggestedWords(suggestedWords)
+		go showSuggestedWordsByTemplate(suggestedWords)
 	}
 }
 

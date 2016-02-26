@@ -15,3 +15,12 @@ func showWordByTemplate(wi lib.BookIdWordExps) {
 	t1.Execute(&buf, bnwes)
 	mainContent.Set("innerHTML", buf.String())
 }
+
+func showSuggestedWordsByTemplate(words []string) {
+	RemoveAllChildNodes(mainContent)
+
+	t1, _ := template.New("suggestedWords").Parse(lib.HtmlTemplateSuggestedWords)
+	var buf bytes.Buffer
+	t1.Execute(&buf, words)
+	mainContent.Set("innerHTML", buf.String())
+}

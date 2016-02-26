@@ -46,16 +46,10 @@ const HtmlTemplateBookNameWordExps = `
 </article>
 {{end}}`
 
-func BookIdWordExps2BookNameWordExps(wi BookIdWordExps, di BookIdAndInfos) []BookNameWordExp {
-	var bnwes []BookNameWordExp
-	for bookId, explanation := range wi {
-		bnwes = append(bnwes, BookNameWordExp{
-			BookName:    di[bookId].Author,
-			Explanation: template.HTML(explanation),
-		})
-	}
-	return bnwes
-}
+const HtmlTemplateSuggestedWords = `
+{{range $word := .}}
+<div>{{$word}}</div>
+{{end}}`
 
 type PaliDictionarySetting struct {
 	IsShowWordPreview bool   `json:"isPreview"`

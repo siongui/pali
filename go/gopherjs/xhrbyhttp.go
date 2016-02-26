@@ -5,16 +5,15 @@ import "net/http"
 func httpGetWordJson(w string) {
 	resp, err := http.Get(HttpWordJsonPath(w))
 	if err != nil {
-		handleGetWordError()
+		mainContent.Set("textContent", "Not Found")
 		return
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		handleGetWordError()
+		mainContent.Set("textContent", "Not Found")
 		return
 	}
 
 	wi := DecodeHttpRespWord(resp.Body)
-	//showWord(wi)
 	showWordByTemplate(wi)
 }
