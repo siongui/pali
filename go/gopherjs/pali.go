@@ -12,6 +12,7 @@ var mainContent *js.Object
 var bookIdAndInfos = GetBookIdAndInfos()
 var isDev = (js.Global.Get("location").Get("hostname").String() == "localhost")
 var frozenTrie bits.FrozenTrie
+var navigatorLanguages = js.Global.Get("navigator").Get("languages").String()
 
 func HttpWordJsonPath(word string) string {
 	if isDev {
@@ -51,9 +52,8 @@ func main() {
 	setupSetting()
 
 	// show language according to NavigatorLanguages API
-	languages := js.Global.Get("navigator").Get("languages").String()
 	supportedLocales := []string{"en_US", "zh_TW", "vi_VN", "fr_FR"}
-	initialLocale := jsgettext.DetermineLocaleByNavigatorLanguages(languages, supportedLocales)
+	initialLocale := jsgettext.DetermineLocaleByNavigatorLanguages(navigatorLanguages, supportedLocales)
 	if initialLocale != "en_US" {
 		jsgettext.Translate(initialLocale)
 		langSelect := js.Global.Get("document").Call("getElementById", "lang-select")
