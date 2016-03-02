@@ -22,6 +22,7 @@ $non-smartphone: "(min-width: #{$screen-sm-min}px)";
 $font-stack: Arial, Helvetica, sans-serif, "微軟正黑體", "Microsoft JhengHei";
 $primary-color: #dddddd;
 $link-hover-color: #2445ae;
+$nav-bgcolor: #fff4c8;
 
 
 // keep parent element of floated elements from collapsing
@@ -45,14 +46,6 @@ a {
   }
 }
 
-.common-title {
-  header {
-    h1, h2 {
-      @media #{$smartphone} {font-size: 1.25em;}
-    }
-  }
-}
-
 /* pure css toggle-able window */
 .toggleable-window {
   input.toggle {display: none;}
@@ -73,9 +66,8 @@ a {
 
 // top navigation bar
 .top-nav[role=navigation] {
-  @extend .common-title;
-  background-image: linear-gradient(to bottom left, white, $primary-color);
-  border-radius: 4px;
+  background-color: $nav-bgcolor;
+  border-radius: 10px;
   margin-top: 8px;
 
   .nav-header-window, .nav-links, .nav-lang-select {
@@ -87,7 +79,6 @@ a {
     width: 30%;
     @media #{$smartphone} {width: 100%;}
     position: relative;
-    vertical-align: middle;
 
     .toggleable-window {
       display: inline-block;
@@ -114,7 +105,9 @@ a {
         right: 10px;
       }
       @media #{$non-smartphone} {margin-left: 10px;}
-      h1 { @media #{$smartphone} {font-size: 1.5em;} }
+      h1 {
+        font-size: 1.25em;
+      }
     }
   }
 
@@ -185,4 +178,11 @@ table.mapping {
     border-radius: 2px;
     padding: .25em;
   }
+}
+
+// Google Search: css table center
+// http://www.granneman.com/webdev/coding/css/centertables/
+table.center {
+  margin-left: auto;
+  margin-right: auto;
 }

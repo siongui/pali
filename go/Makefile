@@ -12,7 +12,7 @@ PRODUCTION_DIR=src/github.com/siongui/pali-dictionary
 LOCALE_DIR=../common/locale
 
 
-devserver: js
+devserver: html js scss
 	@# http://stackoverflow.com/a/5947779
 	@echo "\033[92mDevelopment Server Running ...\033[0m"
 	@go run server.go
@@ -36,7 +36,7 @@ production:
 
 js:
 	@echo "\033[92mGenerating JavaScript ...\033[0m"
-	gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
+	@gopherjs build gopherjs/*.go -o $(WEBSITE_DIR)/pali.js
 
 scss:
 	@echo "\033[92mGenerating CSS ...\033[0m"
