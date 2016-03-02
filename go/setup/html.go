@@ -10,6 +10,7 @@ import (
 )
 
 type templateData struct {
+	SiteUrl     string
 	TipitakaURL string
 	OgImage     string
 	OgUrl       string
@@ -46,6 +47,7 @@ func main() {
 	})
 
 	data := templateData{
+		SiteUrl:     "https://siongui.github.io/pali-dictionary",
 		TipitakaURL: tipitakaURL,
 		OgImage:     "https://upload.wikimedia.org/wikipedia/commons/d/df/Dharma_Wheel.svg",
 		OgUrl:       "https://siongui.github.io/pali-dictionary/",

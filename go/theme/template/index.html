@@ -6,16 +6,7 @@
   <meta name="description" content="{{gettext "Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"}}"/>
   <meta name="keywords" content="{{gettext "Pāli Dictionary"}}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="{{gettext "Pāli Dictionary"}}" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="{{gettext "Pāli to English, Chinese, Japanese, Vietnamese, Burmese Dictionary"}}" />
-  <meta property="og:image" content="{{.OgImage}}" />
-  <meta property="og:url" content="{{.OgUrl}}" />
-  <meta property="og:locale" content="{{.OgLocale}}" />
-  <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:locale:alternate" content="vi_VN" />
-  <meta property="og:locale:alternate" content="fr_FR" />
+  {{template "metaog" .}}
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
