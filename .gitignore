@@ -5,8 +5,10 @@ common/locale/messages.pot
 common/locale/en_US/LC_MESSAGES/messages.po
 common/locale/zh_CN/LC_MESSAGES/messages.po
 
-common/pylib/jianfan
-
 common/app/scripts/services/data/dicBooks.js
 common/app/scripts/services/data/succinctTrie.js
 common/app/scripts/services/data/i18nStrings.js
+
+pkg/
+src/
+data/
