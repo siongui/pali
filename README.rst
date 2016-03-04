@@ -39,12 +39,12 @@ Set Up Development Environment
      # git clone data repository
      $ make clone
 
-3. Create symbolic links:
+3. Development environment setup:
 
    .. code-block:: bash
 
      $ cd ~/dev/pali
-     $ make symlinks
+     $ make setup
 
 
 UNLICENSE
@@ -64,23 +64,29 @@ References
 
        `What is the difference between apt-get update and upgrade? - Ask Ubuntu <http://askubuntu.com/questions/94102/what-is-the-difference-between-apt-get-update-and-upgrade>`_
 
-       `ubuntu check package version <https://www.google.com/search?q=ubuntu+check+package+version>`_
+.. [4] `ubuntu check package version <https://www.google.com/search?q=ubuntu+check+package+version>`_
 
        `How can I check the available version of a package in the repositories? - Ask Ubuntu <http://askubuntu.com/questions/340530/how-can-i-check-the-available-version-of-a-package-in-the-repositories>`_
 
-       `ubuntu check if packages are installed <https://www.google.com/search?q=ubuntu+check+if+packages+are+installed>`_
+.. [5] `ubuntu check if packages are installed <https://www.google.com/search?q=ubuntu+check+if+packages+are+installed>`_
 
        `How do I check if a package is installed on my server? - Ask Ubuntu <http://askubuntu.com/questions/423355/how-do-i-check-if-a-package-is-installed-on-my-server>`_
 
-       `python pip vs apt-get <https://www.google.com/search?q=python+pip+vs+apt-get>`_
+.. [6] `python pip vs apt-get <https://www.google.com/search?q=python+pip+vs+apt-get>`_
 
-       `How to extract files to another directory using 'tar' command? - Ask Ubuntu <http://askubuntu.com/questions/45349/how-to-extract-files-to-another-directory-using-tar-command>`_
+.. [7] `How to extract files to another directory using 'tar' command? - Ask Ubuntu <http://askubuntu.com/questions/45349/how-to-extract-files-to-another-directory-using-tar-command>`_
 
-       `Git Workflows and Tutorials | Atlassian Git Tutorial <https://www.atlassian.com/git/tutorials/comparing-workflows/>`_
+.. [8] `Git Workflows and Tutorials | Atlassian Git Tutorial <https://www.atlassian.com/git/tutorials/comparing-workflows/>`_
 
-       `makefile instead of grunt <https://www.google.com/search?q=makefile+instead+of+grunt>`_
+.. [9] `makefile instead of grunt <https://www.google.com/search?q=makefile+instead+of+grunt>`_
 
-       `makefile check if symlink exists <https://www.google.com/search?q=makefile+check+if+symlink+exists>`_
+.. [10] `makefile check if symlink exists <https://www.google.com/search?q=makefile+check+if+symlink+exists>`_
+
+.. [11] `makefile concatenate files <https://www.google.com/search?q=makefile+concatenate+files>`_
+
+        `javascript - Makefile to combine js files and make a compressed version - Stack Overflow <http://stackoverflow.com/questions/4413903/makefile-to-combine-js-files-and-make-a-compressed-version>`_
+
+        `build - Is there a way to exclude certain source files or folders from a makefile? - Stack Overflow <http://stackoverflow.com/questions/1531318/is-there-a-way-to-exclude-certain-source-files-or-folders-from-a-makefile>`_
 
 .. _Pāli Dictionary: http://dictionary.sutta.org/
 .. _Pāli Tipiṭaka: http://tipitaka.sutta.org/
