@@ -8,6 +8,19 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
+setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo
+
+po2mo:
+	@echo "\033[92mmsgfmt PO to MO ...\033[0m"
+	@msgfmt $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
+
+twpo2cn:
+	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
+	@cd go; go run setup/setuppath.go setup/twpo2cn.go
+
 pot:
 	@echo "\033[92mCreating PO template ...\033[0m"
 	@xgettext --no-wrap --from-code=UTF-8 --keyword=_ --output=$(LOCALE_DIR)/messages.pot \
@@ -15,8 +28,6 @@ pot:
 	`find $(DICTIONARY_DIR)/pylib/partials -name *.html` \
 	`find $(TIPITAKA_DIR)/app -name *.html` \
 	`find $(TIPITAKA_DIR)/pylib/partials -name *.html`
-
-setup: cptpkcss symlinks
 
 cptpkcss:
 	@echo "\033[92mCopying tipitaka css ...\033[0m"
@@ -54,3 +65,13 @@ lib_opencc:
 clone:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
+
+clean:
+	-rm $(TIPITAKA_DIR)/app/css/tipitaka-latn.css
+	-rm $(DICTIONARY_DIR)/common
+	-rm $(TIPITAKA_DIR)/common
+	-rm $(TIPITAKA_DIR)/pylib/romn
+	-rm $(TIPITAKA_DIR)/pylib/translation
+	-rm $(LOCALE_DIR)/messages.pot
+	rm -rf $(LOCALE_DIR)/zh_CN/
+	-rm `find $(LOCALE_DIR) -name *.mo`
