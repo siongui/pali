@@ -9,6 +9,7 @@ common/app/scripts/services/data/dicBooks.js
 common/app/scripts/services/data/succinctTrie.js
 common/app/scripts/services/data/i18nStrings.js
 
+common/pylib/jianfan
 pkg/
 src/
 data/

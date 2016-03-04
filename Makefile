@@ -8,7 +8,11 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
-setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo
+setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo ngjs
+
+ngjs:
+	@echo "\033[92mCreating client-side i18n js ...\033[0m"
+	@python setup/i18nUtils.py js
 
 po2mo:
 	@echo "\033[92mmsgfmt PO to MO ...\033[0m"
@@ -39,6 +43,7 @@ symlinks:
 	@[ -L $(TIPITAKA_DIR)/pylib/translation ] || (cd $(TIPITAKA_DIR)/pylib; ln -s $(DATA_REPO_DIR)/tipitaka/translation/ translation)
 	@[ -L $(TIPITAKA_DIR)/pylib/romn ] || (cd $(TIPITAKA_DIR)/pylib; ln -s $(DATA_REPO_DIR)/tipitaka/romn/ romn)
 	@[ -L $(DICTIONARY_DIR)/common ] || (cd $(DICTIONARY_DIR); ln -s $(COMMON_DIR) common)
+	@[ -L $(COMMON_DIR)/pylib/jianfan ] || (cd $(COMMON_DIR)/pylib; ln -s $(DATA_REPO_DIR)/pylib/jianfan/ jianfan)
 
 install:
 	@echo "\033[92mInstalling git via apt-get ...\033[0m"
@@ -72,6 +77,8 @@ clean:
 	-rm $(TIPITAKA_DIR)/common
 	-rm $(TIPITAKA_DIR)/pylib/romn
 	-rm $(TIPITAKA_DIR)/pylib/translation
+	-rm $(COMMON_DIR)/pylib/jianfan
 	-rm $(LOCALE_DIR)/messages.pot
 	rm -rf $(LOCALE_DIR)/zh_CN/
 	-rm `find $(LOCALE_DIR) -name *.mo`
+	-rm common/app/scripts/services/data/i18nStrings.js
