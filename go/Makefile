@@ -60,6 +60,10 @@ po2json:
 	@echo "\033[92mConverting PO files to JSON (to be used in client-side/browser) ...\033[0m"
 	@go run setup/setuppath.go setup/po2json.go
 
+twpo2cn:
+	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
+	@go run setup/setuppath.go setup/twpo2cn.go
+
 parsewords: dir
 	@echo "\033[92mParse Dictionary Words ...\033[0m"
 	@go run setup/setuppath.go setup/setuplib.go setup/parsewords.go
