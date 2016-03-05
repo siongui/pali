@@ -55,6 +55,7 @@ Set Up Development Environment
      $ make parsebooks
 
      $ make parsewords
+     $ make twpo2cn
 
      # optional: convert po files to json
      $ make po2json

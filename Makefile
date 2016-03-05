@@ -8,12 +8,26 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
-setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo ngjs parsebooks
+setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo ngjs parsedics prefix_words_html succinct_trie ngdatajs
 
-parsebooks:
+ngdatajs:
+	@echo "\033[92mCreating ng js module for books info and succinct trie data...\033[0m"
+	@python $(DICTIONARY_DIR)/setup/init4jsonToJS.py
+
+succinct_trie:
+	@echo "\033[92mCreating succinct trie json ...\033[0m"
+	@cp $(DATA_REPO_DIR)/src/succinct_trie.json $(DICTIONARY_DIR)/pylib/json/
+
+prefix_words_html:
+	@echo "\033[92mCreating prefix-words HTML ...\033[0m"
+	@python $(DICTIONARY_DIR)/setup/init3prefixWordsHtml.py
+
+parsedics:
 	@cd go; make parsebooks
+	@cd go; make parsewords
 	@mkdir -p $(DICTIONARY_DIR)/pylib/json
 	@mv go/website/bookIdAndInfos.json $(DICTIONARY_DIR)/pylib/json/books.json
+	@mv go/website/json $(DICTIONARY_DIR)/pylib/paliwords
 
 ngjs:
 	@echo "\033[92mCreating client-side i18n js ...\033[0m"
@@ -87,4 +101,8 @@ clean:
 	rm -rf $(LOCALE_DIR)/zh_CN/
 	-rm `find $(LOCALE_DIR) -name *.mo`
 	-rm common/app/scripts/services/data/i18nStrings.js
-	rm -rf $(DICTIONARY_DIR)/pylib/json
+	rm -rf $(DICTIONARY_DIR)/pylib/json/
+	rm -rf $(DICTIONARY_DIR)/pylib/paliwords/
+	rm -rf $(DICTIONARY_DIR)/pylib/prefixWordsHtml/
+	-rm common/app/scripts/services/data/dicBooks.js
+	-rm common/app/scripts/services/data/succinctTrie.js
