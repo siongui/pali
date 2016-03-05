@@ -8,7 +8,12 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
-setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo ngjs
+setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo ngjs parsebooks
+
+parsebooks:
+	@cd go; make parsebooks
+	@mkdir -p $(DICTIONARY_DIR)/pylib/json
+	@mv go/website/bookIdAndInfos.json $(DICTIONARY_DIR)/pylib/json/books.json
 
 ngjs:
 	@echo "\033[92mCreating client-side i18n js ...\033[0m"
@@ -82,3 +87,4 @@ clean:
 	rm -rf $(LOCALE_DIR)/zh_CN/
 	-rm `find $(LOCALE_DIR) -name *.mo`
 	-rm common/app/scripts/services/data/i18nStrings.js
+	rm -rf $(DICTIONARY_DIR)/pylib/json

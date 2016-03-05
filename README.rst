@@ -80,6 +80,16 @@ References
 
 .. [9] `makefile instead of grunt <https://www.google.com/search?q=makefile+instead+of+grunt>`_
 
+       `What's in a Build Tool? (lihaoyi.com) <http://www.lihaoyi.com/post/WhatsinaBuildTool.html>`_
+       (`HN discussions <https://news.ycombinator.com/item?id=11222967>`__)
+
+       `ocaml-9p/Makefile at master · mirage/ocaml-9p · GitHub <https://github.com/mirage/ocaml-9p/blob/master/Makefile>`_
+
+       `rappel/Makefile at master · yrp604/rappel · GitHub <https://github.com/yrp604/rappel/blob/master/Makefile>`_
+
+       `In defense of Unix (leancrew.com) <http://leancrew.com/all-this/2016/03/in-defense-of-unix/>`_
+       (`HN discussions <https://news.ycombinator.com/item?id=11229025>`__)
+
 .. [10] `makefile check if symlink exists <https://www.google.com/search?q=makefile+check+if+symlink+exists>`_
 
 .. [11] `makefile concatenate files <https://www.google.com/search?q=makefile+concatenate+files>`_
