@@ -8,7 +8,19 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
-setup: cptpkcss symlinks pot lib_opencc twpo2cn po2mo ngjs parsedics prefix_words_html succinct_trie ngdatajs
+dicdevserver:
+	cd $(DICTIONARY_DIR); python devNotGaeRun.py
+
+mindiccss:
+	@echo "\033[92m(Dictionary) TODO: minify css ...\033[0m"
+	@cp $(DICTIONARY_DIR)/app/css/app.css $(DICTIONARY_DIR)/app/css/app.min.css
+
+mindicjs:
+	@echo "\033[92m(Dictionary) Concatenate and compress js ...\033[0m"
+	@go fmt $(DICTIONARY_DIR)/minjs.go
+	@go run $(DICTIONARY_DIR)/minjs.go
+
+setup: install cptpkcss symlinks pot initenuspo lib_opencc twpo2cn po2mo ngjs parsedics prefix_words_html succinct_trie ngdatajs
 
 ngdatajs:
 	@echo "\033[92mCreating ng js module for books info and succinct trie data...\033[0m"
@@ -39,10 +51,14 @@ po2mo:
 	@msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
 	@msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
 	@msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.mo
 
 twpo2cn:
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
 	@cd go; go run setup/setuppath.go setup/twpo2cn.go
+
+initenuspo:
+	msginit --no-wrap --no-translator --input=$(LOCALE_DIR)/messages.pot --locale=en_US -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
 
 pot:
 	@echo "\033[92mCreating PO template ...\033[0m"
@@ -66,13 +82,13 @@ symlinks:
 
 install:
 	@echo "\033[92mInstalling git via apt-get ...\033[0m"
-	@#sudo apt-get install git
+	@sudo apt-get install git
 	@# gettext installed on Ubuntu 15.10 by default
 	@#apt-cache policy gettext
 	@echo "\033[92mInstalling Python webpy via apt-get ...\033[0m"
-	@#sudo apt-get install python-webpy
+	@sudo apt-get install python-webpy
 	@echo "\033[92mInstalling Python jinja2 via apt-get ...\033[0m"
-	@#sudo apt-get install python-jinja2
+	@sudo apt-get install python-jinja2
 	@echo "\033[92mInstalling Python lxml via apt-get ...\033[0m"
 	@#sudo apt-get install python-lxml
 
@@ -98,6 +114,7 @@ clean:
 	-rm $(TIPITAKA_DIR)/pylib/translation
 	-rm $(COMMON_DIR)/pylib/jianfan
 	-rm $(LOCALE_DIR)/messages.pot
+	-rm $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
 	rm -rf $(LOCALE_DIR)/zh_CN/
 	-rm `find $(LOCALE_DIR) -name *.mo`
 	-rm common/app/scripts/services/data/i18nStrings.js
@@ -106,3 +123,5 @@ clean:
 	rm -rf $(DICTIONARY_DIR)/pylib/prefixWordsHtml/
 	-rm common/app/scripts/services/data/dicBooks.js
 	-rm common/app/scripts/services/data/succinctTrie.js
+	-rm $(DICTIONARY_DIR)/app/all_compiled.js
+	-rm $(DICTIONARY_DIR)/app/css/app.min.css
