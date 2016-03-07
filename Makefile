@@ -8,11 +8,21 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
-parsetpk:
-	@echo "\033[92mParsing Tipitaka data ...\033[0m"
-	@python $(TIPITAKA_DIR)/setup/init1getTocs.py
-	@python $(TIPITAKA_DIR)/setup/init2tocsToJson.py
-	@python $(TIPITAKA_DIR)/setup/init3addSubpathInJson.py
+tpkdevserver:
+	cd $(TIPITAKA_DIR); python devNotGaeRun.py
+
+mintpkcss:
+	@echo "\033[92m(Tipiṭaka) TODO: minify css ...\033[0m"
+	@cat $(TIPITAKA_DIR)/app/css/app.css $(TIPITAKA_DIR)/app/css/tipitaka-latn.css > $(TIPITAKA_DIR)/app/css/app.min.css
+
+mintpkjs:
+	@echo "\033[92m(Tipiṭaka) Concatenate and compress js ...\033[0m"
+	@go fmt $(TIPITAKA_DIR)/minjs.go
+	@go run $(TIPITAKA_DIR)/minjs.go
+
+tpktanslation:
+	@echo "\033[92mCreate Tipiṭaka-related translations for server and client ...\033[0m"
+	@python $(TIPITAKA_DIR)/setup/setTranslationData.py
 
 dicdevserver:
 	cd $(DICTIONARY_DIR); python devNotGaeRun.py
@@ -26,7 +36,13 @@ mindicjs:
 	@go fmt $(DICTIONARY_DIR)/minjs.go
 	@go run $(DICTIONARY_DIR)/minjs.go
 
-setup: install cptpkcss symlinks pot initenuspo lib_opencc twpo2cn po2mo ngjs parsedics prefix_words_html succinct_trie ngdatajs
+setup: install cptpkcss symlinks pot initenuspo lib_opencc twpo2cn po2mo ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
+
+parsetpk:
+	@echo "\033[92mParsing Tipiṭaka data ...\033[0m"
+	@python $(TIPITAKA_DIR)/setup/init1getTocs.py
+	@python $(TIPITAKA_DIR)/setup/init2tocsToJson.py
+	@python $(TIPITAKA_DIR)/setup/init3addSubpathInJson.py
 
 ngdatajs:
 	@echo "\033[92mCreating ng js module for books info and succinct trie data...\033[0m"
@@ -133,3 +149,5 @@ clean:
 	rm -rf $(TIPITAKA_DIR)/build/
 	rm -rf $(TIPITAKA_DIR)/pylib/json/
 	rm -rf $(TIPITAKA_DIR)/app/scripts/services/data/
+	-rm $(TIPITAKA_DIR)/app/all_compiled.js
+	-rm $(TIPITAKA_DIR)/app/css/app.min.css
