@@ -35,11 +35,10 @@ prefix_words_html:
 	@python $(DICTIONARY_DIR)/setup/init3prefixWordsHtml.py
 
 parsedics:
-	@cd go; make parsebooks
-	@cd go; make parsewords
-	@mkdir -p $(DICTIONARY_DIR)/pylib/json
-	@mv go/website/bookIdAndInfos.json $(DICTIONARY_DIR)/pylib/json/books.json
-	@mv go/website/json $(DICTIONARY_DIR)/pylib/paliwords
+	@echo "\033[92mParse Dictionary Books Information ...\033[0m"
+	@python $(DICTIONARY_DIR)/setup/init1parseBooks.py
+	@echo "\033[92mParse Dictionary Words ...\033[0m"
+	@python $(DICTIONARY_DIR)/setup/init2parseWords.py
 
 ngjs:
 	@echo "\033[92mCreating client-side i18n js ...\033[0m"

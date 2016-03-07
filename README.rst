@@ -46,6 +46,15 @@ Set Up Development Environment
      $ cd ~/dev/pali
      $ make setup
 
+4. Run Dictionary Dev Website:
+
+   .. code-block:: bash
+
+     $ cd ~/dev/pali
+     $ make mindicjs
+     $ make mindiccss
+     $ make dicdevserver
+
 
 UNLICENSE
 +++++++++

@@ -1,6 +1,6 @@
 # [Pāḷi Tipiṭaka](http://tipitaka.sutta.org/) & [Pāli Dictionary](http://dictionary.sutta.org/)
 
-* If you want to setup development environment and deploy applications on [Google App Engine Python](https://developers.google.com/appengine/docs/python/), please refer to this [README](docs/README_GAE.md).
+* If you want to setup development environment and deploy applications on [Google App Engine Python](https://developers.google.com/appengine/docs/python/), please refer to this [README](README_GAE.md).
 
 My development environment is Ubuntu 13.04 with Python 2.7. If you are using Windows, <strong>i18nUtils.py</strong> cannot be run unless you install <em><a href="http://www.gnu.org/software/gettext/">GNU gettext tools</a></em>, which include <em>xgettext</em>, <em>msginit</em>, <em>msgmerge</em>, and <em>msgfmt</em>. However, I do not know how to install <em>GNU gettext tools</em> on Windows.
 
@@ -85,7 +85,7 @@ Please [install necessary tools for development](INSTALL.md) before setting up d
     # http://localhost:8080/
 ```
 
-7. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](docs/AWS.md)
+7. Deploy on [AWS EC2](http://aws.amazon.com/ec2/): See [AWS.md](AWS.md)
 
 ## Development of Python/JavaScript/HTML/CSS code for the websites
 

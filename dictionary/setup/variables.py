@@ -16,7 +16,7 @@ except:
 #jtof = lambda x: x
 
 DICTIONARY_DIR = join(dirname(__file__), '..')
-DATA_REPO_DIR = join(dirname(__file__), '../../../data/')
+DATA_REPO_DIR = join(dirname(__file__), '../../data/')
 APP_COMMON_DATA_DIR = join(dirname(__file__),
     "../../common/app/scripts/services/data/")
 
