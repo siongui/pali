@@ -14,7 +14,7 @@ except:
   from jianfan import ftoj
 
 TIPITAKA_DIR = join(dirname(__file__), '..')
-DATA_REPO_DIR = join(dirname(__file__), '../../../data/')
+DATA_REPO_DIR = join(dirname(__file__), '../../data/')
 
 localedir = join(dirname(__file__), '../../common/locale/')
 

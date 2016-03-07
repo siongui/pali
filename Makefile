@@ -8,6 +8,12 @@ LOCALE_DIR=$(COMMON_DIR)/locale
 DICTIONARY_DIR=$(CURDIR)/dictionary
 TIPITAKA_DIR=$(CURDIR)/tipitaka
 
+parsetpk:
+	@echo "\033[92mParsing Tipitaka data ...\033[0m"
+	@python $(TIPITAKA_DIR)/setup/init1getTocs.py
+	@python $(TIPITAKA_DIR)/setup/init2tocsToJson.py
+	@python $(TIPITAKA_DIR)/setup/init3addSubpathInJson.py
+
 dicdevserver:
 	cd $(DICTIONARY_DIR); python devNotGaeRun.py
 
@@ -124,3 +130,6 @@ clean:
 	-rm common/app/scripts/services/data/succinctTrie.js
 	-rm $(DICTIONARY_DIR)/app/all_compiled.js
 	-rm $(DICTIONARY_DIR)/app/css/app.min.css
+	rm -rf $(TIPITAKA_DIR)/build/
+	rm -rf $(TIPITAKA_DIR)/pylib/json/
+	rm -rf $(TIPITAKA_DIR)/app/scripts/services/data/
