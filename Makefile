@@ -36,7 +36,7 @@ mindicjs:
 	@go fmt $(DICTIONARY_DIR)/minjs.go
 	@go run $(DICTIONARY_DIR)/minjs.go
 
-setup: install cptpkcss symlinks pot initenuspo lib_opencc twpo2cn po2mo ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
+setup: install cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
 
 parsetpk:
 	@echo "\033[92mParsing Tipiṭaka data ...\033[0m"
@@ -65,29 +65,6 @@ parsedics:
 ngjs:
 	@echo "\033[92mCreating client-side i18n js ...\033[0m"
 	@python setup/i18nUtils.py js
-
-po2mo:
-	@echo "\033[92mmsgfmt PO to MO ...\033[0m"
-	@msgfmt $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.mo
-	@msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
-	@msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
-	@msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
-	@msgfmt $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.mo
-
-twpo2cn:
-	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
-	@go run go/setup/twpo2cn.go -tw=$(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -cn=$(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
-
-initenuspo:
-	msginit --no-wrap --no-translator --input=$(LOCALE_DIR)/messages.pot --locale=en_US -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
-
-pot:
-	@echo "\033[92mCreating PO template ...\033[0m"
-	@xgettext --no-wrap --from-code=UTF-8 --keyword=_ --output=$(LOCALE_DIR)/messages.pot \
-	`find $(DICTIONARY_DIR)/app -name *.html` \
-	`find $(DICTIONARY_DIR)/pylib/partials -name *.html` \
-	`find $(TIPITAKA_DIR)/app -name *.html` \
-	`find $(TIPITAKA_DIR)/pylib/partials -name *.html`
 
 cptpkcss:
 	@echo "\033[92mCopying tipitaka css ...\033[0m"
@@ -118,26 +95,17 @@ ubuntu_upgrade:
 	sudo apt-get update
 	sudo apt-get upgrade
 
-lib_opencc:
-	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
-	sudo apt-get install opencc libopencc-dev
-	go get -u github.com/siongui/go-opencc
-
 clone:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
 
-clean:
+clean: cleanPOMO
 	-rm $(TIPITAKA_DIR)/app/css/tipitaka-latn.css
 	-rm $(DICTIONARY_DIR)/common
 	-rm $(TIPITAKA_DIR)/common
 	-rm $(TIPITAKA_DIR)/pylib/romn
 	-rm $(TIPITAKA_DIR)/pylib/translation
 	-rm $(COMMON_DIR)/pylib/jianfan
-	-rm $(LOCALE_DIR)/messages.pot
-	-rm $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
-	rm -rf $(LOCALE_DIR)/zh_CN/
-	-rm `find $(LOCALE_DIR) -name *.mo`
 	-rm common/app/scripts/services/data/i18nStrings.js
 	rm -rf $(DICTIONARY_DIR)/pylib/json/
 	rm -rf $(DICTIONARY_DIR)/pylib/paliwords/
@@ -151,3 +119,40 @@ clean:
 	rm -rf $(TIPITAKA_DIR)/app/scripts/services/data/
 	-rm $(TIPITAKA_DIR)/app/all_compiled.js
 	-rm $(TIPITAKA_DIR)/app/css/app.min.css
+
+setupPOMO: pot initenuspo lib_opencc twpo2cn po2mo
+
+pot:
+	@echo "\033[92mCreating PO template ...\033[0m"
+	@xgettext --no-wrap --from-code=UTF-8 --keyword=_ --output=$(LOCALE_DIR)/messages.pot \
+	`find $(DICTIONARY_DIR)/app -name *.html` \
+	`find $(DICTIONARY_DIR)/pylib/partials -name *.html` \
+	`find $(TIPITAKA_DIR)/app -name *.html` \
+	`find $(TIPITAKA_DIR)/pylib/partials -name *.html`
+
+initenuspo:
+	msginit --no-wrap --no-translator --input=$(LOCALE_DIR)/messages.pot --locale=en_US -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
+
+lib_opencc:
+	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
+	sudo apt-get install opencc libopencc-dev
+	go get -u github.com/siongui/go-opencc
+
+twpo2cn:
+	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
+	@go run go/setup/twpo2cn.go -tw=$(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -cn=$(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
+
+po2mo:
+	@echo "\033[92mmsgfmt PO to MO ...\033[0m"
+	@msgfmt $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
+	@msgfmt $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.mo
+
+cleanPOMO:
+	@echo "\033[92mRemoving unnecessary PO and MO ...\033[0m"
+	-rm $(LOCALE_DIR)/messages.pot
+	-rm $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
+	rm -rf $(LOCALE_DIR)/zh_CN/
+	-rm `find $(LOCALE_DIR) -name *.mo`
