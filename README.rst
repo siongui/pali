@@ -55,6 +55,15 @@ Set Up Development Environment
      $ make mindiccss
      $ make dicdevserver
 
+5. Run Tipiṭaka Dev Website:
+
+   .. code-block:: bash
+
+     $ cd ~/dev/pali
+     $ make mintpkjs
+     $ make mintpkcss
+     $ make tpkdevserver
+
 
 UNLICENSE
 +++++++++

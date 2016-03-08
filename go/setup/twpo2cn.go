@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"github.com/siongui/go-opencc"
 	"os"
@@ -31,9 +32,7 @@ func File2lines(filePath string) []string {
 	return lines
 }
 
-func main() {
-	defer ct2s.Close()
-
+func tw2cn(twPOPath, cnPOPath string) {
 	os.MkdirAll(filepath.Dir(cnPOPath), 0755)
 	fo, err := os.Create(cnPOPath)
 	if err != nil {
@@ -54,4 +53,13 @@ func main() {
 		}
 		fo.Write([]byte("\n"))
 	}
+}
+
+func main() {
+	defer ct2s.Close()
+
+	twPOPath := flag.String("tw", "locale/zh_TW/LC_MESSAGES/messages.po", "Path of zh_TW PO file")
+	cnPOPath := flag.String("cn", "locale/zh_CN/LC_MESSAGES/messages.po", "Path of zh_CN PO file")
+	flag.Parse()
+	tw2cn(*twPOPath, *cnPOPath)
 }

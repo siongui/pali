@@ -76,7 +76,7 @@ po2mo:
 
 twpo2cn:
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
-	@cd go; go run setup/setuppath.go setup/twpo2cn.go
+	@go run go/setup/twpo2cn.go -tw=$(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -cn=$(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
 
 initenuspo:
 	msginit --no-wrap --no-translator --input=$(LOCALE_DIR)/messages.pot --locale=en_US -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
