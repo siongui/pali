@@ -12,8 +12,9 @@ tpkdevserver:
 	cd $(TIPITAKA_DIR); python devNotGaeRun.py
 
 mintpkcss:
-	@echo "\033[92m(Tipiṭaka) TODO: minify css ...\033[0m"
-	@cat $(TIPITAKA_DIR)/app/css/app.css $(TIPITAKA_DIR)/app/css/tipitaka-latn.css > $(TIPITAKA_DIR)/app/css/app.min.css
+	@echo "\033[92m(Tipiṭaka) minify css ...\033[0m"
+	@go fmt $(TIPITAKA_DIR)/mincss.go
+	@go run $(TIPITAKA_DIR)/mincss.go
 
 mintpkjs:
 	@echo "\033[92m(Tipiṭaka) Concatenate and compress js ...\033[0m"
@@ -28,15 +29,20 @@ dicdevserver:
 	cd $(DICTIONARY_DIR); python devNotGaeRun.py
 
 mindiccss:
-	@echo "\033[92m(Dictionary) TODO: minify css ...\033[0m"
-	@cp $(DICTIONARY_DIR)/app/css/app.css $(DICTIONARY_DIR)/app/css/app.min.css
+	@echo "\033[92m(Dictionary) minify css ...\033[0m"
+	@go fmt $(DICTIONARY_DIR)/mincss.go
+	@go run $(DICTIONARY_DIR)/mincss.go
+
+lib_mincss:
+	@echo "\033[92mInstalling mincss (Go lib for minifying css) ...\033[0m"
+	go get -u github.com/siongui/mincss
 
 mindicjs:
 	@echo "\033[92m(Dictionary) Concatenate and compress js ...\033[0m"
 	@go fmt $(DICTIONARY_DIR)/minjs.go
 	@go run $(DICTIONARY_DIR)/minjs.go
 
-setup: install cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
+setup: install cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation lib_mincss
 
 parsetpk:
 	@echo "\033[92mParsing Tipiṭaka data ...\033[0m"
@@ -88,7 +94,7 @@ install:
 	@echo "\033[92mInstalling Python jinja2 via apt-get ...\033[0m"
 	@sudo apt-get install python-jinja2
 	@echo "\033[92mInstalling Python lxml via apt-get ...\033[0m"
-	@#sudo apt-get install python-lxml
+	@sudo apt-get install python-lxml
 
 ubuntu_upgrade:
 	@echo "\033[92mUpgrading Ubuntu Linux ...\033[0m"
