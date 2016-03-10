@@ -8,11 +8,14 @@ References:
 https://www.google.com/search?q=golang+read+csv
 */
 
-import "os"
-import "encoding/csv"
-import "io"
-import "github.com/siongui/pali/go/lib"
-import "github.com/siongui/go-opencc"
+import (
+	"encoding/csv"
+	"flag"
+	"github.com/siongui/go-opencc"
+	"github.com/siongui/pali/go/lib"
+	"io"
+	"os"
+)
 
 var cs2t = opencc.NewConverter("zhs2zht.ini")
 
@@ -100,6 +103,12 @@ func parseRecord(record []string) (id string, dict lib.BookInfo) {
 func main() {
 	defer cs2t.Close()
 
+	dicDataDir := flag.String("dic", "data/dictionary", "Directory of Dictioanry Data")
+	BookJsonPath := flag.String("output", "website/bookIdAndInfos.json", "Output Path of Parsed Dictionary Books Info")
+
+	flag.Parse()
+	BookCsvPath := *dicDataDir + "/dict-books.csv"
+
 	// open csv file
 	fcsv, err := os.Open(BookCsvPath)
 	if err != nil {
@@ -125,6 +134,6 @@ func main() {
 		di[id] = dict
 	}
 
-	SaveJsonFile(di, BookJsonPath)
+	SaveJsonFile(di, *BookJsonPath)
 	PrettyPrint(di)
 }

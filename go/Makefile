@@ -11,6 +11,10 @@ WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 PRODUCTION_DIR=src/github.com/siongui/pali-dictionary
 LOCALE_DIR=../common/locale
 
+DATA_REPO_DIR=$(CURDIR)/data
+DICTIONARY_DATA_DIR=$(DATA_REPO_DIR)/dictionary
+
+BOOK_JSON_PATH=$(WEBSITE_DIR)/bookIdAndInfos.json
 
 devserver: html js scss
 	@# http://stackoverflow.com/a/5947779
@@ -66,11 +70,11 @@ twpo2cn:
 
 parsewords: dir
 	@echo "\033[92mParse Dictionary Words ...\033[0m"
-	@go run setup/setuppath.go setup/setuplib.go setup/parsewords.go
+	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR) -book=$(BOOK_JSON_PATH)
 
 parsebooks: dir
 	@echo "\033[92mParse Dictionary Books Information ...\033[0m"
-	@go run setup/setuppath.go setup/setuplib.go setup/parsebooks.go
+	@go run setup/setuplib.go setup/parsebooks.go -dic=$(DICTIONARY_DATA_DIR) -output=$(BOOK_JSON_PATH)
 
 dir:
 	@echo "\033[92mCreate website directory if not exists ...\033[0m"
@@ -85,7 +89,7 @@ fmt:
 
 clone:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
-	@git clone https://github.com/siongui/data.git
+	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
 
 install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs
 

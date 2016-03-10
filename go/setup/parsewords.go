@@ -1,16 +1,18 @@
 package main
 
-import "github.com/siongui/pali/go/lib"
-import "os"
-import "encoding/csv"
-import "io"
-import "strings"
-import "github.com/siongui/go-opencc"
+import (
+	"encoding/csv"
+	"flag"
+	"github.com/siongui/go-opencc"
+	"github.com/siongui/pali/go/lib"
+	"io"
+	"os"
+	"strings"
+)
 
 var cs2t = opencc.NewConverter("zhs2zht.ini")
-var bookIdAndInfos = GetBookIdAndInfos()
 
-func processWord(record []string) {
+func processWord(record []string, wordsJsonDir string, bookIdAndInfos *lib.BookIdAndInfos) {
 	// number of the word, useless
 	num := record[0]
 
@@ -26,11 +28,11 @@ func processWord(record []string) {
 
 	println(num + " " + word)
 	// Google search: golang check if file exists
-	path := GetWordPath(word)
+	path := GetWordPath(word, wordsJsonDir)
 	if _, err := os.Stat(path); err == nil {
 		// append new data to existing json file
-		wi := GetBookIdWordExps(word)
-		if bookIdAndInfos[bookId].Lang == "zh" {
+		wi := GetBookIdWordExps(word, wordsJsonDir)
+		if (*bookIdAndInfos)[bookId].Lang == "zh" {
 			// convert simplified chinese to traditional chinese
 			wi[bookId] = cs2t.Convert(explanation)
 		} else {
@@ -40,7 +42,7 @@ func processWord(record []string) {
 	} else {
 		// create new json file
 		wi := lib.BookIdWordExps{}
-		if bookIdAndInfos[bookId].Lang == "zh" {
+		if (*bookIdAndInfos)[bookId].Lang == "zh" {
 			// convert simplified chinese to traditional chinese
 			wi[bookId] = cs2t.Convert(explanation)
 		} else {
@@ -50,7 +52,7 @@ func processWord(record []string) {
 	}
 }
 
-func processWordsCSV(csvPath string) {
+func processWordsCSV(csvPath, wordsJsonDir string, bookIdAndInfos *lib.BookIdAndInfos) {
 	// open csv file
 	fcsv, err := os.Open(csvPath)
 	if err != nil {
@@ -68,12 +70,22 @@ func processWordsCSV(csvPath string) {
 		if err != nil {
 			panic(err)
 		}
-		processWord(record)
+		processWord(record, wordsJsonDir, bookIdAndInfos)
 	}
 }
 
 func main() {
 	defer cs2t.Close()
-	processWordsCSV(WordsCSV1Path)
-	processWordsCSV(WordsCSV2Path)
+
+	dicDataDir := flag.String("dic", "data/dictionary", "Directory of Dictioanry Data")
+	wordsJsonDir := flag.String("outputdir", "website/json", "Output Directory of Parsed Words")
+	BookJsonPath := flag.String("book", "website/bookIdAndInfos.json", "Path of Parsed Dictionary Books Info")
+
+	flag.Parse()
+	WordsCSV1Path := *dicDataDir + "/dict_words_1.csv"
+	WordsCSV2Path := *dicDataDir + "/dict_words_2.csv"
+
+	bookIdAndInfos := GetBookIdAndInfos(*BookJsonPath)
+	processWordsCSV(WordsCSV1Path, *wordsJsonDir, &bookIdAndInfos)
+	processWordsCSV(WordsCSV2Path, *wordsJsonDir, &bookIdAndInfos)
 }

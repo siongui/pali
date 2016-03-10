@@ -1,8 +1,10 @@
 package main
 
-import "os"
-import "encoding/json"
-import "github.com/siongui/pali/go/lib"
+import (
+	"encoding/json"
+	"github.com/siongui/pali/go/lib"
+	"os"
+)
 
 func SaveJsonFile(v interface{}, path string) {
 	fo, err := os.Create(path)
@@ -21,7 +23,7 @@ func PrettyPrint(v interface{}) {
 	println(string(b))
 }
 
-func GetBookIdAndInfos() lib.BookIdAndInfos {
+func GetBookIdAndInfos(BookJsonPath string) lib.BookIdAndInfos {
 	f, err := os.Open(BookJsonPath)
 	if err != nil {
 		panic(err)
@@ -36,12 +38,12 @@ func GetBookIdAndInfos() lib.BookIdAndInfos {
 	return d
 }
 
-func GetWordPath(word string) string {
+func GetWordPath(word, wordsJsonDir string) string {
 	return wordsJsonDir + "/" + word + ".json"
 }
 
-func GetBookIdWordExps(word string) lib.BookIdWordExps {
-	f, err := os.Open(GetWordPath(word))
+func GetBookIdWordExps(word, wordsJsonDir string) lib.BookIdWordExps {
+	f, err := os.Open(GetWordPath(word, wordsJsonDir))
 	if err != nil {
 		panic(err)
 	}
