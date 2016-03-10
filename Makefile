@@ -13,8 +13,7 @@ tpkdevserver:
 
 mintpkcss:
 	@echo "\033[92m(Tipiṭaka) minify css ...\033[0m"
-	@go fmt $(TIPITAKA_DIR)/mincss.go
-	@go run $(TIPITAKA_DIR)/mincss.go
+	cd $(TIPITAKA_DIR)/app/css; make
 
 mintpkjs:
 	@echo "\033[92m(Tipiṭaka) Concatenate and compress js ...\033[0m"
@@ -30,19 +29,14 @@ dicdevserver:
 
 mindiccss:
 	@echo "\033[92m(Dictionary) minify css ...\033[0m"
-	@go fmt $(DICTIONARY_DIR)/mincss.go
-	@go run $(DICTIONARY_DIR)/mincss.go
-
-lib_mincss:
-	@echo "\033[92mInstalling mincss (Go lib for minifying css) ...\033[0m"
-	go get -u github.com/siongui/mincss
+	cd $(DICTIONARY_DIR)/app/css; make
 
 mindicjs:
 	@echo "\033[92m(Dictionary) Concatenate and compress js ...\033[0m"
 	@go fmt $(DICTIONARY_DIR)/minjs.go
 	@go run $(DICTIONARY_DIR)/minjs.go
 
-setup: install cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation lib_mincss
+setup: install cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
 
 parsetpk:
 	@echo "\033[92mParsing Tipiṭaka data ...\033[0m"
