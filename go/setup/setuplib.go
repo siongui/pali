@@ -23,21 +23,6 @@ func PrettyPrint(v interface{}) {
 	println(string(b))
 }
 
-func GetBookIdAndInfos(BookJsonPath string) lib.BookIdAndInfos {
-	f, err := os.Open(BookJsonPath)
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-
-	dec := json.NewDecoder(f)
-	d := lib.BookIdAndInfos{}
-	if err := dec.Decode(&d); err != nil {
-		panic(err)
-	}
-	return d
-}
-
 func GetWordPath(word, wordsJsonDir string) string {
 	return wordsJsonDir + "/" + word + ".json"
 }

@@ -64,15 +64,9 @@ po2json:
 	@echo "\033[92mConverting PO files to JSON (to be used in client-side/browser) ...\033[0m"
 	@go run setup/setuppath.go setup/po2json.go
 
-twpo2cn:
-	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
-	@[ -d $(LOCALE_DIR)/zh_CN/LC_MESSAGES/ ] || mkdir -p $(LOCALE_DIR)/zh_CN/LC_MESSAGES/
-	@opencc -c zht2zhs.ini -i $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
-	@sed 's/zh_TW/zh_CN/' -i $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
-
 parsewords: dir
 	@echo "\033[92mParse Dictionary Words ...\033[0m"
-	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR) -book=$(BOOK_JSON_PATH)
+	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR)
 
 parsebooks: dir
 	@echo "\033[92mParse Dictionary Books Information ...\033[0m"
