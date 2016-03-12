@@ -66,7 +66,9 @@ po2json:
 
 twpo2cn:
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
-	@go run setup/twpo2cn.go -tw=$(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -cn=$(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
+	@[ -d $(LOCALE_DIR)/zh_CN/LC_MESSAGES/ ] || mkdir -p $(LOCALE_DIR)/zh_CN/LC_MESSAGES/
+	@opencc -c zht2zhs.ini -i $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
+	@sed 's/zh_TW/zh_CN/' -i $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
 
 parsewords: dir
 	@echo "\033[92mParse Dictionary Words ...\033[0m"
@@ -141,7 +143,7 @@ lib_gettext_go:
 po2mo:
 	@echo "\033[92mmsgfmt PO to MO ...\033[0m"
 	msgfmt $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.mo
-	msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
+	#@msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
 	msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
 	msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
 

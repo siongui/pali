@@ -1,4 +1,5 @@
 package main
+/* currently not used */
 
 import (
 	"bufio"

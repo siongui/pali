@@ -120,7 +120,7 @@ clean: cleanPOMO
 	-rm $(TIPITAKA_DIR)/app/all_compiled.js
 	-rm $(TIPITAKA_DIR)/app/css/app.min.css
 
-setupPOMO: pot initenuspo lib_opencc twpo2cn po2mo
+setupPOMO: pot initenuspo twpo2cn po2mo
 
 pot:
 	@echo "\033[92mCreating PO template ...\033[0m"
@@ -133,14 +133,13 @@ pot:
 initenuspo:
 	msginit --no-wrap --no-translator --input=$(LOCALE_DIR)/messages.pot --locale=en_US -o $(LOCALE_DIR)/en_US/LC_MESSAGES/messages.po
 
-lib_opencc:
-	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
-	sudo apt-get install opencc libopencc-dev
-	go get -u github.com/siongui/go-opencc
-
 twpo2cn:
+	@echo "\033[92mCheck if OpenCC exists ...\033[0m"
+	@[ -x $(shell command -v opencc 2> /dev/null) ] || sudo apt-get install opencc
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
-	@go run go/setup/twpo2cn.go -tw=$(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -cn=$(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
+	@[ -d $(LOCALE_DIR)/zh_CN/LC_MESSAGES/ ] || mkdir -p $(LOCALE_DIR)/zh_CN/LC_MESSAGES/
+	@opencc -c zht2zhs.ini -i $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
+	@sed 's/zh_TW/zh_CN/' -i $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
 
 po2mo:
 	@echo "\033[92mmsgfmt PO to MO ...\033[0m"
