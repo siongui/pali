@@ -5,6 +5,7 @@ import (
 	imepali "github.com/siongui/go-online-input-method-pali"
 	bits "github.com/siongui/go-succinct-data-structure-trie"
 	jsgettext "github.com/siongui/gopherjs-i18n"
+	sg "github.com/siongui/gopherjs-input-suggest"
 )
 
 var word *js.Object
@@ -25,12 +26,8 @@ func handleInputKeyUp(event *js.Object) {
 	if keycode := event.Get("keyCode").Int(); keycode == 13 {
 		// user press enter key
 		w := word.Get("value").String()
+		word.Call("blur")
 		go httpGetWordJson(w)
-	} else {
-		// show words suggestion
-		w := word.Get("value").String()
-		suggestedWords := frozenTrie.GetSuggestedWords(w, 30)
-		go showSuggestedWordsByTemplate(suggestedWords)
 	}
 }
 
@@ -41,12 +38,15 @@ func main() {
 	// init variables
 	word = js.Global.Get("document").Call("getElementById", "word")
 	mainContent = js.Global.Get("document").Call("getElementById", "main-content")
-	//word.Set("value", "sacca")
 
 	// init trie for words suggestion
 	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
 	frozenTrie = bits.FrozenTrie{}
 	frozenTrie.Init(succinctTrieDataBlob, rankDirectoryDataBlob, succinctTrieNodeCount)
+
+	sg.BindSuggest("word", func(w string) []string {
+		return frozenTrie.GetSuggestedWords(w, 30)
+	})
 
 	setupNavbar()
 	setupSetting()

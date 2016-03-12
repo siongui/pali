@@ -87,7 +87,7 @@ clone:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
 
-install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs
+install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_input_suggest
 
 lib_gopherjs:
 	@echo "\033[92mInstalling GopherJS ...\033[0m"
@@ -129,6 +129,10 @@ lib_ime_pali:
 lib_gopherjs_i18n:
 	@echo "\033[92mInstalling GopherJS gettext library (online/client-side)...\033[0m"
 	go get -u github.com/siongui/gopherjs-i18n
+
+lib_gopherjs_input_suggest:
+	@echo "\033[92mInstalling GopherJS input suggest library ...\033[0m"
+	go get -u github.com/siongui/gopherjs-input-suggest
 
 lib_gettext_go:
 	@echo "\033[92mInstalling Go gettext library (offline/server-side) ...\033[0m"
