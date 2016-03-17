@@ -1,11 +1,14 @@
 package main
 
-import "github.com/siongui/pali/go/lib"
-import "html/template"
-import "bytes"
+import (
+	"bytes"
+	gojs "github.com/siongui/gopherjs-utils"
+	"github.com/siongui/pali/go/lib"
+	"html/template"
+)
 
 func showWordByTemplate(wi lib.BookIdWordExps) {
-	RemoveAllChildNodes(mainContent)
+	gojs.RemoveAllChildNodes(mainContent)
 
 	bnwes := lib.IdExps2BookNameWordExps(
 		lib.BookIdWordExps2IdExpsAccordingToSetting(wi, bookIdAndInfos, getSetting(), navigatorLanguages),
@@ -19,7 +22,7 @@ func showWordByTemplate(wi lib.BookIdWordExps) {
 }
 
 func showSuggestedWordsByTemplate(words []string) {
-	RemoveAllChildNodes(mainContent)
+	gojs.RemoveAllChildNodes(mainContent)
 
 	t1, _ := template.New("suggestedWords").Parse(lib.HtmlTemplateSuggestedWords)
 	var buf bytes.Buffer

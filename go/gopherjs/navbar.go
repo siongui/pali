@@ -1,7 +1,10 @@
 package main
 
-import "github.com/gopherjs/gopherjs/js"
-import "github.com/siongui/gopherjs-i18n"
+import (
+	"github.com/gopherjs/gopherjs/js"
+	"github.com/siongui/gopherjs-i18n"
+	gojs "github.com/siongui/gopherjs-utils"
+)
 
 func setupNavbar() {
 	jsgettext.SetupTranslationMapping(string(poJsonBlob))
@@ -21,7 +24,7 @@ func setupNavbar() {
 			event.Call("preventDefault")
 
 			// load about content
-			RemoveAllChildNodes(mainContent)
+			gojs.RemoveAllChildNodes(mainContent)
 			mainContent.Set("innerHTML", about.Get("innerHTML").String())
 
 			// close toggle window on mobile device

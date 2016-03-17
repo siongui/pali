@@ -44,6 +44,7 @@ func main() {
 	frozenTrie = bits.FrozenTrie{}
 	frozenTrie.Init(succinctTrieDataBlob, rankDirectoryDataBlob, succinctTrieNodeCount)
 
+	// input suggest menu
 	sg.BindSuggest("word", func(w string) []string {
 		return frozenTrie.GetSuggestedWords(w, 30)
 	})
