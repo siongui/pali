@@ -38,6 +38,8 @@ mindicjs:
 
 setup: install cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
 
+ec2setup: cptpkcss symlinks setupPOMO ngjs parsedics prefix_words_html succinct_trie ngdatajs parsetpk tpktanslation
+
 parsetpk:
 	@echo "\033[92mParsing Tipiṭaka data ...\033[0m"
 	@python $(TIPITAKA_DIR)/setup/init1getTocs.py

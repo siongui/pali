@@ -65,6 +65,12 @@ Set Up Development Environment
      $ make tpkdevserver
 
 
+Deploy on AWS EC2
++++++++++++++++++
+
+See `Deploy on AWS EC2 <AWS.rst>`_.
+
+
 UNLICENSE
 +++++++++
 
