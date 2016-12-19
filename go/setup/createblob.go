@@ -1,9 +1,12 @@
 package main
 
-import "text/template"
-import "io/ioutil"
-import "os"
-import "fmt"
+import (
+	"flag"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"text/template"
+)
 
 type JsData struct {
 	BookIdAndInfosJson    string
@@ -14,7 +17,8 @@ type JsData struct {
 }
 
 func main() {
-	bj, err := ioutil.ReadFile(BookJsonPath)
+	BookJsonPath := flag.String("input", "website/bookIdAndInfos.json", "Input Path of Parsed Dictionary Books Info")
+	bj, err := ioutil.ReadFile(*BookJsonPath)
 	if err != nil {
 		fmt.Println(err)
 	}

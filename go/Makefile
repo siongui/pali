@@ -54,11 +54,11 @@ html:
 
 blobgo:
 	@echo "\033[92mGenerating blob data to be used in client-side/browser ...\033[0m"
-	@go run setup/setuppath.go setup/createblob.go
+	@go run setup/setuppath.go setup/createblob.go -input=$(BOOK_JSON_PATH)
 
 succinct_trie:
 	@echo "\033[92mBuilding Succinct Trie ...\033[0m"
-	@go run setup/setuppath.go setup/buildSuccinctTrie.go
+	@go run setup/setuppath.go setup/buildSuccinctTrie.go -input=$(WEBSITE_JSON_DIR)
 
 po2json:
 	@echo "\033[92mConverting PO files to JSON (to be used in client-side/browser) ...\033[0m"
@@ -85,7 +85,8 @@ fmt:
 
 clone:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
-	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
+	#@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
+	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR) --depth=1
 
 install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
 

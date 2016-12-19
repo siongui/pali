@@ -5,7 +5,7 @@
 Re-implementation of `Pāli Dictionary`_ and `Pāli Tipiṭaka`_ in Go_ programming
 language.
 
-Development Environment: `Ubuntu 15.10`_ and `Go 1.6`_.
+Development Environment: `Ubuntu 16.04`_ and `Go 1.7`_.
 
 
 Set Up Development Environment
@@ -19,10 +19,10 @@ Set Up Development Environment
      $ mkdir ~/dev
      # enter workspace
      $ cd ~/dev
-     # download Go 1.6 for Linux 64-bit
-     $ wget https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
+     # download Go 1.7.4 for Linux 64-bit
+     $ wget https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
      # uncompress and untar
-     $ tar xvzf go1.6.linux-amd64.tar.gz
+     $ tar xvzf go1.7.4.linux-amd64.tar.gz
 
    If you do not follow the above steps, please modify ``GOROOT`` and ``GOPATH``
    in `Makefile <Makefile>`_.
@@ -34,6 +34,8 @@ Set Up Development Environment
      # git clone pali repository
      $ cd ~/dev
      $ git clone https://github.com/siongui/pali.git
+     # or
+     $ git clone https://github.com/siongui/pali.git --depth=1
      # enter directory of go implementation
      $ cd ~/dev/pali/go
      # git clone data repository
@@ -95,8 +97,8 @@ References
 .. _Pāli Dictionary: https://siongui.github.io/pali-dictionary/
 .. _Pāli Tipiṭaka: http://tipitaka.sutta.org/
 .. _Go: https://golang.org/
-.. _Ubuntu 15.10: http://releases.ubuntu.com/15.10/
-.. _Go 1.6: https://golang.org/dl/
+.. _Ubuntu 16.04: http://releases.ubuntu.com/16.04/
+.. _Go 1.7: https://golang.org/dl/
 .. _git clone: https://www.google.com/search?q=git+clone
 .. _pali repository: https://github.com/siongui/pali
 .. _data repository: https://github.com/siongui/data

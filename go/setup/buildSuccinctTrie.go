@@ -1,10 +1,13 @@
 package main
 
-import "github.com/siongui/go-succinct-data-structure-trie"
-import "path/filepath"
-import "os"
-import "io/ioutil"
-import "strconv"
+import (
+	"flag"
+	"github.com/siongui/go-succinct-data-structure-trie"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strconv"
+)
 
 func main() {
 	// set alphabet of words
@@ -13,9 +16,10 @@ func main() {
 	te := bits.Trie{}
 	te.Init()
 
+	wordsJsonDir := flag.String("input", "website/json", "Input Directory of Parsed Words")
 	i := 0
 	// walk all word json files
-	filepath.Walk(wordsJsonDir, func(path string, info os.FileInfo, err error) error {
+	filepath.Walk(*wordsJsonDir, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			word := info.Name()[:len(info.Name())-5]
 			print(i)
