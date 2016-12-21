@@ -18,6 +18,7 @@ type JsData struct {
 
 func main() {
 	BookJsonPath := flag.String("input", "website/bookIdAndInfos.json", "Input Path of Parsed Dictionary Books Info")
+	flag.Parse()
 	bj, err := ioutil.ReadFile(*BookJsonPath)
 	if err != nil {
 		fmt.Println(err)

@@ -7,6 +7,8 @@ language.
 
 Development Environment: `Ubuntu 16.04`_ and `Go 1.7`_.
 
+FIXME: not working on `Ubuntu 16.10`_ because OpenCC version upgraded to 1.0.4.
+still trying to fix the issue.
 
 Set Up Development Environment
 ++++++++++++++++++++++++++++++
@@ -41,10 +43,20 @@ Set Up Development Environment
      # git clone data repository
      $ make clone
 
-3. Install GopherJS_, `go-libsass`_ (or pyScss_), `gettext-go`_, OpenCC_,
-   `OpenCC Go binding`_, `go-succinct-trie`_, `go-online-pali-ime`_,
-   `gopherjs-i18n`_, `gopherjs-utils`_, `gopherjs-input-suggest`_ and common
-   libraries for this project:
+3. Install:
+
+   -  GopherJS_
+   - `go-libsass`_ (or pyScss_)
+   - `gettext-go`_
+   - OpenCC_
+   - `OpenCC Go binding`_
+   - `go-succinct-trie`_
+   - `go-online-pali-ime`_
+   - `gopherjs-i18n`_
+   - `gopherjs-utils`_
+   - `gopherjs-input-suggest`_
+
+   and common libraries for this project:
 
    .. code-block:: bash
 
@@ -98,6 +110,7 @@ References
 .. _Pāli Tipiṭaka: http://tipitaka.sutta.org/
 .. _Go: https://golang.org/
 .. _Ubuntu 16.04: http://releases.ubuntu.com/16.04/
+.. _Ubuntu 16.10: http://releases.ubuntu.com/16.10/
 .. _Go 1.7: https://golang.org/dl/
 .. _git clone: https://www.google.com/search?q=git+clone
 .. _pali repository: https://github.com/siongui/pali

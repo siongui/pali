@@ -17,6 +17,7 @@ func main() {
 	te.Init()
 
 	wordsJsonDir := flag.String("input", "website/json", "Input Directory of Parsed Words")
+	flag.Parse()
 	i := 0
 	// walk all word json files
 	filepath.Walk(*wordsJsonDir, func(path string, info os.FileInfo, err error) error {
