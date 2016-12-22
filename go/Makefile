@@ -5,6 +5,8 @@ export GOROOT=$(realpath ../../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
+GO_VERSION=1.7.4
+
 SCSSDIR=theme/styling
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
@@ -83,12 +85,21 @@ fmt:
 	@go fmt gopherjs/*.go
 	@go fmt server.go
 
-clone:
+clone_pali_data:
 	@echo "\033[92mClone Pāli data Repo ...\033[0m"
-	#@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
+	@#git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR) --depth=1
 
+download_go:
+	@echo "\033[92mDownloading and Installing Go ...\033[0m"
+	@cd ../../ ;wget https://storage.googleapis.com/golang/go$(GO_VERSION).linux-amd64.tar.gz
+	@cd ../../ ; tar xvzf go$(GO_VERSION).linux-amd64.tar.gz
+
 install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
+
+update_ubuntu:
+	@echo "\033[92mUpdating Ubuntu ...\033[0m"
+	@sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
 
 lib_gopherjs:
 	@echo "\033[92mInstalling GopherJS ...\033[0m"

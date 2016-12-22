@@ -13,7 +13,7 @@ still trying to fix the issue.
 Set Up Development Environment
 ++++++++++++++++++++++++++++++
 
-1. Download Go_:
+1. `git clone`_ the `pali repository`_ and `data repository`_:
 
    .. code-block:: bash
 
@@ -21,30 +21,18 @@ Set Up Development Environment
      $ mkdir ~/dev
      # enter workspace
      $ cd ~/dev
-     # download Go 1.7.4 for Linux 64-bit
-     $ wget https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
-     # uncompress and untar
-     $ tar xvzf go1.7.4.linux-amd64.tar.gz
-
-   If you do not follow the above steps, please modify ``GOROOT`` and ``GOPATH``
-   in `Makefile <Makefile>`_.
-
-2. `git clone`_ the `pali repository`_ and `data repository`_:
-
-   .. code-block:: bash
-
      # git clone pali repository
-     $ cd ~/dev
-     $ git clone https://github.com/siongui/pali.git
-     # or
      $ git clone https://github.com/siongui/pali.git --depth=1
-     # enter directory of go implementation
+     # or clone with full depth
+     #$ git clone https://github.com/siongui/pali.git
+     # enter directory of Go implementation
      $ cd ~/dev/pali/go
      # git clone data repository
-     $ make clone
+     $ make clone_pali_data
 
-3. Install:
+2. Update Ubuntu and install packages:
 
+   - Go_
    -  GopherJS_
    - `go-libsass`_ (or pyScss_)
    - `gettext-go`_
@@ -60,9 +48,12 @@ Set Up Development Environment
 
    .. code-block:: bash
 
+     $ cd ~/dev/pali/go
+     $ make update_ubuntu
+     $ make make download_go
      $ make install
 
-4. Set up data of this project:
+3. Set up data of this project:
 
    .. code-block:: bash
 
