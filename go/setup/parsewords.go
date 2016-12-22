@@ -10,7 +10,10 @@ import (
 	"strings"
 )
 
-var cs2t = opencc.NewConverter("zhs2zht.ini")
+// For Ubuntu 16.04 or before
+//var cs2t = opencc.NewConverter("zhs2zht.ini")
+// For Ubuntu 16.10
+var cs2t = opencc.NewConverter("s2tw.json")
 
 func isChineseDictionary(id string) bool {
 	// id of Chinese Dictionary: D G Z X H W F T J M

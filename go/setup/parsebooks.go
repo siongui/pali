@@ -17,7 +17,10 @@ import (
 	"os"
 )
 
-var cs2t = opencc.NewConverter("zhs2zht.ini")
+// For Ubuntu 16.04 or before
+//var cs2t = opencc.NewConverter("zhs2zht.ini")
+// For Ubuntu 16.10
+var cs2t = opencc.NewConverter("s2tw.json")
 
 func parseRecord(record []string) (id string, dict lib.BookInfo) {
 	// language of the dictionary,

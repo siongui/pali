@@ -50,7 +50,7 @@ Set Up Development Environment
 
      $ cd ~/dev/pali/go
      $ make update_ubuntu
-     $ make make download_go
+     $ make download_go
      $ make install
 
 3. Set up data of this project:

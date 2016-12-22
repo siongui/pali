@@ -96,6 +96,7 @@ download_go:
 	@cd ../../ ; tar xvzf go$(GO_VERSION).linux-amd64.tar.gz
 
 install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
+install_1610: lib_pali lib_opencc_1610 lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
 
 update_ubuntu:
 	@echo "\033[92mUpdating Ubuntu ...\033[0m"
@@ -115,6 +116,13 @@ lib_pali:
 lib_opencc:
 	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
 	sudo apt-get install opencc libopencc-dev
+	go get -u github.com/siongui/go-opencc
+
+lib_opencc_1610:
+	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
+	sudo apt-get install opencc
+	cd ../../ ; wget https://launchpad.net/ubuntu/+archive/primary/+files/libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
+	cd ../../ ; sudo dpkg -i libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
 	go get -u github.com/siongui/go-opencc
 
 lib_pyScss: lib_normalize_css
@@ -170,3 +178,6 @@ clean:
 	@echo "\033[92mClean Repo ...\033[0m"
 	@#rm -rf bin pkg src data website
 	rm -rf bin pkg src website
+
+clean_libopencc-dev:
+	sudo dpkg -r libopencc-dev
