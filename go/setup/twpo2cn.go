@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-var ct2s = opencc.NewConverter("zht2zhs.ini")
+var cs2t *opencc.Converter
 
 func File2lines(filePath string) []string {
 	f, err := os.Open(filePath)
@@ -58,10 +58,13 @@ func tw2cn(twPOPath, cnPOPath string) {
 }
 
 func main() {
-	defer ct2s.Close()
-
 	twPOPath := flag.String("tw", "locale/zh_TW/LC_MESSAGES/messages.po", "Path of zh_TW PO file")
 	cnPOPath := flag.String("cn", "locale/zh_CN/LC_MESSAGES/messages.po", "Path of zh_CN PO file")
+	openccConf := flag.String("confopencc", "zhs2zht.ini", "OpenCC Configuration")
 	flag.Parse()
+
+	cs2t = opencc.NewConverter(*openccConf)
+	defer cs2t.Close()
+
 	tw2cn(*twPOPath, *cnPOPath)
 }

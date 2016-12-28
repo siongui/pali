@@ -5,10 +5,8 @@
 Re-implementation of `Pāli Dictionary`_ and `Pāli Tipiṭaka`_ in Go_ programming
 language.
 
-Development Environment: `Ubuntu 16.04`_ and `Go 1.7`_.
+Development Environment: `Ubuntu 16.04`_/`Ubuntu 16.10`_ and `Go 1.7`_.
 
-FIXME: not working on `Ubuntu 16.10`_ because OpenCC version upgraded to 1.0.4.
-still trying to fix the issue.
 
 Set Up Development Environment
 ++++++++++++++++++++++++++++++
@@ -30,7 +28,7 @@ Set Up Development Environment
      # git clone data repository
      $ make clone_pali_data
 
-2. Update Ubuntu and install packages:
+2. Update Ubuntu and install following packages:
 
    - Go_
    -  GopherJS_
@@ -52,6 +50,11 @@ Set Up Development Environment
      $ make update_ubuntu
      $ make download_go
      $ make install
+
+     # you will get error message if you use Ubuntu 16.10, but it's ok.
+     # waiting upstream to fix the libopencc-dev install issue
+     $ make lib_opencc
+
 
 3. Set up data of this project:
 
@@ -76,7 +79,12 @@ Set Up Development Environment
      $ make scss
      $ make js
 
-5. Run development server at http://localhost:8000/
+     # If you use Ubuntu 16.10, uninstall libopencc-dev by the following command
+     # waiting upstream to fix the libopencc-dev install issue
+     $ make uninstall_libopencc-dev
+
+
+4. Run development server at http://localhost:8000/
 
    .. code-block:: bash
 

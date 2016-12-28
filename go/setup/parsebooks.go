@@ -17,10 +17,7 @@ import (
 	"os"
 )
 
-// For Ubuntu 16.04 or before
-//var cs2t = opencc.NewConverter("zhs2zht.ini")
-// For Ubuntu 16.10
-var cs2t = opencc.NewConverter("s2tw.json")
+var cs2t *opencc.Converter
 
 func parseRecord(record []string) (id string, dict lib.BookInfo) {
 	// language of the dictionary,
@@ -104,13 +101,15 @@ func parseRecord(record []string) (id string, dict lib.BookInfo) {
 }
 
 func main() {
-	defer cs2t.Close()
-
 	dicDataDir := flag.String("dic", "data/dictionary", "Directory of Dictioanry Data")
 	BookJsonPath := flag.String("output", "website/bookIdAndInfos.json", "Output Path of Parsed Dictionary Books Info")
+	openccConf := flag.String("confopencc", "zhs2zht.ini", "OpenCC Configuration")
 
 	flag.Parse()
 	BookCsvPath := *dicDataDir + "/dict-books.csv"
+
+	cs2t = opencc.NewConverter(*openccConf)
+	defer cs2t.Close()
 
 	// open csv file
 	fcsv, err := os.Open(BookCsvPath)

@@ -10,10 +10,7 @@ import (
 	"strings"
 )
 
-// For Ubuntu 16.04 or before
-//var cs2t = opencc.NewConverter("zhs2zht.ini")
-// For Ubuntu 16.10
-var cs2t = opencc.NewConverter("s2tw.json")
+var cs2t *opencc.Converter
 
 func isChineseDictionary(id string) bool {
 	// id of Chinese Dictionary: D G Z X H W F T J M
@@ -88,14 +85,16 @@ func processWordsCSV(csvPath, wordsJsonDir string) {
 }
 
 func main() {
-	defer cs2t.Close()
-
 	dicDataDir := flag.String("dic", "data/dictionary", "Directory of Dictioanry Data")
 	wordsJsonDir := flag.String("outputdir", "website/json", "Output Directory of Parsed Words")
+	openccConf := flag.String("confopencc", "zhs2zht.ini", "OpenCC Configuration")
 
 	flag.Parse()
 	WordsCSV1Path := *dicDataDir + "/dict_words_1.csv"
 	WordsCSV2Path := *dicDataDir + "/dict_words_2.csv"
+
+	cs2t = opencc.NewConverter(*openccConf)
+	defer cs2t.Close()
 
 	processWordsCSV(WordsCSV1Path, *wordsJsonDir)
 	processWordsCSV(WordsCSV2Path, *wordsJsonDir)

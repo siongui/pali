@@ -6,6 +6,13 @@ export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
 GO_VERSION=1.7.4
+OPENCC_VERSION=$(strip $(shell apt-cache policy opencc | grep Installed: | cut -d: -f2))
+OPENCC_MAJOR_VERSION=$(shell echo $(OPENCC_VERSION) | head -c 5)
+ifeq ($(OPENCC_MAJOR_VERSION), 0.4.3)
+	OPENCC_CONF="zhs2zht.ini"
+else
+	OPENCC_CONF="s2tw.json"
+endif
 
 SCSSDIR=theme/styling
 WEBSITE_DIR=website
@@ -17,6 +24,7 @@ DATA_REPO_DIR=$(CURDIR)/data
 DICTIONARY_DATA_DIR=$(DATA_REPO_DIR)/dictionary
 
 BOOK_JSON_PATH=$(WEBSITE_DIR)/bookIdAndInfos.json
+
 
 devserver: html js scss
 	@# http://stackoverflow.com/a/5947779
@@ -68,11 +76,11 @@ po2json:
 
 parsewords: dir
 	@echo "\033[92mParse Dictionary Words ...\033[0m"
-	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR)
+	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR) -confopencc=$(OPENCC_CONF)
 
 parsebooks: dir
 	@echo "\033[92mParse Dictionary Books Information ...\033[0m"
-	@go run setup/setuplib.go setup/parsebooks.go -dic=$(DICTIONARY_DATA_DIR) -output=$(BOOK_JSON_PATH)
+	@go run setup/setuplib.go setup/parsebooks.go -dic=$(DICTIONARY_DATA_DIR) -output=$(BOOK_JSON_PATH) -confopencc=$(OPENCC_CONF)
 
 dir:
 	@echo "\033[92mCreate website directory if not exists ...\033[0m"
@@ -95,8 +103,8 @@ download_go:
 	@cd ../../ ;wget https://storage.googleapis.com/golang/go$(GO_VERSION).linux-amd64.tar.gz
 	@cd ../../ ; tar xvzf go$(GO_VERSION).linux-amd64.tar.gz
 
-install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
-install_1610: lib_pali lib_opencc_1610 lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
+#install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
+install: lib_pali lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
 
 update_ubuntu:
 	@echo "\033[92mUpdating Ubuntu ...\033[0m"
@@ -115,14 +123,13 @@ lib_pali:
 
 lib_opencc:
 	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
+ifeq ($(OPENCC_MAJOR_VERSION), 0.4.3)
 	sudo apt-get install opencc libopencc-dev
-	go get -u github.com/siongui/go-opencc
-
-lib_opencc_1610:
-	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
+else
 	sudo apt-get install opencc
 	cd ../../ ; wget https://launchpad.net/ubuntu/+archive/primary/+files/libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
 	cd ../../ ; sudo dpkg -i libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
+endif
 	go get -u github.com/siongui/go-opencc
 
 lib_pyScss: lib_normalize_css
@@ -179,5 +186,5 @@ clean:
 	@#rm -rf bin pkg src data website
 	rm -rf bin pkg src website
 
-clean_libopencc-dev:
+uninstall_libopencc-dev:
 	sudo dpkg -r libopencc-dev
