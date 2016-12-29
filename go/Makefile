@@ -17,7 +17,8 @@ endif
 SCSSDIR=theme/styling
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
-PRODUCTION_DIR=src/github.com/siongui/pali-dictionary
+PRODUCTION_GITHUB_REPO=github.com/siongui/pali-dictionary
+PRODUCTION_DIR=src/$(PRODUCTION_GITHUB_REPO)
 LOCALE_DIR=../common/locale
 
 DATA_REPO_DIR=$(CURDIR)/data
@@ -31,10 +32,7 @@ devserver: html js scss
 	@echo "\033[92mDevelopment Server Running ...\033[0m"
 	@go run server.go
 
-production:
-	@echo "\033[92mClone Remote Repo ...\033[0m"
-	rm -rf $(PRODUCTION_DIR)
-	git clone https://github.com/siongui/pali-dictionary.git $(PRODUCTION_DIR)
+production: clone_production_github_repo
 	@echo "\033[92mGenerating HTML ...\033[0m"
 	mkdir $(PRODUCTION_DIR)/output
 	go run setup/setuppath.go setup/html.go > $(PRODUCTION_DIR)/output/index.html
@@ -98,16 +96,9 @@ clone_pali_data:
 	@#git clone https://github.com/siongui/data.git $(DATA_REPO_DIR)
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR) --depth=1
 
-download_go:
-	@echo "\033[92mDownloading and Installing Go ...\033[0m"
-	@cd ../../ ;wget https://storage.googleapis.com/golang/go$(GO_VERSION).linux-amd64.tar.gz
-	@cd ../../ ; tar xvzf go$(GO_VERSION).linux-amd64.tar.gz
 
 install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
 
-update_ubuntu:
-	@echo "\033[92mUpdating Ubuntu ...\033[0m"
-	@sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
 
 lib_gopherjs:
 	@echo "\033[92mInstalling GopherJS ...\033[0m"
@@ -189,3 +180,17 @@ clean:
 
 uninstall_libopencc-dev:
 	sudo dpkg -r libopencc-dev
+
+update_ubuntu:
+	@echo "\033[92mUpdating Ubuntu ...\033[0m"
+	@sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
+
+download_go:
+	@echo "\033[92mDownloading and Installing Go ...\033[0m"
+	@cd ../../ ; wget https://storage.googleapis.com/golang/go$(GO_VERSION).linux-amd64.tar.gz
+	@cd ../../ ; tar xvzf go$(GO_VERSION).linux-amd64.tar.gz
+
+clone_production_github_repo:
+	@echo "\033[92mClone $(PRODUCTION_GITHUB_REPO) ...\033[0m"
+	rm -rf $(PRODUCTION_DIR)
+	git clone https://$(PRODUCTION_GITHUB_REPO).git $(PRODUCTION_DIR) --depth=1

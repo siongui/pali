@@ -5,11 +5,15 @@
 Re-implementation of `Pāli Dictionary`_ and `Pāli Tipiṭaka`_ in Go_ programming
 language.
 
-Development Environment: `Ubuntu 16.04`_/`Ubuntu 16.10`_ and `Go 1.7`_.
+Development Environment:
+
+  - `Ubuntu 16.04`_ / `Ubuntu 16.10`_
+  - `Go 1.7`_
 
 
 Set Up Development Environment
 ++++++++++++++++++++++++++++++
+
 
 1. `git clone`_ the `pali repository`_ and `data repository`_:
 
@@ -27,6 +31,7 @@ Set Up Development Environment
      $ cd ~/dev/pali/go
      # git clone data repository
      $ make clone_pali_data
+
 
 2. Update Ubuntu and install following packages:
 
@@ -100,6 +105,8 @@ References
 .. [1] `GitHub - siongui/pali: Pāḷi Tipiṭaka and Pāḷi Dictionaries <https://github.com/siongui/pali>`_
 
 .. [2] `siongui/data: Data files for Pāḷi Tipiṭaka, Pāḷi Dictionaries, and external libraries <https://github.com/siongui/data>`_
+
+.. [3] `old implementation of Pāli Dictionary <http://dictionary.sutta.org/>`_
 
 
 .. _Pāli Dictionary: https://siongui.github.io/pali-dictionary/
