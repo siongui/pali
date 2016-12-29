@@ -103,8 +103,7 @@ download_go:
 	@cd ../../ ;wget https://storage.googleapis.com/golang/go$(GO_VERSION).linux-amd64.tar.gz
 	@cd ../../ ; tar xvzf go$(GO_VERSION).linux-amd64.tar.gz
 
-#install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
-install: lib_pali lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
+install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gettext_go lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
 
 update_ubuntu:
 	@echo "\033[92mUpdating Ubuntu ...\033[0m"
@@ -126,9 +125,11 @@ lib_opencc:
 ifeq ($(OPENCC_MAJOR_VERSION), 0.4.3)
 	sudo apt-get install opencc libopencc-dev
 else
-	sudo apt-get install opencc
+	@# Google Search: makefile do not stop on error
+	@# http://stackoverflow.com/a/2670143
+	-sudo apt-get install opencc
 	cd ../../ ; wget https://launchpad.net/ubuntu/+archive/primary/+files/libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
-	cd ../../ ; sudo dpkg -i libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
+	-cd ../../ ; sudo dpkg -i libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
 endif
 	go get -u github.com/siongui/go-opencc
 
