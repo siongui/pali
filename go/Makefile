@@ -14,7 +14,8 @@ else
 	OPENCC_CONF="s2tw.json"
 endif
 
-SCSSDIR=theme/styling
+SCSS_DIR=theme/styling
+SCSS_PATH=$(SCSS_DIR)/style.scss
 WEBSITE_DIR=website
 WEBSITE_JSON_DIR=$(WEBSITE_DIR)/json
 PRODUCTION_GITHUB_REPO=github.com/siongui/pali-dictionary
@@ -39,8 +40,8 @@ production: clone_production_github_repo
 	@echo "\033[92mGenerating JavaScript ...\033[0m"
 	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/output/pali.js
 	@echo "\033[92mGenerating CSS ...\033[0m"
-	@# TODO: use github.com/wellington/go-libsass
-	python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(PRODUCTION_DIR)/output/style.css
+	@go run setup/scss.go -scsspath=$(SCSS_PATH) -scssdir=$(SCSS_DIR) -csspath=$(PRODUCTION_DIR)/output/style.css
+	@#python -mscss < $(SCSS_PATH) -I $(SCSS_DIR) -o $(PRODUCTION_DIR)/output/style.css
 	@echo "\033[92mPush to Remote Repo ...\033[0m"
 	@# Google Search: makefile change directory
 	@# http://stackoverflow.com/questions/1789594/how-to-write-cd-command-in-makefile
@@ -52,8 +53,8 @@ js:
 
 scss:
 	@echo "\033[92mGenerating CSS ...\033[0m"
-	@go run setup/setuppath.go setup/scss.go
-	@#python -mscss < $(SCSSDIR)/style.scss -I $(SCSSDIR) -o $(WEBSITE_DIR)/style.css
+	@go run setup/scss.go -scsspath=$(SCSS_PATH) -scssdir=$(SCSS_DIR) -csspath=$(WEBSITE_DIR)/style.css
+	@#python -mscss < $(SCSS_PATH) -I $(SCSS_DIR) -o $(WEBSITE_DIR)/style.css
 
 html:
 	@echo "\033[92mGenerating HTML ...\033[0m"
@@ -135,7 +136,7 @@ lib_go_libsass: lib_normalize_css
 
 lib_normalize_css:
 	@echo "\033[92mInstalling Normalize.css ...\033[0m"
-	@[ -e $(SCSSDIR)/_normalize302.scss ] || wget -O $(SCSSDIR)/_normalize302.scss http://necolas.github.com/normalize.css/3.0.2/normalize.css
+	@[ -e $(SCSS_DIR)/_normalize302.scss ] || wget -O $(SCSS_DIR)/_normalize302.scss http://necolas.github.com/normalize.css/3.0.2/normalize.css
 
 lib_succinct_trie:
 	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
