@@ -5,7 +5,7 @@ export GOROOT=$(realpath ../../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
-GO_VERSION=1.7.4
+GO_VERSION=1.7.5
 OPENCC_VERSION=$(strip $(shell apt-cache policy opencc | grep Installed: | cut -d: -f2))
 OPENCC_MAJOR_VERSION=$(shell echo $(OPENCC_VERSION) | head -c 5)
 ifeq ($(OPENCC_MAJOR_VERSION), 0.4.3)
@@ -114,15 +114,7 @@ lib_pali:
 
 lib_opencc:
 	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
-ifeq ($(OPENCC_MAJOR_VERSION), 0.4.3)
 	sudo apt-get install opencc libopencc-dev
-else
-	@# Google Search: makefile do not stop on error
-	@# http://stackoverflow.com/a/2670143
-	-sudo apt-get install opencc
-	cd ../../ ; wget https://launchpad.net/ubuntu/+archive/primary/+files/libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
-	-cd ../../ ; sudo dpkg -i libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
-endif
 	go get -u github.com/siongui/go-opencc
 
 lib_pyScss: lib_normalize_css
@@ -178,9 +170,6 @@ clean:
 	@echo "\033[92mClean Repo ...\033[0m"
 	@#rm -rf bin pkg src data website
 	rm -rf bin pkg src website
-
-uninstall_libopencc-dev:
-	sudo dpkg -r libopencc-dev
 
 update_ubuntu:
 	@echo "\033[92mUpdating Ubuntu ...\033[0m"
