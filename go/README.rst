@@ -80,11 +80,6 @@ Set Up Development Environment
      $ make scss
      $ make js
 
-     # If you use Ubuntu 16.10, uninstall libopencc-dev by the following command
-     # If libopencc-dev is not uninstalled, you cannot upgrade packages.
-     # waiting upstream to fix the libopencc-dev install issue
-     $ make uninstall_libopencc-dev
-
 
 4. Run development server at http://localhost:8000/
 
