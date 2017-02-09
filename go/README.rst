@@ -37,8 +37,7 @@ Set Up Development Environment
 
    - Go_
    -  GopherJS_
-   - `go-libsass`_ (or pyScss_)
-   - `gettext-go`_
+   - `go-libsass`_
    - OpenCC_
    - `OpenCC Go binding`_
    - `go-succinct-trie`_
@@ -46,6 +45,7 @@ Set Up Development Environment
    - `gopherjs-i18n`_
    - `gopherjs-utils`_
    - `gopherjs-input-suggest`_
+   - `gotemplateutil`_
 
    and common libraries for this project:
 
@@ -116,8 +116,6 @@ References
 .. _UNLICENSE: http://unlicense.org/
 .. _GopherJS: http://www.gopherjs.org/
 .. _go-libsass: https://github.com/wellington/go-libsass
-.. _pyScss: https://github.com/Kronuz/pyScss
-.. _gettext-go: https://github.com/chai2010/gettext-go
 .. _OpenCC: https://github.com/BYVoid/OpenCC
 .. _OpenCC Go binding: https://github.com/siongui/go-opencc
 .. _go-succinct-trie: https://github.com/siongui/go-succinct-data-structure-trie
@@ -125,3 +123,4 @@ References
 .. _gopherjs-i18n: https://github.com/siongui/gopherjs-i18n
 .. _gopherjs-utils: https://github.com/siongui/gopherjs-utils
 .. _gopherjs-input-suggest: https://github.com/siongui/gopherjs-input-suggest
+.. _gotemplateutil: https://github.com/siongui/gotemplateutil

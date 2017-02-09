@@ -1,12 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"github.com/chai2010/gettext-go/gettext"
-	"html/template"
-	"io/ioutil"
+	"github.com/siongui/gotemplateutil"
 	"os"
-	"path/filepath"
 )
 
 type templateData struct {
@@ -17,35 +13,8 @@ type templateData struct {
 	OgLocale    string
 }
 
-func setupLocale(locale string, domain string, dir string) {
-	gettext.SetLocale(locale)
-	gettext.Textdomain(domain)
-
-	gettext.BindTextdomain(domain, dir, nil)
-}
-
-func changeLocale(locale string) {
-	gettext.SetLocale(locale)
-}
-
-func translate(input string) string {
-	return gettext.PGettext("", input)
-}
-
 func main() {
-	var alltmpl string
-	filepath.Walk(htmlTemplateDir, func(path string, info os.FileInfo, err error) error {
-		name := info.Name()
-		if !info.IsDir() && name[len(name)-5:] == ".html" {
-			b, err := ioutil.ReadFile(path)
-			if err != nil {
-				panic(err)
-			}
-			alltmpl += string(b)
-		}
-		return nil
-	})
-
+	gossg.SetupMessagesDomain(localeDir)
 	data := templateData{
 		SiteUrl:     "https://siongui.github.io/pali-dictionary",
 		TipitakaURL: tipitakaURL,
@@ -53,17 +22,15 @@ func main() {
 		OgUrl:       "https://siongui.github.io/pali-dictionary/",
 		OgLocale:    "en_US",
 	}
-	setupLocale("zh_TW", "messages", localeDir)
-	setupLocale("vi_VN", "messages", localeDir)
-	setupLocale("fr_FR", "messages", localeDir)
-	funcMap := template.FuncMap{
-		"gettext": translate,
+
+	tmpl, err := gossg.ParseDirectoryWithGettextFunction(htmlTemplateDir)
+	if err != nil {
+		panic(err)
 	}
 
-	changeLocale(data.OgLocale)
-	tpl := template.Must(template.New("pali").Funcs(funcMap).Parse(alltmpl))
-	err := tpl.Execute(os.Stdout, &data)
+	gossg.SetLocale(data.OgLocale)
+	err = tmpl.ExecuteTemplate(os.Stdout, "index.html", &data)
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 }
