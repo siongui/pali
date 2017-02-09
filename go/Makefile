@@ -128,7 +128,7 @@ lib_go_libsass: lib_normalize_css
 
 lib_normalize_css:
 	@echo "\033[92mInstalling Normalize.css ...\033[0m"
-	@[ -e $(SCSS_DIR)/_normalize302.scss ] || wget -O $(SCSS_DIR)/_normalize302.scss http://necolas.github.com/normalize.css/3.0.2/normalize.css
+	@[ -e $(SCSS_DIR)/_normalize500.scss ] || wget -O $(SCSS_DIR)/_normalize500.scss https://necolas.github.io/normalize.css/5.0.0/normalize.css
 
 lib_succinct_trie:
 	@echo "\033[92mInstalling Go Succinct Trie library ...\033[0m"
