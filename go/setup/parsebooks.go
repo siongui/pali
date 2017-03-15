@@ -11,13 +11,11 @@ https://www.google.com/search?q=golang+read+csv
 import (
 	"encoding/csv"
 	"flag"
-	"github.com/siongui/go-opencc"
+	"github.com/siongui/gojianfan"
 	"github.com/siongui/pali/go/lib"
 	"io"
 	"os"
 )
-
-var cs2t *opencc.Converter
 
 func parseRecord(record []string) (id string, dict lib.BookInfo) {
 	// language of the dictionary,
@@ -62,8 +60,8 @@ func parseRecord(record []string) (id string, dict lib.BookInfo) {
 				dict.Separator = "。"
 			}
 
-			dict.Name = cs2t.Convert(name)
-			dict.Author = cs2t.Convert(author)
+			dict.Name = gojianfan.S2T(name)
+			dict.Author = gojianfan.S2T(author)
 		}
 	case "E":
 		// English, Vietnam, Myanmar dictionaries
@@ -103,13 +101,9 @@ func parseRecord(record []string) (id string, dict lib.BookInfo) {
 func main() {
 	dicDataDir := flag.String("dic", "data/dictionary", "Directory of Dictioanry Data")
 	BookJsonPath := flag.String("output", "website/bookIdAndInfos.json", "Output Path of Parsed Dictionary Books Info")
-	openccConf := flag.String("confopencc", "zhs2zht.ini", "OpenCC Configuration")
 
 	flag.Parse()
 	BookCsvPath := *dicDataDir + "/dict-books.csv"
-
-	cs2t = opencc.NewConverter(*openccConf)
-	defer cs2t.Close()
 
 	// open csv file
 	fcsv, err := os.Open(BookCsvPath)

@@ -3,14 +3,12 @@ package main
 import (
 	"encoding/csv"
 	"flag"
-	"github.com/siongui/go-opencc"
+	"github.com/siongui/gojianfan"
 	"github.com/siongui/pali/go/lib"
 	"io"
 	"os"
 	"strings"
 )
-
-var cs2t *opencc.Converter
 
 func isChineseDictionary(id string) bool {
 	// id of Chinese Dictionary: D G Z X H W F T J M
@@ -44,7 +42,7 @@ func processWord(record []string, wordsJsonDir string) {
 		wi := GetBookIdWordExps(word, wordsJsonDir)
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
-			wi[bookId] = cs2t.Convert(explanation)
+			wi[bookId] = gojianfan.S2T(explanation)
 		} else {
 			wi[bookId] = explanation
 		}
@@ -54,7 +52,7 @@ func processWord(record []string, wordsJsonDir string) {
 		wi := lib.BookIdWordExps{}
 		if isChineseDictionary(bookId) {
 			// convert simplified chinese to traditional chinese
-			wi[bookId] = cs2t.Convert(explanation)
+			wi[bookId] = gojianfan.S2T(explanation)
 		} else {
 			wi[bookId] = explanation
 		}
@@ -87,14 +85,10 @@ func processWordsCSV(csvPath, wordsJsonDir string) {
 func main() {
 	dicDataDir := flag.String("dic", "data/dictionary", "Directory of Dictioanry Data")
 	wordsJsonDir := flag.String("outputdir", "website/json", "Output Directory of Parsed Words")
-	openccConf := flag.String("confopencc", "zhs2zht.ini", "OpenCC Configuration")
 
 	flag.Parse()
 	WordsCSV1Path := *dicDataDir + "/dict_words_1.csv"
 	WordsCSV2Path := *dicDataDir + "/dict_words_2.csv"
-
-	cs2t = opencc.NewConverter(*openccConf)
-	defer cs2t.Close()
 
 	processWordsCSV(WordsCSV1Path, *wordsJsonDir)
 	processWordsCSV(WordsCSV2Path, *wordsJsonDir)

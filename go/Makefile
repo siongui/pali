@@ -6,13 +6,6 @@ export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
 GO_VERSION=1.7.5
-OPENCC_VERSION=$(strip $(shell apt-cache policy opencc | grep Installed: | cut -d: -f2))
-OPENCC_MAJOR_VERSION=$(shell echo $(OPENCC_VERSION) | head -c 5)
-ifeq ($(OPENCC_MAJOR_VERSION), 0.4.3)
-	OPENCC_CONF="zhs2zht.ini"
-else
-	OPENCC_CONF="s2tw.json"
-endif
 
 SCSS_DIR=theme/styling
 SCSS_PATH=$(SCSS_DIR)/style.scss
@@ -73,11 +66,11 @@ po2json:
 
 parsewords: dir
 	@echo "\033[92mParse Dictionary Words ...\033[0m"
-	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR) -confopencc=$(OPENCC_CONF)
+	@go run setup/setuplib.go setup/parsewords.go -dic=$(DICTIONARY_DATA_DIR) -outputdir=$(WEBSITE_JSON_DIR)
 
 parsebooks: dir
 	@echo "\033[92mParse Dictionary Books Information ...\033[0m"
-	@go run setup/setuplib.go setup/parsebooks.go -dic=$(DICTIONARY_DATA_DIR) -output=$(BOOK_JSON_PATH) -confopencc=$(OPENCC_CONF)
+	@go run setup/setuplib.go setup/parsebooks.go -dic=$(DICTIONARY_DATA_DIR) -output=$(BOOK_JSON_PATH)
 
 dir:
 	@echo "\033[92mCreate website directory if not exists ...\033[0m"
@@ -95,7 +88,7 @@ clone_pali_data:
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR) --depth=1
 
 
-install: lib_pali lib_opencc lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gotemplateutil lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
+install: lib_pali lib_gojianfan lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gotemplateutil lib_gopherjs lib_gopherjs_utils lib_gopherjs_input_suggest
 
 
 lib_gopherjs:
@@ -107,10 +100,9 @@ lib_pali:
 	rm -rf src/github.com/siongui/pali/
 	go get -u github.com/siongui/pali/go/lib
 
-lib_opencc:
-	@echo "\033[92mInstalling OpenCC and its Go binding ...\033[0m"
-	sudo apt-get install opencc libopencc-dev
-	go get -u github.com/siongui/go-opencc
+lib_gojianfan:
+	@echo "\033[92mInstalling gojianfan (Traditional and Simplified Chinese Conversion) ...\033[0m"
+	go get -u github.com/siongui/gojianfan
 
 lib_go_libsass: lib_normalize_css
 	@echo "\033[92mInstalling libsass and its Go binding ...\033[0m"
@@ -143,6 +135,10 @@ lib_gopherjs_input_suggest:
 lib_gotemplateutil:
 	@echo "\033[92mInstalling Go template utility ...\033[0m"
 	go get -u github.com/siongui/gotemplateutil
+
+twpo2cn:
+	@echo "\033[92mConverting zh_TW PO files to zh_CN ...\033[0m"
+	@go run setup/twpo2cn.go -tw=$(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -cn=$(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
 
 po2mo:
 	@echo "\033[92mmsgfmt PO to MO ...\033[0m"

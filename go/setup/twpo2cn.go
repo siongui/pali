@@ -6,13 +6,11 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/siongui/go-opencc"
+	"github.com/siongui/gojianfan"
 	"os"
 	"path/filepath"
 	"strings"
 )
-
-var cs2t *opencc.Converter
 
 func File2lines(filePath string) []string {
 	f, err := os.Open(filePath)
@@ -45,7 +43,7 @@ func tw2cn(twPOPath, cnPOPath string) {
 
 	for _, line := range File2lines(twPOPath) {
 		if strings.HasPrefix(line, "msgstr") {
-			fo.Write([]byte(ct2s.Convert(line)))
+			fo.Write([]byte(gojianfan.T2S(line)))
 		} else {
 			if strings.Contains(line, "zh_TW") {
 				fo.Write([]byte(strings.Replace(line, "zh_TW", "zh_CN", 1)))
@@ -60,11 +58,7 @@ func tw2cn(twPOPath, cnPOPath string) {
 func main() {
 	twPOPath := flag.String("tw", "locale/zh_TW/LC_MESSAGES/messages.po", "Path of zh_TW PO file")
 	cnPOPath := flag.String("cn", "locale/zh_CN/LC_MESSAGES/messages.po", "Path of zh_CN PO file")
-	openccConf := flag.String("confopencc", "zhs2zht.ini", "OpenCC Configuration")
 	flag.Parse()
-
-	cs2t = opencc.NewConverter(*openccConf)
-	defer cs2t.Close()
 
 	tw2cn(*twPOPath, *cnPOPath)
 }

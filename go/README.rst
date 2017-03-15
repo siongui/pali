@@ -38,14 +38,13 @@ Set Up Development Environment
    - Go_
    -  GopherJS_
    - `go-libsass`_
-   - OpenCC_
-   - `OpenCC Go binding`_
+   - gojianfan_
    - `go-succinct-trie`_
    - `go-online-pali-ime`_
    - `gopherjs-i18n`_
    - `gopherjs-utils`_
    - `gopherjs-input-suggest`_
-   - `gotemplateutil`_
+   - gotemplateutil_
 
    and common libraries for this project:
 
@@ -116,8 +115,7 @@ References
 .. _UNLICENSE: http://unlicense.org/
 .. _GopherJS: http://www.gopherjs.org/
 .. _go-libsass: https://github.com/wellington/go-libsass
-.. _OpenCC: https://github.com/BYVoid/OpenCC
-.. _OpenCC Go binding: https://github.com/siongui/go-opencc
+.. _gojianfan: https://github.com/siongui/gojianfan
 .. _go-succinct-trie: https://github.com/siongui/go-succinct-data-structure-trie
 .. _go-online-pali-ime: https://github.com/siongui/go-online-input-method-pali
 .. _gopherjs-i18n: https://github.com/siongui/gopherjs-i18n
