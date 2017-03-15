@@ -62,5 +62,13 @@ func main() {
 		langSelect.Set("value", initialLocale)
 	}
 
-	Document.GetElementById("word").AddEventListener("keyup", handleInputKeyUp)
+	input := Document.GetElementById("word")
+	input.AddEventListener("keyup", handleInputKeyUp)
+	Document.AddEventListener("keyup", func(e Event) {
+		if e.KeyCode() == 9 {
+			if !input.IsFocused() {
+				input.Focus()
+			}
+		}
+	})
 }
