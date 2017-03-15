@@ -5,7 +5,7 @@ export GOROOT=$(realpath ../../go)
 export GOPATH=$(realpath .)
 export PATH := $(GOROOT)/bin:$(GOPATH)/bin:$(PATH)
 
-GO_VERSION=1.7.5
+GO_VERSION=1.8
 
 SCSS_DIR=theme/styling
 SCSS_PATH=$(SCSS_DIR)/style.scss

@@ -8,8 +8,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/Storage
 https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
 */
 
-import "github.com/gopherjs/gopherjs/js"
-import "github.com/siongui/pali/go/lib"
+import (
+	"github.com/gopherjs/gopherjs/js"
+	"github.com/siongui/pali/go/lib"
+)
 
 var localStorage = js.Global.Get("localStorage")
 

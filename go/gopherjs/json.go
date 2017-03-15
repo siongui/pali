@@ -1,8 +1,10 @@
 package main
 
-import "github.com/siongui/pali/go/lib"
-import "encoding/json"
-import "io"
+import (
+	"encoding/json"
+	"github.com/siongui/pali/go/lib"
+	"io"
+)
 
 func DecodeHttpRespWord(respBody io.ReadCloser) (wi lib.BookIdWordExps) {
 	dec := json.NewDecoder(respBody)

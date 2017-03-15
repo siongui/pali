@@ -4,11 +4,11 @@ import (
 	"github.com/gopherjs/gopherjs/js"
 	imepali "github.com/siongui/go-online-input-method-pali"
 	bits "github.com/siongui/go-succinct-data-structure-trie"
+	. "github.com/siongui/godom"
 	jsgettext "github.com/siongui/gopherjs-i18n"
 	sg "github.com/siongui/gopherjs-input-suggest"
 )
 
-var word *js.Object
 var mainContent *js.Object
 var bookIdAndInfos = GetBookIdAndInfos()
 var isDev = (js.Global.Get("location").Get("hostname").String() == "localhost")
@@ -22,12 +22,14 @@ func HttpWordJsonPath(word string) string {
 	return "/xemaauj9k5qn34x88m4h/" + word + ".json"
 }
 
-func handleInputKeyUp(event *js.Object) {
-	if keycode := event.Get("keyCode").Int(); keycode == 13 {
+func handleInputKeyUp(e Event) {
+	switch keycode := e.KeyCode(); keycode {
+	case 13:
 		// user press enter key
-		w := word.Get("value").String()
-		word.Call("blur")
+		w := e.Target().Value()
+		e.Target().Blur()
 		go httpGetWordJson(w)
+	default:
 	}
 }
 
@@ -36,7 +38,6 @@ func main() {
 	imepali.BindPaliInputMethodToInputTextElementById("word")
 
 	// init variables
-	word = js.Global.Get("document").Call("getElementById", "word")
 	mainContent = js.Global.Get("document").Call("getElementById", "main-content")
 
 	// init trie for words suggestion
@@ -61,5 +62,5 @@ func main() {
 		langSelect.Set("value", initialLocale)
 	}
 
-	word.Call("addEventListener", "keyup", handleInputKeyUp, false)
+	Document.GetElementById("word").AddEventListener("keyup", handleInputKeyUp)
 }
