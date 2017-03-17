@@ -16,10 +16,12 @@ var frozenTrie bits.FrozenTrie
 var navigatorLanguages = js.Global.Get("navigator").Get("languages").String()
 
 func HttpWordJsonPath(word string) string {
+	return "https://siongui.github.io/xemaauj9k5qn34x88m4h/" + word + ".json"
 	if isDev {
 		return "/json/" + word + ".json"
 	}
-	return "/xemaauj9k5qn34x88m4h/" + word + ".json"
+	return "https://siongui.github.io/xemaauj9k5qn34x88m4h/" + word + ".json"
+	//return "/xemaauj9k5qn34x88m4h/" + word + ".json"
 }
 
 func handleInputKeyUp(e Event) {

@@ -34,6 +34,8 @@ production: clone_production_github_repo
 	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/output/pali.js
 	@echo "\033[92mGenerating CSS ...\033[0m"
 	@go run setup/scss.go -scsspath=$(SCSS_PATH) -scssdir=$(SCSS_DIR) -csspath=$(PRODUCTION_DIR)/output/style.css
+	@echo "\033[92mCreate CNAME for GitHub Pages custom domain ...\033[0m"
+	@echo "dictionary.online-dhamma.net" > $(PRODUCTION_DIR)/output/CNAME
 	@echo "\033[92mPush to Remote Repo ...\033[0m"
 	@# Google Search: makefile change directory
 	@# http://stackoverflow.com/questions/1789594/how-to-write-cd-command-in-makefile
