@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gopherjs/gopherjs/js"
 	"github.com/siongui/gopherjs-i18n"
-	gojs "github.com/siongui/gopherjs-utils"
 )
 
 func setupNavbar() {
@@ -24,7 +23,7 @@ func setupNavbar() {
 			event.Call("preventDefault")
 
 			// load about content
-			gojs.RemoveAllChildNodes(mainContent)
+			mainContent.RemoveAllChildNodes()
 			mainContent.Set("innerHTML", about.Get("innerHTML").String())
 
 			// close toggle window on mobile device

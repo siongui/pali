@@ -42,7 +42,6 @@ Set Up Development Environment
    - `go-succinct-trie`_
    - `go-online-pali-ime`_
    - `gopherjs-i18n`_
-   - `gopherjs-utils`_
    - `gopherjs-input-suggest`_
    - gotemplateutil_
 
@@ -119,6 +118,5 @@ References
 .. _go-succinct-trie: https://github.com/siongui/go-succinct-data-structure-trie
 .. _go-online-pali-ime: https://github.com/siongui/go-online-input-method-pali
 .. _gopherjs-i18n: https://github.com/siongui/gopherjs-i18n
-.. _gopherjs-utils: https://github.com/siongui/gopherjs-utils
 .. _gopherjs-input-suggest: https://github.com/siongui/gopherjs-input-suggest
 .. _gotemplateutil: https://github.com/siongui/gotemplateutil

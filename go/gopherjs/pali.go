@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gopherjs/gopherjs/js"
 	imepali "github.com/siongui/go-online-input-method-pali"
 	bits "github.com/siongui/go-succinct-data-structure-trie"
 	. "github.com/siongui/godom"
@@ -9,14 +8,17 @@ import (
 	sg "github.com/siongui/gopherjs-input-suggest"
 )
 
-var mainContent *js.Object
+var mainContent *Object
 var bookIdAndInfos = GetBookIdAndInfos()
-var isDev = (js.Global.Get("location").Get("hostname").String() == "localhost")
 var frozenTrie bits.FrozenTrie
-var navigatorLanguages = js.Global.Get("navigator").Get("languages").String()
+var navigatorLanguages = Window.Navigator().Languages()
+
+func isDev() bool {
+	return Window.Location().Hostname() == "localhost"
+}
 
 func HttpWordJsonPath(word string) string {
-	if isDev {
+	if isDev() {
 		return "/json/" + word + ".json"
 	}
 	return "https://siongui.github.io/xemaauj9k5qn34x88m4h/" + word + ".json"
@@ -39,7 +41,7 @@ func main() {
 	imepali.BindPaliInputMethodToInputTextElementById("word")
 
 	// init variables
-	mainContent = js.Global.Get("document").Call("getElementById", "main-content")
+	mainContent = Document.GetElementById("main-content")
 
 	// init trie for words suggestion
 	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
@@ -59,8 +61,8 @@ func main() {
 	initialLocale := jsgettext.DetermineLocaleByNavigatorLanguages(navigatorLanguages, supportedLocales)
 	if initialLocale != "en_US" {
 		jsgettext.Translate(initialLocale)
-		langSelect := js.Global.Get("document").Call("getElementById", "lang-select")
-		langSelect.Set("value", initialLocale)
+		langSelect := Document.GetElementById("lang-select")
+		langSelect.SetValue(initialLocale)
 	}
 
 	input := Document.GetElementById("word")
