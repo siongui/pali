@@ -21,7 +21,7 @@ DICTIONARY_DATA_DIR=$(DATA_REPO_DIR)/dictionary
 BOOK_JSON_PATH=$(WEBSITE_DIR)/bookIdAndInfos.json
 
 
-devserver: html js scss
+devserver: fmt html js scss
 	@# http://stackoverflow.com/a/5947779
 	@echo "\033[92mDevelopment Server Running ...\033[0m"
 	@go run server.go
