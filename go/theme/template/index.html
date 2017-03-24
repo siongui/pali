@@ -7,7 +7,7 @@
   <meta name="keywords" content="{{gettext "Pāli Dictionary"}}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {{template "metaog" .}}
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="{{.SiteUrl}}/style.css">
 </head>
 <body>
   {{template "navbar" .}}
@@ -19,6 +19,6 @@
   {{template "ime" .}}
 </div>
   <div id="about" class="invisible">{{template "about" .}}</div>
-  <script src="pali.js"></script>
+  <script src="{{.SiteUrl}}/pali.js"></script>
 </body>
 </html>

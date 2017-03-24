@@ -52,7 +52,7 @@ scss:
 html:
 	@echo "\033[92mGenerating HTML ...\033[0m"
 	@# Google Search: shell stdout to file
-	@go run setup/setuppath.go setup/html.go > $(WEBSITE_DIR)/index.html
+	@go run setup/setuppath.go setup/html.go -isdev=true > $(WEBSITE_DIR)/index.html
 
 blobgo:
 	@echo "\033[92mGenerating blob data to be used in client-side/browser ...\033[0m"

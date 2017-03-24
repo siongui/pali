@@ -173,7 +173,12 @@ table.mapping {
   margin: .25em;
   border: 2px solid #ddd;
   border-radius: 2px;
+  tr {
+    display: block;
+    float: left;
+  }
   th, td {
+    display: block;
     border: 2px solid #ddd;
     border-radius: 2px;
     padding: .25em;

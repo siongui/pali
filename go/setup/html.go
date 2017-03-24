@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"github.com/siongui/gotemplateutil"
 	"os"
 )
@@ -14,13 +15,20 @@ type templateData struct {
 }
 
 func main() {
+	isdev := flag.Bool("isdev", false, "Is development?")
+	flag.Parse()
+
 	gossg.SetupMessagesDomain(localeDir)
 	data := templateData{
-		SiteUrl:     "https://siongui.github.io/pali-dictionary",
+		SiteUrl:     "http://dictionary.online-dhamma.net",
 		TipitakaURL: tipitakaURL,
 		OgImage:     "https://upload.wikimedia.org/wikipedia/commons/d/df/Dharma_Wheel.svg",
-		OgUrl:       "https://siongui.github.io/pali-dictionary/",
+		OgUrl:       "http://dictionary.online-dhamma.net/",
 		OgLocale:    "en_US",
+	}
+
+	if *isdev {
+		data.SiteUrl = ""
 	}
 
 	tmpl, err := gossg.ParseDirectoryWithGettextFunction(htmlTemplateDir)
