@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/siongui/pali/go/lib"
+	"github.com/siongui/gopalilib/lib"
 	"io"
 )
 

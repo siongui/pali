@@ -12,7 +12,7 @@ import (
 	"encoding/csv"
 	"flag"
 	"github.com/siongui/gojianfan"
-	"github.com/siongui/pali/go/lib"
+	"github.com/siongui/gopalilib/lib"
 	"io"
 	"os"
 )

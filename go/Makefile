@@ -81,7 +81,6 @@ dir:
 fmt:
 	@echo "\033[92mGo fmt source code...\033[0m"
 	@go fmt setup/*.go
-	@go fmt lib/*.go
 	@go fmt gopherjs/*.go
 	@go fmt server.go
 
@@ -99,8 +98,7 @@ lib_gopherjs:
 
 lib_pali:
 	@echo "\033[92mInstalling common lib used in this project ...\033[0m"
-	rm -rf src/github.com/siongui/pali/
-	go get -u github.com/siongui/pali/go/lib
+	go get -u github.com/siongui/gopalilib/lib
 
 lib_gojianfan:
 	@echo "\033[92mInstalling gojianfan (Traditional and Simplified Chinese Conversion) ...\033[0m"
@@ -144,11 +142,6 @@ po2mo:
 	#@msgfmt $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.mo
 	msgfmt $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/vi_VN/LC_MESSAGES/messages.mo
 	msgfmt $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/fr_FR/LC_MESSAGES/messages.mo
-
-test_lib_pali:
-	rm -rf src/github.com/siongui/pali/go/lib/
-	cp -r lib/ src/github.com/siongui/pali/go/
-	go get github.com/siongui/pali/go/lib
 
 clean:
 	@echo "\033[92mClean Repo ...\033[0m"

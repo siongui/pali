@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"github.com/siongui/pali/go/lib"
+	"github.com/siongui/gopalilib/lib"
 	"html/template"
 )
 

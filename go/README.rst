@@ -44,8 +44,7 @@ Set Up Development Environment
    - `gopherjs-i18n`_
    - `gopherjs-input-suggest`_
    - gotemplateutil_
-
-   and common libraries for this project:
+   - gopalilib_
 
    .. code-block:: bash
 
@@ -120,3 +119,4 @@ References
 .. _gopherjs-i18n: https://github.com/siongui/gopherjs-i18n
 .. _gopherjs-input-suggest: https://github.com/siongui/gopherjs-input-suggest
 .. _gotemplateutil: https://github.com/siongui/gotemplateutil
+.. _gopalilib: https://github.com/siongui/gopalilib
