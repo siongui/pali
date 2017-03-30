@@ -27,19 +27,22 @@ devserver: fmt html js scss
 	@go run server.go
 
 production: clone_production_github_repo
+	@echo "\033[92mGit checkout gh-pages ...\033[0m"
+	cd $(PRODUCTION_DIR); git checkout gh-pages; rm -rf *
 	@echo "\033[92mGenerating HTML ...\033[0m"
-	mkdir $(PRODUCTION_DIR)/output
-	go run setup/setuppath.go setup/html.go > $(PRODUCTION_DIR)/output/index.html
+	go run setup/setuppath.go setup/html.go > $(PRODUCTION_DIR)/index.html
+	@echo "\033[92mMaking symbolic link for static website ...\033[0m"
+	@go run setup/dicsetup.go -action=symlink
 	@echo "\033[92mGenerating JavaScript ...\033[0m"
-	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/output/pali.js
+	gopherjs build gopherjs/*.go -m -o $(PRODUCTION_DIR)/pali.js
 	@echo "\033[92mGenerating CSS ...\033[0m"
-	@go run setup/scss.go -scsspath=$(SCSS_PATH) -scssdir=$(SCSS_DIR) -csspath=$(PRODUCTION_DIR)/output/style.css
+	@go run setup/scss.go -scsspath=$(SCSS_PATH) -scssdir=$(SCSS_DIR) -csspath=$(PRODUCTION_DIR)/style.css
 	@echo "\033[92mCreate CNAME for GitHub Pages custom domain ...\033[0m"
-	@echo "dictionary.online-dhamma.net" > $(PRODUCTION_DIR)/output/CNAME
+	@echo "dictionary.online-dhamma.net" > $(PRODUCTION_DIR)/CNAME
 	@echo "\033[92mPush to Remote Repo ...\033[0m"
 	@# Google Search: makefile change directory
 	@# http://stackoverflow.com/questions/1789594/how-to-write-cd-command-in-makefile
-	cd $(PRODUCTION_DIR); ghp-import output; git push origin gh-pages
+	cd $(PRODUCTION_DIR); git add .; git commit -m "update site"; git push
 
 js:
 	@echo "\033[92mGenerating JavaScript ...\033[0m"
@@ -53,6 +56,10 @@ html:
 	@echo "\033[92mGenerating HTML ...\033[0m"
 	@# Google Search: shell stdout to file
 	@go run setup/setuppath.go setup/html.go -isdev=true > $(WEBSITE_DIR)/index.html
+
+symlink:
+	@echo "\033[92mMaking symbolic link for static website ...\033[0m"
+	@go run setup/dicsetup.go -action=symlink -isdev=true
 
 blobgo:
 	@echo "\033[92mGenerating blob data to be used in client-side/browser ...\033[0m"
@@ -98,7 +105,7 @@ lib_gopherjs:
 
 lib_pali:
 	@echo "\033[92mInstalling common lib used in this project ...\033[0m"
-	go get -u github.com/siongui/gopalilib/lib
+	go get -u github.com/siongui/gopalilib/dicutil
 
 lib_gojianfan:
 	@echo "\033[92mInstalling gojianfan (Traditional and Simplified Chinese Conversion) ...\033[0m"
