@@ -43,8 +43,9 @@ Set Up Development Environment
    - `go-online-pali-ime`_
    - `gopherjs-i18n`_
    - `gopherjs-input-suggest`_
-   - gotemplateutil_
    - gopalilib_
+
+   |
 
    .. code-block:: bash
 
@@ -118,5 +119,4 @@ References
 .. _go-online-pali-ime: https://github.com/siongui/go-online-input-method-pali
 .. _gopherjs-i18n: https://github.com/siongui/gopherjs-i18n
 .. _gopherjs-input-suggest: https://github.com/siongui/gopherjs-input-suggest
-.. _gotemplateutil: https://github.com/siongui/gotemplateutil
 .. _gopalilib: https://github.com/siongui/gopalilib

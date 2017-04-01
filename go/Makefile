@@ -30,7 +30,7 @@ production: clone_production_github_repo
 	@echo "\033[92mGit checkout gh-pages ...\033[0m"
 	cd $(PRODUCTION_DIR); git checkout gh-pages; rm -rf *
 	@echo "\033[92mGenerating HTML ...\033[0m"
-	go run setup/setuppath.go setup/html.go > $(PRODUCTION_DIR)/index.html
+	@go run setup/dicsetup.go -action=html > $(PRODUCTION_DIR)/index.html
 	@echo "\033[92mMaking symbolic link for static website ...\033[0m"
 	@go run setup/dicsetup.go -action=symlink
 	@echo "\033[92mGenerating JavaScript ...\033[0m"
@@ -55,7 +55,7 @@ scss:
 html:
 	@echo "\033[92mGenerating HTML ...\033[0m"
 	@# Google Search: shell stdout to file
-	@go run setup/setuppath.go setup/html.go -isdev=true > $(WEBSITE_DIR)/index.html
+	@go run setup/dicsetup.go -action=html -isdev=true > $(WEBSITE_DIR)/index.html
 
 symlink:
 	@echo "\033[92mMaking symbolic link for static website ...\033[0m"
@@ -96,7 +96,7 @@ clone_pali_data:
 	@git clone https://github.com/siongui/data.git $(DATA_REPO_DIR) --depth=1
 
 
-install: lib_pali lib_gojianfan lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gotemplateutil lib_gopherjs lib_gopherjs_input_suggest
+install: lib_pali lib_gojianfan lib_go_libsass lib_succinct_trie lib_ime_pali lib_gopherjs_i18n lib_gopherjs lib_gopherjs_input_suggest
 
 
 lib_gopherjs:
@@ -134,10 +134,6 @@ lib_gopherjs_i18n:
 lib_gopherjs_input_suggest:
 	@echo "\033[92mInstalling GopherJS input suggest library ...\033[0m"
 	go get -u github.com/siongui/gopherjs-input-suggest
-
-lib_gotemplateutil:
-	@echo "\033[92mInstalling Go template utility ...\033[0m"
-	go get -u github.com/siongui/gotemplateutil
 
 twpo2cn:
 	@echo "\033[92mConverting zh_TW PO files to zh_CN ...\033[0m"

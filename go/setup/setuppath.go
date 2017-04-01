@@ -4,12 +4,6 @@ package main
 const localeDir = "../common/locale"
 const poDomain = "messages"
 
-// template of website
-const htmlTemplateDir = "theme/template"
-
-//const tipitakaURL = "https://epalitipitaka.appspot.com/"
-const tipitakaURL = "http://tipitaka.sutta.org/"
-
 // output
 const WebsiteDir = "website"
 const trieDataPath = WebsiteDir + "/strie.txt"
