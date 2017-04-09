@@ -131,9 +131,21 @@ lib_gopherjs_i18n:
 	@echo "\033[92mInstalling GopherJS gettext library (online/client-side)...\033[0m"
 	go get -u github.com/siongui/gopherjs-i18n
 
+lib_fileb0x:
+	@echo "\033[92mInstalling tool for Making VFS in Code ...\033[0m"
+	go get -u github.com/UnnoTed/fileb0x
+
+lib_paliDataVFS:
+	@echo "\033[92mInstalling VFS for fullstack Go ...\033[0m"
+	go get -u github.com/siongui/paliDataVFS
+
 lib_gopherjs_input_suggest:
 	@echo "\033[92mInstalling GopherJS input suggest library ...\033[0m"
 	go get -u github.com/siongui/gopherjs-input-suggest
+
+vfsbuild:
+	@echo "\033[92mBuilding VFS (paliDataVFS) package ...\033[0m"
+	fileb0x vfsb0x.yaml
 
 twpo2cn:
 	@echo "\033[92mConverting zh_TW PO files to zh_CN ...\033[0m"

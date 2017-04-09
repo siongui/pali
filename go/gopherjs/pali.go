@@ -6,10 +6,11 @@ import (
 	. "github.com/siongui/godom"
 	jsgettext "github.com/siongui/gopherjs-i18n"
 	sg "github.com/siongui/gopherjs-input-suggest"
+	"github.com/siongui/paliDataVFS"
 )
 
 var mainContent *Object
-var bookIdAndInfos = GetBookIdAndInfos()
+var bookIdAndInfos = paliDataVFS.GetBookIdAndInfos()
 var frozenTrie bits.FrozenTrie
 var navigatorLanguages = Window.Navigator().Languages()
 
@@ -46,7 +47,7 @@ func main() {
 	// init trie for words suggestion
 	bits.SetAllowedCharacters("abcdeghijklmnoprstuvyāīūṁṃŋṇṅñṭḍḷ…'’° -")
 	frozenTrie = bits.FrozenTrie{}
-	frozenTrie.Init(succinctTrieDataBlob, rankDirectoryDataBlob, succinctTrieNodeCount)
+	frozenTrie.Init(paliDataVFS.GetTrieData())
 
 	// input suggest menu
 	sg.BindSuggest("word", func(w string) []string {

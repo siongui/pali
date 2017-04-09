@@ -3,10 +3,11 @@ package main
 import (
 	"github.com/gopherjs/gopherjs/js"
 	"github.com/siongui/gopherjs-i18n"
+	"github.com/siongui/paliDataVFS"
 )
 
 func setupNavbar() {
-	jsgettext.SetupTranslationMapping(string(poJsonBlob))
+	jsgettext.SetupTranslationMapping(paliDataVFS.GetPoJsonBlob())
 
 	d := js.Global.Get("document")
 	about := d.Call("getElementById", "about")

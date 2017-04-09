@@ -22,15 +22,6 @@ func DecodeWordJson(w string) lib.BookIdWordExps {
 	return wi
 }
 
-func GetBookIdAndInfos() lib.BookIdAndInfos {
-	di := lib.BookIdAndInfos{}
-	err := json.Unmarshal(bookIdAndInfosJsonBlob, &di)
-	if err != nil {
-		panic(err)
-	}
-	return di
-}
-
 func PaliDictionarySetting2JsonString(setting lib.PaliDictionarySetting) string {
 	b, err := json.Marshal(setting)
 	if err != nil {
