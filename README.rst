@@ -8,6 +8,9 @@ Development Environment:
   - `Python 2.7.10`_
   - `Go 1.6`_
 
+This repository is not actively maintained. Pāli Dictionary and Pāli Tipiṭaka
+will be re-implemented in Go. Please see paligo_.
+
 Set Up Development Environment
 ++++++++++++++++++++++++++++++
 
@@ -131,4 +134,5 @@ References
 .. _git clone: https://www.google.com/search?q=git+clone
 .. _pali repository: https://github.com/siongui/pali
 .. _data repository: https://github.com/siongui/data
+.. _paligo: https://github.com/siongui/paligo
 .. _UNLICENSE: http://unlicense.org/
