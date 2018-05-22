@@ -140,7 +140,7 @@ twpo2cn:
 	@[ -x $(shell command -v opencc 2> /dev/null) ] || sudo apt-get install opencc
 	@echo "\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m"
 	@[ -d $(LOCALE_DIR)/zh_CN/LC_MESSAGES/ ] || mkdir -p $(LOCALE_DIR)/zh_CN/LC_MESSAGES/
-	@opencc -c zht2zhs.ini -i $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
+	@opencc -c tw2s.json -i $(LOCALE_DIR)/zh_TW/LC_MESSAGES/messages.po -o $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
 	@sed 's/zh_TW/zh_CN/' -i $(LOCALE_DIR)/zh_CN/LC_MESSAGES/messages.po
 
 po2mo:

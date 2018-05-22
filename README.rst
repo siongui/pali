@@ -4,9 +4,9 @@
 
 Development Environment:
 
-  - `Ubuntu 15.10`_
-  - `Python 2.7.10`_
-  - `Go 1.6`_
+  - `Ubuntu 18.04`_
+  - `Python 2.7.15rc1`_
+  - `Go 1.10.2`_
 
 This repository is not actively maintained. Pāli Dictionary and Pāli Tipiṭaka
 will be re-implemented in Go. Please see paligo_.
@@ -22,10 +22,10 @@ Set Up Development Environment
      $ mkdir ~/dev
      # enter workspace
      $ cd ~/dev
-     # download Go 1.6 for Linux 64-bit
-     $ wget https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
+     # download Go 1.10.2 for Linux 64-bit
+     $ wget https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
      # uncompress and untar
-     $ tar xvzf go1.6.linux-amd64.tar.gz
+     $ tar xvzf go1.10.2.linux-amd64.tar.gz
 
    If you do not follow the above steps, please modify ``GOROOT`` and ``GOPATH``
    in `Makefile <Makefile>`_.
@@ -127,9 +127,9 @@ References
 
 .. _Pāli Dictionary: http://dictionary.sutta.org/
 .. _Pāli Tipiṭaka: http://tipitaka.sutta.org/
-.. _Ubuntu 15.10: http://releases.ubuntu.com/15.10/
-.. _Python 2.7.10: https://www.python.org/downloads/release/python-2710/
-.. _Go 1.6: https://golang.org/dl/
+.. _Ubuntu 18.04: http://releases.ubuntu.com/18.04/
+.. _Python 2.7.15rc1: https://www.python.org/downloads/
+.. _Go 1.10.2: https://golang.org/dl/
 .. _Go: https://golang.org/
 .. _git clone: https://www.google.com/search?q=git+clone
 .. _pali repository: https://github.com/siongui/pali
